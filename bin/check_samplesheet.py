@@ -24,17 +24,41 @@ class RowChecker:
 
     """
 
-    VALID_FORMATS = (
+    VALID_FASTQ_FORMATS = (
         ".fq.gz",
         ".fastq.gz",
     )
+    VALID_FASTA_FORMATS = (
+        ".fa.gz",
+        ".fasta.gz",
+        ".fna.gz",
+        ".fas.gz",
+    )
+    VALID_INSTRUMENT_PLATFORMS = [
+        "ABI_SOLID",
+        "BGISEQ",
+        "CAPILLARY",
+        "COMPLETE_GENOMICS",
+        "DNBSEQ",
+        "HELICOS",
+        "ILLUMINA",
+        "ION_TORRENT",
+        "LS454",
+        "OXFORD_NANOPORE",
+        "PACBIO_SMRT",
+    ]
+
 
     def __init__(
         self,
         sample_col="sample",
+        run_col="run_accession",
+        group_col="group",
+        platform_col="instrument_platform",
         first_col="fastq_1",
         second_col="fastq_2",
         single_col="single_end",
+        fasta_col="fasta",
         **kwargs,
     ):
         """
@@ -43,6 +67,11 @@ class RowChecker:
         Args:
             sample_col (str): The name of the column that contains the sample name
                 (default "sample").
+            run_col (str): The name of the column that contains the run accession ID
+                (default "run_accession").
+            group_col (str): The name of the group that each sample is a part of
+            platform_col (str): The name of the column that contains the sequencing
+                platform used to generate the reads (default "instrument_platform").
             first_col (str): The name of the column that contains the first (or only)
                 FASTQ file path (default "fastq_1").
             second_col (str): The name of the column that contains the second (if any)
@@ -50,13 +79,19 @@ class RowChecker:
             single_col (str): The name of the new column that will be inserted and
                 records whether the sample contains single- or paired-end sequencing
                 reads (default "single_end").
+            fasta_col (str): The name of the column that contains the assembly FASTA
+                file path (default "fasta").
 
         """
         super().__init__(**kwargs)
         self._sample_col = sample_col
+        self._run_col = run_col
+        self._group_col = group_col
+        self._platform_col = platform_col
         self._first_col = first_col
         self._second_col = second_col
         self._single_col = single_col
+        self._fasta_col = fasta_col
         self._seen = set()
         self.modified = []
 
@@ -70,9 +105,13 @@ class RowChecker:
 
         """
         self._validate_sample(row)
+        self._validate_run(row)
+        self._validate_group(row)
+        self._validate_platform(row)
         self._validate_first(row)
         self._validate_second(row)
         self._validate_pair(row)
+        self._validate_fasta(row)
         self._seen.add((row[self._sample_col], row[self._first_col]))
         self.modified.append(row)
 
@@ -83,11 +122,30 @@ class RowChecker:
         # Sanitize samples slightly.
         row[self._sample_col] = row[self._sample_col].replace(" ", "_")
 
+    def _validate_run(self, row):
+        """Assert that the run accession ID has the right format if it exists."""
+        if len(row[self._run_col]) <= 0:
+            row[self._run_col] = row[self._sample_col]
+        # Sanitize samples slightly.
+        row[self._run_col] = row[self._run_col].replace(" ", "_")
+
+    def _validate_group(self, row):
+        """Assert that the group ID has the right format if it exists."""
+        if len(row[self._group_col]) <= 0:
+            row[self._group_col] = row[self._sample_col]
+        # Sanitize samples slightly.
+        row[self._group_col] = row[self._group_col].replace(" ", "_")
+
+    def _validate_platform(self, row):
+        """Assert that the instrument platform has the right format if it exists."""
+        if len(row[self._platform_col]) <= 0:
+            row[self._platform_col] = 'ILLUMINA'
+        self._validate_platform_format(row[self._platform_col])
+
     def _validate_first(self, row):
-        """Assert that the first FASTQ entry is non-empty and has the right format."""
-        if len(row[self._first_col]) <= 0:
-            raise AssertionError("At least the first FASTQ file is required.")
-        self._validate_fastq_format(row[self._first_col])
+        """Assert that the first FASTQ entry has the right format if it exists."""
+        if len(row[self._first_col]) > 0:
+            self._validate_fastq_format(row[self._first_col])
 
     def _validate_second(self, row):
         """Assert that the second FASTQ entry has the right format if it exists."""
@@ -95,22 +153,48 @@ class RowChecker:
             self._validate_fastq_format(row[self._second_col])
 
     def _validate_pair(self, row):
-        """Assert that read pairs have the same file extension. Report pair status."""
-        if row[self._first_col] and row[self._second_col]:
-            row[self._single_col] = False
-            first_col_suffix = Path(row[self._first_col]).suffixes[-2:]
-            second_col_suffix = Path(row[self._second_col]).suffixes[-2:]
-            if first_col_suffix != second_col_suffix:
-                raise AssertionError("FASTQ pairs must have the same file extensions.")
-        else:
-            row[self._single_col] = True
+        """
+        Assert that if FASTQ entries exist, read pairs have the same file extension.
+        Report pair status.
+        """
+        if len(row[self._first_col]) > 0:
+            if row[self._first_col] and row[self._second_col]:
+                row[self._single_col] = False
+                first_col_suffix = Path(row[self._first_col]).suffixes[-2:]
+                second_col_suffix = Path(row[self._second_col]).suffixes[-2:]
+                if first_col_suffix != second_col_suffix:
+                    raise AssertionError("FASTQ pairs must have the same file extensions.")
+            else:
+                row[self._single_col] = True
+
+    def _validate_fasta(self, row):
+        """Assert that the FASTA file is non-empty and has the right format."""
+        if len(row[self._fasta_col]) <= 0:
+            raise AssertionError("FASTA file is required.")
+        self._validate_fasta_format(row[self._fasta_col])
+
+    def _validate_platform_format(self, platform):
+        """Assert that a given filename has one of the expected FASTQ extensions."""
+        if platform not in self.VALID_INSTRUMENT_PLATFORMS:
+            raise AssertionError(
+                f"The instrument platform is not supported: {platform}\n"
+                f"It should be one of: {', '.join(self.VALID_INSTRUMENT_PLATFORMS)}"
+            )
 
     def _validate_fastq_format(self, filename):
         """Assert that a given filename has one of the expected FASTQ extensions."""
-        if not any(filename.endswith(extension) for extension in self.VALID_FORMATS):
+        if not any(filename.endswith(extension) for extension in self.VALID_FASTQ_FORMATS):
             raise AssertionError(
                 f"The FASTQ file has an unrecognized extension: {filename}\n"
-                f"It should be one of: {', '.join(self.VALID_FORMATS)}"
+                f"It should be one of: {', '.join(self.VALID_FASTQ_FORMATS)}"
+            )
+
+    def _validate_fasta_format(self, filename):
+        """Assert that a given filename has one of the expected FASTA extensions."""
+        if not any(filename.endswith(extension) for extension in self.VALID_FASTA_FORMATS):
+            raise AssertionError(
+                f"The FASTA file has an unrecognized extension: {filename}\n"
+                f"It should be one of: {', '.join(self.VALID_FASTA_FORMATS)}"
             )
 
     def validate_unique_samples(self):
@@ -179,16 +263,16 @@ def check_samplesheet(file_in, file_out):
         This function checks that the samplesheet follows the following structure,
         see also the `viral recon samplesheet`_::
 
-            sample,fastq_1,fastq_2
-            SAMPLE_PE,SAMPLE_PE_RUN1_1.fastq.gz,SAMPLE_PE_RUN1_2.fastq.gz
-            SAMPLE_PE,SAMPLE_PE_RUN2_1.fastq.gz,SAMPLE_PE_RUN2_2.fastq.gz
-            SAMPLE_SE,SAMPLE_SE_RUN1_1.fastq.gz,
+            sample,run_accession,group,instrument_platform,fastq_1,fastq_2,fasta
+            SAMPLE_PE,1,SAMPLE_PE,ILLUMINA,SAMPLE_PE_RUN1_1.fastq.gz,SAMPLE_PE_RUN1_2.fastq.gz,SAMPLE_PE_RUN1.fasta.gz
+            SAMPLE_PE,2.SAMPLE_PE,ILLUMINA,SAMPLE_PE_RUN2_1.fastq.gz,SAMPLE_PE_RUN2_2.fastq.gz,SAMPLE_PE_RUN2.fasta.gz
+            SAMPLE_SE,1,SAMPLE_SE,ILLUMINA,SAMPLE_SE_RUN1_1.fastq.gz,,SAMPLE_SE.fasta.gz
 
     .. _viral recon samplesheet:
         https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/samplesheet/samplesheet_test_illumina_amplicon.csv
 
     """
-    required_columns = {"sample", "fastq_1", "fastq_2"}
+    required_columns = {"sample", "fasta"}
     # See https://docs.python.org/3.9/library/csv.html#id3 to read up on `newline=""`.
     with file_in.open(newline="") as in_handle:
         reader = csv.DictReader(in_handle, dialect=sniff_format(in_handle))
