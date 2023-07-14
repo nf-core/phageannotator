@@ -12,10 +12,58 @@
                 "pattern": "^\\S+$",
                 "errorMessage": "Sample name must be provided and cannot contain spaces"
             },
+            "run_accession": {
+                "errorMessage": "Run accession ID, if provided, cannot contain spaces",
+                "anyOf": [
+                    {
+                        "type": "string",
+                        "pattern": "^\\S+$"
+                    },
+                    {
+                        "type": "string",
+                        "maxLength": 0
+                    }
+                ]
+            },
+            "group": {
+                "errorMessage": "Group ID, if provided, cannot contain spaces",
+                "anyOf": [
+                    {
+                        "type": "string",
+                        "pattern": "^\\S+$"
+                    },
+                    {
+                        "type": "string",
+                        "maxLength": 0
+                    }
+                ]
+            },
+            "instrument_platform": {
+                "errorMessage": "Instrument platform, if provided, must contain one of the following values: 'ABI_SOLID', 'BGISEQ', 'CAPILLARY', 'COMPLETE_GENOMICS', 'DNBSEQ', 'HELICOS', 'ILLUMINA', 'ION_TORRENT', 'LS454', 'OXFORD_NANOPORE', or 'PACBIO_SMRT'",
+                "anyOf": [
+                    {
+                        "type": "string",
+                        "pattern": "^\\S+\\(ABI_SOLID|BGISEQ|CAPILLARY|COMPLETE_GENOMICS|DNBSEQ|HELICOS|ILLUMINA|ION_TORRENT|LS454|OXFORD_NANOPORE|PACBIO_SMRT')\\$"
+                    },
+                    {
+                        "type": "string",
+                        "maxLength": 0
+                    }
+                ]
+            },
             "fastq_1": {
-                "type": "string",
-                "pattern": "^\\S+\\.f(ast)?q\\.gz$",
-                "errorMessage": "FastQ file for reads 1 must be provided, cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
+                "errorMessage": "FastQ file for reads 1 cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'",
+                "anyOf": [
+                    {
+                        "type": "string",
+                        "pattern": "^\\S+\\.f(ast)?q\\.gz$"
+                    },
+                    {
+                        "type": "string",
+                        "maxLength": 0
+                    }
+                ],
+                "exists": true
             },
             "fastq_2": {
                 "errorMessage": "FastQ file for reads 2 cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'",
@@ -29,6 +77,11 @@
                         "maxLength": 0
                     }
                 ]
+            },
+            "fasta": {
+                "type": "string",
+                "pattern": "^\\S+\\.f(a|fasta|na|as)\\.gz$",
+                "errorMessage": "FastA file must be provided, cannot contain spaces and must have extension '.fa.gz', '.fasta.gz', '.fna.gz', or '.fas.gz'"
             }
         },
         "required": ["sample", "fastq_1"]
