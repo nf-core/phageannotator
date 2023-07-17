@@ -9,23 +9,24 @@ workflow INPUT_CHECK {
     samplesheet // file: /path/to/samplesheet.csv
 
     main:
-    parsed_samplesheet = SAMPLESHEET_CHECK ( samplesheet )
-        .csv
+    parsed_samplesheet = SAMPLESHEET_CHECK ( samplesheet ).csv
+
+    fasta = parsed_samplesheet
+        .splitCsv ( header:true, sep:',' )
+        .map { create_fasta_channel(it) }
+
+    reads = parsed_samplesheet
         .splitCsv ( header:true, sep:',' )
         .branch { row ->
-            fasta: row.fasta != ''
             nanopore: row.instrument_platform == 'OXFORD_NANOPORE'
-            fastq: true
+            fastq: row.fastq_1 != ''
         }
 
-    fastq = parsed_samplesheet.fastq
+    fastq = reads.fastq
         .map { create_fastq_channel(it) }
 
-    nanopore = parsed_samplesheet.nanopore
+    nanopore = reads.nanopore
         .map { create_fastq_channel(it) }
-
-    fasta = parsed_samplesheet.fasta
-        .map { create_fasta_channel(it) }
 
     emit:
     fastq = fastq ?: []                       // channel: [ val(meta), [ reads ] ]

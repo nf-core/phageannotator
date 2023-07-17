@@ -10,7 +10,8 @@
             "sample": {
                 "type": "string",
                 "pattern": "^\\S+$",
-                "errorMessage": "Sample name must be provided and cannot contain spaces"
+                "errorMessage": "Sample name must be provided and cannot contain spaces",
+                "meta": ["id"]
             },
             "run_accession": {
                 "errorMessage": "Run accession ID, if provided, cannot contain spaces",
@@ -23,7 +24,8 @@
                         "type": "string",
                         "maxLength": 0
                     }
-                ]
+                ],
+                "meta": ["run_accession"]
             },
             "group": {
                 "errorMessage": "Group ID, if provided, cannot contain spaces",
@@ -36,7 +38,8 @@
                         "type": "string",
                         "maxLength": 0
                     }
-                ]
+                ],
+                "meta": ["group"]
             },
             "instrument_platform": {
                 "errorMessage": "Instrument platform, if provided, must contain one of the following values: 'ABI_SOLID', 'BGISEQ', 'CAPILLARY', 'COMPLETE_GENOMICS', 'DNBSEQ', 'HELICOS', 'ILLUMINA', 'ION_TORRENT', 'LS454', 'OXFORD_NANOPORE', or 'PACBIO_SMRT'",
@@ -49,7 +52,8 @@
                         "type": "string",
                         "maxLength": 0
                     }
-                ]
+                ],
+                "meta": ["instrument_platform"]
             },
             "fastq_1": {
                 "errorMessage": "FastQ file for reads 1 cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'",
