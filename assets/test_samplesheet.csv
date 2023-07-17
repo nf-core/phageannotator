@@ -1,0 +1,2 @@
+sample,run_accession,group,instrument_platform,fastq_1,fastq_2,fasta
+test,1,test,ILLUMINA,https://github.com/nf-core/test-datasets/raw/modules/data/genomics/sarscov2/illumina/fastq/test_1.fastq.gz,https://github.com/nf-core/test-datasets/raw/modules/data/genomics/sarscov2/illumina/fastq/test_2.fastq.gz,https://github.com/nf-core/test-datasets/raw/modules/data/genomics/sarscov2/genome/genome.fasta.gz
