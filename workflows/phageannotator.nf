@@ -70,7 +70,6 @@ workflow PHAGEANNOTATOR {
         file(params.input)
     )
     ch_versions = ch_versions.mix(INPUT_CHECK.out.versions)
-    samplesheet = INPUT_CHECK.out.samplesheet.view()
 
     //
     // MODULE: Run FastQC
