@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/nf-core/phageannotator/master/assets/schema_input.json",
-    "title": "nf-core/phageannotator pipeline - params.input schema",
+    "$id": "https://raw.githubusercontent.com/nf-core/rnaseq/master/assets/schema_input.json",
+    "title": "nf-core/rnaseq pipeline - params.input schema",
     "description": "Schema for the file provided with params.input",
     "type": "array",
     "items": {
@@ -13,81 +13,41 @@
                 "errorMessage": "Sample name must be provided and cannot contain spaces",
                 "meta": ["id"]
             },
-            "run_accession": {
-                "errorMessage": "Run accession ID, if provided, cannot contain spaces",
-                "anyOf": [
-                    {
-                        "type": "string",
-                        "pattern": "^\\S+$"
-                    },
-                    {
-                        "type": "string",
-                        "maxLength": 0
-                    }
-                ],
-                "meta": ["run_accession"]
-            },
             "group": {
-                "errorMessage": "Group ID, if provided, cannot contain spaces",
-                "anyOf": [
-                    {
-                        "type": "string",
-                        "pattern": "^\\S+$"
-                    },
-                    {
-                        "type": "string",
-                        "maxLength": 0
-                    }
-                ],
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "Group ID must be provided and cannot contain spaces",
                 "meta": ["group"]
             },
-            "instrument_platform": {
-                "errorMessage": "Instrument platform, if provided, must contain one of the following values: 'ABI_SOLID', 'BGISEQ', 'CAPILLARY', 'COMPLETE_GENOMICS', 'DNBSEQ', 'HELICOS', 'ILLUMINA', 'ION_TORRENT', 'LS454', 'OXFORD_NANOPORE', or 'PACBIO_SMRT'",
-                "anyOf": [
-                    {
-                        "type": "string",
-                        "pattern": "^\\S+\\(ABI_SOLID|BGISEQ|CAPILLARY|COMPLETE_GENOMICS|DNBSEQ|HELICOS|ILLUMINA|ION_TORRENT|LS454|OXFORD_NANOPORE|PACBIO_SMRT')\\$"
-                    },
-                    {
-                        "type": "string",
-                        "maxLength": 0
-                    }
-                ],
-                "meta": ["instrument_platform"]
-            },
             "fastq_1": {
-                "errorMessage": "FastQ file for reads 1 cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'",
-                "anyOf": [
-                    {
-                        "type": "string",
-                        "pattern": "^\\S+\\.f(ast)?q\\.gz$"
-                    },
-                    {
-                        "type": "string",
-                        "maxLength": 0
-                    }
-                ],
-                "exists": true
+                "type": "string",
+                "format": "file-path",
+                "exists": true,
+                "pattern": "^\\S+\\.f(ast)?q\\.gz$",
+                "errorMessage": "FastQ file for reads 1 must be provided, cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
             },
             "fastq_2": {
                 "errorMessage": "FastQ file for reads 2 cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'",
+                "type": "string",
+                "format": "file-path",
+                "exists": true,
                 "anyOf": [
                     {
-                        "type": "string",
                         "pattern": "^\\S+\\.f(ast)?q\\.gz$"
                     },
                     {
-                        "type": "string",
                         "maxLength": 0
                     }
                 ]
             },
             "fasta": {
                 "type": "string",
+                "format": "file-path",
                 "pattern": "^\\S+\\.f(a|fasta|na|as)\\.gz$",
-                "errorMessage": "FastA file must be provided, cannot contain spaces and must have extension '.fa.gz', '.fasta.gz', '.fna.gz', or '.fas.gz'"
+                "errorMessage": "FastA file must be provided, cannot contain spaces and must have extension '.fa.gz', '.fasta.gz', '.fna.gz', or '.fas.gz'",
+                "exists": true
             }
         },
-        "required": ["sample", "fastq_1"]
+        "required": ["sample", "group", "fastq_1", "fasta"]
     }
 }
