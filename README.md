@@ -23,16 +23,15 @@
 The core identification/quantification portion of this pipeline takes (meta)-genomic assemblies (as output by [**nf-core/mag**](https://nf-co.re/mag/2.3.2)) and performs the following steps:
 
 1. Phage sequence identification
-    - *de novo* identification ([`geNomad`](https://portal.nersc.gov/genomad/))
-    - *OPTIONAL* - reference-based identification ([`mash`](https://mash.readthedocs.io/en/latest/index.html))
+   - _de novo_ identification ([`geNomad`](https://portal.nersc.gov/genomad/))
+   - _OPTIONAL_ - reference-based identification ([`mash`](https://mash.readthedocs.io/en/latest/index.html))
 2. Quality assessment/filtering ([`CheckV`](https://bitbucket.org/berkeleylab/checkv/src/master/))
 3. ANI clustering/dereplication ([`BLAST`](https://blast.ncbi.nlm.nih.gov/doc/blast-help/))([`CheckV`](https://bitbucket.org/berkeleylab/checkv/src/master/))
 4. Binning ([`VRhyme`](https://github.com/AnantharamanLab/vRhyme))
 5. Abundance estimation ([`bowtie2`](https://bowtie-bio.sourceforge.net/bowtie2/manual.shtml))([`CoverM`](https://github.com/wwood/CoverM))
-    - *Output can be used as input for* [**nf-core/differentialabundance**](https://nf-co.re/differentialabundance/1.2.0)
-6. *OPTIONAL* - Strain profiling ([`inStrain`](https://instrain.readthedocs.io/en/latest/))
-7. *OPTIONAL* - Prophage activity prediction ([`propagAtE`](https://github.com/AnantharamanLab/PropagAtE))
-
+   - _Output can be used as input for_ [**nf-core/differentialabundance**](https://nf-co.re/differentialabundance/1.2.0)
+6. _OPTIONAL_ - Strain profiling ([`inStrain`](https://instrain.readthedocs.io/en/latest/))
+7. _OPTIONAL_ - Prophage activity prediction ([`propagAtE`](https://github.com/AnantharamanLab/PropagAtE))
 
 The annotation portion of this pipeline performs the following steps:
 
@@ -41,7 +40,7 @@ The annotation portion of this pipeline performs the following steps:
 3. Host prediction ([`iPHoP`](https://bitbucket.org/srouxjgi/iphop/src/main/))
 4. Lifestyle prediction ([`BACPHLIP`](https://github.com/adamhockenberry/bacphlip))
 5. Protein-coding gene prediction ([`Prodigal-gv`](https://github.com/apcamargo/prodigal-gv))
-    - *Output can be used as input for* [**nf-core/funcscan**](https://nf-co.re/funcscan/1.1.2)
+   - _Output can be used as input for_ [**nf-core/funcscan**](https://nf-co.re/funcscan/1.1.2)
 
 ## Quick Start
 
