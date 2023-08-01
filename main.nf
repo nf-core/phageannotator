@@ -41,7 +41,7 @@ WorkflowMain.initialise(workflow, params, log)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { PHAGEANNOTATOR } from './workflows/phageannotator'
+include { PHAGEANNOTATOR } from './workflows/phageannotator/main'
 
 //
 // WORKFLOW: Run main nf-core/phageannotator analysis pipeline

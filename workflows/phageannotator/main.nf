@@ -43,11 +43,11 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 //
 // MODULE: Installed directly from nf-core/modules
 //
-include { CUSTOM_DUMPSOFTWAREVERSIONS   } from '../modules/nf-core/custom/dumpsoftwareversions/main'
-include { FASTQC                        } from '../modules/nf-core/fastqc/main'
-include { MASH_SKETCH                   } from '../modules/nf-core/mash/sketch/main'
-include { MASH_SCREEN                   } from '../modules/nf-core/mash/screen/main'
-include { MULTIQC                       } from '../modules/nf-core/multiqc/main'
+include { CUSTOM_DUMPSOFTWAREVERSIONS   } from '../../modules/nf-core/custom/dumpsoftwareversions/main'
+include { FASTQC                        } from '../../modules/nf-core/fastqc/main'
+include { MASH_SKETCH                   } from '../../modules/nf-core/mash/sketch/main'
+include { MASH_SCREEN                   } from '../../modules/nf-core/mash/screen/main'
+include { MULTIQC                       } from '../../modules/nf-core/multiqc/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -2,9 +2,8 @@ nextflow_pipeline {
 
     name "Test Workflow main.nf"
     script "main.nf"
-    tag "test_skip_mash_screen"
     tag "skip_mash_screen"
-    tag "pipeline"
+    tag "workflow"
 
     test("Skip mash screen") {
 
@@ -18,7 +17,7 @@ nextflow_pipeline {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert snapshot(UTILS.removeNextflowVersion("$outputDir")).match("software_versions") },
+                { assert snapshot(NftestUtils.removeNextflowVersion("$outputDir")).match("software_versions") },
                 { assert new File("$outputDir/fastqc/test1_1_fastqc.html").exists() },
                 { assert new File("$outputDir/fastqc/test1_2_fastqc.html").exists() },
                 { assert snapshot(path("$outputDir/multiqc/multiqc_data/multiqc_fastqc.txt"),
