@@ -44,8 +44,8 @@ jobs:
       matrix:
         NXF_VER: ${{ fromJson(needs.define_nxf_versions.outputs.matrix) }}
         test_tags:
-          - "test"
-          - "test_skip_mash_screen"
+          - "phageannotator"
+          - "skip_mash_screen"
         profile:
           - "docker"
 
