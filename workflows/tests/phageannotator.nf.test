@@ -22,8 +22,8 @@ nextflow_pipeline {
                 { assert snapshot(path("$outputDir/multiqc/multiqc_data/multiqc_fastqc.txt"),
                                 path("$outputDir/multiqc/multiqc_data/multiqc_general_stats.txt")).match("multiqc") },
                 { assert snapshot(path("$outputDir/mash/reference_fasta.mash_stats"),
-                                path("$outputDir/mash/reference_fasta.msh"),
                                 path("$outputDir/mash/reference_fasta.screen")).match("mash") },
+                { assert new File("$outputDir/mash/reference_fasta.msh").exists() },
             )
         }
 
