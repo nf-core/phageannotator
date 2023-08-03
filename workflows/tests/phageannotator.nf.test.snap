@@ -1,0 +1,22 @@
+{
+    "software_versions": {
+        "content": [
+            "{CUSTOM_DUMPSOFTWAREVERSIONS={python=3.11.0, yaml=6.0}, FASTQC={fastqc=0.11.9}, MASH_SCREEN={mash=2.3}, MASH_SKETCH={mash=2.3}, Workflow={nf-core/phageannotator=1.0dev}}"
+        ],
+        "timestamp": "2023-08-02T19:09:58+0000"
+    },
+    "mash": {
+        "content": [
+            "reference_fasta.mash_stats:md5,4243ae1cb341051b54bb9e76a484d8ee",
+            "reference_fasta.screen:md5,d41d8cd98f00b204e9800998ecf8427e"
+        ],
+        "timestamp": "2023-08-02T19:09:58+0000"
+    },
+    "multiqc": {
+        "content": [
+            "multiqc_fastqc.txt:md5,953352f4a0f1bac9058125b8f04e9926",
+            "multiqc_general_stats.txt:md5,671fea3ac1c370f05baed7350eac1477"
+        ],
+        "timestamp": "2023-08-02T19:09:58+0000"
+    }
+}

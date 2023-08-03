@@ -1,0 +1,32 @@
+nextflow_pipeline {
+
+    name "Test Workflow main.nf"
+    script "main.nf"
+    tag "phageannotator"
+    tag "workflow"
+
+    test("phageannotator test") {
+
+        when {
+            params {
+                outdir = "$outputDir"
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(NftestUtils.removeNextflowVersion("$outputDir")).match("software_versions") },
+                { assert new File("$outputDir/fastqc/test1_1_fastqc.html").exists() },
+                { assert new File("$outputDir/fastqc/test1_2_fastqc.html").exists() },
+                { assert snapshot(path("$outputDir/multiqc/multiqc_data/multiqc_fastqc.txt"),
+                                path("$outputDir/multiqc/multiqc_data/multiqc_general_stats.txt")).match("multiqc") },
+                { assert snapshot(path("$outputDir/mash/reference_fasta.mash_stats"),
+                                path("$outputDir/mash/reference_fasta.screen")).match("mash") },
+                { assert new File("$outputDir/mash/reference_fasta.msh").exists() },
+            )
+        }
+
+    }
+
+}

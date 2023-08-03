@@ -43,9 +43,11 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 //
 // MODULE: Installed directly from nf-core/modules
 //
-include { FASTQC                      } from '../modules/nf-core/fastqc/main'
-include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
-include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
+include { CUSTOM_DUMPSOFTWAREVERSIONS   } from '../../modules/nf-core/custom/dumpsoftwareversions/main'
+include { FASTQC                        } from '../../modules/nf-core/fastqc/main'
+include { MASH_SKETCH                   } from '../../modules/nf-core/mash/sketch/main'
+include { MASH_SCREEN                   } from '../../modules/nf-core/mash/screen/main'
+include { MULTIQC                       } from '../../modules/nf-core/multiqc/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -69,12 +71,28 @@ workflow PHAGEANNOTATOR {
         .set { ch_input }
 
     //
-    // MODULE: Run FastQC
+    // MODULE: Analyze reads with FASTQC
     //
-    FASTQC (
-        ch_input.fastq
-    )
+    FASTQC ( ch_input.fastq )
     ch_versions = ch_versions.mix(FASTQC.out.versions.first())
+
+    //----------------------------------------------------------------------
+    //  Read-based phage identification
+    //----------------------------------------------------------------------
+    //
+    // MODULE: Create mash sketch
+    //
+    if ( !params.skip_mash_screen ) {
+        ch_mash_sketch = MASH_SKETCH ( [ [ id: 'reference_fasta' ], file(params.mash_screen_reference_fasta, checkIfExists: true) ] ).mash
+        ch_versions = ch_versions.mix(MASH_SKETCH.out.versions.first())
+
+        //
+        // MODULE: Screen reads for contained genomes
+        //
+        ch_mash_screen = MASH_SCREEN ( ch_input.fastq, ch_mash_sketch ).screen
+        ch_versions = ch_versions.mix(MASH_SCREEN.out.versions.first())
+    }
+
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
