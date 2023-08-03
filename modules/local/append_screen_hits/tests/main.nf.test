@@ -1,0 +1,31 @@
+nextflow_process {
+
+    name "Test Process APPEND_SCREEN_HITS"
+    script "/workspace/phageannotator/modules/local/append_screen_hits/main.nf"
+    process "APPEND_SCREEN_HITS"
+    tag "append_screen_hits"
+    tag "modules_local"
+
+    test("Should run without failures") {
+
+        when {
+            params {
+                outdir   = "$outputDir"
+            }
+            process {
+                """
+                input[0] = file(params.test_data['modules_local']['reference_fasta_gz'], checkIfExists: true)
+                input[1] = [ [id: 'test'], [file(params.test_data['modules_local']['mash_screen_results_tsv'], checkIfExists: true)] ]
+                input[2] = [ [id: 'test'], [file(params.test_data['modules_local']['assembly_fasta_gz'], checkIfExists: true)] ]
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert snapshot(process.out).match()
+        }
+
+    }
+
+}

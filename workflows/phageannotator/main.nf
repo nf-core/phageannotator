@@ -80,7 +80,7 @@ workflow PHAGEANNOTATOR {
     //  Read-based phage identification
     //----------------------------------------------------------------------
     //
-    // MODULE: Create mash sketch
+    // MODULE: Create mash sketch of phage genomes
     //
     if ( !params.skip_mash_screen ) {
         ch_mash_sketch = MASH_SKETCH ( [ [ id: 'reference_fasta' ], file(params.mash_screen_reference_fasta, checkIfExists: true) ] ).mash
@@ -91,6 +91,11 @@ workflow PHAGEANNOTATOR {
         //
         ch_mash_screen = MASH_SCREEN ( ch_input.fastq, ch_mash_sketch ).screen
         ch_versions = ch_versions.mix(MASH_SCREEN.out.versions.first())
+
+        //
+        // MODULE: Append screen hits to input contigs
+        //
+
     }
 
 
