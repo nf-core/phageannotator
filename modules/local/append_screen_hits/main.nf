@@ -43,11 +43,12 @@ process APPEND_SCREEN_HITS {
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
-    touch ${prefix}.bam
+    touch ${prefix}.fasta_w_mash_hits.fna.gz
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        : \$(echo \$(samtools --version 2>&1) | sed 's/^.*samtools //; s/Using.*\$//' ))
+        biopython: \$(echo \$(biopython_version.py 2>&1))
+        pandas: \$(echo \$(pandas_version.py 2>&1))
     END_VERSIONS
     """
 }

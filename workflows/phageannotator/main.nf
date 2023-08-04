@@ -31,6 +31,11 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 */
 
 //
+// MODULES: Local modules
+//
+include { APPEND_SCREEN_HITS           } from '../../modules/local/append_screen_hits/main'
+
+//
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
 
@@ -65,8 +70,8 @@ workflow PHAGEANNOTATOR {
     Channel
         .fromSamplesheet("input")
         .multiMap { meta, fastq_1, fastq_2, fasta ->
-            fastq: [ meta, [ fastq_1, fastq_2 ]]
-            fasta: [ meta, fasta ]
+            fastq: [ meta, [ fastq_1, fastq_2 ] ]
+            fasta: [ meta, [fasta] ]
         }
         .set { ch_input }
 
@@ -95,7 +100,8 @@ workflow PHAGEANNOTATOR {
         //
         // MODULE: Append screen hits to input contigs
         //
-
+        ch_assembly_fasta = APPEND_SCREEN_HITS ( params.mash_screen_reference_fasta, ch_mash_screen, ch_input.fasta )
+        ch_versions = ch_versions.mix(APPEND_SCREEN_HITS.out.versions.first())
     }
 
 
