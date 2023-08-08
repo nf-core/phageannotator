@@ -1,7 +1,7 @@
 nextflow_process {
 
     name "Test Process APPEND_SCREEN_HITS"
-    script "/workspace/phageannotator/modules/local/append_screen_hits/main.nf"
+    script "modules/local/append_screen_hits/main.nf"
     process "APPEND_SCREEN_HITS"
     tag "append_screen_hits"
     tag "modules_local"
