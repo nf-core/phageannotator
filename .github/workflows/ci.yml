@@ -46,6 +46,7 @@ jobs:
         test_tags:
           - "phageannotator"
           - "skip_mash_screen"
+          - "modules_local"
         profile:
           - "docker"
 

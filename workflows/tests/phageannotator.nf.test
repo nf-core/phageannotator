@@ -24,6 +24,7 @@ nextflow_pipeline {
                 { assert snapshot(path("$outputDir/mash/reference_fasta.mash_stats"),
                                 path("$outputDir/mash/reference_fasta.screen")).match("mash") },
                 { assert new File("$outputDir/mash/reference_fasta.msh").exists() },
+                { assert snapshot(path("$outputDir/append/test1.fasta_w_mash_hits.fna.gz")).match("append_screen_hits") }
             )
         }
 
