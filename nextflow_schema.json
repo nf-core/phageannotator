@@ -43,32 +43,50 @@
                 }
             }
         },
-        "reference_based_identification_options": {
-            "title": "Reference-based identification options",
+        "reference_based_virus_identification_options": {
+            "title": "Reference-based virus identification options",
             "type": "object",
             "description": "Identify reference phages that are contained in reads",
             "default": "",
             "properties": {
-                "skip_mash_screen": {
+                "skip_reference_based_id": {
                     "type": "boolean",
-                    "description": "Skip mash screen to identify reference phage sequences contained in reads"
+                    "description": "Skip reference-based virus identification"
                 },
-                "mash_screen_reference_fasta": {
+                "reference_id_fasta": {
                     "type": "string",
-                    "format": "file-path",
-                    "fa_icon": "fas fa-database",
-                    "pattern": "^\\S+\\.f(a|fasta|na|as)\\.gz$",
-                    "description": "FASTA file containing reference phage sequences to be screened"
+                    "description": "FASTA file containing viruses for reference-based identification"
                 },
-                "mash_screen_min_score": {
+                "reference_id_min_score": {
                     "type": "number",
                     "default": 0.95,
-                    "minimum": 0,
-                    "maximum": 1,
-                    "description": "Minimum screen identity to determine if reference sequence is contained in reads"
+                    "description": "Minimum mash scree score to consider reference virus to be present in reads"
                 }
             },
             "fa_icon": "fas fa-search"
+        },
+        "de_novo_virus_identification_options": {
+            "title": "De novo virus identification options",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "de_novo_id_min_score": {
+                    "type": "number",
+                    "default": 0.7,
+                    "description": "Minimum score for a sequence to be considered viral"
+                },
+                "de_novo_id_max_fdr": {
+                    "type": "number",
+                    "default": 0.1,
+                    "description": "Maximum calibrated FDR for sequence to be considered viral"
+                },
+                "de_novo_id_splits": {
+                    "type": "integer",
+                    "default": 5,
+                    "description": "Number of splits for running geNomad (more splits reduces memory usage)"
+                }
+            }
         },
         "institutional_config_options": {
             "title": "Institutional config options",
@@ -270,7 +288,10 @@
             "$ref": "#/definitions/input_output_options"
         },
         {
-            "$ref": "#/definitions/reference_based_identification_options"
+            "$ref": "#/definitions/reference_based_virus_identification_options"
+        },
+        {
+            "$ref": "#/definitions/de_novo_virus_identification_options"
         },
         {
             "$ref": "#/definitions/institutional_config_options"

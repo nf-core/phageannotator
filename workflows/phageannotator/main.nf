@@ -50,6 +50,8 @@ include { APPEND_SCREEN_HITS           } from '../../modules/local/append_screen
 //
 include { CUSTOM_DUMPSOFTWAREVERSIONS   } from '../../modules/nf-core/custom/dumpsoftwareversions/main'
 include { FASTQC                        } from '../../modules/nf-core/fastqc/main'
+include { GENOMAD_DOWNLOAD              } from '../../modules/nf-core/genomad/download/main'
+include { GENOMAD_ENDTOEND              } from '../../modules/nf-core/genomad/endtoend/main'
 include { MASH_SKETCH                   } from '../../modules/nf-core/mash/sketch/main'
 include { MASH_SCREEN                   } from '../../modules/nf-core/mash/screen/main'
 include { MULTIQC                       } from '../../modules/nf-core/multiqc/main'
@@ -82,13 +84,16 @@ workflow PHAGEANNOTATOR {
     ch_versions = ch_versions.mix(FASTQC.out.versions.first())
 
     //----------------------------------------------------------------------
-    //  Read-based phage identification
+    //  Reference-based virus identification
     //----------------------------------------------------------------------
     //
-    // MODULE: Create mash sketch of phage genomes
+    // MODULE: Create mash sketch of viral genomes
     //
-    if ( !params.skip_mash_screen ) {
-        ch_mash_sketch = MASH_SKETCH ( [ [ id: 'reference_fasta' ], file(params.mash_screen_reference_fasta, checkIfExists: true) ] ).mash
+    if ( !params.skip_reference_based_id && !params.reference_id_fasta ) {
+        error "[nf-core/phageannotator] ERROR: reference-based identification requested, but no --reference_id_fasta provided"
+    }
+    if ( !params.skip_reference_based_id && params.reference_id_fasta ) {
+        ch_mash_sketch = MASH_SKETCH ( [ [ id: 'reference_fasta' ], file(params.reference_id_fasta, checkIfExists: true) ] ).mash
         ch_versions = ch_versions.mix(MASH_SKETCH.out.versions.first())
 
         //
@@ -100,9 +105,27 @@ workflow PHAGEANNOTATOR {
         //
         // MODULE: Append screen hits to input contigs
         //
-        ch_assembly_fasta = APPEND_SCREEN_HITS ( params.mash_screen_reference_fasta, ch_mash_screen, ch_input.fasta )
+        ch_assembly_w_screen_hits = APPEND_SCREEN_HITS ( params.reference_id_fasta, ch_mash_screen, ch_input.fasta ).fasta_w_screen_hits
         ch_versions = ch_versions.mix(APPEND_SCREEN_HITS.out.versions.first())
+    } else {
+        ch_assembly_w_screen_hits = ch_input.fasta
     }
+
+    //----------------------------------------------------------------------
+    //  De novo virus identification
+    //----------------------------------------------------------------------
+    //
+    // MODULE: Download genomad's database
+    //
+    ch_genomad_db = GENOMAD_DOWNLOAD ( ).genomad_db
+    ch_versions = ch_versions.mix(GENOMAD_DOWNLOAD.out.versions.first())
+
+    //
+    // MODULE: Identify and annotate viruses with geNomad
+    //
+    GENOMAD_ENDTOEND ( ch_assembly_w_screen_hits, ch_genomad_db )
+    ch_versions = ch_versions.mix(GENOMAD_ENDTOEND.out.versions.first())
+
 
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
