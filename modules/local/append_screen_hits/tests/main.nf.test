@@ -6,7 +6,7 @@ nextflow_process {
     tag "append_screen_hits"
     tag "modules_local"
 
-    test("Should run without failures") {
+    test("Test append_screen_hits") {
 
         when {
             params {

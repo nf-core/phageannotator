@@ -38,6 +38,8 @@ include { APPEND_SCREEN_HITS           } from '../../modules/local/append_screen
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
+include { REFERENCE_BASED_IDENTIFICATION    } from '../../subworkflows/local/reference_based_identification/main'
+include { DE_NOVO_IDENTIFICATION            } from '../../subworkflows/local/de_novo_identification/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -50,10 +52,6 @@ include { APPEND_SCREEN_HITS           } from '../../modules/local/append_screen
 //
 include { CUSTOM_DUMPSOFTWAREVERSIONS   } from '../../modules/nf-core/custom/dumpsoftwareversions/main'
 include { FASTQC                        } from '../../modules/nf-core/fastqc/main'
-include { GENOMAD_DOWNLOAD              } from '../../modules/nf-core/genomad/download/main'
-include { GENOMAD_ENDTOEND              } from '../../modules/nf-core/genomad/endtoend/main'
-include { MASH_SKETCH                   } from '../../modules/nf-core/mash/sketch/main'
-include { MASH_SCREEN                   } from '../../modules/nf-core/mash/screen/main'
 include { MULTIQC                       } from '../../modules/nf-core/multiqc/main'
 
 /*
@@ -69,6 +67,7 @@ workflow PHAGEANNOTATOR {
 
     ch_versions = Channel.empty()
 
+    // read inputs using nf-validation
     Channel
         .fromSamplesheet("input")
         .multiMap { meta, fastq_1, fastq_2, fasta ->
@@ -77,54 +76,41 @@ workflow PHAGEANNOTATOR {
         }
         .set { ch_input }
 
+
     //
     // MODULE: Analyze reads with FASTQC
     //
     FASTQC ( ch_input.fastq )
     ch_versions = ch_versions.mix(FASTQC.out.versions.first())
 
+
     //----------------------------------------------------------------------
     //  Reference-based virus identification
     //----------------------------------------------------------------------
-    //
-    // MODULE: Create mash sketch of viral genomes
-    //
+    // if reference based identification requested, a reference FASTA file must be included
     if ( !params.skip_reference_based_id && !params.reference_id_fasta ) {
         error "[nf-core/phageannotator] ERROR: reference-based identification requested, but no --reference_id_fasta provided"
     }
+    //
+    // SUBWORKFLOW: Identify reference viral genomes contained in reads
+    //
     if ( !params.skip_reference_based_id && params.reference_id_fasta ) {
-        ch_mash_sketch = MASH_SKETCH ( [ [ id: 'reference_fasta' ], file(params.reference_id_fasta, checkIfExists: true) ] ).mash
-        ch_versions = ch_versions.mix(MASH_SKETCH.out.versions.first())
-
-        //
-        // MODULE: Screen reads for contained genomes
-        //
-        ch_mash_screen = MASH_SCREEN ( ch_input.fastq, ch_mash_sketch ).screen
-        ch_versions = ch_versions.mix(MASH_SCREEN.out.versions.first())
-
-        //
-        // MODULE: Append screen hits to input contigs
-        //
-        ch_assembly_w_screen_hits = APPEND_SCREEN_HITS ( params.reference_id_fasta, ch_mash_screen, ch_input.fasta ).fasta_w_screen_hits
-        ch_versions = ch_versions.mix(APPEND_SCREEN_HITS.out.versions.first())
-    } else {
-        ch_assembly_w_screen_hits = ch_input.fasta
+        ch_assemblies_w_screen_hits = REFERENCE_BASED_IDENTIFICATION ( ch_input.fastq, ch_input.fasta ).assemblies_w_screen_hits
     }
+    // if reference based identification is skipped, only input assemblies will carried forward
+    else {
+        ch_assemblies_w_screen_hits = ch_input.fasta
+    }
+
 
     //----------------------------------------------------------------------
     //  De novo virus identification
     //----------------------------------------------------------------------
     //
-    // MODULE: Download genomad's database
+    // SUBWORKFLOW: Identify/annotate viral sequences in assemblies
     //
-    ch_genomad_db = GENOMAD_DOWNLOAD ( ).genomad_db
-    ch_versions = ch_versions.mix(GENOMAD_DOWNLOAD.out.versions.first())
+    DE_NOVO_IDENTIFICATION ( ch_assemblies_w_screen_hits )
 
-    //
-    // MODULE: Identify and annotate viruses with geNomad
-    //
-    GENOMAD_ENDTOEND ( ch_assembly_w_screen_hits, ch_genomad_db )
-    ch_versions = ch_versions.mix(GENOMAD_ENDTOEND.out.versions.first())
 
 
 

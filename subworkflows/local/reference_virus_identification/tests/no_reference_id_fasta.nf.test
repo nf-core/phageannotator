@@ -1,0 +1,23 @@
+nextflow_workflow {
+
+    name "Test Workflow main.nf"
+    script "subworkflows/local/reference_virus_identification/main.nf"
+    tag "no_reference_id_fasta"
+    tag "subworkflows_local"
+
+    test("Missing params.reference_id_fasta") {
+
+        when {
+            params {
+                outdir              = "$outputDir"
+                reference_id_fasta  = null
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.errorReport.contains("[nf-core/phageannotator] ERROR: reference-based identification requested, but no --reference_id_fasta provided") }
+            )
+        }
+    }
+}
