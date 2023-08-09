@@ -5,14 +5,16 @@ nextflow_workflow {
     workflow "REFERENCE_BASED_IDENTIFICATION"
     tag "subworkflows_local"
     tag "reference_virus_identification"
-    tag "no_reference_id_fasta"
+    tag "reference_id_sketch_provided"
 
 
-    test("Missing params.reference_id_fasta") {
+    test("params.reference_id_sketch provided") {
 
         when {
             params {
                 outdir              = "$outputDir"
+                reference_id_fasta  = 'https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/genome/genome.fna.gz'
+                reference_id_sketch = 'https://github.com/nf-core/test-datasets/raw/phageannotator/subworkflows/local/reference_virus_identification/bacteroides_fragilis.msh'
             }
             workflow {
                 """
@@ -24,8 +26,10 @@ nextflow_workflow {
 
         then {
             assertAll(
-                { assert workflow.trace.succeeded().size() == 0 },
-                { assert workflow.stdout.contains("[nf-core/phageannotator] ERROR: reference-based identification requested, but no --reference_id_fasta provided") }
+                { assert workflow.success },
+                { assert workflow.trace.succeeded().size() == 2 },
+                { assert snapshot(path("$outputDir/ReferenceIdentification/mash/screen/reference.screen")).match("mash_screen") },
+                { assert snapshot(path("$outputDir/ReferenceIdentification/append_screen_hits/test1.fasta_w_screen_hits.fna.gz")).match("append_screen_hits") }
             )
         }
     }

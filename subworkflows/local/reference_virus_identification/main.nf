@@ -2,9 +2,9 @@
 // De novo identification of viral sequences in assemblies
 //
 
-include { MASH_SKETCH           } from '../../modules/nf-core/mash/sketch/main'
-include { MASH_SCREEN           } from '../../modules/nf-core/mash/screen/main'
-include { APPEND_SCREEN_HITS    } from '../../modules/local/append_screen_hits/main'
+include { MASH_SKETCH           } from '../../../modules/nf-core/mash/sketch/main'
+include { MASH_SCREEN           } from '../../../modules/nf-core/mash/screen/main'
+include { APPEND_SCREEN_HITS    } from '../../../modules/local/append_screen_hits/main'
 
 workflow REFERENCE_BASED_IDENTIFICATION {
     take:
@@ -13,6 +13,11 @@ workflow REFERENCE_BASED_IDENTIFICATION {
 
     main:
     ch_versions = Channel.empty()
+
+    // if reference based identification requested, a reference FASTA file must be included
+    if ( !params.skip_reference_based_id && !params.reference_id_fasta ) {
+        error "[nf-core/phageannotator] ERROR: reference-based identification requested, but no --reference_id_fasta provided"
+    }
 
     // use reference sketch if provided, create one if not
     if ( params.reference_id_sketch && !params.skip_reference_based_id ) {
