@@ -6,7 +6,7 @@ include { MASH_SKETCH           } from '../../../modules/nf-core/mash/sketch/mai
 include { MASH_SCREEN           } from '../../../modules/nf-core/mash/screen/main'
 include { APPEND_SCREEN_HITS    } from '../../../modules/local/append_screen_hits/main'
 
-workflow REFERENCE_BASED_IDENTIFICATION {
+workflow REFERENCE_VIRUS_IDENTIFICATION {
     take:
     reads       // [ [ meta] , fastq    ], input reads (mandatory)
     assemblies  // [ [ meta] , fasta    ], input assemblies (mandatory)

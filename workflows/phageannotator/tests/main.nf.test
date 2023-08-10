@@ -2,8 +2,9 @@ nextflow_pipeline {
 
     name "Test Workflow main.nf"
     script "main.nf"
-    tag "phageannotator"
-    tag "workflow"
+    tag "workflows"
+    tag "phageannotator_full"
+
 
     test("Full phageannotator test") {
 

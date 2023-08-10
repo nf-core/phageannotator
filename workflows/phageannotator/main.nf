@@ -38,8 +38,8 @@ include { APPEND_SCREEN_HITS           } from '../../modules/local/append_screen
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-include { REFERENCE_BASED_IDENTIFICATION    } from '../../subworkflows/local/reference_based_identification/main'
-include { DE_NOVO_IDENTIFICATION            } from '../../subworkflows/local/de_novo_identification/main'
+include { REFERENCE_VIRUS_IDENTIFICATION    } from '../../subworkflows/local/reference_virus_identification/main'
+include { DE_NOVO_VIRUS_IDENTIFICATION      } from '../../subworkflows/local/de_novo_virus_identification/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -106,8 +106,6 @@ workflow PHAGEANNOTATOR {
     // SUBWORKFLOW: Identify/annotate viral sequences in assemblies
     //
     DE_NOVO_IDENTIFICATION ( ch_assemblies_w_screen_hits )
-
-
 
 
     CUSTOM_DUMPSOFTWAREVERSIONS (

@@ -2,7 +2,7 @@ nextflow_workflow {
 
     name "Test Workflow main.nf"
     script "subworkflows/local/reference_virus_identification/main.nf"
-    workflow "REFERENCE_BASED_IDENTIFICATION"
+    workflow "REFERENCE_VIRUS_IDENTIFICATION"
     tag "subworkflows_local"
     tag "reference_virus_identification"
     tag "no_reference_id_fasta"

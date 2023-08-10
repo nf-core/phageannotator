@@ -2,10 +2,10 @@
 // De novo identification of viral sequences in assemblies
 //
 
-include { GENOMAD_DOWNLOAD   } from '../../modules/nf-core/genomad/download/main'
-include { GENOMAD_ENDTOEND   } from '../../modules/nf-core/genomad/endtoend/main'
+include { GENOMAD_DOWNLOAD   } from '../../../modules/nf-core/genomad/download/main'
+include { GENOMAD_ENDTOEND   } from '../../../modules/nf-core/genomad/endtoend/main'
 
-workflow VIRUS_IDENTIFICATION {
+workflow DE_NOVO_VIRUS_IDENTIFICATION {
     take:
     assemblies   // [ [ meta] , fasta    ], input assemblies (mandatory)
 
@@ -19,11 +19,11 @@ workflow VIRUS_IDENTIFICATION {
         ch_versions.mix( GENOMAD_DOWNLOAD.out.versions )
     }
 
-    ch_identified_viruses = GENOMAD_ENDTOEND ( assemblies, ch_genomad_db ).virus_fasta
+    GENOMAD_ENDTOEND ( assemblies, ch_genomad_db )
     ch_versions.mix( GENOMAD_ENDTOEND.out.versions )
 
     emit:
-    identified_viruses = ch_identified_viruses  // [ [ meta ], fasta ]
-    versions = ch_versions                      // [ versions.yml ]
+    identified_viruses = GENOMAD_ENDTOEND.out.virus_fasta   // [ [ meta ], fasta ]
+    versions = ch_versions                                  // [ versions.yml ]
 
 }
