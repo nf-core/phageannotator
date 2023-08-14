@@ -11,6 +11,7 @@ nextflow_pipeline {
         when {
             params {
                 outdir = "$outputDir"
+                reference_id_fasta  = 'https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/genome/genome.fna.gz'
             }
         }
 

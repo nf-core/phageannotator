@@ -13,7 +13,7 @@ nextflow_workflow {
         when {
             params {
                 outdir      = "$outputDir"
-                genomad_db  = "/home/carsonjm/CarsonJM/phageannotator/.nf-test/tests/1c00cfcda7004c386b2c34afa3e5eec7/output/DeNovoIdentification/genomad/genomad_db"
+                genomad_db  = "/gscratch/pedslabs_hoffman/resources/genomad_db"
             }
             workflow {
                 """
@@ -26,7 +26,7 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert workflow.trace.succeeded().size() == 1 },
-                { assert snapshot(path("$outputDir/DeNovoIdentification/genomad/endtoend/").list()).match("genomad_end_to_end") }
+                { assert snapshot(path("$outputDir/DeNovoIdentification/genomad/endtoend/test1.contigs_summary/test1.contigs_virus.fna")).match("genomad_end_to_end") }
             )
         }
     }

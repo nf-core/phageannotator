@@ -91,7 +91,7 @@ workflow PHAGEANNOTATOR {
     // SUBWORKFLOW: Identify reference viral genomes contained in reads
     //
     if ( !params.skip_reference_based_id ) {
-        ch_assemblies_w_screen_hits = REFERENCE_BASED_IDENTIFICATION ( ch_input.fastq, ch_input.fasta ).assemblies_w_screen_hits
+        ch_assemblies_w_screen_hits = REFERENCE_VIRUS_IDENTIFICATION ( ch_input.fastq, ch_input.fasta ).assemblies_w_screen_hits
     }
     // if reference based identification is skipped, only input assemblies will carried forward
     else {
@@ -105,7 +105,7 @@ workflow PHAGEANNOTATOR {
     //
     // SUBWORKFLOW: Identify/annotate viral sequences in assemblies
     //
-    DE_NOVO_IDENTIFICATION ( ch_assemblies_w_screen_hits )
+    DE_NOVO_VIRUS_IDENTIFICATION ( ch_assemblies_w_screen_hits )
 
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
