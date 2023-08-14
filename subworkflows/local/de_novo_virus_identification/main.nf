@@ -16,11 +16,11 @@ workflow DE_NOVO_VIRUS_IDENTIFICATION {
         ch_genomad_db = file(params.genomad_db, checkIfExists: true)
     } else {
         ch_genomad_db = GENOMAD_DOWNLOAD ( ).genomad_db
-        ch_versions.mix( GENOMAD_DOWNLOAD.out.versions )
+        ch_versions = ch_versions.mix( GENOMAD_DOWNLOAD.out.versions )
     }
 
     GENOMAD_ENDTOEND ( assemblies, ch_genomad_db )
-    ch_versions.mix( GENOMAD_ENDTOEND.out.versions )
+    ch_versions = ch_versions.mix( GENOMAD_ENDTOEND.out.versions )
 
     emit:
     identified_viruses = GENOMAD_ENDTOEND.out.virus_fasta   // [ [ meta ], fasta ]
