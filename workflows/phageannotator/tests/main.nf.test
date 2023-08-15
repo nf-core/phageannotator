@@ -19,8 +19,8 @@ nextflow_pipeline {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(NftestUtils.removeNextflowVersion("$outputDir")).match("software_versions") },
-                { assert snapshot(path("$outputDir/ReferenceIdentification/mash/sketch/reference_fasta.msh")).match("mash_sketch") },
-                { assert snapshot(path("$outputDir/ReferenceIdentification/mash/screen/reference_fasta.screen")).match("mash_screen") },
+                { assert snapshot(path("$outputDir/ReferenceIdentification/mash/sketch/reference.msh")).match("mash_sketch") },
+                { assert snapshot(path("$outputDir/ReferenceIdentification/mash/screen/reference.screen")).match("mash_screen") },
                 { assert snapshot(path("$outputDir/ReferenceIdentification/append_screen_hits/test1.fasta_w_screen_hits.fna.gz")).match("append_screen_hits") },
                 { assert snapshot(path("$outputDir/DeNovoIdentification/genomad/genomad_db/").list()).match("genomad_download") },
                 { assert snapshot(path("$outputDir/DeNovoIdentification/genomad/endtoend/").list()).match("genomad_end_to_end") },
