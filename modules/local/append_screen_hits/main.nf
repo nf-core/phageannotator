@@ -13,8 +13,8 @@ process APPEND_SCREEN_HITS {
     tuple val(meta), path(fasta)
 
     output:
-    tuple val(meta), path("*.fasta_w_mash_hits.fna.gz") , emit: fasta_w_mash_hits
-    path "versions.yml"                                 , emit: versions
+    tuple val(meta), path("*.fasta_w_screen_hits.fna.gz")   , emit: fasta_w_screen_hits
+    path "versions.yml"                                     , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -28,9 +28,9 @@ process APPEND_SCREEN_HITS {
         --mash_screen_results $mash_screen \\
         --assembly_fasta $fasta \\
         --prefix $prefix \\
-        --output ${prefix}.fasta_w_mash_hits.fna
+        --output ${prefix}.fasta_w_screen_hits.fna
 
-    gzip ${prefix}.fasta_w_mash_hits.fna
+    gzip ${prefix}.fasta_w_screen_hits.fna
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
@@ -43,7 +43,7 @@ process APPEND_SCREEN_HITS {
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
-    touch ${prefix}.fasta_w_mash_hits.fna.gz
+    touch ${prefix}.fasta_w_screen_hits.fna.gz
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

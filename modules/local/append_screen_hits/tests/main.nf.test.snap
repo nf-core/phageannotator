@@ -7,18 +7,18 @@
                         {
                             "id": "test"
                         },
-                        "test.fasta_w_mash_hits.fna.gz:md5,9352e3ea473792e7ed2ff781c75cae8f"
+                        "test.fasta_w_screen_hits.fna.gz:md5,9352e3ea473792e7ed2ff781c75cae8f"
                     ]
                 ],
                 "1": [
                     "versions.yml:md5,8e9e3bd75f037dbd06521415d76ab42c"
                 ],
-                "fasta_w_mash_hits": [
+                "fasta_w_screen_hits": [
                     [
                         {
                             "id": "test"
                         },
-                        "test.fasta_w_mash_hits.fna.gz:md5,9352e3ea473792e7ed2ff781c75cae8f"
+                        "test.fasta_w_screen_hits.fna.gz:md5,9352e3ea473792e7ed2ff781c75cae8f"
                     ]
                 ],
                 "versions": [
@@ -26,6 +26,6 @@
                 ]
             }
         ],
-        "timestamp": "2023-08-03T22:39:09+0000"
+        "timestamp": "2023-08-09T18:55:14+0000"
     }
 }

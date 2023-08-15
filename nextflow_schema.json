@@ -5,6 +5,29 @@
     "description": "Identification, annotation, and quantification of phages in (meta)-genomic sequences",
     "type": "object",
     "definitions": {
+        "de_novo_virus_identification_options": {
+            "title": "De novo virus identification options",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "genomad_db": {
+                    "type": "string"
+                },
+                "genomad_min_score": {
+                    "type": "number",
+                    "default": 0.7
+                },
+                "genomad_max_fdr": {
+                    "type": "number",
+                    "default": 0.1
+                },
+                "genomad_splits": {
+                    "type": "integer",
+                    "default": 1
+                }
+            }
+        },
         "input_output_options": {
             "title": "Input/output options",
             "type": "object",
@@ -43,29 +66,26 @@
                 }
             }
         },
-        "reference_based_identification_options": {
-            "title": "Reference-based identification options",
+        "reference_based_virus_identification_options": {
+            "title": "Reference-based virus identification options",
             "type": "object",
             "description": "Identify reference phages that are contained in reads",
             "default": "",
             "properties": {
-                "skip_mash_screen": {
+                "skip_reference_based_id": {
                     "type": "boolean",
-                    "description": "Skip mash screen to identify reference phage sequences contained in reads"
+                    "description": "Skip reference-based virus identification"
                 },
-                "mash_screen_reference_fasta": {
+                "reference_id_fasta": {
                     "type": "string",
-                    "format": "file-path",
-                    "fa_icon": "fas fa-database",
-                    "pattern": "^\\S+\\.f(a|fasta|na|as)\\.gz$",
-                    "description": "FASTA file containing reference phage sequences to be screened"
+                    "description": "FASTA file containing viruses for reference-based identification"
+                },
+                "reference_id_sketch": {
+                    "type": "string"
                 },
                 "mash_screen_min_score": {
                     "type": "number",
-                    "default": 0.95,
-                    "minimum": 0,
-                    "maximum": 1,
-                    "description": "Minimum screen identity to determine if reference sequence is contained in reads"
+                    "default": 0.95
                 }
             },
             "fa_icon": "fas fa-search"
@@ -267,10 +287,13 @@
     },
     "allOf": [
         {
+            "$ref": "#/definitions/de_novo_virus_identification_options"
+        },
+        {
             "$ref": "#/definitions/input_output_options"
         },
         {
-            "$ref": "#/definitions/reference_based_identification_options"
+            "$ref": "#/definitions/reference_based_virus_identification_options"
         },
         {
             "$ref": "#/definitions/institutional_config_options"

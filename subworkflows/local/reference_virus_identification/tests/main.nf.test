@@ -1,0 +1,36 @@
+nextflow_workflow {
+
+    name "Test Workflow main.nf"
+    script "subworkflows/local/reference_virus_identification/main.nf"
+    workflow "REFERENCE_VIRUS_IDENTIFICATION"
+    tag "subworkflows_local"
+    tag "reference_virus_identification"
+    tag "full_reference_virus_identification"
+
+
+    test("Full reference_virus_identification subworkflow") {
+
+        when {
+            params {
+                outdir              = "$outputDir"
+                reference_id_fasta  = 'https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/genome/genome.fna.gz'
+            }
+            workflow {
+                """
+                input[0] = [ [ id:'test1' ], [file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_1.fastq.gz', checkIfExists: true), file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_2.fastq.gz', checkIfExists: true)]]
+                input[1] = [ [ id:'test1' ], file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists: true)]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.trace.succeeded().size() == 3 },
+                { assert snapshot(path("$outputDir/ReferenceIdentification/mash/sketch/reference.msh")).match("mash_sketch") },
+                { assert snapshot(path("$outputDir/ReferenceIdentification/mash/screen/reference.screen")).match("mash_screen") },
+                { assert snapshot(path("$outputDir/ReferenceIdentification/append_screen_hits/test1.fasta_w_screen_hits.fna.gz")).match("append_screen_hits") }
+            )
+        }
+    }
+}

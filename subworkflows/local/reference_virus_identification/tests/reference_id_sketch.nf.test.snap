@@ -1,0 +1,14 @@
+{
+    "mash_screen": {
+        "content": [
+            "reference.screen:md5,958af1f9eb156ebd2978e0596ae4eda0"
+        ],
+        "timestamp": "2023-08-09T20:59:28+0000"
+    },
+    "append_screen_hits": {
+        "content": [
+            "test1.fasta_w_screen_hits.fna.gz:md5,c249a103f8836ec32cb837ca167db162"
+        ],
+        "timestamp": "2023-08-09T20:59:28+0000"
+    }
+}

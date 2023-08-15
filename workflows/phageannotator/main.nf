@@ -38,6 +38,8 @@ include { APPEND_SCREEN_HITS           } from '../../modules/local/append_screen
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
+include { REFERENCE_VIRUS_IDENTIFICATION    } from '../../subworkflows/local/reference_virus_identification/main'
+include { DE_NOVO_VIRUS_IDENTIFICATION      } from '../../subworkflows/local/de_novo_virus_identification/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -50,8 +52,6 @@ include { APPEND_SCREEN_HITS           } from '../../modules/local/append_screen
 //
 include { CUSTOM_DUMPSOFTWAREVERSIONS   } from '../../modules/nf-core/custom/dumpsoftwareversions/main'
 include { FASTQC                        } from '../../modules/nf-core/fastqc/main'
-include { MASH_SKETCH                   } from '../../modules/nf-core/mash/sketch/main'
-include { MASH_SCREEN                   } from '../../modules/nf-core/mash/screen/main'
 include { MULTIQC                       } from '../../modules/nf-core/multiqc/main'
 
 /*
@@ -67,6 +67,7 @@ workflow PHAGEANNOTATOR {
 
     ch_versions = Channel.empty()
 
+    // read inputs using nf-validation
     Channel
         .fromSamplesheet("input")
         .multiMap { meta, fastq_1, fastq_2, fasta ->
@@ -75,34 +76,36 @@ workflow PHAGEANNOTATOR {
         }
         .set { ch_input }
 
+
     //
     // MODULE: Analyze reads with FASTQC
     //
     FASTQC ( ch_input.fastq )
     ch_versions = ch_versions.mix(FASTQC.out.versions.first())
 
+
     //----------------------------------------------------------------------
-    //  Read-based phage identification
+    //  Reference-based virus identification
     //----------------------------------------------------------------------
     //
-    // MODULE: Create mash sketch of phage genomes
+    // SUBWORKFLOW: Identify reference viral genomes contained in reads
     //
-    if ( !params.skip_mash_screen ) {
-        ch_mash_sketch = MASH_SKETCH ( [ [ id: 'reference_fasta' ], file(params.mash_screen_reference_fasta, checkIfExists: true) ] ).mash
-        ch_versions = ch_versions.mix(MASH_SKETCH.out.versions.first())
-
-        //
-        // MODULE: Screen reads for contained genomes
-        //
-        ch_mash_screen = MASH_SCREEN ( ch_input.fastq, ch_mash_sketch ).screen
-        ch_versions = ch_versions.mix(MASH_SCREEN.out.versions.first())
-
-        //
-        // MODULE: Append screen hits to input contigs
-        //
-        ch_assembly_fasta = APPEND_SCREEN_HITS ( params.mash_screen_reference_fasta, ch_mash_screen, ch_input.fasta )
-        ch_versions = ch_versions.mix(APPEND_SCREEN_HITS.out.versions.first())
+    if ( !params.skip_reference_based_id ) {
+        ch_assemblies_w_screen_hits = REFERENCE_VIRUS_IDENTIFICATION ( ch_input.fastq, ch_input.fasta ).assemblies_w_screen_hits
     }
+    // if reference based identification is skipped, only input assemblies will carried forward
+    else {
+        ch_assemblies_w_screen_hits = ch_input.fasta
+    }
+
+
+    //----------------------------------------------------------------------
+    //  De novo virus identification
+    //----------------------------------------------------------------------
+    //
+    // SUBWORKFLOW: Identify/annotate viral sequences in assemblies
+    //
+    DE_NOVO_VIRUS_IDENTIFICATION ( ch_assemblies_w_screen_hits )
 
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
