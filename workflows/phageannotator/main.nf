@@ -33,13 +33,13 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 //
 // MODULES: Local modules
 //
-include { APPEND_SCREEN_HITS           } from '../../modules/local/append_screen_hits/main'
+include { SEQKIT_SEQ                    } from '../../modules/local/seqkit/seq/main'            // TODO: Add to nf-core
 
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-include { REFERENCE_VIRUS_IDENTIFICATION    } from '../../subworkflows/local/reference_virus_identification/main'
-include { DE_NOVO_VIRUS_IDENTIFICATION      } from '../../subworkflows/local/de_novo_virus_identification/main'
+include { FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH    } from '../../subworkflows/local/fastq_fasta_reference_containment_mash/main'
+include { FASTA_VIRUS_CLASSIFICATION_GENOMAD        } from '../../subworkflows/local/fasta_virus_classification_genomad/main'       // TODO: Add to nf-core
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -67,45 +67,65 @@ workflow PHAGEANNOTATOR {
 
     ch_versions = Channel.empty()
 
-    // read inputs using nf-validation
+
+    /*----------------------------------------------------------------------------
+        Read in samplesheet
+    ------------------------------------------------------------------------------*/
+    // read inputs using nf-validation plugin
     Channel
         .fromSamplesheet("input")
         .multiMap { meta, fastq_1, fastq_2, fasta ->
-            fastq: [ meta, [ fastq_1, fastq_2 ] ]
-            fasta: [ meta, [fasta] ]
+            fastq_gz: [ meta, [ fastq_1, fastq_2 ] ]
+            fasta_gz: [ meta, [ fasta ] ]
         }
         .set { ch_input }
 
 
+    /*----------------------------------------------------------------------------
+        Analyze input reads
+    ------------------------------------------------------------------------------*/
     //
-    // MODULE: Analyze reads with FASTQC
+    // MODULE: Analyze reads
     //
-    FASTQC ( ch_input.fastq )
+    FASTQC ( ch_input.fastq_gz )
     ch_versions = ch_versions.mix(FASTQC.out.versions.first())
 
 
-    //----------------------------------------------------------------------
-    //  Reference-based virus identification
-    //----------------------------------------------------------------------
+    /*----------------------------------------------------------------------------
+        Filter input assemblies
+    ------------------------------------------------------------------------------*/
     //
-    // SUBWORKFLOW: Identify reference viral genomes contained in reads
+    // MODULE: Filter assemblies
     //
-    if ( !params.skip_reference_based_id ) {
-        ch_assemblies_w_screen_hits = REFERENCE_VIRUS_IDENTIFICATION ( ch_input.fastq, ch_input.fasta ).assemblies_w_screen_hits
+    ch_filtered_input_fasta_gz = SEQKIT_SEQ ( ch_input.fasta_gz ).fastx
+    ch_versions = ch_versions.mix(SEQKIT_SEQ.out.versions.first())
+
+
+    /*----------------------------------------------------------------------------
+        OPTIONAL: Identify reference virus genomes contained in reads
+    ------------------------------------------------------------------------------*/
+    // if skip_reference_containment == false, run subworkflow
+    if ( !params.skip_reference_containment ) {
+        //
+        // SUBWORKFLOW: Identify contained reference genomes
+        //
+        ch_assembly_w_references_fasta_gz = FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH ( ch_input.fastq_gz, ch_input.fasta_gz ).assembly_w_references_fasta_gz
+        ch_versions = ch_versions.mix(SEQKIT_SEQ.out.versions.first())
     }
-    // if reference based identification is skipped, only input assemblies will carried forward
+    // if skip_reference_containment == true, skip subworkflow and use input assemblies
     else {
-        ch_assemblies_w_screen_hits = ch_input.fasta
+        ch_assembly_w_references_fasta_gz = ch_input.fasta_gz
     }
 
 
-    //----------------------------------------------------------------------
-    //  De novo virus identification
-    //----------------------------------------------------------------------
+    /*----------------------------------------------------------------------------
+        Classify/annotate viral sequences
+    ------------------------------------------------------------------------------*/
     //
-    // SUBWORKFLOW: Identify/annotate viral sequences in assemblies
+    // SUBWORKFLOW: Classify and annotate sequences
     //
-    DE_NOVO_VIRUS_IDENTIFICATION ( ch_assemblies_w_screen_hits )
+    ch_viruses_fasta_gz = FASTA_VIRUS_CLASSIFICATION_GENOMAD ( ch_assembly_w_references_fasta_gz ).viruses_fasta_gz
+    ch_versions = ch_versions.mix(FASTA_VIRUS_CLASSIFICATION_GENOMAD.versions.first())
 
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
