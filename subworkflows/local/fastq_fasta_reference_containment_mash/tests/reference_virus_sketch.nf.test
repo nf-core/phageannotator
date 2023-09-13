@@ -3,18 +3,18 @@ nextflow_workflow {
     name "Test Subworkflow: FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH"
     script "subworkflows/local/fastq_fasta_reference_containment_mash/main.nf"
     workflow "FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH"
+    tag "subworkflows"
     tag "subworkflows_local"
     tag "fastq_fasta_reference_containment_mash"
     tag "reference_virus_sketch_provided"
 
 
-    test("Test --reference_virus_sketch included") {
+    test("Should run without failures") {
 
         when {
             params {
                 outdir                  = "$outputDir"
                 reference_virus_fasta   = 'https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz'
-                reference_virus_sketch  =
             }
             workflow {
                 """
