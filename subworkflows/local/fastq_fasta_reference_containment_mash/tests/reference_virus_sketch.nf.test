@@ -5,7 +5,7 @@ nextflow_workflow {
     workflow "FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH"
     tag "subworkflows_local"
     tag "fastq_fasta_reference_containment_mash"
-    tag "reference_virus_sketch"
+    tag "reference_virus_sketch_provided"
 
 
     test("Test --reference_virus_sketch included") {
@@ -13,16 +13,15 @@ nextflow_workflow {
         when {
             params {
                 outdir                  = "$outputDir"
-                reference_virus_fasta   = 'https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/genome/genome.fna.gz'
-                reference_virus_sketch  = "${params}.test_data['modules_local']['mash_sketch1_msh']"
+                reference_virus_fasta   = 'https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz'
+                reference_virus_sketch  =
             }
             workflow {
                 """
                 input[0] = Channel.of([ [ id:'test' ], [ file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_1.fastq.gz', checkIfExists: true), file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_2.fastq.gz', checkIfExists: true) ] ])
-                input[1] = Channel.of([ [ id:'test' ], [ file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists: true) ] ])
+                input[1] = Channel.of([ [ id:'test' ], [ file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/genome/genome.fna.gz', checkIfExists: true) ] ])
                 """
             }
-        }
 
         then {
             assertAll(

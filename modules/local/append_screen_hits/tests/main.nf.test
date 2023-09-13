@@ -1,18 +1,20 @@
 nextflow_process {
 
-    name "Test Process: APPEND_SCREEN_HITS"
+    name "Test process: APPEND_SCREEN_HITS"
     script "modules/local/append_screen_hits/main.nf"
     process "APPEND_SCREEN_HITS"
+    tag "modules"
     tag "modules_local"
     tag "append_screen_hits"
 
 
-    test("Test APPEND_SCREEN_HITS") {
+    test("Should run without failures") {
 
         when {
             params {
                 outdir   = "$outputDir"
             }
+
             process {
                 """
                 input[0] = [ [ id: 'test' ], [ file(params.test_data['modules_local']['mash_screen_results_tsv'], checkIfExists: true) ],

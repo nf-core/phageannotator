@@ -15,7 +15,7 @@ nextflow_process {
             }
             process {
                 """
-                input[0] = [ [ id: 'test' ], [ file(params.test_data['modules_local']['mash_screen_results_tsv'], checkIfExists: true) ] ]
+                input[0] = [ [ id: 'all_samples' ], [ file(params.test_data['modules_local']['virus_summary1_tsv'], checkIfExists: true), file(params.test_data['modules_local']['virus_summary2_tsv'], checkIfExists: true) ] ]
                 """
             }
         }

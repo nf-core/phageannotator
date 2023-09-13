@@ -8,7 +8,7 @@ process AWK {
         'biocontainers/pigz:2.3.4' }"
 
     input:
-    tuple val(meta), path(file_in)
+    tuple val(meta), path(files_in)
 
     output:
     tuple val(meta), path("${prefix}")  , emit: file_out
@@ -38,7 +38,7 @@ process AWK {
     """
     awk \\
         $args \\
-        $file_in \\
+        $files_in \\
         > ${prefix}
 
     cat <<-END_VERSIONS > versions.yml

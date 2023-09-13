@@ -2,12 +2,12 @@
     "full_fastq_fasta_reference_containment_mash": {
         "content": [
             [
-                "all_samples.screen:md5,9cd27acafbf63f1fa92e26c3e83bfa3e",
+                "all_samples.screen:md5,77858d67f1513d5883d1d1aa22f48629",
                 [
-                    "test.fasta_w_screen_hits.fna.gz:md5,627badd2d06b626af8d7b0b80dc6bfcb"
+                    "test.fasta_w_screen_hits.fna.gz:md5,9f6177fd96d369be3999d00d51f3e10e"
                 ]
             ]
         ],
-        "timestamp": "2023-09-12T18:33:37+0000"
+        "timestamp": "2023-09-13T18:16:59+0000"
     }
 }
