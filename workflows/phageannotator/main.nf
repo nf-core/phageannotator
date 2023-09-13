@@ -33,7 +33,7 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 //
 // MODULES: Local modules
 //
-include { SEQKIT_SEQ                    } from '../../modules/local/seqkit/seq/main'            // TODO: Add to nf-core
+include { SEQKIT_SEQ                                } from '../../modules/local/seqkit/seq/main'                                    // TODO: Add to nf-core
 
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
@@ -110,7 +110,7 @@ workflow PHAGEANNOTATOR {
         // SUBWORKFLOW: Identify contained reference genomes
         //
         ch_assembly_w_references_fasta_gz = FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH ( ch_input.fastq_gz, ch_input.fasta_gz ).assembly_w_references_fasta_gz
-        ch_versions = ch_versions.mix(SEQKIT_SEQ.out.versions.first())
+        ch_versions = ch_versions.mix(FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH.out.versions.first())
     }
     // if skip_reference_containment == true, skip subworkflow and use input assemblies
     else {

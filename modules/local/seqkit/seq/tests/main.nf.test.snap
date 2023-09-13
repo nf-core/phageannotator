@@ -1,5 +1,5 @@
 {
-    "Test APPEND_SCREEN_HITS": {
+    "Test SEQKIT_SEQ": {
         "content": [
             {
                 "0": [
@@ -7,25 +7,25 @@
                         {
                             "id": "test"
                         },
-                        "test.fasta_w_screen_hits.fna.gz:md5,94ff9611c2d02619db9afce95ce6ad6b"
+                        "test.fasta.gz:md5,1ba7400573b6a6bf7b4be695fc7e6076"
                     ]
                 ],
                 "1": [
-                    "versions.yml:md5,8e9e3bd75f037dbd06521415d76ab42c"
+                    "versions.yml:md5,de038a980ca1e484c0e34f4af3f05c2a"
                 ],
-                "assembly_w_screen_hits": [
+                "fastx": [
                     [
                         {
                             "id": "test"
                         },
-                        "test.fasta_w_screen_hits.fna.gz:md5,94ff9611c2d02619db9afce95ce6ad6b"
+                        "test.fasta.gz:md5,1ba7400573b6a6bf7b4be695fc7e6076"
                     ]
                 ],
                 "versions": [
-                    "versions.yml:md5,8e9e3bd75f037dbd06521415d76ab42c"
+                    "versions.yml:md5,de038a980ca1e484c0e34f4af3f05c2a"
                 ]
             }
         ],
-        "timestamp": "2023-09-12T17:33:35+0000"
+        "timestamp": "2023-09-12T16:51:32+0000"
     }
 }

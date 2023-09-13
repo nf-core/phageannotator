@@ -1,0 +1,31 @@
+{
+    "Test MASH_PASTE": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test1"
+                        },
+                        "test1-test2.msh:md5,37a3fadd36ab7a39f099465da3e17430"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,ae26f75a540c8b80b0e4172b54f0e89d"
+                ],
+                "msh": [
+                    [
+                        {
+                            "id": "test1"
+                        },
+                        "test1-test2.msh:md5,37a3fadd36ab7a39f099465da3e17430"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,ae26f75a540c8b80b0e4172b54f0e89d"
+                ]
+            }
+        ],
+        "timestamp": "2023-09-12T17:20:31+0000"
+    }
+}

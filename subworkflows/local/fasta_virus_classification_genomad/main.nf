@@ -4,7 +4,7 @@
 
 include { GENOMAD_DOWNLOAD   } from '../../../modules/nf-core/genomad/download/main'
 include { GENOMAD_ENDTOEND   } from '../../../modules/nf-core/genomad/endtoend/main'
-include { AWK as AWK_GENOMAD } from '../../../modules/local/awk/main'
+// include { AWK as AWK_GENOMAD } from '../../../modules/local/awk/main'
 
 workflow FASTA_VIRUS_CLASSIFICATION_GENOMAD {
     take:
@@ -19,15 +19,24 @@ workflow FASTA_VIRUS_CLASSIFICATION_GENOMAD {
     }
     // if genomad_db == null, run GENOMAD_DOWNLOAD
     else {
+        //
+        // MODULE: download geNomad database
+        //
         ch_genomad_db = GENOMAD_DOWNLOAD ( ).genomad_db
         ch_versions = ch_versions.mix(GENOMAD_DOWNLOAD.out.versions.first())
     }
 
+    //
+    // MODULE: Classify/annotate viral sequences
+    //
     ch_viruses_fasta_gz = GENOMAD_ENDTOEND ( fasta_gz, ch_genomad_db ).virus_fasta
     ch_versions = ch_versions.mix(GENOMAD_ENDTOEND.out.versions.first())
 
-    ch_virus_summaries_tsv = AWK_GENOMAD ( GENOMAD_ENDTOEND.out.virus_summary.map { [ [ id:'all_samples' ], it[1] ] } ).file_out
-    ch_versions = ch_versions.mix(AWK_GENOMAD.out.versions.first())
+    // //
+    // // MODULE: Combine geNomad summaries across samples
+    // //
+    // ch_virus_summaries_tsv = AWK_GENOMAD ( GENOMAD_ENDTOEND.out.virus_summary.map { [ [ id:'all_samples' ], it[1] ] } ).file_out
+    // ch_versions = ch_versions.mix(AWK_GENOMAD.out.versions.first())
 
     emit:
     viruses_fasta_gz = ch_viruses_fasta_gz  // [ [ meta ], fasta.gz ]   , FASTA file containing viral sequences

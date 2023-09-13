@@ -8,8 +8,8 @@ process MASH_PASTE {
         'biocontainers/mash:2.3--hd3113c8_4' }"
 
     input:
-    tuple val(meta) , path(sketch_1)
-    tuple val(meta2), path(sketch_2)
+    tuple val(meta) , path(sketch1)
+    tuple val(meta2), path(sketch2)
 
     output:
     tuple val(meta), path("*.msh"), emit: msh

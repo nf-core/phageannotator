@@ -5,15 +5,16 @@ nextflow_workflow {
     workflow "FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH"
     tag "subworkflows_local"
     tag "fastq_fasta_reference_containment_mash"
-    tag "full_fastq_fasta_reference_containment_mash"
+    tag "reference_virus_sketch"
 
 
-    test("Test full fastq_fasta_reference_containment_mash subworkflow") {
+    test("Test --reference_virus_sketch included") {
 
         when {
             params {
                 outdir                  = "$outputDir"
                 reference_virus_fasta   = 'https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/genome/genome.fna.gz'
+                reference_virus_sketch  = "${params}.test_data['modules_local']['mash_sketch1_msh']"
             }
             workflow {
                 """
@@ -26,7 +27,7 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert workflow.trace.succeeded().size() == 6 },
+                { assert workflow.trace.succeeded().size() == 5 },
                 { assert snapshot(path("$outputDir/ReferenceIdentification")).match("full_fastq_fasta_reference_containment_mash") }
             )
         }

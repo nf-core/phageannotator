@@ -1,14 +1,14 @@
 nextflow_workflow {
 
-    name "Test Workflow main.nf"
-    script "subworkflows/local/reference_virus_identification/main.nf"
-    workflow "REFERENCE_VIRUS_IDENTIFICATION"
+    name "Test Suborkflow: FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH"
+    script "subworkflows/local/fastq_fasta_reference_containment_mash/main.nf"
+    workflow "FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH"
     tag "subworkflows_local"
-    tag "reference_virus_identification"
-    tag "no_reference_id_fasta"
+    tag "fastq_fasta_reference_containment_mash"
+    tag "no_reference_virus_fasta"
 
 
-    test("Missing params.reference_id_fasta") {
+    test("Test no --reference_virus_fasta") {
 
         when {
             params {
@@ -25,7 +25,7 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.trace.succeeded().size() == 0 },
-                { assert workflow.stdout.contains("[nf-core/phageannotator] ERROR: reference-based identification requested, but no --reference_id_fasta provided") }
+                { assert workflow.stdout.contains("[nf-core/phageannotator] ERROR: reference containment requested, but no --reference_virus_fasta provided") }
             )
         }
     }

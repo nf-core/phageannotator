@@ -26,8 +26,8 @@ process SEQKIT_SEQ {
     }
     def endswith = task.ext.suffix ?: "${extension}.gz"
     """
-    seqkit
-        seq\\
+    seqkit \\
+        seq \\
         $fastx \\
         --threads ${task.cpus} \\
         --out-file ${prefix}.${endswith} \\

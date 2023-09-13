@@ -1,14 +1,14 @@
 nextflow_workflow {
 
-    name "Test Workflow main.nf"
-    script "subworkflows/local/de_novo_virus_identification/main.nf"
-    workflow "DE_NOVO_VIRUS_IDENTIFICATION"
+    name "Test Subworkflow: FASTA_VIRUS_CLASSIFICATION_GENOMAD"
+    script "subworkflows/local/fasta_virus_classification_genomad/main.nf"
+    workflow "FASTA_VIRUS_CLASSIFICATION_GENOMAD"
     tag "subworkflows_local"
-    tag "de_novo_virus_identification"
-    tag "full_de_novo_virus_identification"
+    tag "fasta_virus_classification_genomad"
+    tag "full_fasta_virus_classification_genomad"
 
 
-    test("Full de_novo_virus_identification subworkflow") {
+    test("Test full fasta_virus_classification_genomad subworkflow") {
 
         when {
             params {
@@ -16,7 +16,7 @@ nextflow_workflow {
             }
             workflow {
                 """
-                input[0] = [ [ id:'test1' ], file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists: true)]
+                input[0] = Channel.of([ [ id:'test' ], [ file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/genome/genome.fna.gz', checkIfExists: true) ] ])
                 """
             }
         }
@@ -25,8 +25,7 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert workflow.trace.succeeded().size() == 2 },
-                { assert snapshot(path("$outputDir/DeNovoIdentification/genomad/genomad_db/").list()).match("genomad_download") },
-                { assert snapshot(path("$outputDir/DeNovoIdentification/genomad/endtoend/").list()).match("genomad_end_to_end") }
+                { assert snapshot(path("$outputDir/VirusClassification//").list()).match("fasta_virus_classification_genomad") }
             )
         }
     }
