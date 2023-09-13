@@ -28,7 +28,8 @@ nextflow_workflow {
                 { assert workflow.success },
                 { assert workflow.trace.succeeded().size() == 5 },
                 { assert snapshot(path("$outputDir/ReferenceIdentification")).match("full_fastq_fasta_reference_containment_mash") }
-            )
+                )
+            }
         }
     }
 }
