@@ -8,8 +8,8 @@ process GENOMAD_ENDTOEND {
         'biocontainers/genomad:1.5.2--pyhdfd78af_0' }"
 
     input:
-    tuple val(meta) , path(fasta)
-    path  genomad_db
+    tuple val(meta), path(fasta)
+    tuple val(meta2), path(genomad_db)
 
     output:
     tuple val(meta), path("*_aggregated_classification/*_aggregated_classification.tsv")    , emit: aggregated_classification

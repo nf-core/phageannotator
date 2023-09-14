@@ -26,6 +26,35 @@
                 ]
             }
         ],
-        "timestamp": "2023-09-12T17:33:35+0000"
+        "timestamp": "2023-09-13T21:32:41+0000"
+    },
+    "Should run without failures": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.fasta_w_screen_hits.fna.gz:md5,94ff9611c2d02619db9afce95ce6ad6b"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,8e9e3bd75f037dbd06521415d76ab42c"
+                ],
+                "assembly_w_screen_hits": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.fasta_w_screen_hits.fna.gz:md5,94ff9611c2d02619db9afce95ce6ad6b"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,8e9e3bd75f037dbd06521415d76ab42c"
+                ]
+            }
+        ],
+        "timestamp": "2023-09-13T21:32:41+0000"
     }
 }

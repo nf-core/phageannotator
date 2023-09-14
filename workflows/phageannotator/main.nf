@@ -34,11 +34,12 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 // MODULES: Local modules
 //
 include { SEQKIT_SEQ                                } from '../../modules/local/seqkit/seq/main'                                    // TODO: Add to nf-core
+include { AWK as AWK_GENOMAD                        } from '../../../modules/local/awk/main'                                        // TODO: Add to nf-core
 
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-include { FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH    } from '../../subworkflows/local/fastq_fasta_reference_containment_mash/main'
+include { FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH    } from '../../subworkflows/local/fastq_fasta_reference_containment_mash/main'   // TODO: Add to nf-core
 include { FASTA_VIRUS_CLASSIFICATION_GENOMAD        } from '../../subworkflows/local/fasta_virus_classification_genomad/main'       // TODO: Add to nf-core
 
 /*
@@ -95,7 +96,7 @@ workflow PHAGEANNOTATOR {
         Filter input assemblies
     ------------------------------------------------------------------------------*/
     //
-    // MODULE: Filter assemblies
+    // MODULE: Filter assemblies by length
     //
     ch_filtered_input_fasta_gz = SEQKIT_SEQ ( ch_input.fasta_gz ).fastx
     ch_versions = ch_versions.mix(SEQKIT_SEQ.out.versions.first())
@@ -106,26 +107,72 @@ workflow PHAGEANNOTATOR {
     ------------------------------------------------------------------------------*/
     // if skip_reference_containment == false, run subworkflow
     if ( !params.skip_reference_containment ) {
+        // if reference based identification requested, a reference FASTA file must be included
+        if ( !params.reference_virus_fasta ) {
+            error "[nf-core/phageannotator] ERROR: reference containment requested, but no --reference_virus_fasta provided"
+        }
+
+        // create channel from params.reference_virus_fasta
+        ch_reference_virus_fasta_gz = [ [ id:'reference_viruses' ], file( params.reference_virus_fasta, checkIfExists:true ) ]
+
+        // create channel from params.reference_virus_sketch
+        if ( !params.reference_virus_sketch ){
+            ch_reference_virus_sketch_msh = null
+        } else {
+            ch_reference_virus_sketch_msh = [ [ id:'reference_viruses' ], file( params.reference_virus_sketch, checkIfExists:true ) ]
+        }
+
         //
         // SUBWORKFLOW: Identify contained reference genomes
         //
-        ch_assembly_w_references_fasta_gz = FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH ( ch_input.fastq_gz, ch_input.fasta_gz ).assembly_w_references_fasta_gz
+        ch_containment_results_tsv = FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH ( ch_input.fastq_gz, ch_filtered_input_fasta_gz, ch_reference_virus_fasta_gz, ch_reference_virus_sketch_msh ).mash_screen_results
         ch_versions = ch_versions.mix(FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH.out.versions.first())
-    }
-    // if skip_reference_containment == true, skip subworkflow and use input assemblies
-    else {
-        ch_assembly_w_references_fasta_gz = ch_input.fasta_gz
+
+        // join mash screen and assembly fasta by meta.id
+        ch_append_screen_hits_input = ch_containment_results_tsv.join( ch_filtered_input_fasta_gz, by:0 )
+
+        //
+        // MODULE: Append screen hits to assemblies
+        //
+        ch_assembly_w_references_fasta_gz = APPEND_SCREEN_HITS ( ch_append_screen_hits_input, ch_reference_virus_fasta_gz ).assembly_w_screen_hits
+        ch_versions = ch_versions.mix(APPEND_SCREEN_HITS.out.versions.first())
+
+        //
+        // MODULE: Combine mash screen outputs across samples
+        //
+        ch_combined_mash_screen_tsv = CAT_MASH_SCREEN( ch_mash_screen_tsv.map{ [ [ id:'all_samples' ], it[1] ] }.groupTuple() ).file_out
+        ch_versions = ch_versions.mix(CAT_MASH_SCREEN.out.versions.first())
+    } else {
+        // if skip_reference_containment == true, skip subworkflow and use input assemblies
+        ch_assembly_w_references_fasta_gz = ch_filtered_input_fasta_gz
+        ch_combined_mash_screen_tsv = null
     }
 
 
     /*----------------------------------------------------------------------------
         Classify/annotate viral sequences
     ------------------------------------------------------------------------------*/
+    // create channel from params.genomad_db
+    if ( !params.genomad_db ){
+        ch_genomad_db = null
+    } else {
+        ch_genomad_db = [ [ id:'genomad_db' ], file( params.genomad_db, checkIfExists:true ) ]
+    }
+
     //
     // SUBWORKFLOW: Classify and annotate sequences
     //
-    ch_viruses_fasta_gz = FASTA_VIRUS_CLASSIFICATION_GENOMAD ( ch_assembly_w_references_fasta_gz ).viruses_fasta_gz
+    ch_viruses_fasta_gz = FASTA_VIRUS_CLASSIFICATION_GENOMAD ( ch_assembly_w_references_fasta_gz, ch_genomad_db ).viruses_fasta_gz
     ch_versions = ch_versions.mix(FASTA_VIRUS_CLASSIFICATION_GENOMAD.versions.first())
+
+    // create channel for genomad virus summary files
+    ch_virus_summaries_tsv = FASTA_VIRUS_CLASSIFICATION_GENOMAD.virus_summaries_tsv
+
+    //
+    // MODULE: Combine geNomad summaries across samples
+    //
+    ch_virus_summaries_tsv = AWK_GENOMAD ( ch_virus_summaries_tsv.map { [ [ id:'all_samples' ], it[1] ] } ).file_out
+    ch_versions = ch_versions.mix(AWK_GENOMAD.out.versions.first())
 
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
