@@ -34,7 +34,8 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 // MODULES: Local modules
 //
 include { SEQKIT_SEQ                                } from '../../modules/local/seqkit/seq/main'                                    // TODO: Add to nf-core
-include { AWK as AWK_GENOMAD                        } from '../../../modules/local/awk/main'                                        // TODO: Add to nf-core
+include { AWK as AWK_GENOMAD                        } from '../../modules/local/awk/main'                                           // TODO: Add to nf-core
+include { APPEND_SCREEN_HITS                        } from '../../modules/local/append_screen_hits/main'
 
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
@@ -51,8 +52,9 @@ include { FASTA_VIRUS_CLASSIFICATION_GENOMAD        } from '../../subworkflows/l
 //
 // MODULE: Installed directly from nf-core/modules
 //
-include { CUSTOM_DUMPSOFTWAREVERSIONS   } from '../../modules/nf-core/custom/dumpsoftwareversions/main'
+include { CAT_CAT as CAT_MASH_SCREEN    } from '../../modules/nf-core/cat/cat/main'
 include { FASTQC                        } from '../../modules/nf-core/fastqc/main'
+include { CUSTOM_DUMPSOFTWAREVERSIONS   } from '../../modules/nf-core/custom/dumpsoftwareversions/main'
 include { MULTIQC                       } from '../../modules/nf-core/multiqc/main'
 
 /*
@@ -140,7 +142,7 @@ workflow PHAGEANNOTATOR {
         //
         // MODULE: Combine mash screen outputs across samples
         //
-        ch_combined_mash_screen_tsv = CAT_MASH_SCREEN( ch_mash_screen_tsv.map{ [ [ id:'all_samples' ], it[1] ] }.groupTuple() ).file_out
+        ch_combined_mash_screen_tsv = CAT_MASH_SCREEN( ch_containment_results_tsv.map{ [ [ id:'all_samples' ], it[1] ] }.groupTuple() ).file_out
         ch_versions = ch_versions.mix(CAT_MASH_SCREEN.out.versions.first())
     } else {
         // if skip_reference_containment == true, skip subworkflow and use input assemblies
@@ -163,10 +165,10 @@ workflow PHAGEANNOTATOR {
     // SUBWORKFLOW: Classify and annotate sequences
     //
     ch_viruses_fasta_gz = FASTA_VIRUS_CLASSIFICATION_GENOMAD ( ch_assembly_w_references_fasta_gz, ch_genomad_db ).viruses_fasta_gz
-    ch_versions = ch_versions.mix(FASTA_VIRUS_CLASSIFICATION_GENOMAD.versions.first())
+    ch_versions = ch_versions.mix(FASTA_VIRUS_CLASSIFICATION_GENOMAD.out.versions.first())
 
     // create channel for genomad virus summary files
-    ch_virus_summaries_tsv = FASTA_VIRUS_CLASSIFICATION_GENOMAD.virus_summaries_tsv
+    ch_virus_summaries_tsv = FASTA_VIRUS_CLASSIFICATION_GENOMAD.out.virus_summaries_tsv
 
     //
     // MODULE: Combine geNomad summaries across samples

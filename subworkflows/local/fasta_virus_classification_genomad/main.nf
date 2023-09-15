@@ -20,7 +20,8 @@ workflow FASTA_VIRUS_CLASSIFICATION_GENOMAD {
         //
         // MODULE: download geNomad database
         //
-        ch_genomad_db = [ [ id:'genomad_db' ], file(GENOMAD_DOWNLOAD ( ).genomad_db, checkIfExists:true) ]
+        ch_genomad_db_dir = GENOMAD_DOWNLOAD( ).genomad_db
+        ch_genomad_db = ch_genomad_db_dir.map{[ [ id:'genomad_db' ], it ]}
         ch_versions = ch_versions.mix(GENOMAD_DOWNLOAD.out.versions.first())
     }
 

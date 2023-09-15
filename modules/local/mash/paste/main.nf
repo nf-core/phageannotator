@@ -37,7 +37,7 @@ process MASH_PASTE {
 
     stub:
     def args = task.ext.args ?: ''
-    def prefix = task.ext.prefix ?: "${meta.id}"
+    def prefix = task.ext.prefix ?: "${meta.id}-${meta2.id}"
     """
     touch ${prefix}.msh
 

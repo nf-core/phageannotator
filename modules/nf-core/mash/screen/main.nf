@@ -34,4 +34,16 @@ process MASH_SCREEN {
         mash: \$( mash --version )
     END_VERSIONS
     """
+
+    stub:
+    def args = task.ext.args ?: ''
+    def prefix = task.ext.prefix ?: "${meta.id}"
+    """
+    touch ${prefix}.screen
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        mash: \$( mash --version )
+    END_VERSIONS
+    """
 }
