@@ -1,10 +1,16 @@
 {
+    "software_versions": {
+        "content": [
+            "{AWK_GENOMAD={pigz=2.3.4}, CUSTOM_DUMPSOFTWAREVERSIONS={python=3.11.0, yaml=6.0}, FASTQC={fastqc=0.11.9}, GENOMAD_DOWNLOAD={genomad=1.5.2}, SEQKIT_SEQ={seqkit=2.2.0}, Workflow={nf-core/phageannotator=1.0dev}}"
+        ],
+        "timestamp": "2023-09-18T19:13:59+0000"
+    },
     "fasta_virus_classification_genomad": {
         "content": [
             [
                 [
                     [
-                        "genome_virus_summary.tsv:md5,6899de91e735b5b930347d9d0fda8a7a"
+                        "test1_virus_summary.tsv:md5,a87e4d5fc91195d2f8e7bb5f11f3af20"
                     ]
                 ],
                 [
@@ -46,6 +52,23 @@
                 ]
             ]
         ],
-        "timestamp": "2023-09-18T16:44:09+0000"
+        "timestamp": "2023-09-18T19:13:59+0000"
+    },
+    "multiqc": {
+        "content": [
+            "multiqc_fastqc.txt:md5,953352f4a0f1bac9058125b8f04e9926",
+            "multiqc_general_stats.txt:md5,671fea3ac1c370f05baed7350eac1477"
+        ],
+        "timestamp": "2023-09-18T19:13:59+0000"
+    },
+    "seqkit_seq": {
+        "content": [
+            [
+                [
+                    "test1.fasta.gz:md5,b91bcdca503b2b02005cae7fc5a594b7"
+                ]
+            ]
+        ],
+        "timestamp": "2023-09-18T19:13:59+0000"
     }
 }

@@ -6,7 +6,7 @@ nextflow_workflow {
     tag "subworkflows"
     tag "subworkflows_local"
     tag "fastq_fasta_reference_containment_mash"
-    tag "fastq_fasta_reference_containment_mash_default"
+    tag "fastq_fasta_reference_containment_mash_full"
 
 
     test("Full subworkflow") {

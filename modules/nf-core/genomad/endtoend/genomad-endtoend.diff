@@ -1,6 +1,17 @@
 Changes in module 'nf-core/genomad/endtoend'
 --- modules/nf-core/genomad/endtoend/main.nf
 +++ modules/nf-core/genomad/endtoend/main.nf
+@@ -8,8 +8,8 @@
+         'biocontainers/genomad:1.5.2--pyhdfd78af_0' }"
+ 
+     input:
+-    tuple val(meta) , path(fasta)
+-    path  genomad_db
++    tuple val(meta), path(fasta)
++    tuple val(meta2), path(genomad_db)
+ 
+     output:
+     tuple val(meta), path("*_aggregated_classification/*_aggregated_classification.tsv")    , emit: aggregated_classification
 @@ -17,13 +17,13 @@
      tuple val(meta), path("*_find_proviruses/*_provirus.tsv")                               , emit: provirus
      tuple val(meta), path("*_score_calibration/*_compositions.tsv")                         , emit: compositions                , optional: true

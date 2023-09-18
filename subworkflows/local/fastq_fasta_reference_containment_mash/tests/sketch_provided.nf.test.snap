@@ -1,0 +1,14 @@
+{
+    "full_fastq_fasta_reference_containment_mash": {
+        "content": [
+            [
+                [
+                    [
+                        "test.screen:md5,2d7ddb331f2c0c07e927adc8685e3deb"
+                    ]
+                ]
+            ]
+        ],
+        "timestamp": "2023-09-18T16:05:45+0000"
+    }
+}

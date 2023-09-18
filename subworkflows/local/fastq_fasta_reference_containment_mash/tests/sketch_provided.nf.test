@@ -29,7 +29,8 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert workflow.trace.succeeded().size() == 3 }
+                { assert workflow.trace.succeeded().size() == 3 },
+                { assert snapshot(path("$outputDir/ReferenceContainment")).match("full_fastq_fasta_reference_containment_mash") }
                 )
             }
         }
