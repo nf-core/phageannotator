@@ -18,7 +18,7 @@ nextflow_process {
             process {
                 """
                 input[0] = [ [ id: 'test' ], [ file(params.test_data['modules_local']['mash_screen_results_tsv'], checkIfExists: true) ],
-                             [ file(params.test_data['modules_local']['assembly_fasta_gz'], checkIfExists: true) ] ]
+                            [ file(params.test_data['modules_local']['assembly_fasta_gz'], checkIfExists: true) ] ]
                 input[1] = [ [ id: 'reference' ], [ file(params.test_data['modules_local']['reference_fasta_gz'], checkIfExists: true) ] ]
                 """
             }
