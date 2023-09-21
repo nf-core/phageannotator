@@ -1,0 +1,34 @@
+nextflow_workflow {
+
+    name "Test Subworkflow: FASTA_VIRUS_QUALITY_CHECKV"
+    script "subworkflows/local/fasta_virus_quality_checkv/main.nf"
+    workflow "FASTA_VIRUS_QUALITY_CHECKV"
+    tag "subworkflows"
+    tag "subworkflows_local"
+    tag "fasta_virus_quality_checkv"
+    tag "fasta_virus_quality_checkv_full"
+
+
+    test("Full subworkflow") {
+
+        when {
+            params {
+                outdir              = "$outputDir"
+            }
+            workflow {
+                """
+                input[0] = Channel.of([ [ id:'test' ], [ file('https://github.com/nf-core/test-datasets/blob/modules/data/genomics/sarscov2/genome/genome.fasta.gz', checkIfExists: true) ] ])
+                input[1] = null
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.trace.succeeded().size() == 3 },
+                { assert snapshot(path("$outputDir/VirusQuality").list()).match("fasta_virus_quality_checkv") }
+            )
+        }
+    }
+}

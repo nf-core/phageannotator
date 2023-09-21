@@ -42,6 +42,7 @@ include { APPEND_SCREEN_HITS                        } from '../../modules/local/
 //
 include { FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH    } from '../../subworkflows/local/fastq_fasta_reference_containment_mash/main'   // TODO: Add to nf-core
 include { FASTA_VIRUS_CLASSIFICATION_GENOMAD        } from '../../subworkflows/local/fasta_virus_classification_genomad/main'       // TODO: Add to nf-core
+include { FASTA_VIRUS_QUALITY_CHECKV                } from '../../subworkflows/local/fasta_virus_quality_checkv/main'               // TODO: Add to nf-core
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -52,8 +53,8 @@ include { FASTA_VIRUS_CLASSIFICATION_GENOMAD        } from '../../subworkflows/l
 //
 // MODULE: Installed directly from nf-core/modules
 //
-include { CAT_CAT as CAT_MASH_SCREEN    } from '../../modules/nf-core/cat/cat/main'
 include { FASTQC                        } from '../../modules/nf-core/fastqc/main'
+include { CAT_CAT as CAT_MASH_SCREEN    } from '../../modules/nf-core/cat/cat/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS   } from '../../modules/nf-core/custom/dumpsoftwareversions/main'
 include { MULTIQC                       } from '../../modules/nf-core/multiqc/main'
 
@@ -170,12 +171,50 @@ workflow PHAGEANNOTATOR {
     // create channel for genomad virus summary files
     ch_virus_summaries_tsv = FASTA_VIRUS_CLASSIFICATION_GENOMAD.out.virus_summaries_tsv
 
+    // create a channel for combining geNomad virus summaries
+    ch_awk_genomad_input = ch_virus_summaries_tsv.map { [ [ id:'all_samples' ], it[1] ] }.groupTuple()
+
     //
     // MODULE: Combine geNomad summaries across samples
     //
-    ch_virus_summaries_tsv = AWK_GENOMAD ( ch_virus_summaries_tsv.map { [ [ id:'all_samples' ], it[1] ] } ).file_out
+    ch_combined_virus_summaries_tsv = AWK_GENOMAD ( ch_awk_genomad_input ).file_out
     ch_versions = ch_versions.mix(AWK_GENOMAD.out.versions.first())
 
+
+    /*----------------------------------------------------------------------------
+        Assess virus quality and filter
+    ------------------------------------------------------------------------------*/
+    // create channel from params.checkv_db
+    if ( !params.checkv_db ){
+        ch_checkv_db = null
+    } else {
+        ch_checkv_db = [ [ id:'checkv_db' ], file( params.checkv_db, checkIfExists:true ) ]
+    }
+
+    //
+    // SUBWORKFLOW: Assess virus quality
+    //
+    FASTA_VIRUS_QUALITY_CHECKV ( ch_viruses_fasta_gz, ch_genomad_db )
+    ch_versions = ch_versions.mix(FASTA_VIRUS_QUALITY_CHECKV.out.versions.first())
+
+    // create a channel for quality summaries
+    ch_quality_summary_tsv = FASTA_VIRUS_QUALITY_CHECKV.out.quality_summary_tsv
+
+    //
+    // MODULE: Combine quality summaries across samples
+    //
+    ch_combined_quality_summaries_tsv = AWK_CHECKV ( ch_quality_summary_tsv ).file_out
+    ch_versions = ch_versions.mix(AWK_CHECKV.out.versions.first())
+
+    // create channel for viruses/proviruses output by checkv
+    ch_viruses_fasta_gz = FASTA_VIRUS_QUALITY_CHECKV.out.viruses
+    ch_proviruses_fasta_gz = FASTA_VIRUS_QUALITY_CHECKV.out.proviruses
+
+    //
+    // MODULE: Quality filter viruses
+    //
+    ch_filtered_viruses_fasta_gz = QUALITY_FILTER_VIRUSES ( ch_quality_summary_tsv, ch_viruses_fasta_gz, ch_proviruses_fasta_gz ).filtered_viruses
+    ch_versions = ch_versions.mix(QUALITY_FILTER_VIRUSES.out.versions.first())
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')

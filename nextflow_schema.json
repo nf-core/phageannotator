@@ -112,6 +112,37 @@
                 }
             }
         },
+        "virus_quality_options": {
+            "title": "Virus quality options",
+            "type": "object",
+            "description": "Assess virus quality and filter",
+            "default": "",
+            "properties": {
+                "checkv_db": {
+                    "type": "string",
+                    "description": "Path to directory containing CheckV database",
+                    "format": "directory-path"
+                },
+                "checkv_min_length": {
+                    "type": "integer",
+                    "default": 3000,
+                    "description": "Minimum virus length to pass filtering"
+                },
+                "checkv_min_completeness": {
+                    "type": "integer",
+                    "default": 50,
+                    "description": "Minimum CheckV completeness to pass filtering"
+                },
+                "checkv_remove_proviruses": {
+                    "type": "boolean",
+                    "description": "Remove viruses labeled as provirus by geNomad or CheckV"
+                },
+                "checkv_remove_warnings": {
+                    "type": "boolean",
+                    "description": "Remove viruses with CheckV warnings"
+                }
+            }
+        },
         "institutional_config_options": {
             "title": "Institutional config options",
             "type": "object",
@@ -319,6 +350,9 @@
         },
         {
             "$ref": "#/definitions/virus_classification_options"
+        },
+        {
+            "$ref": "#/definitions/virus_quality_options"
         },
         {
             "$ref": "#/definitions/institutional_config_options"
