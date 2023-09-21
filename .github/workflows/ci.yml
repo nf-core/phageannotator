@@ -44,8 +44,7 @@ jobs:
       matrix:
         NXF_VER: ${{ fromJson(needs.define_nxf_versions.outputs.matrix) }}
         test_tags:
-          - "phageannotator_full"
-          - "skip_reference_based_id"
+          - "workflows"
         profile:
           - "docker"
 
@@ -65,7 +64,7 @@ jobs:
 
       - name: Run nf-test
         run: |
-          nf-test test --tag ${{ matrix.test_tags }} --profile test,${{ matrix.profile }} --junitxml=test.xml
+          nf-test test --tag ${{ matrix.test_tags }} --profile nf_test,${{ matrix.profile }} --junitxml=test.xml
 
       - name: Output log on failure
         if: failure()

@@ -1,0 +1,17 @@
+{
+    "full_fastq_fasta_reference_containment_mash": {
+        "content": [
+            [
+                [
+                    [
+                        "test.screen:md5,77858d67f1513d5883d1d1aa22f48629"
+                    ],
+                    [
+                        "reference_viruses.msh:md5,1603390852e55b99abee283a2490f070"
+                    ]
+                ]
+            ]
+        ],
+        "timestamp": "2023-09-18T16:03:42+0000"
+    }
+}

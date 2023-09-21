@@ -8,12 +8,11 @@ process APPEND_SCREEN_HITS {
         'biocontainers/mulled-v2-80c23cbcd32e2891421c54d1899665046feb07ef:77a31e289d22068839533bf21f8c4248ad274b60-0' }"
 
     input:
-    path reference_fasta
-    tuple val(meta), path(mash_screen)
-    tuple val(meta), path(fasta)
+    tuple val(meta), path(mash_screen),  path(assembly_fasta)
+    tuple val(meta2), path(reference_fasta)
 
     output:
-    tuple val(meta), path("*.fasta_w_screen_hits.fna.gz")   , emit: fasta_w_screen_hits
+    tuple val(meta), path("*.fasta_w_screen_hits.fna.gz")   , emit: assembly_w_screen_hits
     path "versions.yml"                                     , emit: versions
 
     when:
@@ -26,7 +25,7 @@ process APPEND_SCREEN_HITS {
     append_screen_hits.py \\
         --reference_fasta $reference_fasta \\
         --mash_screen_results $mash_screen \\
-        --assembly_fasta $fasta \\
+        --assembly_fasta $assembly_fasta \\
         --prefix $prefix \\
         --output ${prefix}.fasta_w_screen_hits.fna
 

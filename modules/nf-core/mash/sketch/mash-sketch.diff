@@ -12,5 +12,23 @@ Changes in module 'nf-core/mash/sketch'
          2> ${prefix}.mash_stats
  
      cat <<-END_VERSIONS > versions.yml
+@@ -34,4 +34,17 @@
+         mash: \$(mash --version 2>&1)
+     END_VERSIONS
+     """
++
++    stub:
++    def args = task.ext.args ?: ''
++    def prefix = task.ext.prefix ?: "${meta.id}"
++    """
++    touch ${prefix}.msh
++    touch ${prefix}.mash_stats
++
++    cat <<-END_VERSIONS > versions.yml
++    "${task.process}":
++        mash: \$(mash --version 2>&1)
++    END_VERSIONS
++    """
+ }
 
 ************************************************************
