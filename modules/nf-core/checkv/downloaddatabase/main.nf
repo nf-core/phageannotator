@@ -18,9 +18,6 @@ process CHECKV_DOWNLOADDATABASE {
     prefix = task.ext.prefix ?: "checkv_db"
 
     """
-    https_proxy=http://klone-dip1-A-ib:3128
-    export https_proxy
-
     checkv download_database \\
         $args \\
         ./$prefix/  \\
