@@ -167,7 +167,7 @@ workflow PHAGEANNOTATOR {
     //
     // SUBWORKFLOW: Classify and annotate sequences
     //
-    ch_viruses_fasta_gz = FASTA_VIRUS_CLASSIFICATION_GENOMAD ( ch_assembly_w_references_fasta_gz, ch_genomad_db ).viruses_fasta_gz
+    ch_viruses_fna_gz = FASTA_VIRUS_CLASSIFICATION_GENOMAD ( ch_assembly_w_references_fasta_gz, ch_genomad_db ).viruses_fna_gz
     ch_versions = ch_versions.mix(FASTA_VIRUS_CLASSIFICATION_GENOMAD.out.versions.first())
 
     // create channel for genomad virus summary files
@@ -196,7 +196,7 @@ workflow PHAGEANNOTATOR {
     //
     // SUBWORKFLOW: Assess virus quality
     //
-    FASTA_VIRUS_QUALITY_CHECKV ( ch_viruses_fasta_gz, ch_genomad_db )
+    FASTA_VIRUS_QUALITY_CHECKV ( ch_viruses_fna_gz, ch_genomad_db )
     ch_versions = ch_versions.mix(FASTA_VIRUS_QUALITY_CHECKV.out.versions.first())
 
     // create a channel for quality summaries
@@ -209,12 +209,12 @@ workflow PHAGEANNOTATOR {
     ch_versions = ch_versions.mix(AWK_CHECKV.out.versions.first())
 
     // create channel for input into QUALITY_FILTER_VIRUSES
-    ch_quality_filter_viruses_input = FASTA_VIRUS_QUALITY_CHECKV.out.viruses.join(FASTA_VIRUS_QUALITY_CHECKV.out.proviruses).join(ch_quality_summary_tsv)
+    ch_quality_filter_viruses_input = FASTA_VIRUS_QUALITY_CHECKV.out.viruses_fna_gz.join(FASTA_VIRUS_QUALITY_CHECKV.out.proviruses_fna_gz).join(ch_quality_summary_tsv)
 
     //
     // MODULE: Quality filter viruses
     //
-    ch_filtered_viruses_fasta_gz = QUALITY_FILTER_VIRUSES ( ch_quality_filter_viruses_input ).filtered_viruses
+    ch_filtered_viruses_fna_gz = QUALITY_FILTER_VIRUSES ( ch_quality_filter_viruses_input ).filtered_viruses
     ch_versions = ch_versions.mix(QUALITY_FILTER_VIRUSES.out.versions.first())
 
     CUSTOM_DUMPSOFTWAREVERSIONS (

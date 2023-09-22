@@ -35,14 +35,14 @@ workflow FASTA_VIRUS_QUALITY_CHECKV {
     // MODULE: Assess virus quality
     //
     CHECKV_ENDTOEND ( virus_fasta_gz, ch_checkv_db )
-    ch_quality_summary_tsv = CHECKV_ENDTOEND.out.quality_summary
-    ch_viruses_fasta_gz = CHECKV_ENDTOEND.out.viruses
-    ch_proviruses_fasta_gz = CHECKV_ENDTOEND.out.proviruses
+    ch_quality_summary_tsv  = CHECKV_ENDTOEND.out.quality_summary
+    ch_viruses_fna_gz       = CHECKV_ENDTOEND.out.viruses
+    ch_proviruses_fna_gz    = CHECKV_ENDTOEND.out.proviruses
     ch_versions = ch_versions.mix(CHECKV_ENDTOEND.out.versions.first())
 
     emit:
-    viruses_fasta_gz    = ch_viruses_fasta_gz       // [ [ meta ], viruses.fasta.gz ]       , FASTA file containing viruses
-    proviruses_fasta_gz = ch_proviruses_fasta_gz    // [ [ meta ], proviruses.fasta.gz ]    , FASTA file containing proviruses
-    quality_summary_tsv = ch_quality_summary_tsv    // [ [ meta ], quality_summary.tsv ]    , TSV file containing quality data
+    viruses_fna_gz      = ch_viruses_fna_gz         // [ [ meta ], viruses.fna.gz ]       , FASTA file containing viruses
+    proviruses_fna_gz   = ch_proviruses_fna_gz      // [ [ meta ], proviruses.fna.gz ]    , FASTA file containing proviruses
+    quality_summary_tsv = ch_quality_summary_tsv    // [ [ meta ], quality_summary.tsv ]  , TSV file containing quality data
     versions            = ch_versions               // [ versions.yml ]
 }
