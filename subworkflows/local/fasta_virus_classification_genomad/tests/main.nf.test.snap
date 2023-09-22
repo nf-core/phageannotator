@@ -4,6 +4,7 @@
             [
                 [
                     [
+                        "genome_virus.fna.gz:md5,c2d03e27ae27e3eedd037621ee77c917",
                         "genome_virus_summary.tsv:md5,6899de91e735b5b930347d9d0fda8a7a"
                     ]
                 ],
@@ -46,6 +47,6 @@
                 ]
             ]
         ],
-        "timestamp": "2023-09-18T16:44:09+0000"
+        "timestamp": "2023-09-21T22:52:10+0000"
     }
 }

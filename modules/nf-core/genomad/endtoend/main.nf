@@ -9,7 +9,7 @@ process GENOMAD_ENDTOEND {
 
     input:
     tuple val(meta), path(fasta)
-    tuple val(meta2), path(genomad_db)
+    tuple path(genomad_db)
 
     output:
     tuple val(meta), path("*_aggregated_classification/*_aggregated_classification.tsv")    , emit: aggregated_classification

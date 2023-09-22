@@ -1,0 +1,31 @@
+{
+    "Should run without failures": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.filtered.fna.gz:md5,2576d8abbe1d5741cca1e890ae4f50a4"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,7362b3ced624c0bcea994d21e78863fb"
+                ],
+                "filtered_viruses": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.filtered.fna.gz:md5,2576d8abbe1d5741cca1e890ae4f50a4"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,7362b3ced624c0bcea994d21e78863fb"
+                ]
+            }
+        ],
+        "timestamp": "2023-09-22T16:06:21+0000"
+    }
+}

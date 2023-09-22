@@ -27,7 +27,7 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert workflow.trace.succeeded().size() == 2 },
-                { assert snapshot(path("$outputDir/VirusClassification").list()).match("fasta_virus_classification_genomad") }
+                { assert snapshot(path("$outputDir/VirusClassification/genomad/endtoend").list()).match("fasta_virus_classification_genomad") }
             )
         }
     }

@@ -9,7 +9,7 @@ process CHECKV_ENDTOEND {
 
     input:
     tuple val(meta), path(fasta)
-    tuple val(meta2), path(db)
+    path(db)
 
     output:
     tuple val(meta), path ("${prefix}/quality_summary.tsv") , emit: quality_summary

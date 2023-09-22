@@ -36,6 +36,8 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 include { SEQKIT_SEQ                                } from '../../modules/local/seqkit/seq/main'                                    // TODO: Add to nf-core
 include { AWK as AWK_GENOMAD                        } from '../../modules/local/awk/main'                                           // TODO: Add to nf-core
 include { APPEND_SCREEN_HITS                        } from '../../modules/local/append_screen_hits/main'
+include { AWK as AWK_CHECKV                         } from '../../modules/local/awk/main'                                           // TODO: Add to nf-core
+include { QUALITY_FILTER_VIRUSES                    } from '../../modules/local/quality_filter_viruses/main'
 
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
@@ -159,7 +161,7 @@ workflow PHAGEANNOTATOR {
     if ( !params.genomad_db ){
         ch_genomad_db = null
     } else {
-        ch_genomad_db = [ [ id:'genomad_db' ], file( params.genomad_db, checkIfExists:true ) ]
+        ch_genomad_db = file( params.genomad_db, checkIfExists:true )
     }
 
     //
@@ -188,7 +190,7 @@ workflow PHAGEANNOTATOR {
     if ( !params.checkv_db ){
         ch_checkv_db = null
     } else {
-        ch_checkv_db = [ [ id:'checkv_db' ], file( params.checkv_db, checkIfExists:true ) ]
+        ch_checkv_db = file( params.checkv_db, checkIfExists:true )
     }
 
     //
@@ -206,14 +208,13 @@ workflow PHAGEANNOTATOR {
     ch_combined_quality_summaries_tsv = AWK_CHECKV ( ch_quality_summary_tsv ).file_out
     ch_versions = ch_versions.mix(AWK_CHECKV.out.versions.first())
 
-    // create channel for viruses/proviruses output by checkv
-    ch_viruses_fasta_gz = FASTA_VIRUS_QUALITY_CHECKV.out.viruses
-    ch_proviruses_fasta_gz = FASTA_VIRUS_QUALITY_CHECKV.out.proviruses
+    // create channel for input into QUALITY_FILTER_VIRUSES
+    ch_quality_filter_viruses_input = FASTA_VIRUS_QUALITY_CHECKV.out.viruses.join(FASTA_VIRUS_QUALITY_CHECKV.out.proviruses).join(ch_quality_summary_tsv)
 
     //
     // MODULE: Quality filter viruses
     //
-    ch_filtered_viruses_fasta_gz = QUALITY_FILTER_VIRUSES ( ch_quality_summary_tsv, ch_viruses_fasta_gz, ch_proviruses_fasta_gz ).filtered_viruses
+    ch_filtered_viruses_fasta_gz = QUALITY_FILTER_VIRUSES ( ch_quality_filter_viruses_input ).filtered_viruses
     ch_versions = ch_versions.mix(QUALITY_FILTER_VIRUSES.out.versions.first())
 
     CUSTOM_DUMPSOFTWAREVERSIONS (

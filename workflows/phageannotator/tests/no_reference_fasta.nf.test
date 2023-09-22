@@ -1,0 +1,24 @@
+nextflow_pipeline {
+
+    name "Test Workflow PHAGEANNOTATOR"
+    script "main.nf"
+    tag "workflows"
+    tag "phageannotator"
+    tag "phageannotator_no_reference"
+
+
+    test("No --reference_virus_fasta") {
+        when {
+            params {
+                outdir = "$outputDir"
+                reference_virus_fasta   = null
+            }
+        }
+        then {
+            assertAll(
+                { assert workflow.trace.succeeded().size() == 0 },
+                { assert workflow.stdout.contains("[nf-core/phageannotator] ERROR: reference containment requested, but no --reference_virus_fasta provided") }
+            )
+        }
+    }
+}

@@ -4,12 +4,12 @@
 
 include { CHECKV_DOWNLOADDATABASE   } from '../../../modules/nf-core/checkv/downloaddatabase/main'
 include { GUNZIP                    } from '../../../modules/nf-core/gunzip/main'
-include { CHECKV_ENDTOEND           } from '../../../modules/nf-core/checkv/endtoend/main'
+include { CHECKV_ENDTOEND           } from '../../../modules/nf-core/checkv/endtoend/main'          // TODO: Update nf-core module to gzip output FASTA files
 
 workflow FASTA_VIRUS_QUALITY_CHECKV {
     take:
-    virus_fasta_gz  // [ [ meta ], fasta.gz ]       , assemblies/genomes (mandatory)
-    checkv_db       // [ [ meta ], checkv_db_dir ]  , CheckV database directory (optional)
+    virus_fasta_gz  // [ [ meta ], fasta.gz ]   , assemblies/genomes (mandatory)
+    checkv_db       // [ checkv_db ]            , CheckV database directory (optional)
 
     main:
     ch_versions = Channel.empty()
@@ -21,8 +21,7 @@ workflow FASTA_VIRUS_QUALITY_CHECKV {
         //
         // MODULE: download CheckV database
         //
-        ch_checkv_db_dir = CHECKV_DOWNLOADDATABASE( ).checkv_db
-        ch_checkv_db = ch_checkv_db_dir.map{[ [ id:'checkv_db' ], it ]}
+        ch_checkv_db = CHECKV_DOWNLOADDATABASE( ).checkv_db
         ch_versions = ch_versions.mix(CHECKV_DOWNLOADDATABASE.out.versions.first())
     }
 
