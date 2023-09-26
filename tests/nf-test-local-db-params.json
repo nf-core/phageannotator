@@ -1,4 +1,4 @@
 {
-    "genomad_db": "/workspaces/phageannotator/.nf-test/tests/7089de443761eebf205b4abc232ad31b/output/VirusClassification/genomad/genomad_db",
-    "checkv_db": "/workspaces/phageannotator/.nf-test/tests/471d31b5b3e57971e9cb398d52fb29ce/output/VirusQuality/checkv_db/checkv-db-v1.5"
+    "genomad_db": "/gscratch/pedslabs_hoffman/resources/genomad_db/",
+    "checkv_db": "/gscratch/pedslabs_hoffman/resources/checkv-db-v1.5"
 }

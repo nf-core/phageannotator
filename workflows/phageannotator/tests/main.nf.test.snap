@@ -1,61 +1,85 @@
 {
-    "software_versions": {
+    "Parameters: default": {
         "content": [
-            "{APPEND_SCREEN_HITS={biopython=1.78, pandas=1.3.5}, AWK_CHECKV={pigz=2.3.4}, AWK_GENOMAD={pigz=2.3.4}, CAT_MASH_SCREEN={pigz=2.3.4}, CHECKV_DOWNLOADDATABASE={checkv=1.0.1}, CUSTOM_DUMPSOFTWAREVERSIONS={python=3.11.0, yaml=6.0}, FASTQC={fastqc=0.11.9}, GENOMAD_DOWNLOAD={genomad=1.5.2}, MASH_SKETCH_REFERENCES={mash=2.3}, QUALITY_FILTER_VIRUSES={biopython=1.78, pandas=1.3.5}, SEQKIT_SEQ={seqkit=2.2.0}, Workflow={nf-core/phageannotator=1.0dev}}"
-        ],
-        "timestamp": "2023-09-22T18:11:49+0000"
-    },
-    "fastq_fasta_reference_containment_mash": {
-        "content": [
-            "all_samples.screen:md5,b074c6861bab21e2b3aa63aebff1f392",
-            [
-                "test1.fasta_w_screen_hits.fna.gz:md5,a8a0353be8912b70ca8c3fb370f9134a"
-            ],
-            [
-                [
-                    "test1.screen:md5,b074c6861bab21e2b3aa63aebff1f392"
+            {
+                "0": [
+                    
                 ],
-                [
-                    "reference_viruses.msh:md5,1603390852e55b99abee283a2490f070"
+                "1": [
+                    [
+                        {
+                            "id": "all_samples"
+                        },
+                        "all_samples.screen:md5,b074c6861bab21e2b3aa63aebff1f392"
+                    ]
+                ],
+                "2": [
+                    [
+                        {
+                            "id": "all_samples"
+                        },
+                        "all_samples.tsv:md5,8aa138f16ebdaf23163791d8bba3427a"
+                    ]
+                ],
+                "3": [
+                    [
+                        {
+                            "id": "all_samples"
+                        },
+                        "all_samples.tsv:md5,c96fdb5e5f179205fe23cee7a194c270"
+                    ]
+                ],
+                "4": [
+                    "versions.yml:md5,7e54b5f822df67b99faf67629e81963f",
+                    "versions.yml:md5,2b068b9678f63d6bb06a2a3652e92ba9",
+                    "versions.yml:md5,89c21d0ccbb6b01ccdc3bdb788443187",
+                    "versions.yml:md5,075c19238b0528c7574b99190320a4a1",
+                    "versions.yml:md5,5fe02e751ec8f88e57be60b39f951cc4",
+                    "versions.yml:md5,c97cb7740ce1aa3cf22cb6e8be2d62ce",
+                    "versions.yml:md5,ec5ed3d0ce36e0e32ba47ce69e1ce4b1",
+                    "versions.yml:md5,8f4cfce986149a10f9c2029b48c28810",
+                    "versions.yml:md5,995518cecee8eed38a4f357b7f57fd33"
+                ],
+                "filtered_viruses_fna_gz": [
+                    
+                ],
+                "reference_containment_report": [
+                    [
+                        {
+                            "id": "all_samples"
+                        },
+                        "all_samples.screen:md5,b074c6861bab21e2b3aa63aebff1f392"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,7e54b5f822df67b99faf67629e81963f",
+                    "versions.yml:md5,2b068b9678f63d6bb06a2a3652e92ba9",
+                    "versions.yml:md5,89c21d0ccbb6b01ccdc3bdb788443187",
+                    "versions.yml:md5,075c19238b0528c7574b99190320a4a1",
+                    "versions.yml:md5,5fe02e751ec8f88e57be60b39f951cc4",
+                    "versions.yml:md5,c97cb7740ce1aa3cf22cb6e8be2d62ce",
+                    "versions.yml:md5,ec5ed3d0ce36e0e32ba47ce69e1ce4b1",
+                    "versions.yml:md5,8f4cfce986149a10f9c2029b48c28810",
+                    "versions.yml:md5,995518cecee8eed38a4f357b7f57fd33"
+                ],
+                "virus_classification_report": [
+                    [
+                        {
+                            "id": "all_samples"
+                        },
+                        "all_samples.tsv:md5,8aa138f16ebdaf23163791d8bba3427a"
+                    ]
+                ],
+                "virus_quality_report": [
+                    [
+                        {
+                            "id": "all_samples"
+                        },
+                        "all_samples.tsv:md5,c96fdb5e5f179205fe23cee7a194c270"
+                    ]
                 ]
-            ]
+            }
         ],
-        "timestamp": "2023-09-22T18:11:49+0000"
-    },
-    "fasta_virus_quality_checkv": {
-        "content": [
-            [
-                "proviruses.fna.gz:md5,7029066c27ac6f5ef18d660d5741979a",
-                "quality_summary.tsv:md5,c96fdb5e5f179205fe23cee7a194c270",
-                "viruses.fna.gz:md5,82bde1db0b611b3f2a2921a00831db97"
-            ]
-        ],
-        "timestamp": "2023-09-22T18:11:49+0000"
-    },
-    "fasta_virus_classification_genomad": {
-        "content": [
-            [
-                "test1.fasta_w_screen_hits_virus.fna.gz:md5,b06f4bc2e21a17122fb999ba661ab821",
-                "test1.fasta_w_screen_hits_virus_summary.tsv:md5,8aa138f16ebdaf23163791d8bba3427a"
-            ]
-        ],
-        "timestamp": "2023-09-22T18:11:49+0000"
-    },
-    "multiqc": {
-        "content": [
-            "multiqc_fastqc.txt:md5,953352f4a0f1bac9058125b8f04e9926",
-            "multiqc_general_stats.txt:md5,671fea3ac1c370f05baed7350eac1477"
-        ],
-        "timestamp": "2023-09-22T18:11:49+0000"
-    },
-    "seqkit_seq": {
-        "content": [
-            [
-                [
-                    "test1.fasta.gz:md5,b91bcdca503b2b02005cae7fc5a594b7"
-                ]
-            ]
-        ],
-        "timestamp": "2023-09-22T18:11:49+0000"
+        "timestamp": "2023-09-26T19:28:57+0000"
     }
 }

@@ -76,6 +76,10 @@
                     "description": "Path to mash sketch file for reference virus sequences",
                     "format": "file-path"
                 },
+                "save_reference_virus_sketch": {
+                    "type": "boolean",
+                    "description": "Save reference virus sketch, if it was created."
+                },
                 "mash_screen_min_score": {
                     "type": "number",
                     "default": 0.95,
@@ -94,6 +98,10 @@
                     "type": "string",
                     "description": "Path to directory containing geNomad's database",
                     "format": "directory-path"
+                },
+                "save_genomad_db": {
+                    "type": "boolean",
+                    "description": "Save geNomad's database, if it was downloaded."
                 },
                 "genomad_min_score": {
                     "type": "number",
@@ -122,6 +130,10 @@
                     "type": "string",
                     "description": "Path to directory containing CheckV database",
                     "format": "directory-path"
+                },
+                "save_checkv_db": {
+                    "type": "boolean",
+                    "description": "Save CheckV's database, if it was downloaded"
                 },
                 "checkv_min_length": {
                     "type": "integer",
@@ -292,9 +304,14 @@
                 "multiqc_config": {
                     "type": "string",
                     "format": "file-path",
-                    "description": "Custom config file to supply to MultiQC.",
+                    "description": "Config file to supply to MultiQC.",
                     "fa_icon": "fas fa-cog",
                     "hidden": true
+                },
+                "multiqc_custom_config": {
+                    "type": "string",
+                    "fa_icon": "fas fa-cog",
+                    "description": "Custom config file to supply to MultiQC"
                 },
                 "multiqc_logo": {
                     "type": "string",

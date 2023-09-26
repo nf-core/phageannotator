@@ -1,11 +1,11 @@
 nextflow_process {
 
-    name "Test process: APPEND_SCREEN_HITS"
-    script "modules/local/append_screen_hits/main.nf"
-    process "APPEND_SCREEN_HITS"
+    name "Test process: APPENDSCREENHITS"
+    script "modules/local/appendscreenhits/main.nf"
+    process "APPENDSCREENHITS"
     tag "modules"
     tag "modules_local"
-    tag "append_screen_hits"
+    tag "appendscreenhits"
 
 
     test("Should run without failures") {

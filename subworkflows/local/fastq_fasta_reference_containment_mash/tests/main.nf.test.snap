@@ -1,17 +1,37 @@
 {
-    "full_fastq_fasta_reference_containment_mash": {
+    "Parameters: default": {
         "content": [
-            [
-                [
+            {
+                "0": [
                     [
+                        {
+                            "id": "test"
+                        },
                         "test.screen:md5,77858d67f1513d5883d1d1aa22f48629"
-                    ],
-                    [
-                        "reference_viruses.msh:md5,1603390852e55b99abee283a2490f070"
                     ]
+                ],
+                "1": [
+                    "versions.yml:md5,418b54f7ff265f4ff933e51868b82d47",
+                    "versions.yml:md5,c1d295c206d08ab24a095537745ee679",
+                    "versions.yml:md5,e516cb0998c459ba772f1b5a55696f2c",
+                    "versions.yml:md5,481065b75b92012f105cefce45278e0b"
+                ],
+                "mash_screen_results": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.screen:md5,77858d67f1513d5883d1d1aa22f48629"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,418b54f7ff265f4ff933e51868b82d47",
+                    "versions.yml:md5,c1d295c206d08ab24a095537745ee679",
+                    "versions.yml:md5,e516cb0998c459ba772f1b5a55696f2c",
+                    "versions.yml:md5,481065b75b92012f105cefce45278e0b"
                 ]
-            ]
+            }
         ],
-        "timestamp": "2023-09-18T16:03:42+0000"
+        "timestamp": "2023-09-26T21:52:54+0000"
     }
 }

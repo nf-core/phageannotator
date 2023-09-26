@@ -7,7 +7,7 @@ nextflow_pipeline {
     tag "phageannotator_no_reference"
 
 
-    test("No --reference_virus_fasta") {
+    test("Parameters: --reference_virus_fasta = null") {
         when {
             params {
                 outdir = "$outputDir"

@@ -1,4 +1,4 @@
-process QUALITY_FILTER_VIRUSES {
+process QUALITYFILTERVIRUSES {
     tag "$meta.id"
     label 'process_low'
 

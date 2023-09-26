@@ -9,7 +9,7 @@ nextflow_workflow {
     tag "fasta_virus_classification_genomad_db_provided"
 
 
-    test("Test --genomad_db provided") {
+    test("Parameters: --genomad_db provided") {
         when {
             params {
                 load("$baseDir/tests/nf-test-local-db-params.json")
@@ -26,8 +26,7 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert workflow.trace.succeeded().size() == 1 },
-                { assert snapshot(path("$outputDir/VirusClassification/genomad/endtoend").list()).match("fasta_virus_classification_genomad") }
+                { assert snapshot(workflow.out).match() }
             )
         }
     }

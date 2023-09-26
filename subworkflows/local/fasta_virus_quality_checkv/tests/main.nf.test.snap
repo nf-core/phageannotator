@@ -1,12 +1,67 @@
 {
-    "fasta_virus_quality_checkv": {
+    "Parameters: default": {
         "content": [
-            [
-                "proviruses.fna.gz:md5,8e31b56780f8b1e604fc8dfa5c4b5921",
-                "quality_summary.tsv:md5,04e827b7efefe52727a904cfd3af1639",
-                "viruses.fna.gz:md5,1b6b8c20b3e1b5aa7dafccf01529c3be"
-            ]
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "viruses.fna.gz:md5,1b6b8c20b3e1b5aa7dafccf01529c3be"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "proviruses.fna.gz:md5,8e31b56780f8b1e604fc8dfa5c4b5921"
+                    ]
+                ],
+                "2": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "quality_summary.tsv:md5,04e827b7efefe52727a904cfd3af1639"
+                    ]
+                ],
+                "3": [
+                    "versions.yml:md5,e4d4311cae4bcb6711e82eef25b187ff",
+                    "versions.yml:md5,58c018640348d4755b08dd850a477465",
+                    "versions.yml:md5,bde8142f045061369c16cd56d51698ed"
+                ],
+                "proviruses_fna_gz": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "proviruses.fna.gz:md5,8e31b56780f8b1e604fc8dfa5c4b5921"
+                    ]
+                ],
+                "quality_summary_tsv": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "quality_summary.tsv:md5,04e827b7efefe52727a904cfd3af1639"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,e4d4311cae4bcb6711e82eef25b187ff",
+                    "versions.yml:md5,58c018640348d4755b08dd850a477465",
+                    "versions.yml:md5,bde8142f045061369c16cd56d51698ed"
+                ],
+                "viruses_fna_gz": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "viruses.fna.gz:md5,1b6b8c20b3e1b5aa7dafccf01529c3be"
+                    ]
+                ]
+            }
         ],
-        "timestamp": "2023-09-22T14:31:18+0000"
+        "timestamp": "2023-09-26T21:49:19+0000"
     }
 }

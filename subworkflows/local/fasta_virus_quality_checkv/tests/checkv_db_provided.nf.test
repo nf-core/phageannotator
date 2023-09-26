@@ -9,7 +9,7 @@ nextflow_workflow {
     tag "fasta_virus_quality_checkv_db_provided"
 
 
-    test("Test --checkv_db provided") {
+    test("Parameters: --checkv_db provided") {
 
         when {
             params {
@@ -27,8 +27,7 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert workflow.trace.succeeded().size() == 2 },
-                { assert snapshot(path("$outputDir/VirusQuality/checkv/endtoend").list()).match("fasta_virus_quality_checkv") }
+                { assert snapshot(workflow.out).match() }
             )
         }
     }

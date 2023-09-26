@@ -1,4 +1,4 @@
-process APPEND_SCREEN_HITS {
+process APPENDSCREENHITS {
     tag "$meta.id"
     label 'process_low'
 
