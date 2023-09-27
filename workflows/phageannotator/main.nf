@@ -199,21 +199,22 @@ workflow PHAGEANNOTATOR {
     ch_versions = ch_versions.mix(FASTA_VIRUS_QUALITY_CHECKV.out.versions.first())
 
     // create a channel for quality summaries
-    ch_quality_summary_tsv = FASTA_VIRUS_QUALITY_CHECKV.out.quality_summary_tsv.map { [ [ id:'all_samples' ], it[1] ] }.groupTuple()
+    ch_quality_summaries_tsv = FASTA_VIRUS_QUALITY_CHECKV.out.quality_summary_tsv.map { [ [ id:'all_samples' ], it[1] ] }.groupTuple()
 
     //
     // MODULE: Combine quality summaries across samples
     //
-    ch_combined_quality_summaries_tsv = AWK_CHECKV ( ch_quality_summary_tsv ).file_out
+    ch_combined_quality_summaries_tsv = AWK_CHECKV ( ch_quality_summaries_tsv ).file_out
     ch_versions = ch_versions.mix(AWK_CHECKV.out.versions.first())
 
     // create channel for input into QUALITY_FILTER_VIRUSES
-    ch_quality_filter_viruses_input = FASTA_VIRUS_QUALITY_CHECKV.out.viruses_fna_gz.join(FASTA_VIRUS_QUALITY_CHECKV.out.proviruses_fna_gz).join(ch_quality_summary_tsv)
+    ch_quality_filter_viruses_input1 = FASTA_VIRUS_QUALITY_CHECKV.out.viruses_fna_gz.join(FASTA_VIRUS_QUALITY_CHECKV.out.proviruses_fna_gz)
+    ch_quality_filter_viruses_input2 = ch_quality_filter_viruses_input1.join(FASTA_VIRUS_QUALITY_CHECKV.out.quality_summary_tsv)
 
     //
     // MODULE: Quality filter viruses
     //
-    ch_filtered_viruses_fna_gz = QUALITYFILTERVIRUSES ( ch_quality_filter_viruses_input ).filtered_viruses
+    ch_filtered_viruses_fna_gz = QUALITYFILTERVIRUSES ( ch_quality_filter_viruses_input2 ).filtered_viruses
     ch_versions = ch_versions.mix(QUALITYFILTERVIRUSES.out.versions.first())
 
     //

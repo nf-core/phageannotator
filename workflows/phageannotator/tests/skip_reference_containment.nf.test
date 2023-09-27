@@ -1,7 +1,8 @@
-nextflow_pipeline {
+nextflow_workflow {
 
-    name "Test Workflow main.nf"
+    name "Test workflow: PHAGEANNOTATOR"
     script "main.nf"
+    workflow "PHAGEANNOTATOR"
     tag "workflows"
     tag "phageannotator"
     tag "phageannotator_skip_reference"
