@@ -13,11 +13,16 @@ nextflow_workflow {
                 outdir  = "$outputDir"
             }
         }
+
         then {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(workflow.out).match() }
             )
+        }
+
+        cleanup {
+                path("$workDir").deleteDir()
         }
     }
 }
