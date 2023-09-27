@@ -4,7 +4,7 @@ nextflow_pipeline {
     script "main.nf"
     tag "workflows"
     tag "phageannotator"
-    tag "phageannotator_skip_reference_based"
+    tag "phageannotator_skip_reference"
 
 
     test("Parameters: --skip-reference-containment") {

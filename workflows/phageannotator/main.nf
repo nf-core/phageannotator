@@ -249,7 +249,6 @@ workflow PHAGEANNOTATOR {
     reference_containment_report    = ch_combined_mash_screen_tsv
     virus_classification_report     = ch_combined_virus_summaries_tsv
     virus_quality_report            = ch_combined_quality_summaries_tsv
-    versions                        = ch_versions.unique()
 }
 
 /*
