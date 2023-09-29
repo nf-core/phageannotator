@@ -9,7 +9,7 @@ nextflow_workflow {
     tag "fastq_fasta_reference_containment_mash_sketch_provided"
 
 
-    test("Mash sketch provided") {
+    test("Parameters: --reference_virus_sketch provided") {
 
         when {
             params {
@@ -29,8 +29,7 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert workflow.trace.succeeded().size() == 3 },
-                { assert snapshot(path("$outputDir/ReferenceContainment")).match("full_fastq_fasta_reference_containment_mash") }
+                { assert snapshot(workflow.out).match() }
                 )
             }
         }

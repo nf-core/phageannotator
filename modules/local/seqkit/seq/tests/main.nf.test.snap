@@ -26,35 +26,6 @@
                 ]
             }
         ],
-        "timestamp": "2023-09-13T21:35:04+0000"
-    },
-    "Test SEQKIT_SEQ": {
-        "content": [
-            {
-                "0": [
-                    [
-                        {
-                            "id": "test"
-                        },
-                        "test.fasta.gz:md5,1ba7400573b6a6bf7b4be695fc7e6076"
-                    ]
-                ],
-                "1": [
-                    "versions.yml:md5,de038a980ca1e484c0e34f4af3f05c2a"
-                ],
-                "fastx": [
-                    [
-                        {
-                            "id": "test"
-                        },
-                        "test.fasta.gz:md5,1ba7400573b6a6bf7b4be695fc7e6076"
-                    ]
-                ],
-                "versions": [
-                    "versions.yml:md5,de038a980ca1e484c0e34f4af3f05c2a"
-                ]
-            }
-        ],
-        "timestamp": "2023-09-13T21:35:04+0000"
+        "timestamp": "2023-09-25T20:31:48+0000"
     }
 }

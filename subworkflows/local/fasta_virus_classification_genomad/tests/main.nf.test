@@ -6,10 +6,10 @@ nextflow_workflow {
     tag "subworkflows"
     tag "subworkflows_local"
     tag "fasta_virus_classification_genomad"
-    tag "fasta_virus_classification_genomad_full"
+    tag "fasta_virus_classification_genomad_default"
 
 
-    test("Test full fasta_virus_classification_genomad subworkflow") {
+    test("Parameters: default") {
 
         when {
             params {
@@ -26,8 +26,7 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert workflow.trace.succeeded().size() == 2 },
-                { assert snapshot(path("$outputDir/VirusClassification").list()).match("fasta_virus_classification_genomad") }
+                { assert snapshot(workflow.out).match() }
             )
         }
     }

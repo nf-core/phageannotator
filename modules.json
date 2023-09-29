@@ -10,6 +10,17 @@
                         "git_sha": "911696ea0b62df80e900ef244d7867d177971f73",
                         "installed_by": ["modules"]
                     },
+                    "checkv/downloaddatabase": {
+                        "branch": "master",
+                        "git_sha": "911696ea0b62df80e900ef244d7867d177971f73",
+                        "installed_by": ["modules"]
+                    },
+                    "checkv/endtoend": {
+                        "branch": "master",
+                        "git_sha": "911696ea0b62df80e900ef244d7867d177971f73",
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/checkv/endtoend/checkv-endtoend.diff"
+                    },
                     "custom/dumpsoftwareversions": {
                         "branch": "master",
                         "git_sha": "76cc4938c1f6ea5c7d83fed1eeffc146787f9543",
@@ -30,6 +41,11 @@
                         "git_sha": "ca813f3f73adedf3547a5a677e992d9d43a71870",
                         "installed_by": ["modules"],
                         "patch": "modules/nf-core/genomad/endtoend/genomad-endtoend.diff"
+                    },
+                    "gunzip": {
+                        "branch": "master",
+                        "git_sha": "e06548bfa36ee31869b81041879dd6b3a83b1d57",
+                        "installed_by": ["modules"]
                     },
                     "mash/screen": {
                         "branch": "master",

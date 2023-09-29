@@ -1,0 +1,39 @@
+nextflow_process {
+
+    name "Test process: QUALITYFILTERVIRUSES"
+    script "modules/local/qualityfilterviruses/main.nf"
+    process "QUALITYFILTERVIRUSES"
+    tag "modules"
+    tag "modules_local"
+    tag "qualityfilterviruses"
+
+
+    test("Should run without failures") {
+
+        when {
+            params {
+                outdir   = "$outputDir"
+            }
+
+            process {
+                """
+                input[0] = [ [ id: 'test' ], [ file(params.test_data['modules_local']['viruses_fna_gz'], checkIfExists: true) ],
+                            [ file(params.test_data['modules_local']['proviruses_fna_gz'], checkIfExists: true) ],
+                            [ file(params.test_data['modules_local']['quality_summary_tsv'], checkIfExists: true)] ]
+                """
+            }
+        }
+
+        then {
+            assertAll (
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+
+        cleanup {
+                println "Clean up..."
+            path("$workDir").deleteDir()
+        }
+    }
+}

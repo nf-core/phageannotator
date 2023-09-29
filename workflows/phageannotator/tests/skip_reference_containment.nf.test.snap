@@ -1,0 +1,65 @@
+{
+    "Parameters: --skip-reference-containment": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test1",
+                            "group": "test"
+                        },
+                        "test1.filtered.fna.gz:md5,6f0ea04deb1cb5458c2a70a455762f06"
+                    ]
+                ],
+                "1": [
+                    
+                ],
+                "2": [
+                    [
+                        {
+                            "id": "all_samples"
+                        },
+                        "all_samples.tsv:md5,a87e4d5fc91195d2f8e7bb5f11f3af20"
+                    ]
+                ],
+                "3": [
+                    [
+                        {
+                            "id": "all_samples"
+                        },
+                        "all_samples.tsv:md5,4cd058c32d6fdfd517b232af4908113f"
+                    ]
+                ],
+                "filtered_viruses_fna_gz": [
+                    [
+                        {
+                            "id": "test1",
+                            "group": "test"
+                        },
+                        "test1.filtered.fna.gz:md5,6f0ea04deb1cb5458c2a70a455762f06"
+                    ]
+                ],
+                "reference_containment_report": [
+                    
+                ],
+                "virus_classification_report": [
+                    [
+                        {
+                            "id": "all_samples"
+                        },
+                        "all_samples.tsv:md5,a87e4d5fc91195d2f8e7bb5f11f3af20"
+                    ]
+                ],
+                "virus_quality_report": [
+                    [
+                        {
+                            "id": "all_samples"
+                        },
+                        "all_samples.tsv:md5,4cd058c32d6fdfd517b232af4908113f"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2023-09-27T18:30:44+0000"
+    }
+}

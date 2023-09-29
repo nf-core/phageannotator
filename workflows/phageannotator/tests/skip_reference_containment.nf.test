@@ -1,0 +1,31 @@
+nextflow_workflow {
+
+    name "Test workflow: PHAGEANNOTATOR"
+    script "main.nf"
+    workflow "PHAGEANNOTATOR"
+    tag "workflows"
+    tag "phageannotator"
+    tag "phageannotator_skip_reference"
+
+
+    test("Parameters: --skip-reference-containment") {
+
+        when {
+            params {
+                outdir                      = "$outputDir"
+                skip_reference_containment  = true
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+
+        cleanup {
+                path("$workDir").deleteDir()
+        }
+    }
+}

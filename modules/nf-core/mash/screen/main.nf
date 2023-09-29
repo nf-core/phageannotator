@@ -8,7 +8,7 @@ process MASH_SCREEN {
         'biocontainers/mash:2.3--he348c14_1' }"
 
     input:
-    tuple val(meta), path(query), path(sequences_sketch)
+    tuple val(meta), path(query), path(sketch)
 
     output:
     tuple val(meta), path("*.screen"), emit: screen
@@ -25,7 +25,7 @@ process MASH_SCREEN {
         screen \\
         $args \\
         -p $task.cpus \\
-        $sequences_sketch \\
+        $sketch \\
         $query \\
         > ${prefix}.screen
 

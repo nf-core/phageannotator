@@ -3,12 +3,12 @@
 //
 
 include { GENOMAD_DOWNLOAD   } from '../../../modules/nf-core/genomad/download/main'
-include { GENOMAD_ENDTOEND   } from '../../../modules/nf-core/genomad/endtoend/main'    // TODO: Update module to gzip output files
+include { GENOMAD_ENDTOEND   } from '../../../modules/nf-core/genomad/endtoend/main'    // TODO: Update nf-core module to gzip output files
 
 workflow FASTA_VIRUS_CLASSIFICATION_GENOMAD {
     take:
-    fasta_gz    // [ [ meta ], fasta.gz ]       , assemblies/genomes (mandatory)
-    genomad_db  // [ [ meta ], genomad_db_dir ] , genomad database directory (optional)
+    fasta_gz    // [ [ meta ], fasta.gz ]   , assemblies/genomes (mandatory)
+    genomad_db  // [ genomad_db ]           , genomad database directory (optional)
 
     main:
     ch_versions = Channel.empty()
@@ -20,21 +20,20 @@ workflow FASTA_VIRUS_CLASSIFICATION_GENOMAD {
         //
         // MODULE: download geNomad database
         //
-        ch_genomad_db_dir = GENOMAD_DOWNLOAD( ).genomad_db
-        ch_genomad_db = ch_genomad_db_dir.map{[ [ id:'genomad_db' ], it ]}
+        ch_genomad_db = GENOMAD_DOWNLOAD( ).genomad_db
         ch_versions = ch_versions.mix(GENOMAD_DOWNLOAD.out.versions.first())
     }
 
     //
     // MODULE: Classify/annotate viral sequences
     //
-    ch_viruses_fasta_gz = GENOMAD_ENDTOEND ( fasta_gz, ch_genomad_db ).virus_fasta
+    ch_viruses_fna_gz = GENOMAD_ENDTOEND ( fasta_gz, ch_genomad_db ).virus_fasta
     ch_virus_summaries_tsv = GENOMAD_ENDTOEND.out.virus_summary
     ch_versions = ch_versions.mix(GENOMAD_ENDTOEND.out.versions.first())
 
     emit:
-    viruses_fasta_gz = ch_viruses_fasta_gz          // [ [ meta ], fasta.gz ]           , FASTA file containing viral sequences
+    viruses_fna_gz      = ch_viruses_fna_gz         // [ [ meta ], fna.gz ]             , FASTA file containing viral sequences
     virus_summaries_tsv = ch_virus_summaries_tsv    // [ [ meta ], virus_summary.tsv ]  , TSV file containing virus information
-    versions = ch_versions                          // [ versions.yml ]
+    versions            = ch_versions               // [ versions.yml ]
 
 }

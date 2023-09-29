@@ -2,10 +2,10 @@
 // Identify sequences contained in readset
 //
 
-include { MASH_SKETCH as MASH_SKETCH_ASSEMBLIES } from '../../../modules/nf-core/mash/sketch/main'
-include { MASH_SKETCH as MASH_SKETCH_REFERENCES } from '../../../modules/nf-core/mash/sketch/main'
-include { MASH_PASTE                            } from '../../../modules/local/mash/paste/main'         // TODO: Add to nf-core
-include { MASH_SCREEN                           } from '../../../modules/nf-core/mash/screen/main'
+include { MASH_SKETCH as MASH_SKETCH_ASSEMBLIES } from '../../../modules/nf-core/mash/sketch/main'      // TODO: Update nf-core module to remove optional -r argument
+include { MASH_SKETCH as MASH_SKETCH_REFERENCES } from '../../../modules/nf-core/mash/sketch/main'      // TODO: Update nf-core module to remove optional -r argument
+include { MASH_PASTE                            } from '../../../modules/local/mash/paste/main'         // TODO: Add module to nf-core
+include { MASH_SCREEN                           } from '../../../modules/nf-core/mash/screen/main'      // TODO: Update nf-core module to add meta to sketch
 
 workflow FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH {
     take:

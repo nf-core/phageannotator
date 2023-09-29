@@ -35,6 +35,14 @@ if (params.validate_params) {
 
 WorkflowMain.initialise(workflow, params, log)
 
+
+/*
+========================================================================================
+    IMPORT MODULES/SUBWORKFLOWS
+========================================================================================
+*/
+
+
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     NAMED WORKFLOW FOR PIPELINE
@@ -47,7 +55,11 @@ include { PHAGEANNOTATOR } from './workflows/phageannotator/main'
 // WORKFLOW: Run main nf-core/phageannotator analysis pipeline
 //
 workflow NFCORE_PHAGEANNOTATOR {
-    PHAGEANNOTATOR ()
+
+    //
+    // WORKFLOW: Classify and annotate phage sequences in assemblies
+    //
+    PHAGEANNOTATOR ( )
 }
 
 /*

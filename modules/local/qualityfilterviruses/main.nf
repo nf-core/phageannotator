@@ -1,4 +1,4 @@
-process APPEND_SCREEN_HITS {
+process QUALITYFILTERVIRUSES {
     tag "$meta.id"
     label 'process_low'
 
@@ -8,12 +8,11 @@ process APPEND_SCREEN_HITS {
         'biocontainers/mulled-v2-80c23cbcd32e2891421c54d1899665046feb07ef:77a31e289d22068839533bf21f8c4248ad274b60-0' }"
 
     input:
-    tuple val(meta), path(mash_screen),  path(assembly_fasta)
-    tuple val(meta2), path(reference_fasta)
+    tuple val(meta), path(viruses), path(proviruses), path(quality_summary)
 
     output:
-    tuple val(meta), path("*.fasta_w_screen_hits.fna.gz")   , emit: assembly_w_screen_hits
-    path "versions.yml"                                     , emit: versions
+    tuple val(meta), path("*.filtered.fna.gz")  , emit: filtered_viruses
+    path "versions.yml"                         , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -22,14 +21,14 @@ process APPEND_SCREEN_HITS {
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
-    append_screen_hits.py \\
-        --reference_fasta $reference_fasta \\
-        --mash_screen_results $mash_screen \\
-        --assembly_fasta $assembly_fasta \\
-        --prefix $prefix \\
-        --output ${prefix}.fasta_w_screen_hits.fna
+    quality_filter_viruses.py \\
+        --viruses $viruses \\
+        --proviruses $proviruses \\
+        --quality_summary $quality_summary \\
+        --output ${prefix}.filtered.fna \\
+        $args
 
-    gzip ${prefix}.fasta_w_screen_hits.fna
+    gzip ${prefix}.filtered.fna
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
@@ -42,7 +41,7 @@ process APPEND_SCREEN_HITS {
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
-    touch ${prefix}.fasta_w_screen_hits.fna.gz
+    touch ${prefix}.filtered.fna.gz
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

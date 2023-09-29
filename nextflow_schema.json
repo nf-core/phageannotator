@@ -76,6 +76,10 @@
                     "description": "Path to mash sketch file for reference virus sequences",
                     "format": "file-path"
                 },
+                "save_reference_virus_sketch": {
+                    "type": "boolean",
+                    "description": "Save reference virus sketch, if it was created."
+                },
                 "mash_screen_min_score": {
                     "type": "number",
                     "default": 0.95,
@@ -95,6 +99,10 @@
                     "description": "Path to directory containing geNomad's database",
                     "format": "directory-path"
                 },
+                "save_genomad_db": {
+                    "type": "boolean",
+                    "description": "Save geNomad's database, if it was downloaded."
+                },
                 "genomad_min_score": {
                     "type": "number",
                     "default": 0.7,
@@ -109,6 +117,41 @@
                     "type": "integer",
                     "default": 1,
                     "description": "Number of splits for running geNomad (more splits lowers memory requirements)"
+                }
+            }
+        },
+        "virus_quality_options": {
+            "title": "Virus quality options",
+            "type": "object",
+            "description": "Assess virus quality and filter",
+            "default": "",
+            "properties": {
+                "checkv_db": {
+                    "type": "string",
+                    "description": "Path to directory containing CheckV database",
+                    "format": "directory-path"
+                },
+                "save_checkv_db": {
+                    "type": "boolean",
+                    "description": "Save CheckV's database, if it was downloaded"
+                },
+                "checkv_min_length": {
+                    "type": "integer",
+                    "default": 3000,
+                    "description": "Minimum virus length to pass filtering"
+                },
+                "checkv_min_completeness": {
+                    "type": "integer",
+                    "default": 50,
+                    "description": "Minimum CheckV completeness to pass filtering"
+                },
+                "checkv_remove_proviruses": {
+                    "type": "boolean",
+                    "description": "Remove viruses labeled as provirus by geNomad or CheckV"
+                },
+                "checkv_remove_warnings": {
+                    "type": "boolean",
+                    "description": "Remove viruses with CheckV warnings"
                 }
             }
         },
@@ -261,9 +304,14 @@
                 "multiqc_config": {
                     "type": "string",
                     "format": "file-path",
-                    "description": "Custom config file to supply to MultiQC.",
+                    "description": "Config file to supply to MultiQC.",
                     "fa_icon": "fas fa-cog",
                     "hidden": true
+                },
+                "multiqc_custom_config": {
+                    "type": "string",
+                    "fa_icon": "fas fa-cog",
+                    "description": "Custom config file to supply to MultiQC"
                 },
                 "multiqc_logo": {
                     "type": "string",
@@ -319,6 +367,9 @@
         },
         {
             "$ref": "#/definitions/virus_classification_options"
+        },
+        {
+            "$ref": "#/definitions/virus_quality_options"
         },
         {
             "$ref": "#/definitions/institutional_config_options"
