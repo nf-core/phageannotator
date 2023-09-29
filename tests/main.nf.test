@@ -1,0 +1,28 @@
+nextflow_workflow {
+
+    name "Test pipeline: NFCORE_PHAGEANNOTATOR"
+    script "main.nf"
+    workflow "NFCORE_PHAGEANNOTATOR"
+    tag "pipeline"
+    tag "nf-core-phageannotator"
+    tag "nf-core-phageannotator_default"
+
+    test("Parameters: default") {
+        when {
+            params {
+                outdir  = "$outputDir"
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+
+        cleanup {
+            path("$workDir").deleteDir()
+        }
+    }
+}

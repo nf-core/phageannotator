@@ -1,7 +1,7 @@
 nextflow_workflow {
 
     name "Test workflow: PHAGEANNOTATOR"
-    script "main.nf"
+    script "workflows/phageannotator/main.nf"
     workflow "PHAGEANNOTATOR"
     tag "workflows"
     tag "phageannotator"
@@ -9,6 +9,13 @@ nextflow_workflow {
 
     test("Parameters: default") {
         when {
+            workflow {
+                """
+                input[0] = Channel.of( [ [ id:'test' ], [ file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_1.fastq.gz', checkIfExists: true),
+                            file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_2.fastq.gz', checkIfExists:true) ] ] )
+                input[1] = Channel.of( [ [ id:'test' ], [ file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/genome/genome.fna.gz', checkIfExists:true) ] ] )
+                """
+            }
             params {
                 outdir  = "$outputDir"
             }

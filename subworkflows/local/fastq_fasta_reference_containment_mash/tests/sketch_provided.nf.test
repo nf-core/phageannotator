@@ -33,5 +33,9 @@ nextflow_workflow {
                 )
             }
         }
+
+        cleanup {
+            path("$workDir").deleteDir()
+        }
     }
 }

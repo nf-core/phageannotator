@@ -31,7 +31,6 @@ workflow FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH {
         // MODULE: Create sketch of reference sequences
         //
         ch_reference_sketch_msh = MASH_SKETCH_REFERENCES ( reference_fasta_gz ).mash
-        ch_versions = ch_versions.mix(MASH_SKETCH_REFERENCES.out.versions.first())
     }
 
     //

@@ -1,31 +1,5 @@
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    PRINT PARAMS SUMMARY
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
-
-include { paramsSummaryLog; paramsSummaryMap; fromSamplesheet } from 'plugin/nf-validation'
-
-def logo = NfcoreTemplate.logo(workflow, params.monochrome_logs)
-def citation = '\n' + WorkflowMain.citation(workflow) + '\n'
-def summary_params = paramsSummaryMap(workflow)
-
-// Print parameter summary log to screen
-log.info logo + paramsSummaryLog(workflow) + citation
-
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    CONFIG FILES
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
-
-ch_multiqc_config          = params.multiqc_config ? Channel.fromPath(params.multiqc_config, checkIfExists: true) : Channel.fromPath("$projectDir/assets/multiqc_config.yml", checkIfExists: true)
-ch_multiqc_custom_config   = params.multiqc_custom_config ? Channel.fromPath( params.multiqc_custom_config, checkIfExists: true ) : Channel.empty()
-ch_multiqc_logo            = params.multiqc_logo   ? Channel.fromPath( params.multiqc_logo, checkIfExists: true ) : Channel.empty()
-ch_multiqc_custom_methods_description = params.multiqc_methods_description ? file(params.multiqc_methods_description, checkIfExists: true) : file("$projectDir/assets/methods_description_template.yml", checkIfExists: true)
-
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT LOCAL MODULES/SUBWORKFLOWS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
@@ -55,10 +29,7 @@ include { FASTA_VIRUS_QUALITY_CHECKV                } from '../../subworkflows/l
 //
 // MODULE: Installed directly from nf-core/modules
 //
-include { FASTQC                        } from '../../modules/nf-core/fastqc/main'
 include { CAT_CAT as CAT_MASHSCREEN     } from '../../modules/nf-core/cat/cat/main'
-include { CUSTOM_DUMPSOFTWAREVERSIONS   } from '../../modules/nf-core/custom/dumpsoftwareversions/main'
-include { MULTIQC                       } from '../../modules/nf-core/multiqc/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -71,29 +42,12 @@ def multiqc_report = []
 
 workflow PHAGEANNOTATOR {
 
+    take:
+    fastq_gz
+    fasta_gz
+
     main:
     ch_versions = Channel.empty()
-
-    /*----------------------------------------------------------------------------
-        Read in samplesheet
-    ------------------------------------------------------------------------------*/
-    // read inputs using nf-validation plugin
-    Channel
-        .fromSamplesheet("input")
-        .multiMap { meta, fastq_1, fastq_2, fasta ->
-            fastq_gz: [ meta, [ fastq_1, fastq_2 ] ]
-            fasta_gz: [ meta, [ fasta ] ]
-        }
-        .set { ch_input }
-
-    /*----------------------------------------------------------------------------
-        Analyze input reads
-    ------------------------------------------------------------------------------*/
-    //
-    // MODULE: Analyze reads
-    //
-    FASTQC ( ch_input.fastq_gz )
-    ch_versions = ch_versions.mix(FASTQC.out.versions.first())
 
 
     /*----------------------------------------------------------------------------
@@ -102,7 +56,7 @@ workflow PHAGEANNOTATOR {
     //
     // MODULE: Filter assemblies by length
     //
-    ch_filtered_input_fasta_gz = SEQKIT_SEQ ( ch_input.fasta_gz ).fastx
+    ch_filtered_input_fasta_gz = SEQKIT_SEQ ( fasta_gz ).fastx
     ch_versions = ch_versions.mix(SEQKIT_SEQ.out.versions.first())
 
 
@@ -129,7 +83,7 @@ workflow PHAGEANNOTATOR {
         //
         // SUBWORKFLOW: Identify contained reference genomes
         //
-        ch_containment_results_tsv = FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH ( ch_input.fastq_gz, ch_filtered_input_fasta_gz, ch_reference_virus_fasta_gz, ch_reference_virus_sketch_msh ).mash_screen_results
+        ch_containment_results_tsv = FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH ( fastq_gz, ch_filtered_input_fasta_gz, ch_reference_virus_fasta_gz, ch_reference_virus_sketch_msh ).mash_screen_results
         ch_versions = ch_versions.mix(FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH.out.versions.first())
 
         // join mash screen and assembly fasta by meta.id
@@ -217,56 +171,15 @@ workflow PHAGEANNOTATOR {
     ch_filtered_viruses_fna_gz = QUALITYFILTERVIRUSES ( ch_quality_filter_viruses_input2 ).filtered_viruses
     ch_versions = ch_versions.mix(QUALITYFILTERVIRUSES.out.versions.first())
 
-    //
-    // MODULE: Custom dump software versions
-    //
-    CUSTOM_DUMPSOFTWAREVERSIONS (ch_versions.unique().collectFile(name: 'collated_versions.yml'))
-
-    //
-    // MODULE: MultiQC
-    //
-    workflow_summary    = WorkflowPhageannotator.paramsSummaryMultiqc(workflow, summary_params)
-    ch_workflow_summary = Channel.value(workflow_summary)
-
-    methods_description    = WorkflowPhageannotator.methodsDescriptionText(workflow, ch_multiqc_custom_methods_description, params)
-    ch_methods_description = Channel.value(methods_description)
-
-    ch_multiqc_files = Channel.empty()
-    ch_multiqc_files = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
-    ch_multiqc_files = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml'))
-    ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
-    ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
-
-    MULTIQC (
-        ch_multiqc_files.collect(),
-        ch_multiqc_config.toList(),
-        ch_multiqc_custom_config.toList(),
-        ch_multiqc_logo.toList()
-    )
-    multiqc_report = MULTIQC.out.report.toList()
 
     emit:
-    filtered_viruses_fna_gz         = ch_filtered_viruses_fna_gz
-    reference_containment_report    = ch_combined_mash_screen_tsv
-    virus_classification_report     = ch_combined_virus_summaries_tsv
-    virus_quality_report            = ch_combined_quality_summaries_tsv
+    filtered_viruses_fna_gz     = ch_filtered_viruses_fna_gz
+    reference_containment_tsv   = ch_combined_mash_screen_tsv
+    virus_classification_tsv    = ch_combined_virus_summaries_tsv
+    virus_quality_tsv           = ch_combined_quality_summaries_tsv
+    versions                    = ch_versions
 }
 
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    COMPLETION EMAIL AND SUMMARY
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
-
-workflow.onComplete {
-    if (params.email || params.email_on_fail) {
-        NfcoreTemplate.email(workflow, params, summary_params, projectDir, log, multiqc_report)
-    }
-    NfcoreTemplate.summary(workflow, params, log)
-    if (params.hook_url) {
-        NfcoreTemplate.IM_notification(workflow, params, summary_params, projectDir, log)
-    }
-}
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
