@@ -21,7 +21,7 @@ workflow FASTA_VIRUS_CLASSIFICATION_GENOMAD {
         // MODULE: download geNomad database
         //
         ch_genomad_db = GENOMAD_DOWNLOAD( ).genomad_db
-        ch_versions = ch_versions.mix(GENOMAD_DOWNLOAD.out.versions.first())
+        ch_versions = ch_versions.concat(GENOMAD_DOWNLOAD.out.versions.first())
     }
 
     //
@@ -29,7 +29,7 @@ workflow FASTA_VIRUS_CLASSIFICATION_GENOMAD {
     //
     ch_viruses_fna_gz = GENOMAD_ENDTOEND ( fasta_gz, ch_genomad_db ).virus_fasta
     ch_virus_summaries_tsv = GENOMAD_ENDTOEND.out.virus_summary
-    ch_versions = ch_versions.mix(GENOMAD_ENDTOEND.out.versions.first())
+    ch_versions = ch_versions.concat(GENOMAD_ENDTOEND.out.versions.first())
 
     emit:
     viruses_fna_gz      = ch_viruses_fna_gz         // [ [ meta ], fna.gz ]             , FASTA file containing viral sequences

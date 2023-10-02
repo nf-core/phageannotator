@@ -59,7 +59,6 @@ include { PHAGEANNOTATOR } from './workflows/phageannotator/main'
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { paramsSummaryMap } from 'plugin/nf-validation'
 def summary_params = paramsSummaryMap(workflow)
 
 //
@@ -75,13 +74,13 @@ workflow NFCORE_PHAGEANNOTATOR {
     // MODULE: Analyze read quality
     //
     FASTQC ( ch_input.fastq_gz )
-    ch_versions = ch_versions.mix(FASTQC.out.versions.first())
+    ch_versions = ch_versions.concat(FASTQC.out.versions.first())
 
     //
     // WORKFLOW: Classify and annotate phage sequences in assemblies
     //
     PHAGEANNOTATOR ( ch_input.fastq_gz, ch_input.fasta_gz )
-    ch_versions = ch_versions.mix(PHAGEANNOTATOR.out.versions)
+    ch_versions = ch_versions.concat(PHAGEANNOTATOR.out.versions)
 
     //
     // MODULE: Dump software versions for all tools used in the workflow
@@ -125,7 +124,6 @@ workflow NFCORE_PHAGEANNOTATOR {
     reference_containment_tsv   = PHAGEANNOTATOR.out.reference_containment_tsv
     virus_classification_tsv    = PHAGEANNOTATOR.out.virus_classification_tsv
     virus_quality_tsv           = PHAGEANNOTATOR.out.virus_quality_tsv
-    multiqc_report              = multiqc_report
     versions                    = CUSTOM_DUMPSOFTWAREVERSIONS.out.yml
 }
 
