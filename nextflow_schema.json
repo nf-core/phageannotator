@@ -18,6 +18,7 @@
                     "exists": true,
                     "mimetype": "text/csv",
                     "pattern": "^\\S+\\.csv$",
+                    "schema": "assets/schema_input.json",
                     "description": "Path to comma-separated file containing information about the samples in the experiment.",
                     "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row. See [usage docs](https://nf-co.re/phageannotator/usage#samplesheet-input).",
                     "fa_icon": "fas fa-file-csv"
@@ -42,34 +43,115 @@
                 }
             }
         },
-        "reference_genome_options": {
-            "title": "Reference genome options",
+        "assembly_filtering_options": {
+            "title": "Assembly filtering options",
             "type": "object",
-            "fa_icon": "fas fa-dna",
-            "description": "Reference genome related files and options required for the workflow.",
+            "description": "Filter assemblies at the beginning of the workflow",
+            "default": "",
             "properties": {
-                "genome": {
-                    "type": "string",
-                    "description": "Name of iGenomes reference.",
-                    "fa_icon": "fas fa-book",
-                    "help_text": "If using a reference genome configured in the pipeline using iGenomes, use this parameter to give the ID for the reference. This is then used to build the full paths for all required reference genome files e.g. `--genome GRCh38`. \n\nSee the [nf-core website docs](https://nf-co.re/usage/reference_genomes) for more details."
-                },
-                "fasta": {
-                    "type": "string",
-                    "format": "file-path",
-                    "exists": true,
-                    "mimetype": "text/plain",
-                    "pattern": "^\\S+\\.fn?a(sta)?(\\.gz)?$",
-                    "description": "Path to FASTA genome file.",
-                    "help_text": "This parameter is *mandatory* if `--genome` is not specified. If you don't have a BWA index available this will be generated for you automatically. Combine with `--save_reference` to save BWA index for future runs.",
-                    "fa_icon": "far fa-file-code"
-                },
-                "igenomes_ignore": {
+                "assembly_min_length": {
+                    "type": "integer",
+                    "default": 1000,
+                    "description": "Minimum assembly length"
+                }
+            }
+        },
+        "reference_virus_containment_options": {
+            "title": "Reference virus containment options",
+            "type": "object",
+            "description": "Identify reference viruses contained in reads",
+            "default": "",
+            "properties": {
+                "skip_reference_containment": {
                     "type": "boolean",
-                    "description": "Do not load the iGenomes reference config.",
-                    "fa_icon": "fas fa-ban",
-                    "hidden": true,
-                    "help_text": "Do not load `igenomes.config` when running the pipeline. You may choose this option if you observe clashes between custom parameters and those supplied in `igenomes.config`."
+                    "description": "Skip screening for contained reference viruses in reads"
+                },
+                "reference_virus_fasta": {
+                    "type": "string",
+                    "description": "Path to FASTA file containing reference virus sequences",
+                    "format": "file-path"
+                },
+                "reference_virus_sketch": {
+                    "type": "string",
+                    "description": "Path to mash sketch file for reference virus sequences",
+                    "format": "file-path"
+                },
+                "save_reference_virus_sketch": {
+                    "type": "boolean",
+                    "description": "Save reference virus sketch, if it was created."
+                },
+                "mash_screen_min_score": {
+                    "type": "number",
+                    "default": 0.95,
+                    "description": "Minimum mash screen score to consider a genome contained"
+                }
+            },
+            "fa_icon": "fas fa-search"
+        },
+        "virus_classification_options": {
+            "title": "Virus classification options",
+            "type": "object",
+            "description": "Classify viral sequences using geNomad",
+            "default": "",
+            "properties": {
+                "genomad_db": {
+                    "type": "string",
+                    "description": "Path to directory containing geNomad's database",
+                    "format": "directory-path"
+                },
+                "save_genomad_db": {
+                    "type": "boolean",
+                    "description": "Save geNomad's database, if it was downloaded."
+                },
+                "genomad_min_score": {
+                    "type": "number",
+                    "default": 0.7,
+                    "description": "Minimum virus score for a sequence to be considered viral"
+                },
+                "genomad_max_fdr": {
+                    "type": "number",
+                    "default": 0.1,
+                    "description": "Maximum FDR for a sequence to be considered viral (will include --enable-score-calibration)"
+                },
+                "genomad_splits": {
+                    "type": "integer",
+                    "default": 1,
+                    "description": "Number of splits for running geNomad (more splits lowers memory requirements)"
+                }
+            }
+        },
+        "virus_quality_options": {
+            "title": "Virus quality options",
+            "type": "object",
+            "description": "Assess virus quality and filter",
+            "default": "",
+            "properties": {
+                "checkv_db": {
+                    "type": "string",
+                    "description": "Path to directory containing CheckV database",
+                    "format": "directory-path"
+                },
+                "save_checkv_db": {
+                    "type": "boolean",
+                    "description": "Save CheckV's database, if it was downloaded"
+                },
+                "checkv_min_length": {
+                    "type": "integer",
+                    "default": 3000,
+                    "description": "Minimum virus length to pass filtering"
+                },
+                "checkv_min_completeness": {
+                    "type": "integer",
+                    "default": 50,
+                    "description": "Minimum CheckV completeness to pass filtering"
+                },
+                "checkv_remove_proviruses": {
+                    "type": "boolean",
+                    "description": "Remove viruses labeled as provirus by geNomad or CheckV"
+                },
+                "checkv_remove_warnings": {
+                    "type": "boolean",
+                    "description": "Remove viruses with CheckV warnings"
                 }
             }
         },
@@ -222,9 +304,14 @@
                 "multiqc_config": {
                     "type": "string",
                     "format": "file-path",
-                    "description": "Custom config file to supply to MultiQC.",
+                    "description": "Config file to supply to MultiQC.",
                     "fa_icon": "fas fa-cog",
                     "hidden": true
+                },
+                "multiqc_custom_config": {
+                    "type": "string",
+                    "fa_icon": "fas fa-cog",
+                    "description": "Custom config file to supply to MultiQC"
                 },
                 "multiqc_logo": {
                     "type": "string",
@@ -273,7 +360,16 @@
             "$ref": "#/definitions/input_output_options"
         },
         {
-            "$ref": "#/definitions/reference_genome_options"
+            "$ref": "#/definitions/assembly_filtering_options"
+        },
+        {
+            "$ref": "#/definitions/reference_virus_containment_options"
+        },
+        {
+            "$ref": "#/definitions/virus_classification_options"
+        },
+        {
+            "$ref": "#/definitions/virus_quality_options"
         },
         {
             "$ref": "#/definitions/institutional_config_options"

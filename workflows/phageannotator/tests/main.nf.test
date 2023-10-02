@@ -1,0 +1,28 @@
+nextflow_workflow {
+
+    name "Test workflow: PHAGEANNOTATOR"
+    script "main.nf"
+    workflow "PHAGEANNOTATOR"
+    tag "workflows"
+    tag "phageannotator"
+    tag "phageannotator_default"
+
+    test("Parameters: default") {
+        when {
+            params {
+                outdir  = "$outputDir"
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+
+        cleanup {
+                path("$workDir").deleteDir()
+        }
+    }
+}

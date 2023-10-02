@@ -1,1 +1,5 @@
 repository_type: pipeline
+lint:
+  actions_ci: false
+  files_exist:
+    - conf/modules.config

@@ -5,6 +5,22 @@
         "https://github.com/nf-core/modules.git": {
             "modules": {
                 "nf-core": {
+                    "cat/cat": {
+                        "branch": "master",
+                        "git_sha": "911696ea0b62df80e900ef244d7867d177971f73",
+                        "installed_by": ["modules"]
+                    },
+                    "checkv/downloaddatabase": {
+                        "branch": "master",
+                        "git_sha": "911696ea0b62df80e900ef244d7867d177971f73",
+                        "installed_by": ["modules"]
+                    },
+                    "checkv/endtoend": {
+                        "branch": "master",
+                        "git_sha": "911696ea0b62df80e900ef244d7867d177971f73",
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/checkv/endtoend/checkv-endtoend.diff"
+                    },
                     "custom/dumpsoftwareversions": {
                         "branch": "master",
                         "git_sha": "911696ea0b62df80e900ef244d7867d177971f73",
@@ -14,6 +30,34 @@
                         "branch": "master",
                         "git_sha": "bd8092b67b5103bdd52e300f75889442275c3117",
                         "installed_by": ["modules"]
+                    },
+                    "genomad/download": {
+                        "branch": "master",
+                        "git_sha": "ca813f3f73adedf3547a5a677e992d9d43a71870",
+                        "installed_by": ["modules"]
+                    },
+                    "genomad/endtoend": {
+                        "branch": "master",
+                        "git_sha": "ca813f3f73adedf3547a5a677e992d9d43a71870",
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/genomad/endtoend/genomad-endtoend.diff"
+                    },
+                    "gunzip": {
+                        "branch": "master",
+                        "git_sha": "e06548bfa36ee31869b81041879dd6b3a83b1d57",
+                        "installed_by": ["modules"]
+                    },
+                    "mash/screen": {
+                        "branch": "master",
+                        "git_sha": "911696ea0b62df80e900ef244d7867d177971f73",
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/mash/screen/mash-screen.diff"
+                    },
+                    "mash/sketch": {
+                        "branch": "master",
+                        "git_sha": "911696ea0b62df80e900ef244d7867d177971f73",
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/mash/sketch/mash-sketch.diff"
                     },
                     "multiqc": {
                         "branch": "master",

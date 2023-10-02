@@ -13,17 +13,6 @@ nextflow.enable.dsl = 2
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    GENOME PARAMETER VALUES
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
-
-// TODO nf-core: Remove this line if you don't need a FASTA file
-//   This is an example of how to use getGenomeAttribute() to fetch parameters
-//   from igenomes.config using `--genome`
-params.fasta = WorkflowMain.getGenomeAttribute(params, 'fasta')
-
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     VALIDATE & PRINT PARAMETER SUMMARY
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
@@ -34,7 +23,7 @@ include { validateParameters; paramsHelp } from 'plugin/nf-validation'
 if (params.help) {
     def logo = NfcoreTemplate.logo(workflow, params.monochrome_logs)
     def citation = '\n' + WorkflowMain.citation(workflow) + '\n'
-    def String command = "nextflow run ${workflow.manifest.name} --input samplesheet.csv --genome GRCh37 -profile docker"
+    def String command = "nextflow run ${workflow.manifest.name} --input samplesheet.csv -profile docker"
     log.info logo + paramsHelp(command) + citation + NfcoreTemplate.dashedLine(params.monochrome_logs)
     System.exit(0)
 }
@@ -46,19 +35,31 @@ if (params.validate_params) {
 
 WorkflowMain.initialise(workflow, params, log)
 
+
+/*
+========================================================================================
+    IMPORT MODULES/SUBWORKFLOWS
+========================================================================================
+*/
+
+
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     NAMED WORKFLOW FOR PIPELINE
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { PHAGEANNOTATOR } from './workflows/phageannotator'
+include { PHAGEANNOTATOR } from './workflows/phageannotator/main'
 
 //
 // WORKFLOW: Run main nf-core/phageannotator analysis pipeline
 //
 workflow NFCORE_PHAGEANNOTATOR {
-    PHAGEANNOTATOR ()
+
+    //
+    // WORKFLOW: Classify and annotate phage sequences in assemblies
+    //
+    PHAGEANNOTATOR ( )
 }
 
 /*

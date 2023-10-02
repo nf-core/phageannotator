@@ -1,0 +1,75 @@
+{
+    "Parameters: default": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test1",
+                            "group": "test"
+                        },
+                        "test1.filtered.fna.gz:md5,77d66bcbe7149649de3d1c9e4bc9a1b1"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "all_samples"
+                        },
+                        "all_samples.screen:md5,b074c6861bab21e2b3aa63aebff1f392"
+                    ]
+                ],
+                "2": [
+                    [
+                        {
+                            "id": "all_samples"
+                        },
+                        "all_samples.tsv:md5,8aa138f16ebdaf23163791d8bba3427a"
+                    ]
+                ],
+                "3": [
+                    [
+                        {
+                            "id": "all_samples"
+                        },
+                        "all_samples.tsv:md5,c96fdb5e5f179205fe23cee7a194c270"
+                    ]
+                ],
+                "filtered_viruses_fna_gz": [
+                    [
+                        {
+                            "id": "test1",
+                            "group": "test"
+                        },
+                        "test1.filtered.fna.gz:md5,77d66bcbe7149649de3d1c9e4bc9a1b1"
+                    ]
+                ],
+                "reference_containment_report": [
+                    [
+                        {
+                            "id": "all_samples"
+                        },
+                        "all_samples.screen:md5,b074c6861bab21e2b3aa63aebff1f392"
+                    ]
+                ],
+                "virus_classification_report": [
+                    [
+                        {
+                            "id": "all_samples"
+                        },
+                        "all_samples.tsv:md5,8aa138f16ebdaf23163791d8bba3427a"
+                    ]
+                ],
+                "virus_quality_report": [
+                    [
+                        {
+                            "id": "all_samples"
+                        },
+                        "all_samples.tsv:md5,c96fdb5e5f179205fe23cee7a194c270"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2023-09-27T18:35:15+0000"
+    }
+}

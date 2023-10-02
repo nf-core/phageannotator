@@ -1,0 +1,31 @@
+{
+    "Should run without failures": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.fasta_w_screen_hits.fna.gz:md5,94ff9611c2d02619db9afce95ce6ad6b"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,e6986d27a0d9da83ecaf74af4267791f"
+                ],
+                "assembly_w_screen_hits": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.fasta_w_screen_hits.fna.gz:md5,94ff9611c2d02619db9afce95ce6ad6b"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,e6986d27a0d9da83ecaf74af4267791f"
+                ]
+            }
+        ],
+        "timestamp": "2023-09-25T20:31:18+0000"
+    }
+}
