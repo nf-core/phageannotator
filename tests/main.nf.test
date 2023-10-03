@@ -1,8 +1,7 @@
-nextflow_workflow {
+nextflow_pipeline {
 
     name "Test pipeline: NFCORE_PHAGEANNOTATOR"
     script "main.nf"
-    workflow "NFCORE_PHAGEANNOTATOR"
     tag "pipeline"
     tag "nf-core-phageannotator"
     tag "nf-core-phageannotator_default"
@@ -17,10 +16,16 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert snapshot(workflow.out).match() },
+                { assert snapshot(
+                    path("${params.outdir}/ReadQuality"),
+                    path("${params.outdir}/AssemblyFilter"),
+                    path("${params.outdir}/ReferenceContainment"),
+                    path("${params.outdir}/VirusClassification"),
+                    path("${params.outdir}/VirusQuality"),
+                    path("${params.outdir}/pipeline_info/software_versions.yml")
+                    ).match() },
                 { assert new File("$outputDir/multiqc/multiqc_report.html").exists() }
             )
         }
-
     }
 }

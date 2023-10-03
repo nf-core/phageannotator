@@ -1,49 +1,4 @@
 {
-    "Test --genomad_db provided": {
-        "content": [
-            {
-                "0": [
-                    [
-                        {
-                            "id": "test"
-                        },
-                        "genome_virus.fna.gz:md5,c2d03e27ae27e3eedd037621ee77c917"
-                    ]
-                ],
-                "1": [
-                    [
-                        {
-                            "id": "test"
-                        },
-                        "genome_virus_summary.tsv:md5,6899de91e735b5b930347d9d0fda8a7a"
-                    ]
-                ],
-                "2": [
-                    "versions.yml:md5,6b3b022e67e97057826d98ef627a82fb"
-                ],
-                "versions": [
-                    "versions.yml:md5,6b3b022e67e97057826d98ef627a82fb"
-                ],
-                "virus_summaries_tsv": [
-                    [
-                        {
-                            "id": "test"
-                        },
-                        "genome_virus_summary.tsv:md5,6899de91e735b5b930347d9d0fda8a7a"
-                    ]
-                ],
-                "viruses_fna_gz": [
-                    [
-                        {
-                            "id": "test"
-                        },
-                        "genome_virus.fna.gz:md5,c2d03e27ae27e3eedd037621ee77c917"
-                    ]
-                ]
-            }
-        ],
-        "timestamp": "2023-09-29T18:46:45+0000"
-    },
     "Parameters: --genomad_db provided": {
         "content": [
             {
@@ -87,6 +42,6 @@
                 ]
             }
         ],
-        "timestamp": "2023-09-29T18:46:45+0000"
+        "timestamp": "2023-10-02T14:12:37.400784731"
     }
 }

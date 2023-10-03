@@ -1,7 +1,7 @@
 nextflow_workflow {
 
     name "Test Workflow PHAGEANNOTATOR"
-    script "main.nf"
+    script "workflows/phageannotator/main.nf"
     workflow "PHAGEANNOTATOR"
     tag "workflows"
     tag "phageannotator"

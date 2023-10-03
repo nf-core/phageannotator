@@ -35,15 +35,15 @@
                     ]
                 ],
                 "4": [
+                    "versions.yml:md5,5fe02e751ec8f88e57be60b39f951cc4",
                     "versions.yml:md5,7e54b5f822df67b99faf67629e81963f",
                     "versions.yml:md5,81f8f0dde32139d6467ceb2f8e323b40",
-                    "versions.yml:md5,5fe02e751ec8f88e57be60b39f951cc4",
                     "versions.yml:md5,89c21d0ccbb6b01ccdc3bdb788443187",
-                    "versions.yml:md5,c97cb7740ce1aa3cf22cb6e8be2d62ce",
                     "versions.yml:md5,8f4cfce986149a10f9c2029b48c28810",
-                    "versions.yml:md5,ec5ed3d0ce36e0e32ba47ce69e1ce4b1",
+                    "versions.yml:md5,90170f5b38b7383ab14859a1c18ed66d",
                     "versions.yml:md5,995518cecee8eed38a4f357b7f57fd33",
-                    "versions.yml:md5,90170f5b38b7383ab14859a1c18ed66d"
+                    "versions.yml:md5,c97cb7740ce1aa3cf22cb6e8be2d62ce",
+                    "versions.yml:md5,ec5ed3d0ce36e0e32ba47ce69e1ce4b1"
                 ],
                 "filtered_viruses_fna_gz": [
                     [
@@ -62,15 +62,15 @@
                     ]
                 ],
                 "versions": [
+                    "versions.yml:md5,5fe02e751ec8f88e57be60b39f951cc4",
                     "versions.yml:md5,7e54b5f822df67b99faf67629e81963f",
                     "versions.yml:md5,81f8f0dde32139d6467ceb2f8e323b40",
-                    "versions.yml:md5,5fe02e751ec8f88e57be60b39f951cc4",
                     "versions.yml:md5,89c21d0ccbb6b01ccdc3bdb788443187",
-                    "versions.yml:md5,c97cb7740ce1aa3cf22cb6e8be2d62ce",
                     "versions.yml:md5,8f4cfce986149a10f9c2029b48c28810",
-                    "versions.yml:md5,ec5ed3d0ce36e0e32ba47ce69e1ce4b1",
+                    "versions.yml:md5,90170f5b38b7383ab14859a1c18ed66d",
                     "versions.yml:md5,995518cecee8eed38a4f357b7f57fd33",
-                    "versions.yml:md5,90170f5b38b7383ab14859a1c18ed66d"
+                    "versions.yml:md5,c97cb7740ce1aa3cf22cb6e8be2d62ce",
+                    "versions.yml:md5,ec5ed3d0ce36e0e32ba47ce69e1ce4b1"
                 ],
                 "virus_classification_tsv": [
                     [
@@ -90,6 +90,6 @@
                 ]
             }
         ],
-        "timestamp": "2023-10-02T19:28:39+0000"
+        "timestamp": "2023-10-02T14:25:00.975983798"
     }
 }

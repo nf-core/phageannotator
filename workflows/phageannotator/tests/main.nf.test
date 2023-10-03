@@ -27,9 +27,5 @@ nextflow_workflow {
                 { assert snapshot(workflow.out).match() }
             )
         }
-
-        cleanup {
-                path("$workDir").deleteDir()
-        }
     }
 }

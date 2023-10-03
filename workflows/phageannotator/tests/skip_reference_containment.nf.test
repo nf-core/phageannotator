@@ -1,7 +1,7 @@
 nextflow_workflow {
 
     name "Test workflow: PHAGEANNOTATOR"
-    script "main.nf"
+    script "workflows/phageannotator/main.nf"
     workflow "PHAGEANNOTATOR"
     tag "workflows"
     tag "phageannotator"
@@ -19,8 +19,8 @@ nextflow_workflow {
                 """
             }
             params {
-                outdir                      = "$outputDir"
                 skip_reference_containment  = true
+                outdir                      = "results"
             }
         }
 
@@ -29,10 +29,6 @@ nextflow_workflow {
                 { assert workflow.success },
                 { assert snapshot(workflow.out).match() }
             )
-        }
-
-        cleanup {
-                path("$workDir").deleteDir()
         }
     }
 }
