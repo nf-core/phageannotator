@@ -304,14 +304,9 @@
                 "multiqc_config": {
                     "type": "string",
                     "format": "file-path",
-                    "description": "Config file to supply to MultiQC.",
+                    "description": "Custom config file to supply to MultiQC.",
                     "fa_icon": "fas fa-cog",
                     "hidden": true
-                },
-                "multiqc_custom_config": {
-                    "type": "string",
-                    "fa_icon": "fas fa-cog",
-                    "description": "Custom config file to supply to MultiQC"
                 },
                 "multiqc_logo": {
                     "type": "string",
