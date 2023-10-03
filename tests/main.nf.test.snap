@@ -45,8 +45,8 @@
                     "test1.filtered.fna.gz:md5,77d66bcbe7149649de3d1c9e4bc9a1b1"
                 ]
             ],
-            "software_versions.yml:md5,72a22a1552bddbce6500a2aff2253065"
+            "software_versions.yml:md5,3e8f0ca227a1c3a51624494c5dc323c2"
         ],
-        "timestamp": "2023-10-03T11:36:08.658315193"
+        "timestamp": "2023-10-03T13:26:55.291749605"
     }
 }
