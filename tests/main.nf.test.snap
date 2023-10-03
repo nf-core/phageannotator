@@ -3,12 +3,6 @@
         "content": [
             [
                 [
-                    "test1_1_fastqc.html:md5,78eccd656daaf169087de74e7190b810",
-                    "test1_2_fastqc.html:md5,4615c73b62961e656852a2d3424dbe61"
-                ]
-            ],
-            [
-                [
                     [
                         "test1.fasta.gz:md5,b91bcdca503b2b02005cae7fc5a594b7"
                     ]
@@ -53,6 +47,6 @@
             ],
             "software_versions.yml:md5,72a22a1552bddbce6500a2aff2253065"
         ],
-        "timestamp": "2023-10-03T09:55:44.763311842"
+        "timestamp": "2023-10-03T11:36:08.658315193"
     }
 }

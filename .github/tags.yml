@@ -20,7 +20,29 @@ fastq_fasta_reference_containment_mash_default:
   - subworkflows/local/fastq_fasta_reference_containment_mash/**
 
 # workflow: phageannotator
-phageannotator:
+phageannotator_default:
+  - modules/local/appendscreenhits/**
+  - modules/local/awk/**
+  - modules/local/mash/paste/**
+  - modules/local/qualityfilterviruses/**
+  - modules/local/seqkit/seq/**
+  - subworkflows/local/fasta_virus_classification_genomad/**
+  - subworkflows/local/fasta_virus_quality_checkv/**
+  - subworkflows/local/fastq_fasta_reference_containment_mash/**
+  - workflows/phageannotator/**
+
+phageannotator_no_reference:
+  - modules/local/appendscreenhits/**
+  - modules/local/awk/**
+  - modules/local/mash/paste/**
+  - modules/local/qualityfilterviruses/**
+  - modules/local/seqkit/seq/**
+  - subworkflows/local/fasta_virus_classification_genomad/**
+  - subworkflows/local/fasta_virus_quality_checkv/**
+  - subworkflows/local/fastq_fasta_reference_containment_mash/**
+  - workflows/phageannotator/**
+
+phageannotator_skip_reference:
   - modules/local/appendscreenhits/**
   - modules/local/awk/**
   - modules/local/mash/paste/**

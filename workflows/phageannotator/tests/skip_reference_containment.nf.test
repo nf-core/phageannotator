@@ -20,7 +20,7 @@ nextflow_workflow {
             }
             params {
                 skip_reference_containment  = true
-                outdir                      = "results"
+                outdir                      = "$outputDir"
             }
         }
 
