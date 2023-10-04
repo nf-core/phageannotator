@@ -43,8 +43,8 @@ def multiqc_report = []
 workflow PHAGEANNOTATOR {
 
     take:
-    fastq_gz
-    fasta_gz
+    fastq_gz    // [ [ meta ], reads.fastq.gz ]     , reads (mandatory)
+    fasta_gz    // [ [ meta ], assembly.fastq.gz ]  , assemblies/genomes (mandatory)
 
     main:
     ch_versions = Channel.empty()
