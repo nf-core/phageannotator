@@ -21,7 +21,7 @@ workflow FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH {
     // MODULE: Create a sketch of assemblies
     //
     ch_assembly_sketch_msh = MASH_SKETCH_ASSEMBLIES ( assembly_fasta_gz ).mash
-    ch_versions = ch_versions.concat(MASH_SKETCH_ASSEMBLIES.out.versions.first())
+    ch_versions = ch_versions.mix(MASH_SKETCH_ASSEMBLIES.out.versions.first())
 
     // if provided, use reference sketch. If not, create one
     if ( reference_sketch_msh ) {
@@ -31,14 +31,14 @@ workflow FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH {
         // MODULE: Create sketch of reference sequences
         //
         ch_reference_sketch_msh = MASH_SKETCH_REFERENCES ( reference_fasta_gz ).mash
-        ch_versions = ch_versions.concat(MASH_SKETCH_REFERENCES.out.versions.first())
+        ch_versions = ch_versions.mix(MASH_SKETCH_REFERENCES.out.versions.first())
     }
 
     //
     // MODULE: Combine assembly and reference sketches
     //
     ch_combined_sketch_msh = MASH_PASTE ( ch_assembly_sketch_msh, ch_reference_sketch_msh ).msh
-    ch_versions = ch_versions.concat(MASH_PASTE.out.versions.first())
+    ch_versions = ch_versions.mix(MASH_PASTE.out.versions.first())
 
     // join reads and combined sketch by meta.id
     ch_mash_screen_input = fastq_gz.join( ch_combined_sketch_msh, by:0 )
@@ -47,7 +47,7 @@ workflow FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH {
     // MODULE: Identify contained genomes
     //
     ch_mash_screen_tsv = MASH_SCREEN ( ch_mash_screen_input ).screen
-    ch_versions = ch_versions.concat(MASH_SCREEN.out.versions.first())
+    ch_versions = ch_versions.mix(MASH_SCREEN.out.versions.first())
 
     emit:
     mash_screen_results = ch_mash_screen_tsv    // [ [ meta.id ] , fasta.gz ]   , concatenated assemblies and contained references

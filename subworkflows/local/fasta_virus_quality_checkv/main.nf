@@ -22,14 +22,14 @@ workflow FASTA_VIRUS_QUALITY_CHECKV {
         // MODULE: download CheckV database
         //
         ch_checkv_db = CHECKV_DOWNLOADDATABASE( ).checkv_db
-        ch_versions = ch_versions.concat(CHECKV_DOWNLOADDATABASE.out.versions.first())
+        ch_versions = ch_versions.mix(CHECKV_DOWNLOADDATABASE.out.versions.first())
     }
 
     //
     // MODULE: Gunzip fasta for checkV
     //
     ch_viruses_fasta = GUNZIP ( virus_fasta_gz ).gunzip
-    ch_versions = ch_versions.concat(GUNZIP.out.versions.first())
+    ch_versions = ch_versions.mix(GUNZIP.out.versions.first())
 
     //
     // MODULE: Assess virus quality
@@ -38,7 +38,7 @@ workflow FASTA_VIRUS_QUALITY_CHECKV {
     ch_quality_summary_tsv  = CHECKV_ENDTOEND.out.quality_summary
     ch_viruses_fna_gz       = CHECKV_ENDTOEND.out.viruses
     ch_proviruses_fna_gz    = CHECKV_ENDTOEND.out.proviruses
-    ch_versions = ch_versions.concat(CHECKV_ENDTOEND.out.versions.first())
+    ch_versions = ch_versions.mix(CHECKV_ENDTOEND.out.versions.first())
 
     emit:
     viruses_fna_gz      = ch_viruses_fna_gz         // [ [ meta ], viruses.fna.gz ]       , FASTA file containing viruses

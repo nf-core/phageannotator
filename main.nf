@@ -74,13 +74,13 @@ workflow NFCORE_PHAGEANNOTATOR {
     // MODULE: Analyze read quality
     //
     FASTQC ( ch_input.fastq_gz )
-    ch_versions = ch_versions.concat(FASTQC.out.versions.first())
+    ch_versions = ch_versions.mix(FASTQC.out.versions.first())
 
     //
     // WORKFLOW: Classify and annotate phage sequences in assemblies
     //
     PHAGEANNOTATOR ( ch_input.fastq_gz, ch_input.fasta_gz )
-    ch_versions = ch_versions.concat(PHAGEANNOTATOR.out.versions)
+    ch_versions = ch_versions.mix(PHAGEANNOTATOR.out.versions)
 
     //
     // MODULE: Dump software versions for all tools used in the workflow

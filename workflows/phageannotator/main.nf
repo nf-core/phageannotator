@@ -57,7 +57,7 @@ workflow PHAGEANNOTATOR {
     // MODULE: Filter assemblies by length
     //
     ch_filtered_input_fasta_gz = SEQKIT_SEQ ( fasta_gz ).fastx
-    ch_versions = ch_versions.concat(SEQKIT_SEQ.out.versions.first())
+    ch_versions = ch_versions.mix(SEQKIT_SEQ.out.versions.first())
 
 
     /*----------------------------------------------------------------------------
@@ -84,7 +84,7 @@ workflow PHAGEANNOTATOR {
         // SUBWORKFLOW: Identify contained reference genomes
         //
         ch_containment_results_tsv = FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH ( fastq_gz, ch_filtered_input_fasta_gz, ch_reference_virus_fasta_gz, ch_reference_virus_sketch_msh ).mash_screen_results
-        ch_versions = ch_versions.concat(FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH.out.versions.first())
+        ch_versions = ch_versions.mix(FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH.out.versions.first())
 
         // join mash screen and assembly fasta by meta.id
         ch_append_screen_hits_input = ch_containment_results_tsv.join( ch_filtered_input_fasta_gz, by:0 )
@@ -93,13 +93,13 @@ workflow PHAGEANNOTATOR {
         // MODULE: Append screen hits to assemblies
         //
         ch_assembly_w_references_fasta_gz = APPENDSCREENHITS ( ch_append_screen_hits_input, ch_reference_virus_fasta_gz ).assembly_w_screen_hits
-        ch_versions = ch_versions.concat(APPENDSCREENHITS.out.versions.first())
+        ch_versions = ch_versions.mix(APPENDSCREENHITS.out.versions.first())
 
         //
         // MODULE: Combine mash screen outputs across samples
         //
         ch_combined_mash_screen_tsv = CAT_MASHSCREEN( ch_containment_results_tsv.map{ [ [ id:'all_samples' ], it[1] ] }.groupTuple() ).file_out
-        ch_versions = ch_versions.concat(CAT_MASHSCREEN.out.versions.first())
+        ch_versions = ch_versions.mix(CAT_MASHSCREEN.out.versions.first())
     } else {
         // if skip_reference_containment == true, skip subworkflow and use input assemblies
         ch_assembly_w_references_fasta_gz = ch_filtered_input_fasta_gz
@@ -121,7 +121,7 @@ workflow PHAGEANNOTATOR {
     // SUBWORKFLOW: Classify and annotate sequences
     //
     ch_viruses_fna_gz = FASTA_VIRUS_CLASSIFICATION_GENOMAD ( ch_assembly_w_references_fasta_gz, ch_genomad_db ).viruses_fna_gz
-    ch_versions = ch_versions.concat(FASTA_VIRUS_CLASSIFICATION_GENOMAD.out.versions.first())
+    ch_versions = ch_versions.mix(FASTA_VIRUS_CLASSIFICATION_GENOMAD.out.versions.first())
 
     // create channel for genomad virus summary files
     ch_virus_summaries_tsv = FASTA_VIRUS_CLASSIFICATION_GENOMAD.out.virus_summaries_tsv
@@ -133,7 +133,7 @@ workflow PHAGEANNOTATOR {
     // MODULE: Combine geNomad summaries across samples
     //
     ch_combined_virus_summaries_tsv = AWK_GENOMAD ( ch_awk_genomad_input ).file_out
-    ch_versions = ch_versions.concat(AWK_GENOMAD.out.versions.first())
+    ch_versions = ch_versions.mix(AWK_GENOMAD.out.versions.first())
 
 
     /*----------------------------------------------------------------------------
@@ -150,7 +150,7 @@ workflow PHAGEANNOTATOR {
     // SUBWORKFLOW: Assess virus quality
     //
     FASTA_VIRUS_QUALITY_CHECKV ( ch_viruses_fna_gz, ch_genomad_db )
-    ch_versions = ch_versions.concat(FASTA_VIRUS_QUALITY_CHECKV.out.versions.first())
+    ch_versions = ch_versions.mix(FASTA_VIRUS_QUALITY_CHECKV.out.versions.first())
 
     // create a channel for quality summaries
     ch_quality_summaries_tsv = FASTA_VIRUS_QUALITY_CHECKV.out.quality_summary_tsv.map { [ [ id:'all_samples' ], it[1] ] }.groupTuple()
@@ -159,7 +159,7 @@ workflow PHAGEANNOTATOR {
     // MODULE: Combine quality summaries across samples
     //
     ch_combined_quality_summaries_tsv = AWK_CHECKV ( ch_quality_summaries_tsv ).file_out
-    ch_versions = ch_versions.concat(AWK_CHECKV.out.versions.first())
+    ch_versions = ch_versions.mix(AWK_CHECKV.out.versions.first())
 
     // create channel for input into QUALITY_FILTER_VIRUSES
     ch_quality_filter_viruses_input1 = FASTA_VIRUS_QUALITY_CHECKV.out.viruses_fna_gz.join(FASTA_VIRUS_QUALITY_CHECKV.out.proviruses_fna_gz)
@@ -169,7 +169,7 @@ workflow PHAGEANNOTATOR {
     // MODULE: Quality filter viruses
     //
     ch_filtered_viruses_fna_gz = QUALITYFILTERVIRUSES ( ch_quality_filter_viruses_input2 ).filtered_viruses
-    ch_versions = ch_versions.concat(QUALITYFILTERVIRUSES.out.versions.first())
+    ch_versions = ch_versions.mix(QUALITYFILTERVIRUSES.out.versions.first())
 
 
     emit:
