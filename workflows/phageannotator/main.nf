@@ -44,7 +44,7 @@ workflow PHAGEANNOTATOR {
 
     take:
     fastq_gz    // [ [ meta ], reads.fastq.gz ]     , reads (mandatory)
-    fasta_gz    // [ [ meta ], assembly.fastq.gz ]  , assemblies/genomes (mandatory)
+    fasta_gz    // [ [ meta ], assembly.fasta.gz ]  , assemblies/genomes (mandatory)
 
     main:
     ch_versions = Channel.empty()
