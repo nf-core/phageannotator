@@ -1,0 +1,31 @@
+{
+    "Should run without failures": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_ani.tsv:md5,1934eb09849f6df88083ad25aa47923d"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,2634b75c5cb21bab9003696986192894"
+                ],
+                "ani": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_ani.tsv:md5,1934eb09849f6df88083ad25aa47923d"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,2634b75c5cb21bab9003696986192894"
+                ]
+            }
+        ],
+        "timestamp": "2023-10-06T14:44:24.592503951"
+    }
+}

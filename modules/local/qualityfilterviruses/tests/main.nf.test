@@ -30,9 +30,5 @@ nextflow_process {
                 { assert snapshot(process.out).match() }
             )
         }
-
-        cleanup {
-            path("$workDir").deleteDir()
-        }
     }
 }

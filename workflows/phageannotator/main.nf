@@ -12,13 +12,18 @@ include { AWK as AWK_GENOMAD                        } from '../../modules/local/
 include { APPENDSCREENHITS                          } from '../../modules/local/appendscreenhits/main'
 include { AWK as AWK_CHECKV                         } from '../../modules/local/awk/main'                                           // TODO: Add to nf-core
 include { QUALITYFILTERVIRUSES                      } from '../../modules/local/qualityfilterviruses/main'
+include { ANICLUSTER_ANICALC                        } from '../../modules/local/anicluster/anicalc/main'
+include { ANICLUSTER_ANICLUST                       } from '../../modules/local/anicluster/aniclust/main'
+include { ANICLUSTER_EXTRACTREPS                    } from '../../modules/local/anicluster/extractreps/main'
 
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
+// TODO: Update patches
 include { FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH    } from '../../subworkflows/local/fastq_fasta_reference_containment_mash/main'   // TODO: Add to nf-core
 include { FASTA_VIRUS_CLASSIFICATION_GENOMAD        } from '../../subworkflows/local/fasta_virus_classification_genomad/main'       // TODO: Add to nf-core
 include { FASTA_VIRUS_QUALITY_CHECKV                } from '../../subworkflows/local/fasta_virus_quality_checkv/main'               // TODO: Add to nf-core
+include { FASTA_ALL_V_ALL_BLAST                     } from '../../subworkflows/local/fasta_all_v_all_blast/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -172,11 +177,51 @@ workflow PHAGEANNOTATOR {
     ch_versions = ch_versions.mix(QUALITYFILTERVIRUSES.out.versions.first())
 
 
+    /*----------------------------------------------------------------------------
+        Cluster viruses using all-v-all BLAST approach
+    ------------------------------------------------------------------------------*/
+    //
+    // SUBWORKFLOW: Perform all-v-all BLAST
+    //
+    ch_blast_txt = FASTA_ALL_V_ALL_BLAST ( ch_filtered_viruses_fna_gz ).blast_txt
+    ch_versions = ch_versions.mix( FASTA_ALL_V_ALL_BLAST.out.versions )
+
+    //
+    // MODULE: Calculate average nucleotide identity (ANI) and alignment fraction (AF) based on BLAST
+    //
+    ch_ani_tsv = ANICLUSTER_ANICALC ( ch_blast_txt ).ani
+    ch_versions = ch_versions.mix( ANICLUSTER_ANICALC.out.versions )
+
+    // create input for ANICLUSTER_ANICALC
+    ch_aniclust_input = ch_filtered_viruses_fna_gz.join( ch_ani_tsv )
+
+    //
+    // MODULE: Cluster virus sequences based on ANI and AF
+    //
+    ch_clusters_tsv = ANICLUSTER_ANICLUST ( ch_aniclust_input ).clusters
+    ch_versions = ch_versions.mix( ANICLUSTER_ANICLUST.out.versions )
+
+    // create input for extracting cluster representatives
+    ch_extractreps_input = ch_filtered_viruses_fna_gz.join( ch_clusters_tsv )
+
+    //
+    // MODULE: Extract cluster representatives
+    //
+    ch_anicluster_reps_fasta_gz = ANICLUSTER_EXTRACTREPS ( ch_extractreps_input ).representatives
+    ch_versions = ch_versions.mix( ANICLUSTER_EXTRACTREPS.out.versions )
+
+
+    /*----------------------------------------------------------------------------
+        Align reads to viruses
+    ------------------------------------------------------------------------------*/
+
+
     emit:
-    filtered_viruses_fna_gz     = ch_filtered_viruses_fna_gz
     reference_containment_tsv   = ch_combined_mash_screen_tsv
     virus_classification_tsv    = ch_combined_virus_summaries_tsv
     virus_quality_tsv           = ch_combined_quality_summaries_tsv
+    filtered_viruses_fna_gz     = ch_filtered_viruses_fna_gz
+    anicluster_reps_fna_gz      = ch_cluster_reps_fasta_gz
     versions                    = ch_versions
 }
 

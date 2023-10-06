@@ -1,13 +1,15 @@
 nextflow_process {
 
-    name "Test Process: AWK"
-    script "modules/local/awk/main.nf"
-    process "AWK"
+    name "Test process: ANICLUSTER_ANICALC"
+    script "modules/local/anicluster/anicalc/main.nf"
+    process "ANICLUSTER_ANICALC"
+    tag "modules"
     tag "modules_local"
-    tag "awk"
+    tag "anicluster"
+    tag "anicluster_anicalc"
 
 
-    test("Test AWK") {
+    test("Should run without failures") {
 
         when {
             params {
@@ -15,7 +17,7 @@ nextflow_process {
             }
             process {
                 """
-                input[0] = [ [ id: 'all_samples' ], [ file(params.test_data['modules_local']['virus_summary1_tsv'], checkIfExists: true), file(params.test_data['modules_local']['virus_summary2_tsv'], checkIfExists: true) ] ]
+                input[0] = [ [ id: 'test' ], [ file(params.test_data['modules_local']['blast_txt'], checkIfExists: true) ] ]
                 """
             }
         }
