@@ -1,0 +1,52 @@
+{
+    "Parameters: default": {
+        "content": [
+            [
+                [
+                    [
+                        "test1.fasta.gz:md5,b91bcdca503b2b02005cae7fc5a594b7"
+                    ]
+                ]
+            ],
+            [
+                "all_samples.screen:md5,b074c6861bab21e2b3aa63aebff1f392",
+                [
+                    "test1.fasta_w_screen_hits.fna.gz:md5,a8a0353be8912b70ca8c3fb370f9134a"
+                ],
+                [
+                    [
+                        "test1.screen:md5,b074c6861bab21e2b3aa63aebff1f392"
+                    ]
+                ]
+            ],
+            [
+                "all_samples.tsv:md5,8aa138f16ebdaf23163791d8bba3427a",
+                [
+                    [
+                        [
+                            "test1.fasta_w_screen_hits_virus.fna.gz:md5,b06f4bc2e21a17122fb999ba661ab821",
+                            "test1.fasta_w_screen_hits_virus_summary.tsv:md5,8aa138f16ebdaf23163791d8bba3427a"
+                        ]
+                    ]
+                ]
+            ],
+            [
+                "all_samples.tsv:md5,c96fdb5e5f179205fe23cee7a194c270",
+                [
+                    [
+                        [
+                            "proviruses.fna.gz:md5,7029066c27ac6f5ef18d660d5741979a",
+                            "quality_summary.tsv:md5,c96fdb5e5f179205fe23cee7a194c270",
+                            "viruses.fna.gz:md5,82bde1db0b611b3f2a2921a00831db97"
+                        ]
+                    ]
+                ],
+                [
+                    "test1.filtered.fna.gz:md5,77d66bcbe7149649de3d1c9e4bc9a1b1"
+                ]
+            ],
+            "software_versions.yml:md5,a1d99eec19248ce09370163d595d3054"
+        ],
+        "timestamp": "2023-10-05T06:27:04.709622198"
+    }
+}

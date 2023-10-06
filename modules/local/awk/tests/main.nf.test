@@ -28,7 +28,6 @@ nextflow_process {
         }
 
         cleanup {
-                println "Clean up..."
             path("$workDir").deleteDir()
         }
     }

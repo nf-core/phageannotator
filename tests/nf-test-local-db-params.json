@@ -1,4 +1,4 @@
 {
-    "genomad_db": "/gscratch/pedslabs_hoffman/resources/genomad_db/",
+    "genomad_db": "/gscratch/pedslabs_hoffman/resources/genomad_db",
     "checkv_db": "/gscratch/pedslabs_hoffman/resources/checkv-db-v1.5"
 }

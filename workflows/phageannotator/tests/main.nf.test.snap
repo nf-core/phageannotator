@@ -5,10 +5,9 @@
                 "0": [
                     [
                         {
-                            "id": "test1",
-                            "group": "test"
+                            "id": "test"
                         },
-                        "test1.filtered.fna.gz:md5,77d66bcbe7149649de3d1c9e4bc9a1b1"
+                        "test.filtered.fna.gz:md5,88535c5069fb8991abfa5a77e4986e71"
                     ]
                 ],
                 "1": [
@@ -16,7 +15,7 @@
                         {
                             "id": "all_samples"
                         },
-                        "all_samples.screen:md5,b074c6861bab21e2b3aa63aebff1f392"
+                        "all_samples.screen:md5,77858d67f1513d5883d1d1aa22f48629"
                     ]
                 ],
                 "2": [
@@ -24,7 +23,7 @@
                         {
                             "id": "all_samples"
                         },
-                        "all_samples.tsv:md5,8aa138f16ebdaf23163791d8bba3427a"
+                        "all_samples.tsv:md5,bbe06022a136bbe3f3f0f340b67185f9"
                     ]
                 ],
                 "3": [
@@ -32,44 +31,65 @@
                         {
                             "id": "all_samples"
                         },
-                        "all_samples.tsv:md5,c96fdb5e5f179205fe23cee7a194c270"
+                        "all_samples.tsv:md5,a54a95833a74a1d0e2f3b82a3f416f11"
                     ]
+                ],
+                "4": [
+                    "versions.yml:md5,2b068b9678f63d6bb06a2a3652e92ba9",
+                    "versions.yml:md5,5fe02e751ec8f88e57be60b39f951cc4",
+                    "versions.yml:md5,7e54b5f822df67b99faf67629e81963f",
+                    "versions.yml:md5,89c21d0ccbb6b01ccdc3bdb788443187",
+                    "versions.yml:md5,8f4cfce986149a10f9c2029b48c28810",
+                    "versions.yml:md5,90170f5b38b7383ab14859a1c18ed66d",
+                    "versions.yml:md5,995518cecee8eed38a4f357b7f57fd33",
+                    "versions.yml:md5,c97cb7740ce1aa3cf22cb6e8be2d62ce",
+                    "versions.yml:md5,ec5ed3d0ce36e0e32ba47ce69e1ce4b1"
                 ],
                 "filtered_viruses_fna_gz": [
                     [
                         {
-                            "id": "test1",
-                            "group": "test"
+                            "id": "test"
                         },
-                        "test1.filtered.fna.gz:md5,77d66bcbe7149649de3d1c9e4bc9a1b1"
+                        "test.filtered.fna.gz:md5,88535c5069fb8991abfa5a77e4986e71"
                     ]
                 ],
-                "reference_containment_report": [
+                "reference_containment_tsv": [
                     [
                         {
                             "id": "all_samples"
                         },
-                        "all_samples.screen:md5,b074c6861bab21e2b3aa63aebff1f392"
+                        "all_samples.screen:md5,77858d67f1513d5883d1d1aa22f48629"
                     ]
                 ],
-                "virus_classification_report": [
+                "versions": [
+                    "versions.yml:md5,2b068b9678f63d6bb06a2a3652e92ba9",
+                    "versions.yml:md5,5fe02e751ec8f88e57be60b39f951cc4",
+                    "versions.yml:md5,7e54b5f822df67b99faf67629e81963f",
+                    "versions.yml:md5,89c21d0ccbb6b01ccdc3bdb788443187",
+                    "versions.yml:md5,8f4cfce986149a10f9c2029b48c28810",
+                    "versions.yml:md5,90170f5b38b7383ab14859a1c18ed66d",
+                    "versions.yml:md5,995518cecee8eed38a4f357b7f57fd33",
+                    "versions.yml:md5,c97cb7740ce1aa3cf22cb6e8be2d62ce",
+                    "versions.yml:md5,ec5ed3d0ce36e0e32ba47ce69e1ce4b1"
+                ],
+                "virus_classification_tsv": [
                     [
                         {
                             "id": "all_samples"
                         },
-                        "all_samples.tsv:md5,8aa138f16ebdaf23163791d8bba3427a"
+                        "all_samples.tsv:md5,bbe06022a136bbe3f3f0f340b67185f9"
                     ]
                 ],
-                "virus_quality_report": [
+                "virus_quality_tsv": [
                     [
                         {
                             "id": "all_samples"
                         },
-                        "all_samples.tsv:md5,c96fdb5e5f179205fe23cee7a194c270"
+                        "all_samples.tsv:md5,a54a95833a74a1d0e2f3b82a3f416f11"
                     ]
                 ]
             }
         ],
-        "timestamp": "2023-09-27T18:35:15+0000"
+        "timestamp": "2023-10-04T08:38:59.593145934"
     }
 }
