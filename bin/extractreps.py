@@ -5,6 +5,7 @@ import argparse
 import sys
 import gzip
 
+
 def parse_args(args=None):
     Description = "Extract cluster representatives into a single FASTA file."
     Epilog = "Example usage: python extract_cluster_representatives.py <FILES_IN> <FILE_OUT>"
@@ -20,22 +21,18 @@ def parse_args(args=None):
         "--clusters",
         help="Path to the TSV file containing cluster representatives and member sequences.",
     )
-    parser.add_argument(
-        "-o",
-        "--output",
-        help="Path to the where cluster representative FASTA file should be output."
-    )
+    parser.add_argument("-o", "--output", help="Path to the where cluster representative FASTA file should be output.")
     return parser.parse_args(args)
 
+
 def extract_cluster_representatives(fasta, clusters, output):
-
     # open clustering results
-    clusters = open(clusters, 'r')
+    clusters = open(clusters, "r")
 
-    cluster_reps= []
+    cluster_reps = []
     for line in clusters:
         stripped = line.strip()
-        rep, nodes = stripped.split('\t')
+        rep, nodes = stripped.split("\t")
         cluster_reps.append(rep)
 
     cluster_reps_set = set(cluster_reps)
@@ -44,7 +41,7 @@ def extract_cluster_representatives(fasta, clusters, output):
     cluster_rep_sequences = []
     already_added = set()
 
-    fasta_gunzipped = gzip.open(fasta, 'rt')
+    fasta_gunzipped = gzip.open(fasta, "rt")
     for record in SeqIO.parse(fasta_gunzipped, "fasta"):
         if record.id in already_added:
             continue
