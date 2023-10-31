@@ -221,7 +221,7 @@ workflow PHAGEANNOTATOR {
     virus_classification_tsv    = ch_combined_virus_summaries_tsv
     virus_quality_tsv           = ch_combined_quality_summaries_tsv
     filtered_viruses_fna_gz     = ch_filtered_viruses_fna_gz
-    anicluster_reps_fna_gz      = ch_cluster_reps_fasta_gz
+    anicluster_reps_fna_gz      = ch_anicluster_reps_fasta_gz
     versions                    = ch_versions
 }
 

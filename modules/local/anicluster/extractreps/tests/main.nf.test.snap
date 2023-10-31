@@ -7,25 +7,25 @@
                         {
                             "id": "test"
                         },
-                        "test_ani.tsv:md5,1934eb09849f6df88083ad25aa47923d"
+                        "test_anicluster_representatives.fna.gz:md5,af8f9755e229d4bf352639bcaa84c375"
                     ]
                 ],
                 "1": [
-                    "versions.yml:md5,e762f9268614324a9143737b92563257"
+                    "versions.yml:md5,15b724eac7b61bbed8de17f17eae0bf8"
                 ],
-                "ani": [
+                "representatives": [
                     [
                         {
                             "id": "test"
                         },
-                        "test_ani.tsv:md5,1934eb09849f6df88083ad25aa47923d"
+                        "test_anicluster_representatives.fna.gz:md5,af8f9755e229d4bf352639bcaa84c375"
                     ]
                 ],
                 "versions": [
-                    "versions.yml:md5,e762f9268614324a9143737b92563257"
+                    "versions.yml:md5,15b724eac7b61bbed8de17f17eae0bf8"
                 ]
             }
         ],
-        "timestamp": "2023-10-30T14:24:11.064856626"
+        "timestamp": "2023-10-09T14:48:38.084649875"
     }
 }

@@ -27,6 +27,7 @@ process ANICLUSTER_ANICALC {
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
+        python: \$( python --version | sed 's/Python //' )
         biopython: \$(echo \$(biopython_version.py 2>&1))
         numpy: \$(echo \$(numpy_version.py 2>&1))
     END_VERSIONS
@@ -40,6 +41,7 @@ process ANICLUSTER_ANICALC {
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
+        python: \$( python --version | sed 's/Python //' )
         biopython: \$(echo \$(biopython_version.py 2>&1))
         numpy: \$(echo \$(numpy_version.py 2>&1))
     END_VERSIONS

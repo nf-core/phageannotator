@@ -155,6 +155,39 @@
                 }
             }
         },
+        "genome_clustering_options": {
+            "title": "Genome clustering options",
+            "type": "object",
+            "description": "Cluster virus genomes based on nucleotide/protein similarity",
+            "default": "",
+            "properties": {
+                "blast_min_percent_identity": {
+                    "type": "integer",
+                    "default": 90,
+                    "description": "Minimum precent identity for BLAST hits"
+                },
+                "blast_max_num_seqs": {
+                    "type": "integer",
+                    "default": 25000,
+                    "description": "Maximum number of BLAST hits to record for each sequence"
+                },
+                "anicluster_min_ani": {
+                    "type": "integer",
+                    "default": 95,
+                    "description": "Minimum average nucleotide identity (ANI) for sequences to be clustered together"
+                },
+                "anicluster_min_qcov": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Minimum query coverage for sequences to be clustered together"
+                },
+                "anicluster_min_tcov": {
+                    "type": "integer",
+                    "default": 85,
+                    "description": "Minimum test coverage for sequences to be clustered together"
+                }
+            }
+        },
         "institutional_config_options": {
             "title": "Institutional config options",
             "type": "object",
@@ -365,6 +398,9 @@
         },
         {
             "$ref": "#/definitions/virus_quality_options"
+        },
+        {
+            "$ref": "#/definitions/genome_clustering_options"
         },
         {
             "$ref": "#/definitions/institutional_config_options"

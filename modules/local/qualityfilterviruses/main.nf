@@ -32,6 +32,7 @@ process QUALITYFILTERVIRUSES {
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
+        python: \$( python --version | sed 's/Python //' )
         biopython: \$(echo \$(biopython_version.py 2>&1))
         pandas: \$(echo \$(pandas_version.py 2>&1))
     END_VERSIONS
@@ -45,6 +46,7 @@ process QUALITYFILTERVIRUSES {
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
+        python: \$( python --version | sed 's/Python //' )
         biopython: \$(echo \$(biopython_version.py 2>&1))
         pandas: \$(echo \$(pandas_version.py 2>&1))
     END_VERSIONS
