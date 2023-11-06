@@ -39,7 +39,7 @@ Channel
 ========================================================================================
 */
 
-include { INITIALISE                    } from './subworkflows/nf-core/initialise/main'
+include { INITIALISE                    } from './subworkflows/nf-core/initialise/main' // TODO: Update subworkflow
 include { FASTQC                        } from './modules/nf-core/fastqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS   } from './modules/nf-core/custom/dumpsoftwareversions/main'
 include { MULTIQC                       } from './modules/nf-core/multiqc/main'
