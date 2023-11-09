@@ -188,6 +188,34 @@
                 }
             }
         },
+        "virus_abundance_options": {
+            "title": "Virus abundance options",
+            "type": "object",
+            "description": "Align reads to virus database",
+            "default": "",
+            "properties": {
+                "coverm_min_read_alignment": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Minimum length of reads aligned to references"
+                },
+                "coverm_min_percent_identity": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Minimum percent identity of aligned reads"
+                },
+                "coverm_min_percent_read_aligned": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Minimum percent of read aligned to references"
+                },
+                "coverm_metrics": {
+                    "type": "string",
+                    "default": "mean",
+                    "description": "Abundance calculation metrics"
+                }
+            }
+        },
         "institutional_config_options": {
             "title": "Institutional config options",
             "type": "object",
@@ -401,6 +429,9 @@
         },
         {
             "$ref": "#/definitions/genome_clustering_options"
+        },
+        {
+            "$ref": "#/definitions/virus_abundance_options"
         },
         {
             "$ref": "#/definitions/institutional_config_options"
