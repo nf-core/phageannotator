@@ -15,6 +15,7 @@ include { QUALITYFILTERVIRUSES                      } from '../../modules/local/
 include { ANICLUSTER_ANICALC                        } from '../../modules/local/anicluster/anicalc/main'
 include { ANICLUSTER_ANICLUST                       } from '../../modules/local/anicluster/aniclust/main'
 include { ANICLUSTER_EXTRACTREPS                    } from '../../modules/local/anicluster/extractreps/main'
+include { COVERM_CONTIG                             } from '../../modules/local/coverm/contig/main'                                 // TODO: Add to nf-core
 
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
@@ -35,6 +36,13 @@ include { FASTA_ALL_V_ALL_BLAST                     } from '../../subworkflows/l
 // MODULE: Installed directly from nf-core/modules
 //
 include { CAT_CAT as CAT_MASHSCREEN     } from '../../modules/nf-core/cat/cat/main'
+include { BOWTIE2_BUILD                 } from '../../modules/nf-core/bowtie2/build/main'
+include { GUNZIP                        } from '../../modules/nf-core/gunzip/main'
+
+//
+// SUBWORKFLOW: Installed directory from nf-core/subworkflows
+//
+include { FASTQ_ALIGN_BOWTIE2           } from '../../subworkflows/nf-core/fastq_align_bowtie2/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -214,6 +222,24 @@ workflow PHAGEANNOTATOR {
     /*----------------------------------------------------------------------------
         Align reads to viruses
     ------------------------------------------------------------------------------*/
+    //
+    // MODULE: Make bowtie2 index
+    //
+    ch_anicluster_reps_bt2 = BOWTIE2_BUILD ( ch_anicluster_reps_fasta_gz ).index
+    ch_versions = ch_versions.mix( BOWTIE2_BUILD.out.versions )
+
+    //
+    // SUBWORKFLOW: Align reads to bowtie2 index
+    //
+    ch_alignment_bam = FASTQ_ALIGN_BOWTIE2 ( fastq_gz, ch_anicluster_reps_bt2, false, true, ch_anicluster_reps_fasta_gz ).bam
+    ch_versions = ch_versions.mix( FASTQ_ALIGN_BOWTIE2.out.versions )
+
+    //
+    // MODULE: Calculate abundance metrics from BAM file
+    //
+    ch_combined_bams = ch_alignment_bam.map { [ [ id:'all_samples' ], it[1] ] }.groupTuple()
+    ch_alignment_results_tsv = COVERM_CONTIG ( ch_combined_bams ).alignment_results
+    ch_versions = ch_versions.mix( COVERM_CONTIG.out.versions )
 
 
     emit:
@@ -222,6 +248,7 @@ workflow PHAGEANNOTATOR {
     virus_quality_tsv           = ch_combined_quality_summaries_tsv
     filtered_viruses_fna_gz     = ch_filtered_viruses_fna_gz
     anicluster_reps_fna_gz      = ch_anicluster_reps_fasta_gz
+    alignment_results_tsv       = ch_alignment_results_tsv
     versions                    = ch_versions
 }
 

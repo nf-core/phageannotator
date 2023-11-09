@@ -22,6 +22,7 @@ nextflow_pipeline {
                     path("${params.outdir}/VirusClassification"),
                     path("${params.outdir}/VirusQuality"),
                     path("${params.outdir}/GenomeClustering"),
+                    path("${params.outdir}/VirusAbundance"),
                     path("${params.outdir}/pipeline_info/software_versions.yml")
                     ).match() },
                 { assert new File("$outputDir/ReadQuality/fastqc/test1_1_fastqc.html").exists() },

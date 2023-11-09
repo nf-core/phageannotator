@@ -55,8 +55,21 @@
                 ],
                 "test1_anicluster_representatives.fna.gz:md5,3d1300202ce1a53b26f6c0f7063d7902"
             ],
-            "software_versions.yml:md5,86a5067a44ce0db189c77a93bb7f6c33"
+            [
+                [
+                    [
+                        "test1.bam:md5,bba6c53a061f7f9aa4c808ff2fa48e52",
+                        "test1.bowtie2.log:md5,7d06c224fbf603e632f6f83bd4c3a9ba"
+                    ]
+                ],
+                [
+                    [
+                        "all_samples_alignment_results.tsv:md5,144fb2b842e76001330898e1a54ea304"
+                    ]
+                ]
+            ],
+            "software_versions.yml:md5,a406b101c1127304c3828f21d1cd445c"
         ],
-        "timestamp": "2023-11-02T12:49:53.547568931"
+        "timestamp": "2023-11-09T14:30:07.369811245"
     }
 }

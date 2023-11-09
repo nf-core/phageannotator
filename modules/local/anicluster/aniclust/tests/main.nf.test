@@ -1,7 +1,7 @@
 nextflow_process {
 
     name "Test process: ANICLUSTER_ANICLUST"
-    script "modules/local/anicluster/aniclust/main.nf"
+    script "../main.nf"
     process "ANICLUSTER_ANICLUST"
     tag "modules"
     tag "modules_local"
@@ -9,7 +9,7 @@ nextflow_process {
     tag "anicluster_aniclust"
 
 
-    test("Should run without failures") {
+    test("test_anicluster_aniclust") {
 
         when {
             params {
@@ -17,7 +17,7 @@ nextflow_process {
             }
             process {
                 """
-                input[0] = [ [ id: 'test' ], [ file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists: true ) ],
+                input[0] = [ [ id: 'test' ], [ file(params.test_data['modules_local']['b_frag_contigs_fa_gz'], checkIfExists: true ) ],
                                                 [ file(params.test_data['modules_local']['ani_tsv'], checkIfExists: true ) ] ]
                 """
             }

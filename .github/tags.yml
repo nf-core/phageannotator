@@ -15,6 +15,8 @@ anicluster_aniclust:
   - modules/local/anicluster/aniclust/**
 anicluster_extractreps:
   - modules/local/anicluster/extractreps/**
+coverm_contig:
+  - modules/local/coverm/contig/**
 
 # subworkflows
 fasta_virus_classification_genomad_default:
@@ -26,6 +28,8 @@ fastq_fasta_reference_containment_mash_default:
   - subworkflows/local/fastq_fasta_reference_containment_mash/**
 fasta_all_v_all_blast:
   - subworkflows/local/fasta_all_v_all_blast/**
+bam_sort_stats_samtools:
+  - subworkflows/nf-core/bam_sort_stats_samtools/**
 
 # workflow: phageannotator
 phageannotator_default:
@@ -37,10 +41,12 @@ phageannotator_default:
   - modules/local/anicluster/anicalc/**
   - modules/local/anicluster/aniclust/**
   - modules/local/anicluster/extractreps/**
+  - modules/local/coverm/contig/**
   - subworkflows/local/fasta_virus_classification_genomad/**
   - subworkflows/local/fasta_virus_quality_checkv/**
   - subworkflows/local/fastq_fasta_reference_containment_mash/**
   - subworkflows/local/fasta_all_v_all_blast/**
+  - subworkflows/nf-core/bam_sort_stats_samtools/**
   - workflows/phageannotator/**
 
 phageannotator_no_reference:
@@ -56,6 +62,7 @@ phageannotator_no_reference:
   - subworkflows/local/fasta_virus_quality_checkv/**
   - subworkflows/local/fastq_fasta_reference_containment_mash/**
   - subworkflows/local/fasta_all_v_all_blast/**
+  - subworkflows/nf-core/bam_sort_stats_samtools/**
   - workflows/phageannotator/**
 
 phageannotator_skip_reference:
@@ -71,6 +78,7 @@ phageannotator_skip_reference:
   - subworkflows/local/fasta_virus_quality_checkv/**
   - subworkflows/local/fastq_fasta_reference_containment_mash/**
   - subworkflows/local/fasta_all_v_all_blast/**
+  - subworkflows/nf-core/bam_sort_stats_samtools/**
   - workflows/phageannotator/**
 
 ## pipeline: nf-core/phageannotator
@@ -87,4 +95,5 @@ nf-core-phageannotator:
   - subworkflows/local/fasta_virus_quality_checkv/**
   - subworkflows/local/fastq_fasta_reference_containment_mash/**
   - subworkflows/local/fasta_all_v_all_blast/**
+  - subworkflows/nf-core/bam_sort_stats_samtools/**
   - workflows/phageannotator/**

@@ -1,7 +1,7 @@
 nextflow_process {
 
     name "Test process: ANICLUSTER_EXTRACTREPS"
-    script "modules/local/anicluster/extractreps/main.nf"
+    script "../main.nf"
     process "ANICLUSTER_EXTRACTREPS"
     tag "modules"
     tag "modules_local"
@@ -9,7 +9,7 @@ nextflow_process {
     tag "anicluster_extractreps"
 
 
-    test("Should run without failures") {
+    test("test_anicluster_extractreps") {
 
         when {
             params {

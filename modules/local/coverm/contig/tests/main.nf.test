@@ -1,15 +1,13 @@
 nextflow_process {
 
-    name "Test process: ANICLUSTER_ANICALC"
-    script "../main.nf"
-    process "ANICLUSTER_ANICALC"
-    tag "modules"
+    name "Test Process: COVERM_CONTIG"
+    script "modules/local/coverm/contig/main.nf"
+    process "COVERM_CONTIG"
     tag "modules_local"
-    tag "anicluster"
-    tag "anicluster_anicalc"
+    tag "coverm_contig"
 
 
-    test("test_anicluster_anicalc") {
+    test("Test COVERM_CONTIG") {
 
         when {
             params {
@@ -17,7 +15,7 @@ nextflow_process {
             }
             process {
                 """
-                input[0] = [ [ id: 'test' ], [ file(params.test_data['modules_local']['blast_txt'], checkIfExists: true) ] ]
+                input[0] = [ [ id: 'all_samples' ], [ file(params.test_data['modules_local']['b_frag_test1_bam'], checkIfExists: true), file(params.test_data['modules_local']['b_frag_test2_bam'], checkIfExists: true) ] ]
                 """
             }
         }
