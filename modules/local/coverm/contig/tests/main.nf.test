@@ -15,7 +15,7 @@ nextflow_process {
             }
             process {
                 """
-                input[0] = [ [ id: 'all_samples' ], [ file(params.test_data['modules_local']['b_frag_test1_bam'], checkIfExists: true), file(params.test_data['modules_local']['b_frag_test2_bam'], checkIfExists: true) ] ]
+                input[0] = [ [ id: 'all_samples' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['test1_bam'], checkIfExists: true), file(params.test_data['bacteroides_fragilis']['illumina']['test2_bam'], checkIfExists: true) ] ]
                 """
             }
         }
