@@ -57,19 +57,22 @@
             ],
             [
                 [
-                    [
-                        "test1.bam:md5,bba6c53a061f7f9aa4c808ff2fa48e52",
-                        "test1.bowtie2.log:md5,7d06c224fbf603e632f6f83bd4c3a9ba"
-                    ]
-                ],
+                    "all_samples_alignment_results.tsv:md5,144fb2b842e76001330898e1a54ea304"
+                ]
+            ],
+            "test1.bowtie2.log:md5,7d06c224fbf603e632f6f83bd4c3a9ba",
+            [
                 [
-                    [
-                        "all_samples_alignment_results.tsv:md5,144fb2b842e76001330898e1a54ea304"
-                    ]
+                    "test1_anicluster_representatives.fna.1.bt2:md5,3cf2c879a5137aef50a780c5afc9dbae",
+                    "test1_anicluster_representatives.fna.2.bt2:md5,42d61ab37a38c1d5eb5c8b3026d92323",
+                    "test1_anicluster_representatives.fna.3.bt2:md5,c8557599e8d79c2e51b84f2d40dd403f",
+                    "test1_anicluster_representatives.fna.4.bt2:md5,cd9f557e8622cd018d4f5e026143db72",
+                    "test1_anicluster_representatives.fna.rev.1.bt2:md5,d035b7d383c25ad1ab31edb34509488a",
+                    "test1_anicluster_representatives.fna.rev.2.bt2:md5,66f4b8e69416ae5b40e03c8dacdd1116"
                 ]
             ],
             "software_versions.yml:md5,a406b101c1127304c3828f21d1cd445c"
         ],
-        "timestamp": "2023-11-09T14:30:07.369811245"
+        "timestamp": "2023-11-10T14:58:45.613514397"
     }
 }
