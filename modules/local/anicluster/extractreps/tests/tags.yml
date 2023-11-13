@@ -1,2 +1,2 @@
-anicluster/aniclust:
+anicluster/extractreps:
   - modules/local/anicluster/extractreps/**
