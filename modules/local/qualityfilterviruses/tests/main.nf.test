@@ -1,14 +1,14 @@
 nextflow_process {
 
     name "Test process: QUALITYFILTERVIRUSES"
-    script "modules/local/qualityfilterviruses/main.nf"
+    script "../main.nf"
     process "QUALITYFILTERVIRUSES"
     tag "modules"
     tag "modules_local"
     tag "qualityfilterviruses"
 
 
-    test("Should run without failures") {
+    test("['modules_local']['viruses_fna_gz'] & ['modules_local']['proviruses_fna_gz'] & ['modules_local']['quality_summary_tsv']") {
 
         when {
             params {

@@ -1,5 +1,5 @@
 {
-    "Should run without failures": {
+    "['bacteroides_fragilis']['illumina']['contigs_fa_gz'] & ['modules_local']['ani_tsv']": {
         "content": [
             {
                 "0": [
@@ -26,6 +26,6 @@
                 ]
             }
         ],
-        "timestamp": "2023-10-09T10:55:36.611008765"
+        "timestamp": "2023-11-13T11:49:27.609639159"
     }
 }

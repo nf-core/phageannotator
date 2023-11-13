@@ -1,13 +1,14 @@
 nextflow_process {
 
     name "Test Process: MASH_PASTE"
-    script "modules/local/mash/paste/main.nf"
+    script "../main.nf"
     process "MASH_PASTE"
+    tag "modules"
     tag "modules_local"
     tag "mash_paste"
 
 
-    test("Test MASH_PASTE") {
+    test("['modules_local']['mash_sketch1_msh'] & ['modules_local']['mash_sketch2_msh']") {
 
         when {
             params {

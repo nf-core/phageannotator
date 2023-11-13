@@ -9,7 +9,7 @@ nextflow_process {
     tag "anicluster_aniclust"
 
 
-    test("test_anicluster_aniclust") {
+    test("['bacteroides_fragilis']['illumina']['contigs_fa_gz'] & ['modules_local']['ani_tsv']") {
 
         when {
             params {

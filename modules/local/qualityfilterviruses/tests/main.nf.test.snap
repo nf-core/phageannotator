@@ -1,5 +1,5 @@
 {
-    "Should run without failures": {
+    "['modules_local']['viruses_fna_gz'] & ['modules_local']['proviruses_fna_gz'] & ['modules_local']['quality_summary_tsv']": {
         "content": [
             {
                 "0": [
@@ -26,6 +26,6 @@
                 ]
             }
         ],
-        "timestamp": "2023-11-01T14:49:03.483941042"
+        "timestamp": "2023-11-13T11:51:52.620146978"
     }
 }

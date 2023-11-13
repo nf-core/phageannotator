@@ -1,13 +1,14 @@
 nextflow_process {
 
     name "Test Process: AWK"
-    script "modules/local/awk/main.nf"
+    script "../main.nf"
     process "AWK"
+    tag "modules"
     tag "modules_local"
     tag "awk"
 
 
-    test("Test AWK") {
+    test("['modules_local']['virus_summary1_tsv'] & ['modules_local']['virus_summary2_tsv']") {
 
         when {
             params {

@@ -1,13 +1,14 @@
 nextflow_process {
 
     name "Test Process: COVERM_CONTIG"
-    script "modules/local/coverm/contig/main.nf"
+    script "../main.nf"
     process "COVERM_CONTIG"
+    tag "modules"
     tag "modules_local"
     tag "coverm_contig"
 
 
-    test("Test COVERM_CONTIG") {
+    test("['bacteroides_fragilis']['test1_bam'] & ['bacteroides_fragilis']['test2_bam']") {
 
         when {
             params {

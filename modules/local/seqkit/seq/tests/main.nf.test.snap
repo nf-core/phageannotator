@@ -1,5 +1,5 @@
 {
-    "Test SEQKIT_SEQ length filter": {
+    "['modules_local']['assembly_fasta_gz']": {
         "content": [
             {
                 "0": [
@@ -26,6 +26,6 @@
                 ]
             }
         ],
-        "timestamp": "2023-09-25T20:31:48+0000"
+        "timestamp": "2023-11-13T11:53:17.1077992"
     }
 }

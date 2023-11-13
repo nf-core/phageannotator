@@ -9,7 +9,7 @@ nextflow_process {
     tag "anicluster_anicalc"
 
 
-    test("test_anicluster_anicalc") {
+    test("['modules_local']['blast_txt']") {
 
         when {
             params {

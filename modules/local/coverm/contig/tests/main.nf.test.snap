@@ -1,5 +1,5 @@
 {
-    "Test COVERM_CONTIG": {
+    "['bacteroides_fragilis']['test1_bam'] & ['bacteroides_fragilis']['test2_bam']": {
         "content": [
             {
                 "0": [
@@ -26,6 +26,6 @@
                 ]
             }
         ],
-        "timestamp": "2023-11-09T13:55:06.541487531"
+        "timestamp": "2023-11-13T11:52:17.129290553"
     }
 }
