@@ -5,7 +5,7 @@ nextflow_process {
     process "MASH_PASTE"
     tag "modules"
     tag "modules_local"
-    tag "mash_paste"
+    tag "mash/paste"
 
 
     test("['modules_local']['mash_sketch1_msh'] & ['modules_local']['mash_sketch2_msh']") {

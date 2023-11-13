@@ -5,7 +5,7 @@ nextflow_process {
     process "COVERM_CONTIG"
     tag "modules"
     tag "modules_local"
-    tag "coverm_contig"
+    tag "coverm/contig"
 
 
     test("['bacteroides_fragilis']['test1_bam'] & ['bacteroides_fragilis']['test2_bam']") {

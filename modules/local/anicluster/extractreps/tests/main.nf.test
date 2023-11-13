@@ -6,7 +6,7 @@ nextflow_process {
     tag "modules"
     tag "modules_local"
     tag "anicluster"
-    tag "anicluster_extractreps"
+    tag "anicluster/extractreps"
 
 
     test("['bacteroides_fragilis']['illumina']['contigs_fa_gz'] & ['modules_local']['clusters_tsv']") {

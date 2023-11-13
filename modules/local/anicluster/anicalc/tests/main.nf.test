@@ -6,7 +6,7 @@ nextflow_process {
     tag "modules"
     tag "modules_local"
     tag "anicluster"
-    tag "anicluster_anicalc"
+    tag "anicluster/anicalc"
 
 
     test("['modules_local']['blast_txt']") {
