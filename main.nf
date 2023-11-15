@@ -118,13 +118,6 @@ workflow NFCORE_PHAGEANNOTATOR {
         ch_multiqc_logo.toList()
     )
     multiqc_report = MULTIQC.out.report.toList()
-
-    emit:
-    filtered_viruses_fna_gz     = PHAGEANNOTATOR.out.filtered_viruses_fna_gz
-    reference_containment_tsv   = PHAGEANNOTATOR.out.reference_containment_tsv
-    virus_classification_tsv    = PHAGEANNOTATOR.out.virus_classification_tsv
-    virus_quality_tsv           = PHAGEANNOTATOR.out.virus_quality_tsv
-    versions                    = CUSTOM_DUMPSOFTWAREVERSIONS.out.yml
 }
 
 /*

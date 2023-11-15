@@ -1,15 +1,15 @@
 nextflow_process {
 
     name "Test process: ANICLUSTER_ANICALC"
-    script "modules/local/anicluster/anicalc/main.nf"
+    script "../main.nf"
     process "ANICLUSTER_ANICALC"
     tag "modules"
     tag "modules_local"
     tag "anicluster"
-    tag "anicluster_anicalc"
+    tag "anicluster/anicalc"
 
 
-    test("Should run without failures") {
+    test("['modules_local']['blast_txt']") {
 
         when {
             params {

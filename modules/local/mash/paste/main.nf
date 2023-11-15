@@ -2,7 +2,7 @@ process MASH_PASTE {
     tag "$meta.id"
     label 'process_single'
 
-    conda "bioconda::mash=2.3"
+    conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/mash:2.3--hd3113c8_4':
         'biocontainers/mash:2.3--hd3113c8_4' }"

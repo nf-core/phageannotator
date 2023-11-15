@@ -1,13 +1,14 @@
 nextflow_process {
 
     name "Test Process: SEQKIT_SEQ"
-    script "modules/local/seqkit/seq/main.nf"
+    script "../main.nf"
     process "SEQKIT_SEQ"
+    tag "modules"
     tag "modules_local"
-    tag "seqkit_seq"
+    tag "seqkit/seq"
 
 
-    test("Test SEQKIT_SEQ length filter") {
+    test("['modules_local']['assembly_fasta_gz']") {
 
         when {
             params {

@@ -1,0 +1,2 @@
+fasta_all_v_all_blast:
+  - subworkflows/local/fasta_all_v_all_blast/**

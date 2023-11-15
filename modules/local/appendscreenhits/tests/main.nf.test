@@ -1,14 +1,14 @@
 nextflow_process {
 
     name "Test process: APPENDSCREENHITS"
-    script "modules/local/appendscreenhits/main.nf"
+    script "../main.nf"
     process "APPENDSCREENHITS"
     tag "modules"
     tag "modules_local"
     tag "appendscreenhits"
 
 
-    test("Should run without failures") {
+    test("['modules_local']['mash_screen_results_tsv'] & ['modules_local']['assembly_fasta_gz'] & ['modules_local']['reference_fasta_gz']") {
 
         when {
             params {

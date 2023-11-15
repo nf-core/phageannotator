@@ -1,5 +1,5 @@
 {
-    "Test MASH_PASTE": {
+    "['modules_local']['mash_sketch1_msh'] & ['modules_local']['mash_sketch2_msh']": {
         "content": [
             {
                 "0": [
@@ -26,6 +26,6 @@
                 ]
             }
         ],
-        "timestamp": "2023-09-25T20:31:27+0000"
+        "timestamp": "2023-11-13T11:52:25.887887449"
     }
 }

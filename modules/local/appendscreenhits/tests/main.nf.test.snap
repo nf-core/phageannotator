@@ -1,5 +1,5 @@
 {
-    "Should run without failures": {
+    "['modules_local']['mash_screen_results_tsv'] & ['modules_local']['assembly_fasta_gz'] & ['modules_local']['reference_fasta_gz']": {
         "content": [
             {
                 "0": [
@@ -26,6 +26,6 @@
                 ]
             }
         ],
-        "timestamp": "2023-11-01T14:49:18.157717041"
+        "timestamp": "2023-11-13T11:52:08.023297473"
     }
 }
