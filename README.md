@@ -52,7 +52,7 @@ The annotation portion of this pipeline performs the following steps:
 3. Download the pipeline and test it on a minimal dataset with a single command:
 
    ```bash
-   nextflow run nf-core/taxprofiler -profile test,YOURPROFILE --outdir <OUTDIR>
+   nextflow run nf-core/phageannotator -profile test,YOURPROFILE --outdir <OUTDIR>
    ```
 
    Note that some form of configuration will be needed so that Nextflow knows how to fetch the required software. This is usually done in the form of a config profile (`YOURPROFILE` in the example command above). You can chain multiple config profiles in a comma-separated string.
@@ -65,14 +65,14 @@ The annotation portion of this pipeline performs the following steps:
 4. Start running your own analysis!
 
    ```console
-   nextflow run nf-core/taxprofiler --input samplesheet.csv --databases database.csv --outdir <OUTDIR> --run_<TOOL1> --run_<TOOL1> -profile <docker/singularity/podman/shifter/charliecloud/conda/institute>
+   nextflow run nf-core/phageannotator --input samplesheet.csv --databases database.csv --outdir <OUTDIR> -profile <docker/singularity/podman/shifter/charliecloud/conda/institute>
    ```
 
 For more details and further functionality, please refer to the [usage documentation](https://nf-co.re/phageannotator/usage) and the [parameter documentation](https://nf-co.re/phageannotator/parameters).
 
 ## Documentation
 
-The nf-core/taxprofiler pipeline comes with documentation about the pipeline [usage](https://nf-co.re/phageannotater/usage), [parameters](https://nf-co.re/phageannotater/parameters) and [output](https://nf-co.re/phageannotater/output).
+The nf-core/phageannotator pipeline comes with documentation about the pipeline [usage](https://nf-co.re/phageannotater/usage), [parameters](https://nf-co.re/phageannotater/parameters) and [output](https://nf-co.re/phageannotater/output).
 
 ## Credits
 

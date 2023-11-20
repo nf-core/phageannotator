@@ -13,6 +13,20 @@ The directories listed below will be created in the results directory after the 
 The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
 
 - [FastQC](#fastqc) - Raw read QC
+- [Mash]{#mash} - Extract of reference viruses contained in read sets
+- [geNomad](#genomad) - Identify viruses in (meta)-genomic assemblies
+- [vRhyme](#vrhyme) - Bin virus sequences
+- [CheckV](#checkv) - Assess virus quality and filter sequences
+- [BLAST](#blast) - Cluster virus sequences based on average nucleotide identity (ANI)
+- [bowtie2](#bowtie2) - Align reads to viruses
+- [CoverM](#coverm) - Calculate abundance metrics for alignments
+- [geNomad](#genomad-taxonomy) - Assign taxonomy using ICTV marker genes
+- [Mash](#mash-taxonomy) - Assign taxonomy using genomic proximity to reference sequences
+- [iPHoP](#iphop) - Predict bacterial hosts for phage sequences
+- [BACPHLIP](#bacphlip) - Predict phage lifestyle using temperate specific genes
+- [Prodigal-gv](#prodigal-gv) - Predict protein coding region
+- [inStrain](#instrain) - Analyze viral microevolution/diversity among samples in the same group
+- [propagATE](#propagate) - Predict instances of prophage induction within groups
 - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 
@@ -21,9 +35,8 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 <details markdown="1">
 <summary>Output files</summary>
 
-- `fastqc/`
+- `ReadQuality/fastqc/`
   - `*_fastqc.html`: FastQC report containing quality metrics.
-  - `*_fastqc.zip`: Zip archive containing the FastQC report, tab-delimited data file and plot images.
 
 </details>
 
@@ -38,6 +51,8 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 :::note
 The FastQC plots displayed in the MultiQC report shows _untrimmed_ reads. They may contain adapter sequence and potentially regions with low quality.
 :::
+
+### geNomad
 
 ### MultiQC
 
