@@ -4,6 +4,8 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
+// TODO: Update nf-core modules
+
 //
 // MODULES: Local modules
 //
@@ -256,7 +258,7 @@ workflow PHAGEANNOTATOR {
     //
     // SUBWORKFLOW: Download database and predict phage hosts
     //
-    ch_host_predictions_tsv = FASTA_PHAGE_HOST_IPHOP ( ch_anicluster_reps_fasta_gz, iphop_db ).host_predictions_tsv
+    ch_host_predictions_tsv = FASTA_PHAGE_HOST_IPHOP ( ch_anicluster_reps_fasta_gz, ch_iphop_db ).host_predictions_tsv
     ch_versions = ch_versions.mix( FASTA_PHAGE_HOST_IPHOP.out.versions )
 
 

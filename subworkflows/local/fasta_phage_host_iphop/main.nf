@@ -34,7 +34,7 @@ workflow FASTA_PHAGE_HOST_IPHOP {
     //
     // MODULE: Predict virus host
     //
-    IPHOP_PREDICT ( virus_fasta_gz, ch_iphop_db )
+    IPHOP_PREDICT ( ch_viruses_fasta, ch_iphop_db )
     ch_host_predictions_tsv  = IPHOP_PREDICT.out.iphop_genus
     ch_versions = ch_versions.mix(IPHOP_PREDICT.out.versions.first())
 

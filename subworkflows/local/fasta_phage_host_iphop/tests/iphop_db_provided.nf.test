@@ -6,19 +6,20 @@ nextflow_workflow {
     tag "subworkflows"
     tag "subworkflows_local"
     tag "fasta_phage_host_iphop"
-    tag "fasta_phage_host_iphop_default"
+    tag "fasta_phage_host_iphop_db_provided"
 
 
-    test("Parameters: default") {
+    test("Parameters: --iphop_db provided") {
 
         when {
             params {
+                load("$baseDir/tests/nf-test-local-db-params.json")
                 outdir              = "$outputDir"
             }
             workflow {
                 """
                 input[0] = Channel.of([ [ id:'test' ], [ file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/genome/genome.fna.gz', checkIfExists: true) ] ])
-                input[1] = null
+                input[1] = Channel.of([ file(params.iphop_db, checkIfExists:true ) ])
                 """
             }
         }

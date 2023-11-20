@@ -216,6 +216,31 @@
                 }
             }
         },
+        "phage_host_options": {
+            "title": "Phage host options",
+            "type": "object",
+            "description": "Predict host genus for phage sequences",
+            "default": "",
+            "properties": {
+                "iphop_db": {
+                    "type": "string",
+                    "description": "Path to locally iPHoP database"
+                },
+                "iphop_test_db": {
+                    "type": "boolean",
+                    "description": "Download test database rather than full database?"
+                },
+                "save_iphop_db": {
+                    "type": "boolean",
+                    "description": "Save downloaded iPHoP database"
+                },
+                "iphop_min_score": {
+                    "type": "integer",
+                    "default": 90,
+                    "description": "Minimum confidence score to provide host prediction"
+                }
+            }
+        },
         "institutional_config_options": {
             "title": "Institutional config options",
             "type": "object",
@@ -432,6 +457,9 @@
         },
         {
             "$ref": "#/definitions/virus_abundance_options"
+        },
+        {
+            "$ref": "#/definitions/phage_host_options"
         },
         {
             "$ref": "#/definitions/institutional_config_options"

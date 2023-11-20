@@ -71,8 +71,11 @@
                     "test1_anicluster_representatives.fna.rev.2.bt2:md5,66f4b8e69416ae5b40e03c8dacdd1116"
                 ]
             ],
-            "software_versions.yml:md5,a406b101c1127304c3828f21d1cd445c"
+            [
+                "Host_prediction_to_genus_m90.csv:md5,e7de9c11d429ac90eed71e162121f455"
+            ],
+            "software_versions.yml:md5,2de87f47eac92731a115feccd1e30fac"
         ],
-        "timestamp": "2023-11-10T14:58:45.613514397"
+        "timestamp": "2023-11-20T13:52:02.170800274"
     }
 }
