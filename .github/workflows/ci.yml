@@ -15,6 +15,7 @@ env:
   NXF_HOME: ${RUNNER_TEMP}/home
   NXF_ANSI_LOG: false
   NFTEST_VER: "0.8.1"
+  NXF_VER: 23.10.0
 
 concurrency:
   group: "${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}"
