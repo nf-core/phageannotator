@@ -11,6 +11,8 @@ on:
       - dev
 
 env:
+  NXF_WORK: ${RUNNER_TEMP}/work
+  NXF_HOME: ${RUNNER_TEMP}/home
   NXF_ANSI_LOG: false
   NFTEST_VER: "0.8.1"
 
@@ -87,6 +89,11 @@ jobs:
         run: |
           wget -qO- https://code.askimed.com/install/nf-test | bash
           sudo mv nf-test /usr/local/bin/
+
+      - name: Create working dirs
+        run: |
+          mkdir -p $NXF_WORK
+          mkdir -p $NXF_HOME
 
       - name: Run nf-test
         run: |
