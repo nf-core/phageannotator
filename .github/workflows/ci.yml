@@ -15,7 +15,6 @@ env:
   NXF_HOME: ${RUNNER_TEMP}/home
   NXF_ANSI_LOG: false
   NFTEST_VER: "0.8.1"
-  NXF_VER: 23.10.0
 
 concurrency:
   group: "${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}"
@@ -74,7 +73,7 @@ jobs:
       - name: Install Nextflow
         uses: nf-core/setup-nextflow@v1
         with:
-          version: "${{ matrix.NXF_VER }}"
+          version: "23.10.0"
 
       - name: Cache nf-test installation
         id: cache-software
