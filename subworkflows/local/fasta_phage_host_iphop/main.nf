@@ -31,7 +31,7 @@ workflow FASTA_PHAGE_HOST_IPHOP {
             //
             // MODULE: unpack minimal iphop db
             //
-            ch_iphop_db = UNTAR ( [ [ id:'iphop_minimal_db' ], file("https://raw.githubusercontent.com/nf-core/test-datasets/phageannotator/modules/nfcore/iphop/download/Test_db_rw.tar.gz", checkIfExists: true) ] ).untar.map { it[1] }
+            ch_iphop_db = UNTAR ( [ [ id:'iphop_minimal_db' ], file("https://github.com/nf-core/test-datasets/raw/phageannotator/modules/nfcore/iphop/download/Test_db_rw.tar.gz", checkIfExists: true) ] ).untar.map { it[1] }
             ch_versions = ch_versions.mix(UNTAR.out.versions)
         }
     }
@@ -48,7 +48,7 @@ workflow FASTA_PHAGE_HOST_IPHOP {
         //
         // MODULE: unpack data for partial iphop run
         //
-        ch_iphop_partial_input = UNTAR2 ( [ [ id:'iphop_partial_input' ], file("https://raw.githubusercontent.com/nf-core/test-datasets/phageannotator/modules/nfcore/iphop/download/iPHoP_data.tar.gz", checkIfExists: true) ] ).untar.map { it[1] }
+        ch_iphop_partial_input = UNTAR2 ( [ [ id:'iphop_partial_input' ], file("https://github.com/nf-core/test-datasets/raw/phageannotator/modules/nfcore/iphop/download/iPHoP_data.tar.gz", checkIfExists: true) ] ).untar.map { it[1] }
         ch_versions = ch_versions.mix(UNTAR2.out.versions)
     }
 

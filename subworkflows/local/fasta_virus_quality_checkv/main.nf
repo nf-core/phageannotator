@@ -30,7 +30,7 @@ workflow FASTA_VIRUS_QUALITY_CHECKV {
             //
             // MODULE: untar minimal checkv database
             //
-            ch_checkv_db = UNTAR ( [ [ id:'checkv_minimal_db' ], file("https://raw.githubusercontent.com/nf-core/test-datasets/phageannotator/modules/nfcore/checkv/endtoend/checkv_minimal_db.tar.gz", checkIfExists: true) ] ).untar.map { it[1] }
+            ch_checkv_db = UNTAR ( [ [ id:'checkv_minimal_db' ], file("https://github.com/nf-core/test-datasets/raw/phageannotator/modules/nfcore/checkv/endtoend/checkv_minimal_db.tar.gz", checkIfExists: true) ] ).untar.map { it[1] }
             ch_versions = ch_versions.mix(UNTAR.out.versions)
         }
     }
