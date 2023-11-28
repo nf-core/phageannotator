@@ -11,13 +11,17 @@ nextflow_workflow {
         when {
             workflow {
                 """
-                input[0] = Channel.of( [ [ id:'test' ], [ file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_1.fastq.gz', checkIfExists: true),
-                            file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_2.fastq.gz', checkIfExists:true) ] ] )
-                input[1] = Channel.of( [ [ id:'test' ], [ file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/genome/genome.fna.gz', checkIfExists:true) ] ] )
+                input[0] = Channel.of( [ [ id:'test' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['test1_1_fastq_gz'], checkIfExists: true),
+                            file(params.test_data['bacteroides_fragilis']['illumina']['test1_2_fastq_gz'], checkIfExists:true) ] ] )
+                input[1] = Channel.of( [ [ id:'test' ], [ file(params.test_data['bacteroides_fragilis']['genome']['genome_fna_gz'], checkIfExists:true) ] ] )
                 """
             }
             params {
                 outdir              = "$outputDir"
+                genomad_disable_nn  = true
+                genomad_sensitivity = 0.1
+                checkv_minimal_db   = true
+                iphop_partial_test  = true
             }
         }
 

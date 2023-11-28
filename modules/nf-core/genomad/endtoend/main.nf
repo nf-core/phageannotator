@@ -12,7 +12,7 @@ process GENOMAD_ENDTOEND {
     tuple path(genomad_db)
 
     output:
-    tuple val(meta), path("*_aggregated_classification/*_aggregated_classification.tsv")    , emit: aggregated_classification
+    tuple val(meta), path("*_aggregated_classification/*_aggregated_classification.tsv")    , emit: aggregated_classification   , optional: true
     tuple val(meta), path("*_annotate/*_taxonomy.tsv")                                      , emit: taxonomy
     tuple val(meta), path("*_find_proviruses/*_provirus.tsv")                               , emit: provirus
     tuple val(meta), path("*_score_calibration/*_compositions.tsv")                         , emit: compositions                , optional: true

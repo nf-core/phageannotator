@@ -3,6 +3,7 @@
 //
 
 include { CHECKV_DOWNLOADDATABASE   } from '../../../modules/nf-core/checkv/downloaddatabase/main'
+include { UNTAR                     } from '../../../modules/nf-core/untar/main'
 include { GUNZIP                    } from '../../../modules/nf-core/gunzip/main'
 include { CHECKV_ENDTOEND           } from '../../../modules/nf-core/checkv/endtoend/main'          // TODO: Update nf-core module to gzip output FASTA files
 
@@ -18,11 +19,20 @@ workflow FASTA_VIRUS_QUALITY_CHECKV {
     if ( checkv_db ){
         ch_checkv_db = checkv_db
     } else {
-        //
-        // MODULE: download CheckV database
-        //
-        ch_checkv_db = CHECKV_DOWNLOADDATABASE( ).checkv_db
-        ch_versions = ch_versions.mix(CHECKV_DOWNLOADDATABASE.out.versions.first())
+        // download standard checkv db unless minimal db is specified
+        if ( !params.checkv_minimal_db ){
+            //
+            // MODULE: download standard CheckV database
+            //
+            ch_checkv_db = CHECKV_DOWNLOADDATABASE( ).checkv_db
+            ch_versions = ch_versions.mix(CHECKV_DOWNLOADDATABASE.out.versions)
+        } else {
+            //
+            // MODULE: untar minimal checkv database
+            //
+            ch_checkv_db = UNTAR ( [ [ id:'checkv_minimal_db' ], file(params.test_data['modules_nfcore']['checkv_test_db_tar_gz'], checkIfExists: true) ] ).untar.map { it[1] }
+            ch_versions = ch_versions.mix(UNTAR.out.versions)
+        }
     }
 
     //

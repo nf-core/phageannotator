@@ -165,7 +165,7 @@ workflow PHAGEANNOTATOR {
     //
     // SUBWORKFLOW: Assess virus quality
     //
-    FASTA_VIRUS_QUALITY_CHECKV ( ch_viruses_fna_gz, ch_genomad_db )
+    FASTA_VIRUS_QUALITY_CHECKV ( ch_viruses_fna_gz, ch_checkv_db )
     ch_versions = ch_versions.mix(FASTA_VIRUS_QUALITY_CHECKV.out.versions.first())
 
     // create a channel for quality summaries

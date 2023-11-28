@@ -128,8 +128,7 @@
             "properties": {
                 "checkv_db": {
                     "type": "string",
-                    "description": "Path to directory containing CheckV database",
-                    "format": "directory-path"
+                    "description": "Path to directory containing CheckV database"
                 },
                 "save_checkv_db": {
                     "type": "boolean",
@@ -226,10 +225,6 @@
                     "type": "string",
                     "description": "Path to locally iPHoP database"
                 },
-                "iphop_test_db": {
-                    "type": "boolean",
-                    "description": "Download test database rather than full database?"
-                },
                 "save_iphop_db": {
                     "type": "boolean",
                     "description": "Save downloaded iPHoP database"
@@ -238,6 +233,36 @@
                     "type": "integer",
                     "default": 90,
                     "description": "Minimum confidence score to provide host prediction"
+                }
+            }
+        },
+        "developer_options": {
+            "title": "Developer options",
+            "type": "object",
+            "description": "Arguments for running pipeline tests with custom arguments/databases.",
+            "properties": {
+                "genomad_disable_nn": {
+                    "type": "boolean",
+                    "hidden": true
+                },
+                "genomad_sensitivity": {
+                    "type": "number",
+                    "default": 4.2,
+                    "hidden": true
+                },
+                "checkv_minimal_db": {
+                    "type": "boolean",
+                    "default": 4.2,
+                    "hidden": true
+                },
+                "iphop_test_db": {
+                    "type": "boolean",
+                    "description": "Download test database rather than full database?",
+                    "hidden": true
+                },
+                "iphop_partial_test": {
+                    "type": "boolean",
+                    "hidden": true
                 }
             }
         },
@@ -469,6 +494,9 @@
         },
         {
             "$ref": "#/definitions/generic_options"
+        },
+        {
+            "$ref": "#/definitions/developer_options"
         }
     ]
 }

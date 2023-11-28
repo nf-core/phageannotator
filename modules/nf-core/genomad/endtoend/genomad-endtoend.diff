@@ -1,18 +1,45 @@
 Changes in module 'nf-core/genomad/endtoend'
+--- /dev/null
++++ modules/nf-core/genomad/endtoend/nextflow.config
+@@ -0,0 +1,23 @@
++process {
++    withName: GENOMAD_ENDTOEND {
++        ext.args   = [
++            params.genomad_min_score ? "--min-score ${params.genomad_min_score}" : "",
++            params.genomad_max_fdr ? "--enable-score-calibration --max-fdr ${params.genomad_max_fdr}" : "",
++            params.genomad_splits ? "--splits ${params.genomad_splits}" : "",
++            params.genomad_disable_nn ? "--disable-nn-classification" : "",
++            params.genomad_sensitivity ? "--sensitivity ${params.genomad_sensitivity}" : ""
++        ].join(' ').trim()
++        publishDir = [
++            [
++                path: { "${params.outdir}/VirusClassification/genomad/endtoend" },
++                mode: params.publish_dir_mode,
++                pattern: '*_summary/*_virus.fna.gz'
++            ],
++            [
++                path: { "${params.outdir}/VirusClassification/genomad/endtoend" },
++                mode: params.publish_dir_mode,
++                pattern: '*_summary/*_virus_summary.tsv'
++            ]
++        ]
++    }
++}
 --- modules/nf-core/genomad/endtoend/main.nf
 +++ modules/nf-core/genomad/endtoend/main.nf
-@@ -8,8 +8,8 @@
+@@ -8,22 +8,22 @@
          'biocontainers/genomad:1.5.2--pyhdfd78af_0' }"
  
      input:
 -    tuple val(meta) , path(fasta)
 -    path  genomad_db
 +    tuple val(meta), path(fasta)
-+    tuple val(meta2), path(genomad_db)
++    tuple path(genomad_db)
  
      output:
-     tuple val(meta), path("*_aggregated_classification/*_aggregated_classification.tsv")    , emit: aggregated_classification
-@@ -17,13 +17,13 @@
+-    tuple val(meta), path("*_aggregated_classification/*_aggregated_classification.tsv")    , emit: aggregated_classification
++    tuple val(meta), path("*_aggregated_classification/*_aggregated_classification.tsv")    , emit: aggregated_classification   , optional: true
+     tuple val(meta), path("*_annotate/*_taxonomy.tsv")                                      , emit: taxonomy
      tuple val(meta), path("*_find_proviruses/*_provirus.tsv")                               , emit: provirus
      tuple val(meta), path("*_score_calibration/*_compositions.tsv")                         , emit: compositions                , optional: true
      tuple val(meta), path("*_score_calibration/*_calibrated_aggregated_classification.tsv") , emit: calibrated_classification   , optional: true

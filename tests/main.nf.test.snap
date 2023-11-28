@@ -20,62 +20,62 @@
                 ]
             ],
             [
-                "all_samples.tsv:md5,8aa138f16ebdaf23163791d8bba3427a",
+                "all_samples.tsv:md5,7701691df2712f4d5745034df667a4e7",
                 [
                     [
                         [
-                            "test1.fasta_w_screen_hits_virus.fna.gz:md5,b06f4bc2e21a17122fb999ba661ab821",
-                            "test1.fasta_w_screen_hits_virus_summary.tsv:md5,8aa138f16ebdaf23163791d8bba3427a"
+                            "test1.fasta_w_screen_hits_virus.fna.gz:md5,5faae7c2dcc626c07154fb3b1938666f",
+                            "test1.fasta_w_screen_hits_virus_summary.tsv:md5,7701691df2712f4d5745034df667a4e7"
                         ]
                     ]
                 ]
             ],
             [
-                "all_samples.tsv:md5,c96fdb5e5f179205fe23cee7a194c270",
+                "all_samples.tsv:md5,7c077331e86a070401dda88452ef98d9",
                 [
                     [
                         [
                             "proviruses.fna.gz:md5,7029066c27ac6f5ef18d660d5741979a",
-                            "quality_summary.tsv:md5,c96fdb5e5f179205fe23cee7a194c270",
-                            "viruses.fna.gz:md5,82bde1db0b611b3f2a2921a00831db97"
+                            "quality_summary.tsv:md5,7c077331e86a070401dda88452ef98d9",
+                            "viruses.fna.gz:md5,fb6f535ac5b87aba1009f9cc22a685d3"
                         ]
                     ]
                 ],
                 [
-                    "test1.filtered.fna.gz:md5,77d66bcbe7149649de3d1c9e4bc9a1b1"
+                    "test1.filtered.fna.gz:md5,c7698d77158f25e9fa8080c95a3849c4"
                 ]
             ],
             [
                 [
-                    "test1_ani.tsv:md5,66d215b2b00df9f095196e183fd51c56"
+                    "test1_ani.tsv:md5,9a9bd8d256c12ee4177c52a030847b7f"
                 ],
                 [
-                    "test1_clusters.tsv:md5,3726b19a36db0471c04d3ca46bdf3009",
+                    "test1_clusters.tsv:md5,0c669c5aed60bff30055cc9a9065686b",
                     "versions.yml:md5,68070b01cdc8bf2e8ea2eb4b97d2cdad"
                 ],
-                "test1_anicluster_representatives.fna.gz:md5,3d1300202ce1a53b26f6c0f7063d7902"
+                "test1_anicluster_representatives.fna.gz:md5,c7698d77158f25e9fa8080c95a3849c4"
             ],
             [
                 [
-                    "all_samples_alignment_results.tsv:md5,144fb2b842e76001330898e1a54ea304"
+                    "all_samples_alignment_results.tsv:md5,fdbb5a47e13260f7a43aa8f4fed1b334"
                 ]
             ],
             "test1.bowtie2.log:md5,7d06c224fbf603e632f6f83bd4c3a9ba",
             [
                 [
-                    "test1_anicluster_representatives.fna.1.bt2:md5,3cf2c879a5137aef50a780c5afc9dbae",
+                    "test1_anicluster_representatives.fna.1.bt2:md5,aff13ae604a7a398f782987d85c1f58d",
                     "test1_anicluster_representatives.fna.2.bt2:md5,42d61ab37a38c1d5eb5c8b3026d92323",
                     "test1_anicluster_representatives.fna.3.bt2:md5,c8557599e8d79c2e51b84f2d40dd403f",
                     "test1_anicluster_representatives.fna.4.bt2:md5,cd9f557e8622cd018d4f5e026143db72",
-                    "test1_anicluster_representatives.fna.rev.1.bt2:md5,d035b7d383c25ad1ab31edb34509488a",
+                    "test1_anicluster_representatives.fna.rev.1.bt2:md5,5a6c41946775372f7ec4d5cd3fe68ee2",
                     "test1_anicluster_representatives.fna.rev.2.bt2:md5,66f4b8e69416ae5b40e03c8dacdd1116"
                 ]
             ],
             [
-                "Host_prediction_to_genus_m90.csv:md5,e7de9c11d429ac90eed71e162121f455"
+                "Host_prediction_to_genus_m90.csv:md5,528dcefb6a6c743b43f0dbc40bec3692"
             ],
-            "software_versions.yml:md5,2de87f47eac92731a115feccd1e30fac"
+            "software_versions.yml:md5,b900ae1c1f372c19cadaf3667a869857"
         ],
-        "timestamp": "2023-11-20T13:52:02.170800274"
+        "timestamp": "2023-11-28T14:57:55.249897975"
     }
 }
