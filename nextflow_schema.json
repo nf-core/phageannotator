@@ -252,7 +252,6 @@
                 },
                 "checkv_minimal_db": {
                     "type": "boolean",
-                    "default": 4.2,
                     "hidden": true
                 },
                 "iphop_test_db": {
