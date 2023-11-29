@@ -1,2 +1,6 @@
-phageannotator:
+phageannotator_default:
+  - workflows/phageannotator/**
+phageannotator_no_reference:
+  - workflows/phageannotator/**
+phageannotator_skip_reference:
   - workflows/phageannotator/**
