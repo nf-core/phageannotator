@@ -67,6 +67,17 @@
                         "git_sha": "e06548bfa36ee31869b81041879dd6b3a83b1d57",
                         "installed_by": ["modules"]
                     },
+                    "iphop/download": {
+                        "branch": "master",
+                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "installed_by": ["modules"]
+                    },
+                    "iphop/predict": {
+                        "branch": "master",
+                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/iphop/predict/iphop-predict.diff"
+                    },
                     "mash/screen": {
                         "branch": "master",
                         "git_sha": "911696ea0b62df80e900ef244d7867d177971f73",
@@ -108,6 +119,11 @@
                         "branch": "master",
                         "git_sha": "8fc1d24c710ebe1d5de0f2447ec9439fd3d9d66a",
                         "installed_by": ["bam_stats_samtools"]
+                    },
+                    "untar": {
+                        "branch": "master",
+                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "installed_by": ["modules"]
                     }
                 }
             },

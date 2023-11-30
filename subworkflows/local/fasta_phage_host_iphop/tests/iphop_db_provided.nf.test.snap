@@ -1,0 +1,33 @@
+{
+    "Parameters: --iphop_db provided": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "Host_prediction_to_genus_m90.csv:md5,e529062e32656f9e9e1737ebd66c4e83"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,41c2135a3578a7a52a23fd3243c22e80",
+                    "versions.yml:md5,9a3afe922371942954848605293c0700"
+                ],
+                "host_predictions_tsv": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "Host_prediction_to_genus_m90.csv:md5,e529062e32656f9e9e1737ebd66c4e83"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,41c2135a3578a7a52a23fd3243c22e80",
+                    "versions.yml:md5,9a3afe922371942954848605293c0700"
+                ]
+            }
+        ],
+        "timestamp": "2023-11-16T16:15:22.426800093"
+    }
+}

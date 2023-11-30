@@ -4,6 +4,8 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
+// TODO: Update nf-core modules
+
 //
 // MODULES: Local modules
 //
@@ -21,10 +23,11 @@ include { COVERM_CONTIG                             } from '../../modules/local/
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
 // TODO: Update patches
-include { FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH    } from '../../subworkflows/local/fastq_fasta_reference_containment_mash/main'   // TODO: Add to nf-core
-include { FASTA_VIRUS_CLASSIFICATION_GENOMAD        } from '../../subworkflows/local/fasta_virus_classification_genomad/main'       // TODO: Add to nf-core
-include { FASTA_VIRUS_QUALITY_CHECKV                } from '../../subworkflows/local/fasta_virus_quality_checkv/main'               // TODO: Add to nf-core
+include { FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH    } from '../../subworkflows/local/fastq_fasta_reference_containment_mash/main'   // TODO: Add to nf-core; Add nf-tests to modules
+include { FASTA_VIRUS_CLASSIFICATION_GENOMAD        } from '../../subworkflows/local/fasta_virus_classification_genomad/main'       // TODO: Add to nf-core; Add nf-tests to modules
+include { FASTA_VIRUS_QUALITY_CHECKV                } from '../../subworkflows/local/fasta_virus_quality_checkv/main'               // TODO: Add to nf-core; Add nf-tests to modules
 include { FASTA_ALL_V_ALL_BLAST                     } from '../../subworkflows/local/fasta_all_v_all_blast/main'
+include { FASTA_PHAGE_HOST_IPHOP                    } from '../../subworkflows/local/fasta_phage_host_iphop/main'                   // TODO: Add to nf-core; Add nf-tests to modules
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -162,7 +165,7 @@ workflow PHAGEANNOTATOR {
     //
     // SUBWORKFLOW: Assess virus quality
     //
-    FASTA_VIRUS_QUALITY_CHECKV ( ch_viruses_fna_gz, ch_genomad_db )
+    FASTA_VIRUS_QUALITY_CHECKV ( ch_viruses_fna_gz, ch_checkv_db )
     ch_versions = ch_versions.mix(FASTA_VIRUS_QUALITY_CHECKV.out.versions.first())
 
     // create a channel for quality summaries
@@ -242,6 +245,23 @@ workflow PHAGEANNOTATOR {
     ch_versions = ch_versions.mix( COVERM_CONTIG.out.versions )
 
 
+    /*----------------------------------------------------------------------------
+        Predict phage hosts
+    ------------------------------------------------------------------------------*/
+    // create channel from params.checkv_db
+    if ( !params.iphop_db ){
+        ch_iphop_db = null
+    } else {
+        ch_iphop_db = file( params.iphop_db, checkIfExists:true )
+    }
+
+    //
+    // SUBWORKFLOW: Download database and predict phage hosts
+    //
+    ch_host_predictions_tsv = FASTA_PHAGE_HOST_IPHOP ( ch_anicluster_reps_fasta_gz, ch_iphop_db ).host_predictions_tsv
+    ch_versions = ch_versions.mix( FASTA_PHAGE_HOST_IPHOP.out.versions )
+
+
     emit:
     reference_containment_tsv   = ch_combined_mash_screen_tsv
     virus_classification_tsv    = ch_combined_virus_summaries_tsv
@@ -249,6 +269,7 @@ workflow PHAGEANNOTATOR {
     filtered_viruses_fna_gz     = ch_filtered_viruses_fna_gz
     anicluster_reps_fna_gz      = ch_anicluster_reps_fasta_gz
     alignment_results_tsv       = ch_alignment_results_tsv
+    host_predictions_tsv        = ch_host_predictions_tsv
     versions                    = ch_versions
 }
 

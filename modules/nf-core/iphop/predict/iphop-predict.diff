@@ -1,0 +1,39 @@
+Changes in module 'nf-core/iphop/predict'
+--- /dev/null
++++ modules/nf-core/iphop/predict/nextflow.config
+@@ -0,0 +1,12 @@
++process {
++    withName: IPHOP_PREDICT {
++        publishDir = [
++                path: { "${params.outdir}/PhageHost/iphop" },
++                mode: params.publish_dir_mode,
++                pattern: 'Host_prediction_to_genus_m*.csv',
++        ]
++        ext.args   = [
++            params.iphop_min_score ? "--min_score ${params.iphop_min_score}" : ""
++        ].join(' ').trim()
++    }
++}
+--- modules/nf-core/iphop/predict/main.nf
++++ modules/nf-core/iphop/predict/main.nf
+@@ -10,6 +10,7 @@
+     input:
+     tuple val(meta), path(fasta)
+     path iphop_db
++    path iphop_partial_input
+ 
+     output:
+     tuple val(meta), path("Host_prediction_to_genus_m*.csv")    , emit: iphop_genus
+@@ -23,7 +24,10 @@
+     script:
+     def args = task.ext.args ?: ''
+     def prefix = task.ext.prefix ?: "${meta.id}"
++    def partial_run = params.iphop_partial_test ? "mkdir -p iphop_results/Wdir; cp -r ${iphop_partial_input}/* iphop_results/Wdir/" : ""
+     """
++    $partial_run
++
+     export PERL5LIB=/usr/local/lib/perl5/site_perl/5.22.0
+     iphop \\
+         predict \\
+
+************************************************************

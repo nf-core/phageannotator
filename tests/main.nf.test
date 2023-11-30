@@ -9,7 +9,11 @@ nextflow_pipeline {
     test("Parameters: default") {
         when {
             params {
-                outdir  = "$outputDir"
+                outdir              = "$outputDir"
+                genomad_disable_nn  = true
+                genomad_sensitivity = 0.1
+                checkv_minimal_db   = true
+                iphop_partial_test  = true
             }
         }
 
@@ -25,6 +29,7 @@ nextflow_pipeline {
                     path("${params.outdir}/VirusAbundance/coverm"),
                     path("${params.outdir}/VirusAbundance/bowtie2/align/test1.bowtie2.log"),
                     path("${params.outdir}/VirusAbundance/bowtie2/build"),
+                    path("${params.outdir}/PhageHost/iphop"),
                     path("${params.outdir}/pipeline_info/software_versions.yml")
                     ).match() },
                 { assert new File("$outputDir/ReadQuality/fastqc/test1_1_fastqc.html").exists() },
