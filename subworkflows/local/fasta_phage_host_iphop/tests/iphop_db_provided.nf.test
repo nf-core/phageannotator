@@ -7,7 +7,6 @@ nextflow_workflow {
     tag "subworkflows_local"
     tag "fasta_phage_host_iphop"
     tag "fasta_phage_host_iphop_db_provided"
-    tag "untar"
 
 
     test("Parameters: --iphop_db provided") {
