@@ -18,16 +18,20 @@ include { ANICLUSTER_ANICALC                        } from '../../modules/local/
 include { ANICLUSTER_ANICLUST                       } from '../../modules/local/anicluster/aniclust/main'
 include { ANICLUSTER_EXTRACTREPS                    } from '../../modules/local/anicluster/extractreps/main'
 include { COVERM_CONTIG                             } from '../../modules/local/coverm/contig/main'                                 // TODO: Add to nf-core
+include { PRODIGAL_PRODIGALGV                       } from '../../modules/local/prodigal/prodigalgv/main'                           // TODO: Add to nf-core
+include { INSTRAIN_STB                              } from '../../modules/local/instrain/stb/main'
 
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-// TODO: Update patches
-include { FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH    } from '../../subworkflows/local/fastq_fasta_reference_containment_mash/main'   // TODO: Add to nf-core; Add nf-tests to modules
-include { FASTA_VIRUS_CLASSIFICATION_GENOMAD        } from '../../subworkflows/local/fasta_virus_classification_genomad/main'       // TODO: Add to nf-core; Add nf-tests to modules
-include { FASTA_VIRUS_QUALITY_CHECKV                } from '../../subworkflows/local/fasta_virus_quality_checkv/main'               // TODO: Add to nf-core; Add nf-tests to modules
-include { FASTA_ALL_V_ALL_BLAST                     } from '../../subworkflows/local/fasta_all_v_all_blast/main'
-include { FASTA_PHAGE_HOST_IPHOP                    } from '../../subworkflows/local/fasta_phage_host_iphop/main'                   // TODO: Add to nf-core; Add nf-tests to modules
+include { FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH                                } from '../../subworkflows/local/fastq_fasta_reference_containment_mash/main'   // TODO: Add to nf-core; Add nf-tests to nf-core modules
+include { FASTA_VIRUS_CLASSIFICATION_GENOMAD                                    } from '../../subworkflows/local/fasta_virus_classification_genomad/main'       // TODO: Add to nf-core; Add nf-tests to nf-core modules
+include { FASTA_VIRUS_QUALITY_CHECKV                                            } from '../../subworkflows/local/fasta_virus_quality_checkv/main'               // TODO: Add to nf-core; Add nf-tests to nf-core modules
+include { FASTA_ALL_V_ALL_BLAST                                                 } from '../../subworkflows/local/fasta_all_v_all_blast/main'
+include { FASTA_PHAGE_HOST_IPHOP                                                } from '../../subworkflows/local/fasta_phage_host_iphop/main'                   // TODO: Add to nf-core; Add nf-tests to nf-core modules
+include { FASTA_VIRUS_CLASSIFICATION_GENOMAD as FASTA_VIRUS_TAXONOMY_GENOMAD    } from '../../subworkflows/local/fasta_virus_classification_genomad/main'       // TODO: Add to nf-core; Add nf-tests to nf-core modules
+include { FASTA_MICRODIVERSITY_INSTRAIN                                         } from '../../subworkflows/local/fasta_microdiversity_instrain/main'            // TODO: Add to nf-core; Add nf-tests to nf-core modules
+
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -39,8 +43,10 @@ include { FASTA_PHAGE_HOST_IPHOP                    } from '../../subworkflows/l
 // MODULE: Installed directly from nf-core/modules
 //
 include { CAT_CAT as CAT_MASHSCREEN     } from '../../modules/nf-core/cat/cat/main'
+include { CAT_CAT as CAT_VIRUSES        } from '../../modules/nf-core/cat/cat/main'
 include { BOWTIE2_BUILD                 } from '../../modules/nf-core/bowtie2/build/main'
 include { GUNZIP                        } from '../../modules/nf-core/gunzip/main'
+include { BACPHLIP                      } from '../../modules/nf-core/bacphlip/main'
 
 //
 // SUBWORKFLOW: Installed directory from nf-core/subworkflows
@@ -87,7 +93,8 @@ workflow PHAGEANNOTATOR {
         }
 
         // create channel from params.reference_virus_fasta
-        ch_reference_virus_fasta_gz = [ [ id:'reference_viruses' ], file( params.reference_virus_fasta, checkIfExists:true ) ]
+        ch_reference_virus_fasta_gz = Channel.of([ [ id:'reference_viruses' ], file( params.reference_virus_fasta, checkIfExists:true ) ])
+        ch_reference_virus_fasta_gz
 
         // create channel from params.reference_virus_sketch
         if ( !params.reference_virus_sketch ){
@@ -99,7 +106,7 @@ workflow PHAGEANNOTATOR {
         //
         // SUBWORKFLOW: Identify contained reference genomes
         //
-        ch_containment_results_tsv = FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH ( fastq_gz, ch_filtered_input_fasta_gz, ch_reference_virus_fasta_gz, ch_reference_virus_sketch_msh ).mash_screen_results
+        ch_containment_results_tsv = FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH ( fastq_gz, ch_filtered_input_fasta_gz, ch_reference_virus_fasta_gz.first(), ch_reference_virus_sketch_msh ).mash_screen_results
         ch_versions = ch_versions.mix(FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH.out.versions.first())
 
         // join mash screen and assembly fasta by meta.id
@@ -108,13 +115,13 @@ workflow PHAGEANNOTATOR {
         //
         // MODULE: Append screen hits to assemblies
         //
-        ch_assembly_w_references_fasta_gz = APPENDSCREENHITS ( ch_append_screen_hits_input, ch_reference_virus_fasta_gz ).assembly_w_screen_hits
+        ch_assembly_w_references_fasta_gz = APPENDSCREENHITS ( ch_append_screen_hits_input, ch_reference_virus_fasta_gz.first() ).assembly_w_screen_hits
         ch_versions = ch_versions.mix(APPENDSCREENHITS.out.versions.first())
 
         //
         // MODULE: Combine mash screen outputs across samples
         //
-        ch_combined_mash_screen_tsv = CAT_MASHSCREEN( ch_containment_results_tsv.map{ [ [ id:'all_samples' ], it[1] ] }.groupTuple() ).file_out
+        ch_combined_mash_screen_tsv = CAT_MASHSCREEN( ch_containment_results_tsv.map{ [ [ id:'all_samples' ], it[1] ] }.groupTuple( sort: 'deep' ) ).file_out
         ch_versions = ch_versions.mix(CAT_MASHSCREEN.out.versions.first())
     } else {
         // if skip_reference_containment == true, skip subworkflow and use input assemblies
@@ -137,13 +144,13 @@ workflow PHAGEANNOTATOR {
     // SUBWORKFLOW: Classify and annotate sequences
     //
     ch_viruses_fna_gz = FASTA_VIRUS_CLASSIFICATION_GENOMAD ( ch_assembly_w_references_fasta_gz, ch_genomad_db ).viruses_fna_gz
+    ch_genomad_db_dir = FASTA_VIRUS_CLASSIFICATION_GENOMAD.out.genomad_db
     ch_versions = ch_versions.mix(FASTA_VIRUS_CLASSIFICATION_GENOMAD.out.versions.first())
 
-    // create channel for genomad virus summary files
-    ch_virus_summaries_tsv = FASTA_VIRUS_CLASSIFICATION_GENOMAD.out.virus_summaries_tsv
-
-    // create a channel for combining geNomad virus summaries
-    ch_awk_genomad_input = ch_virus_summaries_tsv.map { [ [ id:'all_samples' ], it[1] ] }.groupTuple()
+    // create a channel for combining geNomad virus summaries (sorted so output is the same for tests)
+    ch_awk_genomad_input = FASTA_VIRUS_CLASSIFICATION_GENOMAD.out.virus_summaries_tsv
+                            .map { [ [ id:'all_samples' ], it[1] ] }
+                            .groupTuple(sort: 'deep')
 
     //
     // MODULE: Combine geNomad summaries across samples
@@ -168,13 +175,15 @@ workflow PHAGEANNOTATOR {
     FASTA_VIRUS_QUALITY_CHECKV ( ch_viruses_fna_gz, ch_checkv_db )
     ch_versions = ch_versions.mix(FASTA_VIRUS_QUALITY_CHECKV.out.versions.first())
 
-    // create a channel for quality summaries
-    ch_quality_summaries_tsv = FASTA_VIRUS_QUALITY_CHECKV.out.quality_summary_tsv.map { [ [ id:'all_samples' ], it[1] ] }.groupTuple()
+    // create a channel for combining Checkv quality summaries (sorted so output is the same for tests)
+    ch_awk_checkv_input = FASTA_VIRUS_QUALITY_CHECKV.out.quality_summary_tsv
+                            .map { [ [ id:'all_samples' ], it[1] ] }
+                            .groupTuple( sort: 'deep' )
 
     //
     // MODULE: Combine quality summaries across samples
     //
-    ch_combined_quality_summaries_tsv = AWK_CHECKV ( ch_quality_summaries_tsv ).file_out
+    ch_combined_quality_summaries_tsv = AWK_CHECKV ( ch_awk_checkv_input ).file_out
     ch_versions = ch_versions.mix(AWK_CHECKV.out.versions.first())
 
     // create channel for input into QUALITY_FILTER_VIRUSES
@@ -191,10 +200,20 @@ workflow PHAGEANNOTATOR {
     /*----------------------------------------------------------------------------
         Cluster viruses using all-v-all BLAST approach
     ------------------------------------------------------------------------------*/
+    // create a channel for combining filtered viruses (sorted so output is the same for tests)
+    ch_cat_viruses_input = ch_filtered_viruses_fna_gz
+                            .map { [ [ id:'all_samples' ], it[1] ] }
+                            .groupTuple( sort: 'deep' )
+
+    //
+    // MODULE: Concatenate all quality filtered viruses into one file
+    //
+    ch_filtered_viruses_combined_fna_gz = CAT_VIRUSES ( ch_cat_viruses_input ).file_out
+
     //
     // SUBWORKFLOW: Perform all-v-all BLAST
     //
-    ch_blast_txt = FASTA_ALL_V_ALL_BLAST ( ch_filtered_viruses_fna_gz ).blast_txt
+    ch_blast_txt = FASTA_ALL_V_ALL_BLAST ( ch_filtered_viruses_combined_fna_gz ).blast_txt
     ch_versions = ch_versions.mix( FASTA_ALL_V_ALL_BLAST.out.versions )
 
     //
@@ -204,7 +223,7 @@ workflow PHAGEANNOTATOR {
     ch_versions = ch_versions.mix( ANICLUSTER_ANICALC.out.versions )
 
     // create input for ANICLUSTER_ANICALC
-    ch_aniclust_input = ch_filtered_viruses_fna_gz.join( ch_ani_tsv )
+    ch_aniclust_input = ch_filtered_viruses_combined_fna_gz.join( ch_ani_tsv )
 
     //
     // MODULE: Cluster virus sequences based on ANI and AF
@@ -213,7 +232,7 @@ workflow PHAGEANNOTATOR {
     ch_versions = ch_versions.mix( ANICLUSTER_ANICLUST.out.versions )
 
     // create input for extracting cluster representatives
-    ch_extractreps_input = ch_filtered_viruses_fna_gz.join( ch_clusters_tsv )
+    ch_extractreps_input = ch_filtered_viruses_combined_fna_gz.join( ch_clusters_tsv )
 
     //
     // MODULE: Extract cluster representatives
@@ -228,19 +247,19 @@ workflow PHAGEANNOTATOR {
     //
     // MODULE: Make bowtie2 index
     //
-    ch_anicluster_reps_bt2 = BOWTIE2_BUILD ( ch_anicluster_reps_fasta_gz ).index
+    ch_anicluster_reps_bt2 = BOWTIE2_BUILD ( ch_anicluster_reps_fasta_gz ).index.first()
     ch_versions = ch_versions.mix( BOWTIE2_BUILD.out.versions )
 
     //
     // SUBWORKFLOW: Align reads to bowtie2 index
     //
-    ch_alignment_bam = FASTQ_ALIGN_BOWTIE2 ( fastq_gz, ch_anicluster_reps_bt2, false, true, ch_anicluster_reps_fasta_gz ).bam
+    ch_cluster_rep_alignment_bam = FASTQ_ALIGN_BOWTIE2 ( fastq_gz, ch_anicluster_reps_bt2, false, true, ch_anicluster_reps_fasta_gz ).bam
     ch_versions = ch_versions.mix( FASTQ_ALIGN_BOWTIE2.out.versions )
 
     //
     // MODULE: Calculate abundance metrics from BAM file
     //
-    ch_combined_bams = ch_alignment_bam.map { [ [ id:'all_samples' ], it[1] ] }.groupTuple()
+    ch_combined_bams = ch_cluster_rep_alignment_bam.map { [ [ id:'all_samples' ], it[1] ] }.groupTuple( sort: 'deep' )
     ch_alignment_results_tsv = COVERM_CONTIG ( ch_combined_bams ).alignment_results
     ch_versions = ch_versions.mix( COVERM_CONTIG.out.versions )
 
@@ -262,6 +281,54 @@ workflow PHAGEANNOTATOR {
     ch_versions = ch_versions.mix( FASTA_PHAGE_HOST_IPHOP.out.versions )
 
 
+    /*----------------------------------------------------------------------------
+        Assign viral taxonomy
+    ------------------------------------------------------------------------------*/
+    //
+    // SUBWORKFLOW: Assign taxonomy using ICTV taxa specific marker genes
+    //
+    ch_marker_taxonomy_tsv = FASTA_VIRUS_TAXONOMY_GENOMAD ( ch_anicluster_reps_fasta_gz, ch_genomad_db_dir ).virus_summaries_tsv
+    ch_versions = ch_versions.mix( FASTA_VIRUS_TAXONOMY_GENOMAD.out.versions )
+
+
+    /*----------------------------------------------------------------------------
+        Predict virus lifestyle
+    ------------------------------------------------------------------------------*/
+    // gunzip fasta for input into bacphlip
+    ch_anicluster_reps_fasta = GUNZIP ( ch_anicluster_reps_fasta_gz ).gunzip
+    ch_versions = ch_versions.mix( GUNZIP.out.versions )
+
+    //
+    // MODULE: Predict phage lifestyle using lysogeny specific genes
+    //
+    ch_bacphlip_lifestyle_tsv = BACPHLIP ( ch_anicluster_reps_fasta ).bacphlip_results
+    ch_versions = ch_versions.mix( BACPHLIP.out.versions )
+
+
+    /*----------------------------------------------------------------------------
+        Identify protein-coding regions
+    ------------------------------------------------------------------------------*/
+    ch_prodigalgv_proteins_fna_gz = PRODIGAL_PRODIGALGV ( ch_anicluster_reps_fasta ).fna
+    ch_prodigalgv_proteins_faa_gz = PRODIGAL_PRODIGALGV.out.faa
+    ch_versions = ch_versions.mix( PRODIGAL_PRODIGALGV.out.versions )
+
+
+    /*----------------------------------------------------------------------------
+        Analyze virus microdiversity
+    ------------------------------------------------------------------------------*/
+    //
+    // MODULE: Generate instrain scaffold to bin file
+    //
+    ch_stb_file_tsv  = INSTRAIN_STB ( ch_anicluster_reps_fasta ).stb
+    ch_versions = ch_versions.mix(INSTRAIN_STB.out.versions)
+
+    //
+    // SUBWORKFLOW: Assess virus microdiversity within and across samples
+    //
+    ch_gene_info_tsv = FASTA_MICRODIVERSITY_INSTRAIN ( ch_cluster_rep_alignment_bam, ch_anicluster_reps_fasta_gz, ch_prodigalgv_proteins_fna_gz, ch_stb_file_tsv ).gene_info_tsv
+    ch_versions = ch_versions = ch_versions.mix(FASTA_MICRODIVERSITY_INSTRAIN.out.versions)
+
+
     emit:
     reference_containment_tsv   = ch_combined_mash_screen_tsv
     virus_classification_tsv    = ch_combined_virus_summaries_tsv
@@ -270,6 +337,10 @@ workflow PHAGEANNOTATOR {
     anicluster_reps_fna_gz      = ch_anicluster_reps_fasta_gz
     alignment_results_tsv       = ch_alignment_results_tsv
     host_predictions_tsv        = ch_host_predictions_tsv
+    marker_taxonomy_tsv         = ch_marker_taxonomy_tsv
+    bacphlip_lifestyle_tsv      = ch_bacphlip_lifestyle_tsv
+    prodigalgv_proteins_faa_gz  = ch_prodigalgv_proteins_faa_gz
+    instrain_gene_info          = ch_gene_info_tsv
     versions                    = ch_versions
 }
 

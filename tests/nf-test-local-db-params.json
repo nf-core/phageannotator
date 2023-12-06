@@ -1,5 +1,5 @@
 {
     "genomad_db": "/gscratch/pedslabs_hoffman/resources/genomad_db",
     "checkv_db": "/gscratch/pedslabs_hoffman/resources/checkv-db-v1.5",
-    "iphop_db": "/gscratch/pedslabs_hoffman/carsonjm/apptainer/iphop/iphop_db/Test_db_rw/"
+    "iphop_db": "/gscratch/pedslabs_hoffman/carsonjm/apptainer/iphop/iphop_test_db/Test_db_rw/"
 }

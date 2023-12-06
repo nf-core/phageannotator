@@ -4,78 +4,93 @@
             [
                 [
                     [
-                        "test1.fasta.gz:md5,b91bcdca503b2b02005cae7fc5a594b7"
+                        "test1.fasta.gz:md5,b91bcdca503b2b02005cae7fc5a594b7",
+                        "test2.fasta.gz:md5,b91bcdca503b2b02005cae7fc5a594b7"
                     ]
                 ]
             ],
             [
-                "all_samples.screen:md5,b074c6861bab21e2b3aa63aebff1f392",
+                "all_samples.screen:md5,f47ce56d737df76cfc7dc7b11191978c",
                 [
-                    "test1.fasta_w_screen_hits.fna.gz:md5,a8a0353be8912b70ca8c3fb370f9134a"
+                    "test1.fasta_w_screen_hits.fna.gz:md5,e7950a65ab396095457a5828de7e1846",
+                    "test2.fasta_w_screen_hits.fna.gz:md5,98c46374e3bd8bcbd5bd0db9584831c2"
                 ],
                 [
                     [
-                        "test1.screen:md5,b074c6861bab21e2b3aa63aebff1f392"
+                        "test1.screen:md5,196d027e8cc5f19a243767fb0e71b157",
+                        "test2.screen:md5,196d027e8cc5f19a243767fb0e71b157"
                     ]
                 ]
             ],
             [
-                "all_samples.tsv:md5,7701691df2712f4d5745034df667a4e7",
+                "all_samples.tsv:md5,d2ad63d07318020c1f35e70a3a67ca80",
                 [
                     [
                         [
-                            "test1.fasta_w_screen_hits_virus.fna.gz:md5,5faae7c2dcc626c07154fb3b1938666f",
-                            "test1.fasta_w_screen_hits_virus_summary.tsv:md5,7701691df2712f4d5745034df667a4e7"
+                            "all_samples_anicluster_representatives_virus.fna.gz:md5,41c7802ce1ac2f84047a043b26b4ff05",
+                            "all_samples_anicluster_representatives_virus_summary.tsv:md5,351e933fb6fb38a8e723f93723fbeffc"
+                        ],
+                        [
+                            "test1.fasta_w_screen_hits_virus.fna.gz:md5,7c28de4997ac68d737838ccf0636ad4e",
+                            "test1.fasta_w_screen_hits_virus_summary.tsv:md5,351e933fb6fb38a8e723f93723fbeffc"
+                        ],
+                        [
+                            "test2.fasta_w_screen_hits_virus.fna.gz:md5,b1b7c911ad12fdaaab536758cd25baca",
+                            "test2.fasta_w_screen_hits_virus_summary.tsv:md5,20375ce81322a9bd2a96a130e2c71101"
                         ]
                     ]
                 ]
             ],
             [
-                "all_samples.tsv:md5,7c077331e86a070401dda88452ef98d9",
+                "all_samples.tsv:md5,2f5386f3e6779a2872fd11fde534ad61",
                 [
                     [
                         [
                             "proviruses.fna.gz:md5,7029066c27ac6f5ef18d660d5741979a",
-                            "quality_summary.tsv:md5,7c077331e86a070401dda88452ef98d9",
-                            "viruses.fna.gz:md5,fb6f535ac5b87aba1009f9cc22a685d3"
+                            "viruses.fna.gz:md5,d9b20a3394bcb98943231b3155615f47"
+                        ],
+                        [
+                            "proviruses.fna.gz:md5,7029066c27ac6f5ef18d660d5741979a",
+                            "viruses.fna.gz:md5,9946df26545cbfc7ee4678d80cc0909c"
                         ]
                     ]
                 ],
                 [
-                    "test1.filtered.fna.gz:md5,c7698d77158f25e9fa8080c95a3849c4"
+                    "test1.filtered.fna.gz:md5,41c7802ce1ac2f84047a043b26b4ff05",
+                    "test2.filtered.fna.gz:md5,708813e4eda17b2088c792685c39c29e"
                 ]
             ],
             [
+                "all_samples_anicluster_representatives.fna.gz:md5,41c7802ce1ac2f84047a043b26b4ff05",
                 [
-                    "test1_ani.tsv:md5,9a9bd8d256c12ee4177c52a030847b7f"
+                    "all_samples_ani.tsv:md5,a09126f3000f14bddf28c770ad9f92f7"
                 ],
                 [
-                    "test1_clusters.tsv:md5,0c669c5aed60bff30055cc9a9065686b",
+                    "all_samples_clusters.tsv:md5,06f4434bea86809af28ab16d91cb7b04",
                     "versions.yml:md5,68070b01cdc8bf2e8ea2eb4b97d2cdad"
-                ],
-                "test1_anicluster_representatives.fna.gz:md5,c7698d77158f25e9fa8080c95a3849c4"
-            ],
-            [
-                [
-                    "all_samples_alignment_results.tsv:md5,fdbb5a47e13260f7a43aa8f4fed1b334"
                 ]
             ],
-            "test1.bowtie2.log:md5,7d06c224fbf603e632f6f83bd4c3a9ba",
             [
                 [
-                    "test1_anicluster_representatives.fna.1.bt2:md5,aff13ae604a7a398f782987d85c1f58d",
-                    "test1_anicluster_representatives.fna.2.bt2:md5,42d61ab37a38c1d5eb5c8b3026d92323",
-                    "test1_anicluster_representatives.fna.3.bt2:md5,c8557599e8d79c2e51b84f2d40dd403f",
-                    "test1_anicluster_representatives.fna.4.bt2:md5,cd9f557e8622cd018d4f5e026143db72",
-                    "test1_anicluster_representatives.fna.rev.1.bt2:md5,5a6c41946775372f7ec4d5cd3fe68ee2",
-                    "test1_anicluster_representatives.fna.rev.2.bt2:md5,66f4b8e69416ae5b40e03c8dacdd1116"
+                    "all_samples_alignment_results.tsv:md5,bd59905a4d34e4804da86bf6a2843d80"
+                ]
+            ],
+            "test1.bowtie2.log:md5,e7275c6347e7901c9bbb6ae4b317fcc1",
+            [
+                [
+                    "all_samples_anicluster_representatives.fna.1.bt2:md5,b27eb1ed0c9a3bedf4b3e2c6c107afcc",
+                    "all_samples_anicluster_representatives.fna.2.bt2:md5,ba6e4f623336917cb116c4632a6b0f82",
+                    "all_samples_anicluster_representatives.fna.3.bt2:md5,bc9a6e64bb55dfda29b4d8c18be153f1",
+                    "all_samples_anicluster_representatives.fna.4.bt2:md5,334c5e3e240a27fa3e942c891e1fc6c5",
+                    "all_samples_anicluster_representatives.fna.rev.1.bt2:md5,32cf967b6670e1ba99e43c083dc2d425",
+                    "all_samples_anicluster_representatives.fna.rev.2.bt2:md5,dfd26c60bd10b1e376c9a0357576eb30"
                 ]
             ],
             [
                 "Host_prediction_to_genus_m90.csv:md5,528dcefb6a6c743b43f0dbc40bec3692"
             ],
-            "software_versions.yml:md5,b900ae1c1f372c19cadaf3667a869857"
+            "software_versions.yml:md5,3f51341c97f7d68619497d0a23c69694"
         ],
-        "timestamp": "2023-11-28T14:57:55.249897975"
+        "timestamp": "2023-12-06T14:02:36.626227012"
     }
 }

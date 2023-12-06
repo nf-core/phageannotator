@@ -23,7 +23,7 @@
                         {
                             "id": "test"
                         },
-                        "quality_summary.tsv:md5,04e827b7efefe52727a904cfd3af1639"
+                        "test_quality_summary.tsv:md5,04e827b7efefe52727a904cfd3af1639"
                     ]
                 ],
                 "3": [
@@ -43,7 +43,7 @@
                         {
                             "id": "test"
                         },
-                        "quality_summary.tsv:md5,04e827b7efefe52727a904cfd3af1639"
+                        "test_quality_summary.tsv:md5,04e827b7efefe52727a904cfd3af1639"
                     ]
                 ],
                 "versions": [
@@ -60,6 +60,6 @@
                 ]
             }
         ],
-        "timestamp": "2023-10-02T14:16:59.728417686"
+        "timestamp": "2023-12-04T09:57:32.406662191"
     }
 }

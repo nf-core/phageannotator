@@ -1,0 +1,47 @@
+{
+    "['sarscov2']['genome']['genome_fasta']": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "all_samples"
+                        },
+                        "all_samples.prodigalgv.faa.gz:md5,6c9b5f2bdfc0bb3186945d236cb805e7"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "all_samples"
+                        },
+                        "all_samples.prodigalgv.fna.gz:md5,89be685175005f47a7220a46dbbaffc3"
+                    ]
+                ],
+                "2": [
+                    "versions.yml:md5,3849079cb0a073e302ead9d90e4624d4"
+                ],
+                "faa": [
+                    [
+                        {
+                            "id": "all_samples"
+                        },
+                        "all_samples.prodigalgv.faa.gz:md5,6c9b5f2bdfc0bb3186945d236cb805e7"
+                    ]
+                ],
+                "fna": [
+                    [
+                        {
+                            "id": "all_samples"
+                        },
+                        "all_samples.prodigalgv.fna.gz:md5,89be685175005f47a7220a46dbbaffc3"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,3849079cb0a073e302ead9d90e4624d4"
+                ]
+            }
+        ],
+        "timestamp": "2023-12-04T16:35:03.805980435"
+    }
+}

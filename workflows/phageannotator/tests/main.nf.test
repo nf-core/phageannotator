@@ -12,16 +12,22 @@ nextflow_workflow {
             workflow {
                 """
                 input[0] = Channel.of( [ [ id:'test' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['test1_1_fastq_gz'], checkIfExists: true),
+                            file(params.test_data['bacteroides_fragilis']['illumina']['test1_2_fastq_gz'], checkIfExists:true) ] ],
+                            [ [ id:'test2' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['test1_1_fastq_gz'], checkIfExists: true),
                             file(params.test_data['bacteroides_fragilis']['illumina']['test1_2_fastq_gz'], checkIfExists:true) ] ] )
-                input[1] = Channel.of( [ [ id:'test' ], [ file(params.test_data['bacteroides_fragilis']['genome']['genome_fna_gz'], checkIfExists:true) ] ] )
+                input[1] = Channel.of( [ [ id:'test' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['contigs_fa_gz'], checkIfExists:true) ] ],
+                            [ [ id:'test2' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['contigs_fa_gz'], checkIfExists:true) ] ])
                 """
             }
             params {
-                outdir              = "$outputDir"
-                genomad_disable_nn  = true
-                genomad_sensitivity = 0.1
-                checkv_minimal_db   = true
-                iphop_partial_test  = true
+                outdir                  = "$outputDir"
+                mash_screen_min_score   = 0.5
+                genomad_min_score       = 0.01
+                genomad_max_fdr         = 1
+                genomad_disable_nn      = true
+                genomad_sensitivity     = 0.1
+                checkv_minimal_db       = true
+                iphop_partial_test      = true
             }
         }
 

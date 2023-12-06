@@ -43,7 +43,7 @@ workflow FASTA_PHAGE_HOST_IPHOP {
     ch_versions = ch_versions.mix(GUNZIP.out.versions.first())
 
     // create input for partial iphop run
-    ch_iphop_partial_input = Channel.empty()
+    ch_iphop_partial_input = []
     if ( params.iphop_partial_test ) {
         //
         // MODULE: unpack data for partial iphop run
