@@ -5,6 +5,7 @@ import argparse
 import pandas as pd
 from Bio import SeqIO
 
+
 def parse_args(args=None):
     Description = "Create a scaffold-to-bin file for input to inStrain."
     Epilog = "Example usage: python create_instrain_stb.py -f fasta.fasta -o fasta.stb"
@@ -32,9 +33,9 @@ def create_instrain_stb(fasta, output):
         contig_names.append(record.id)
 
     stb_df = pd.DataFrame()
-    stb_df['scaffold'] = contig_names
-    stb_df['bin'] = stb_df['scaffold']
-    stb_df.to_csv(output, sep='\t', index=False, header=False)
+    stb_df["scaffold"] = contig_names
+    stb_df["bin"] = stb_df["scaffold"]
+    stb_df.to_csv(output, sep="\t", index=False, header=False)
 
 
 def main(args=None):
