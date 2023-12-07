@@ -7,7 +7,7 @@
                         {
                             "id": "test"
                         },
-                        "test.fasta_w_screen_hits.fna.gz:md5,94ff9611c2d02619db9afce95ce6ad6b"
+                        "test.fasta_w_screen_hits.fna.gz:md5,8ae1a1f526134b2672776111c9f9f210"
                     ]
                 ],
                 "1": [
@@ -18,7 +18,7 @@
                         {
                             "id": "test"
                         },
-                        "test.fasta_w_screen_hits.fna.gz:md5,94ff9611c2d02619db9afce95ce6ad6b"
+                        "test.fasta_w_screen_hits.fna.gz:md5,8ae1a1f526134b2672776111c9f9f210"
                     ]
                 ],
                 "versions": [
@@ -26,6 +26,6 @@
                 ]
             }
         ],
-        "timestamp": "2023-11-13T11:52:08.023297473"
+        "timestamp": "2023-12-06T15:23:52.515798496"
     }
 }

@@ -7,7 +7,7 @@
                         {
                             "id": "all_samples"
                         },
-                        "all_samples.prodigalgv.faa.gz:md5,6c9b5f2bdfc0bb3186945d236cb805e7"
+                        "all_samples.prodigalgv.faa.gz:md5,6f28a3b4d319835fe5ce4864bc3b7c2c"
                     ]
                 ],
                 "1": [
@@ -15,7 +15,7 @@
                         {
                             "id": "all_samples"
                         },
-                        "all_samples.prodigalgv.fna.gz:md5,89be685175005f47a7220a46dbbaffc3"
+                        "all_samples.prodigalgv.fna.gz:md5,d6eb37cf9a223db5dcf56538f5050c76"
                     ]
                 ],
                 "2": [
@@ -26,7 +26,7 @@
                         {
                             "id": "all_samples"
                         },
-                        "all_samples.prodigalgv.faa.gz:md5,6c9b5f2bdfc0bb3186945d236cb805e7"
+                        "all_samples.prodigalgv.faa.gz:md5,6f28a3b4d319835fe5ce4864bc3b7c2c"
                     ]
                 ],
                 "fna": [
@@ -34,7 +34,7 @@
                         {
                             "id": "all_samples"
                         },
-                        "all_samples.prodigalgv.fna.gz:md5,89be685175005f47a7220a46dbbaffc3"
+                        "all_samples.prodigalgv.fna.gz:md5,d6eb37cf9a223db5dcf56538f5050c76"
                     ]
                 ],
                 "versions": [
@@ -42,6 +42,6 @@
                 ]
             }
         ],
-        "timestamp": "2023-12-04T16:35:03.805980435"
+        "timestamp": "2023-12-06T15:25:14.501666251"
     }
 }

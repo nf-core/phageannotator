@@ -78,13 +78,13 @@
                         {
                             "id": "test2"
                         },
-                        "test2.filtered.fna.gz:md5,9629ab154a10e3f90917da03ebb8aebb"
+                        "test2.filtered.fna.gz:md5,41b1f1f20079a5994f18090c6b562ad5"
                     ],
                     [
                         {
                             "id": "test"
                         },
-                        "test.filtered.fna.gz:md5,9629ab154a10e3f90917da03ebb8aebb"
+                        "test.filtered.fna.gz:md5,41b1f1f20079a5994f18090c6b562ad5"
                     ]
                 ],
                 "4": [
@@ -92,7 +92,7 @@
                         {
                             "id": "all_samples"
                         },
-                        "all_samples_anicluster_representatives.fna.gz:md5,9629ab154a10e3f90917da03ebb8aebb"
+                        "all_samples_anicluster_representatives.fna.gz:md5,41b1f1f20079a5994f18090c6b562ad5"
                     ]
                 ],
                 "5": [
@@ -124,7 +124,7 @@
                         {
                             "id": "all_samples"
                         },
-                        "all_samples_anicluster_representatives.fna.bacphlip:md5,52f934e2c77a8448e39f907bbea77cde"
+                        "all_samples_anicluster_representatives.fna.bacphlip:md5,ca1ec76d35f9c090200871fa302441f7"
                     ]
                 ],
                 "9": [
@@ -132,7 +132,7 @@
                         {
                             "id": "all_samples"
                         },
-                        "all_samples.prodigalgv.faa.gz:md5,b07d0bbafe81790042e2b9fc127f3ac9"
+                        "all_samples.prodigalgv.faa.gz:md5,ba02f7f691834c78746d404d5408b693"
                     ]
                 ],
                 "alignment_results_tsv": [
@@ -148,7 +148,7 @@
                         {
                             "id": "all_samples"
                         },
-                        "all_samples_anicluster_representatives.fna.gz:md5,9629ab154a10e3f90917da03ebb8aebb"
+                        "all_samples_anicluster_representatives.fna.gz:md5,41b1f1f20079a5994f18090c6b562ad5"
                     ]
                 ],
                 "bacphlip_lifestyle_tsv": [
@@ -156,7 +156,7 @@
                         {
                             "id": "all_samples"
                         },
-                        "all_samples_anicluster_representatives.fna.bacphlip:md5,52f934e2c77a8448e39f907bbea77cde"
+                        "all_samples_anicluster_representatives.fna.bacphlip:md5,ca1ec76d35f9c090200871fa302441f7"
                     ]
                 ],
                 "filtered_viruses_fna_gz": [
@@ -164,13 +164,13 @@
                         {
                             "id": "test2"
                         },
-                        "test2.filtered.fna.gz:md5,9629ab154a10e3f90917da03ebb8aebb"
+                        "test2.filtered.fna.gz:md5,41b1f1f20079a5994f18090c6b562ad5"
                     ],
                     [
                         {
                             "id": "test"
                         },
-                        "test.filtered.fna.gz:md5,9629ab154a10e3f90917da03ebb8aebb"
+                        "test.filtered.fna.gz:md5,41b1f1f20079a5994f18090c6b562ad5"
                     ]
                 ],
                 "host_predictions_tsv": [
@@ -208,7 +208,7 @@
                         {
                             "id": "all_samples"
                         },
-                        "all_samples.prodigalgv.faa.gz:md5,b07d0bbafe81790042e2b9fc127f3ac9"
+                        "all_samples.prodigalgv.faa.gz:md5,ba02f7f691834c78746d404d5408b693"
                     ]
                 ],
                 "reference_containment_tsv": [
@@ -270,6 +270,6 @@
                 ]
             }
         ],
-        "timestamp": "2023-12-06T13:24:33.854493089"
+        "timestamp": "2023-12-07T10:45:22.619730467"
     }
 }

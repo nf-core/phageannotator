@@ -7,13 +7,13 @@
                         {
                             "id": "test2"
                         },
-                        "test2.IS_gene_info.tsv:md5,cb182bf73018afb99de6b5a3f673ec37"
+                        "test2.IS_gene_info.tsv:md5,43f12c345cca84b8a852fd056cc325ad"
                     ],
                     [
                         {
                             "id": "test"
                         },
-                        "test.IS_gene_info.tsv:md5,4cc6a379555f8f5318a5c5cf3505520f"
+                        "test.IS_gene_info.tsv:md5,af8e354716ea235b3487862abd837884"
                     ]
                 ],
                 "1": [
@@ -27,13 +27,13 @@
                         {
                             "id": "test2"
                         },
-                        "test2.IS_gene_info.tsv:md5,cb182bf73018afb99de6b5a3f673ec37"
+                        "test2.IS_gene_info.tsv:md5,43f12c345cca84b8a852fd056cc325ad"
                     ],
                     [
                         {
                             "id": "test"
                         },
-                        "test.IS_gene_info.tsv:md5,4cc6a379555f8f5318a5c5cf3505520f"
+                        "test.IS_gene_info.tsv:md5,af8e354716ea235b3487862abd837884"
                     ]
                 ],
                 "versions": [
@@ -44,6 +44,6 @@
                 ]
             }
         ],
-        "timestamp": "2023-12-01T15:49:43.275157522"
+        "timestamp": "2023-12-06T15:49:43.895338311"
     }
 }
