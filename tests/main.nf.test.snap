@@ -70,11 +70,6 @@
                     "versions.yml:md5,68070b01cdc8bf2e8ea2eb4b97d2cdad"
                 ]
             ],
-            [
-                [
-                    "all_samples_alignment_results.tsv:md5,7d01f1bd9cada2aa68b3e3880fd861ef"
-                ]
-            ],
             "test1.bowtie2.log:md5,e7275c6347e7901c9bbb6ae4b317fcc1",
             [
                 [
@@ -89,8 +84,11 @@
             [
                 "Host_prediction_to_genus_m90.csv:md5,528dcefb6a6c743b43f0dbc40bec3692"
             ],
-            "software_versions.yml:md5,3f51341c97f7d68619497d0a23c69694"
+            "test1.IS_gene_info.tsv:md5,dd7c9eb0c52908beaf21b5fb9ec91135",
+            "test2.IS_gene_info.tsv:md5,dd7c9eb0c52908beaf21b5fb9ec91135",
+            "all_samples.IS_compare_pooled_SNV_data.tsv:md5,39c860bb60a6de8fcd899c055f1bb17e",
+            "software_versions.yml:md5,d7cce4b68af126a2e79c858fa25f7ae9"
         ],
-        "timestamp": "2023-12-07T11:23:21.717614457"
+        "timestamp": "2023-12-08T11:27:46.702527783"
     }
 }

@@ -29,7 +29,6 @@ include { FASTA_VIRUS_CLASSIFICATION_GENOMAD                                    
 include { FASTA_VIRUS_QUALITY_CHECKV                                            } from '../../subworkflows/local/fasta_virus_quality_checkv/main'               // TODO: Add to nf-core; Add nf-tests to nf-core modules
 include { FASTA_ALL_V_ALL_BLAST                                                 } from '../../subworkflows/local/fasta_all_v_all_blast/main'
 include { FASTA_PHAGE_HOST_IPHOP                                                } from '../../subworkflows/local/fasta_phage_host_iphop/main'                   // TODO: Add to nf-core; Add nf-tests to nf-core modules
-include { FASTA_VIRUS_CLASSIFICATION_GENOMAD as FASTA_VIRUS_TAXONOMY_GENOMAD    } from '../../subworkflows/local/fasta_virus_classification_genomad/main'       // TODO: Add to nf-core; Add nf-tests to nf-core modules
 include { FASTA_MICRODIVERSITY_INSTRAIN                                         } from '../../subworkflows/local/fasta_microdiversity_instrain/main'            // TODO: Add to nf-core; Add nf-tests to nf-core modules
 
 
@@ -42,11 +41,12 @@ include { FASTA_MICRODIVERSITY_INSTRAIN                                         
 //
 // MODULE: Installed directly from nf-core/modules
 //
-include { CAT_CAT as CAT_MASHSCREEN     } from '../../modules/nf-core/cat/cat/main'
-include { CAT_CAT as CAT_VIRUSES        } from '../../modules/nf-core/cat/cat/main'
-include { BOWTIE2_BUILD                 } from '../../modules/nf-core/bowtie2/build/main'
-include { GUNZIP                        } from '../../modules/nf-core/gunzip/main'
-include { BACPHLIP                      } from '../../modules/nf-core/bacphlip/main'
+include { CAT_CAT as CAT_MASHSCREEN             } from '../../modules/nf-core/cat/cat/main'
+include { CAT_CAT as CAT_VIRUSES                } from '../../modules/nf-core/cat/cat/main'
+include { BOWTIE2_BUILD                         } from '../../modules/nf-core/bowtie2/build/main'
+include { GENOMAD_ENDTOEND as GENOMAD_TAXONOMY  } from '../../modules/nf-core/genomad/endtoend/main'
+include { GUNZIP                                } from '../../modules/nf-core/gunzip/main'
+include { BACPHLIP                              } from '../../modules/nf-core/bacphlip/main'
 
 //
 // SUBWORKFLOW: Installed directory from nf-core/subworkflows
@@ -253,7 +253,7 @@ workflow PHAGEANNOTATOR {
     //
     // SUBWORKFLOW: Align reads to bowtie2 index
     //
-    ch_cluster_rep_alignment_bam = FASTQ_ALIGN_BOWTIE2 ( fastq_gz, ch_anicluster_reps_bt2, false, true, ch_anicluster_reps_fasta_gz ).bam
+    ch_cluster_rep_alignment_bam = FASTQ_ALIGN_BOWTIE2 ( fastq_gz, ch_anicluster_reps_bt2, false, false, ch_anicluster_reps_fasta_gz ).bam
     ch_versions = ch_versions.mix( FASTQ_ALIGN_BOWTIE2.out.versions )
 
     //
@@ -287,8 +287,8 @@ workflow PHAGEANNOTATOR {
     //
     // SUBWORKFLOW: Assign taxonomy using ICTV taxa specific marker genes
     //
-    ch_marker_taxonomy_tsv = FASTA_VIRUS_TAXONOMY_GENOMAD ( ch_anicluster_reps_fasta_gz, ch_genomad_db_dir ).virus_summaries_tsv
-    ch_versions = ch_versions.mix( FASTA_VIRUS_TAXONOMY_GENOMAD.out.versions )
+    ch_marker_taxonomy_tsv = GENOMAD_TAXONOMY ( ch_anicluster_reps_fasta_gz, ch_genomad_db_dir ).taxonomy
+    ch_versions = ch_versions.mix( GENOMAD_TAXONOMY.out.versions )
 
 
     /*----------------------------------------------------------------------------
@@ -335,10 +335,10 @@ workflow PHAGEANNOTATOR {
     virus_quality_tsv           = ch_combined_quality_summaries_tsv
     filtered_viruses_fna_gz     = ch_filtered_viruses_fna_gz
     anicluster_reps_fna_gz      = ch_anicluster_reps_fasta_gz
-    alignment_results_tsv       = ch_alignment_results_tsv
+    // alignment_results_tsv       = ch_alignment_results_tsv // Inconsistent hash
     host_predictions_tsv        = ch_host_predictions_tsv
     marker_taxonomy_tsv         = ch_marker_taxonomy_tsv
-    bacphlip_lifestyle_tsv      = ch_bacphlip_lifestyle_tsv
+    // bacphlip_lifestyle_tsv      = ch_bacphlip_lifestyle_tsv // Inconsistent hash
     prodigalgv_proteins_faa_gz  = ch_prodigalgv_proteins_faa_gz
     instrain_gene_info          = ch_gene_info_tsv
     versions                    = ch_versions
