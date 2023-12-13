@@ -7,6 +7,9 @@ nextflow_workflow {
     tag "subworkflows_local"
     tag "fasta_microdiversity_instrain"
     tag "fasta_microdiversity_instrain_default"
+    tag "instrain/compare"
+    tag "instrain/profile"
+    tag "gunzip"
 
     test("Parameters: default") {
 
