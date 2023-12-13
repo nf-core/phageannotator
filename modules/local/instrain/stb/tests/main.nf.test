@@ -11,9 +11,6 @@ nextflow_process {
     test("['homo_sapiens']['genome']['genome_fasta']") {
 
         when {
-            params {
-                outdir   = "$outputDir"
-            }
             process {
                 """
                 input[0] = [ [ id: 'reference_fasta' ], file(params.test_data['homo_sapiens']['genome']['genome_fasta'], checkIfExists: true) ]
