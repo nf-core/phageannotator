@@ -215,12 +215,28 @@
                 }
             }
         },
+        "virus_taxonomy_options": {
+            "title": "Virus taxonomy options",
+            "type": "object",
+            "description": "Assign ICTV taxonomy to virus sequences",
+            "default": "",
+            "properties": {
+                "skip_genomad_taxonomy": {
+                    "type": "boolean",
+                    "description": "Bypass geNomad's marker-gene based classification"
+                }
+            }
+        },
         "phage_host_options": {
             "title": "Phage host options",
             "type": "object",
             "description": "Predict host genus for phage sequences",
             "default": "",
             "properties": {
+                "skip_iphop": {
+                    "type": "boolean",
+                    "description": "Bypass phage host prediction using iPHoP"
+                },
                 "iphop_db": {
                     "type": "string",
                     "description": "Path to locally iPHoP database"
@@ -233,6 +249,75 @@
                     "type": "integer",
                     "default": 90,
                     "description": "Minimum confidence score to provide host prediction"
+                }
+            }
+        },
+        "virus_lifestyle_options": {
+            "title": "Virus lifestyle options",
+            "type": "object",
+            "description": "Predict virus lifestlyes",
+            "default": "",
+            "properties": {
+                "skip_bacphlip": {
+                    "type": "boolean",
+                    "description": "Skip running BACPHLIP to predict phage lifestyles"
+                }
+            }
+        },
+        "virus_microdiversity_options": {
+            "title": "Virus microdiversity options",
+            "type": "object",
+            "description": "Analyze virus diversity at the strain level",
+            "default": "",
+            "properties": {
+                "skip_instrain": {
+                    "type": "boolean",
+                    "description": "Bypass microdiversity analysis with inStrain"
+                },
+                "instrain_min_ani": {
+                    "type": "number",
+                    "default": 0.01,
+                    "description": "Minimum identity for read alignment to be considered"
+                },
+                "instrain_min_mapq": {
+                    "type": "integer",
+                    "default": 2,
+                    "description": "Minimum MAPQ for a read to be considered"
+                },
+                "instrain_min_variant_cov": {
+                    "type": "integer",
+                    "default": 5,
+                    "description": "Minimum coverage for a variant to be considered"
+                },
+                "instrain_min_snp_freq": {
+                    "type": "number",
+                    "default": 0.01,
+                    "description": "Minimum allele frequency for an SNP to be considered"
+                },
+                "instrain_max_snp_fdr": {
+                    "type": "integer",
+                    "default": 1,
+                    "description": "Maximum FDR for a SNP to be considered"
+                },
+                "instrain_min_genome_cov": {
+                    "type": "number",
+                    "default": 0.5,
+                    "description": "Minimum number of reads mapping to a genome to consider profiling"
+                },
+                "instrain_popani_thresh": {
+                    "type": "number",
+                    "default": 0,
+                    "description": "Minimum identity for genomes to be considered in the same strain"
+                },
+                "instrain_min_genome_comp": {
+                    "type": "number",
+                    "default": 0.001,
+                    "description": "Minimum percent of genomes compared for comparison to be considered"
+                },
+                "instrain_min_genome_breadth": {
+                    "type": "number",
+                    "default": 0.01,
+                    "description": "Minimum breadth of coverage for a genome to be considered present"
                 }
             }
         },
@@ -483,7 +568,19 @@
             "$ref": "#/definitions/virus_abundance_options"
         },
         {
+            "$ref": "#/definitions/virus_taxonomy_options"
+        },
+        {
             "$ref": "#/definitions/phage_host_options"
+        },
+        {
+            "$ref": "#/definitions/virus_lifestyle_options"
+        },
+        {
+            "$ref": "#/definitions/virus_microdiversity_options"
+        },
+        {
+            "$ref": "#/definitions/developer_options"
         },
         {
             "$ref": "#/definitions/institutional_config_options"
@@ -493,9 +590,6 @@
         },
         {
             "$ref": "#/definitions/generic_options"
-        },
-        {
-            "$ref": "#/definitions/developer_options"
         }
     ]
 }

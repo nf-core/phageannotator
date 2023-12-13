@@ -1,0 +1,44 @@
+Changes in module 'nf-core/instrain/profile'
+--- /dev/null
++++ modules/nf-core/instrain/profile/nextflow.config
+@@ -0,0 +1,19 @@
++process {
++    withName: INSTRAIN_PROFILE {
++        publishDir = [
++            [
++                path: { "${params.outdir}/VirusMicrodiversity/instrain/profile" },
++                mode: params.publish_dir_mode,
++                pattern: '*.IS',
++            ]
++        ]
++        ext.args   = [
++            params.instrain_min_ani ? "--min_read_ani ${params.instrain_min_ani}" : "",
++            params.instrain_min_mapq ? "--min_mapq ${params.instrain_min_mapq}" : "",
++            params.instrain_min_variant_cov ? "--min_cov ${params.instrain_min_variant_cov}" : "",
++            params.instrain_min_snp_freq ? "--min_freq ${params.instrain_min_snp_freq}" : "",
++            params.instrain_max_snp_fdr ? "--fdr ${params.instrain_max_snp_fdr}" : "",
++            params.instrain_min_genome_cov ? "--min_genome_cov ${params.instrain_min_genome_cov}" : "",
++        ].join(' ').trim()
++    }
++}
+--- modules/nf-core/instrain/profile/main.nf
++++ modules/nf-core/instrain/profile/main.nf
+@@ -14,8 +14,14 @@
+     path stb_file
+ 
+     output:
+-    tuple val(meta), path("*.IS") , emit: profile
+-    path "versions.yml"           , emit: versions
++    tuple val(meta), path("*.IS")                               , emit: profile
++    tuple val(meta), path("*.IS/output/*.IS_SNVs.tsv")          , emit: snvs
++    tuple val(meta), path("*.IS/output/*.IS_gene_info.tsv")     , emit: gene_info
++    tuple val(meta), path("*.IS/output/*.IS_genome_info.tsv")   , emit: genome_info
++    tuple val(meta), path("*.IS/output/*.IS_linkage.tsv")       , emit: linkage
++    tuple val(meta), path("*.IS/output/*.IS_mapping_info.tsv")  , emit: mapping_info
++    tuple val(meta), path("*.IS/output/*.IS_scaffold_info.tsv") , emit: scaffold_info
++    path "versions.yml"                                         , emit: versions
+ 
+     when:
+     task.ext.when == null || task.ext.when
+
+************************************************************

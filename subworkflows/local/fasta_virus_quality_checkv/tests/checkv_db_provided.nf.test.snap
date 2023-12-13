@@ -7,7 +7,7 @@
                         {
                             "id": "test"
                         },
-                        "viruses.fna.gz:md5,1b6b8c20b3e1b5aa7dafccf01529c3be"
+                        "viruses.fna.gz:md5,67028c9f9447855f86013fd43a5f6105"
                     ]
                 ],
                 "1": [
@@ -15,7 +15,7 @@
                         {
                             "id": "test"
                         },
-                        "proviruses.fna.gz:md5,8e31b56780f8b1e604fc8dfa5c4b5921"
+                        "proviruses.fna.gz:md5,f2b8287ef49757e3a0320217b8add37d"
                     ]
                 ],
                 "2": [
@@ -23,7 +23,7 @@
                         {
                             "id": "test"
                         },
-                        "quality_summary.tsv:md5,04e827b7efefe52727a904cfd3af1639"
+                        "test_quality_summary.tsv:md5,04e827b7efefe52727a904cfd3af1639"
                     ]
                 ],
                 "3": [
@@ -35,7 +35,7 @@
                         {
                             "id": "test"
                         },
-                        "proviruses.fna.gz:md5,8e31b56780f8b1e604fc8dfa5c4b5921"
+                        "proviruses.fna.gz:md5,f2b8287ef49757e3a0320217b8add37d"
                     ]
                 ],
                 "quality_summary_tsv": [
@@ -43,7 +43,7 @@
                         {
                             "id": "test"
                         },
-                        "quality_summary.tsv:md5,04e827b7efefe52727a904cfd3af1639"
+                        "test_quality_summary.tsv:md5,04e827b7efefe52727a904cfd3af1639"
                     ]
                 ],
                 "versions": [
@@ -55,11 +55,11 @@
                         {
                             "id": "test"
                         },
-                        "viruses.fna.gz:md5,1b6b8c20b3e1b5aa7dafccf01529c3be"
+                        "viruses.fna.gz:md5,67028c9f9447855f86013fd43a5f6105"
                     ]
                 ]
             }
         ],
-        "timestamp": "2023-10-02T14:16:59.728417686"
+        "timestamp": "2023-12-06T15:54:04.516229718"
     }
 }

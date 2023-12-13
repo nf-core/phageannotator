@@ -12,7 +12,7 @@ process CHECKV_ENDTOEND {
     path(db)
 
     output:
-    tuple val(meta), path ("${prefix}/quality_summary.tsv") , emit: quality_summary
+    tuple val(meta), path ("${prefix}/${prefix}_quality_summary.tsv") , emit: quality_summary
     tuple val(meta), path ("${prefix}/completeness.tsv")    , emit: completeness
     tuple val(meta), path ("${prefix}/contamination.tsv")   , emit: contamination
     tuple val(meta), path ("${prefix}/complete_genomes.tsv"), emit: complete_genomes
@@ -37,6 +37,7 @@ process CHECKV_ENDTOEND {
         $prefix
 
     gzip ${prefix}/*viruses.fna
+    mv ${prefix}/quality_summary.tsv ${prefix}/${prefix}_quality_summary.tsv 
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

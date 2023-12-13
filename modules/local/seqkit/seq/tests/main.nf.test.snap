@@ -7,7 +7,7 @@
                         {
                             "id": "test"
                         },
-                        "test.fasta.gz:md5,1ba7400573b6a6bf7b4be695fc7e6076"
+                        "test.fasta.gz:md5,5c3970a6403ad9383b04e0e71ed69ac7"
                     ]
                 ],
                 "1": [
@@ -18,7 +18,7 @@
                         {
                             "id": "test"
                         },
-                        "test.fasta.gz:md5,1ba7400573b6a6bf7b4be695fc7e6076"
+                        "test.fasta.gz:md5,5c3970a6403ad9383b04e0e71ed69ac7"
                     ]
                 ],
                 "versions": [
@@ -26,6 +26,6 @@
                 ]
             }
         ],
-        "timestamp": "2023-11-13T11:53:17.1077992"
+        "timestamp": "2023-12-06T15:25:04.913990939"
     }
 }

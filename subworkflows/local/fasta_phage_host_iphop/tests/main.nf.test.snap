@@ -3,21 +3,35 @@
         "content": [
             {
                 "0": [
-                    
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "Host_prediction_to_genus_m90.csv:md5,528dcefb6a6c743b43f0dbc40bec3692"
+                    ]
                 ],
                 "1": [
+                    "versions.yml:md5,41c2135a3578a7a52a23fd3243c22e80",
+                    "versions.yml:md5,6d962b190899f9580909b28917ffa748",
                     "versions.yml:md5,9a3afe922371942954848605293c0700",
-                    "versions.yml:md5,bded68aef8ec18c06204c83910c8a760"
+                    "versions.yml:md5,c8e1743aa09ef3013ef7ddb1edc8c43e"
                 ],
                 "host_predictions_tsv": [
-                    
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "Host_prediction_to_genus_m90.csv:md5,528dcefb6a6c743b43f0dbc40bec3692"
+                    ]
                 ],
                 "versions": [
+                    "versions.yml:md5,41c2135a3578a7a52a23fd3243c22e80",
+                    "versions.yml:md5,6d962b190899f9580909b28917ffa748",
                     "versions.yml:md5,9a3afe922371942954848605293c0700",
-                    "versions.yml:md5,bded68aef8ec18c06204c83910c8a760"
+                    "versions.yml:md5,c8e1743aa09ef3013ef7ddb1edc8c43e"
                 ]
             }
         ],
-        "timestamp": "2023-11-28T14:19:06.266228652"
+        "timestamp": "2023-12-11T10:11:40.484898808"
     }
 }

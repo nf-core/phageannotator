@@ -16,6 +16,7 @@ nextflow_workflow {
             params {
                 outdir              = "$outputDir"
                 iphop_test_db       = true
+                iphop_partial_test  = true
             }
             workflow {
                 """
