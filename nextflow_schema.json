@@ -94,6 +94,10 @@
             "description": "Classify viral sequences using geNomad",
             "default": "",
             "properties": {
+                "skip_virus_classification": {
+                    "type": "boolean",
+                    "description": "Bypass virus classification"
+                },
                 "genomad_db": {
                     "type": "string",
                     "description": "Path to directory containing geNomad's database",
@@ -126,6 +130,10 @@
             "description": "Assess virus quality and filter",
             "default": "",
             "properties": {
+                "skip_virus_quality_filtering": {
+                    "type": "boolean",
+                    "description": "Bypass virus quality assessment and filtering"
+                },
                 "checkv_db": {
                     "type": "string",
                     "description": "Path to directory containing CheckV database"
@@ -160,6 +168,10 @@
             "description": "Cluster virus genomes based on nucleotide/protein similarity",
             "default": "",
             "properties": {
+                "skip_virus_clustering": {
+                    "type": "boolean",
+                    "description": "Bypass virus clustering"
+                },
                 "blast_min_percent_identity": {
                     "type": "integer",
                     "default": 90,

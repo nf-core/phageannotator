@@ -71,174 +71,185 @@ workflow PHAGEANNOTATOR {
     main:
     ch_versions = Channel.empty()
 
+    // Run assembly filtering and virus classification
+    if ( !params.skip_virus_classification ) {
 
-    /*----------------------------------------------------------------------------
-        Filter input assemblies
-    ------------------------------------------------------------------------------*/
-    //
-    // MODULE: Filter assemblies by length
-    //
-    ch_filtered_input_fasta_gz = SEQKIT_SEQ ( fasta_gz ).fastx
-    ch_versions = ch_versions.mix(SEQKIT_SEQ.out.versions.first())
+        /*----------------------------------------------------------------------------
+            Filter input assemblies
+        ------------------------------------------------------------------------------*/
+        //
+        // MODULE: Filter assemblies by length
+        //
+        ch_filtered_input_fasta_gz = SEQKIT_SEQ ( fasta_gz ).fastx
+        ch_versions = ch_versions.mix(SEQKIT_SEQ.out.versions.first())
 
 
-    /*----------------------------------------------------------------------------
-        OPTIONAL: Identify reference virus genomes contained in reads
-    ------------------------------------------------------------------------------*/
-    // if skip_reference_containment == false, run subworkflow
-    if ( !params.skip_reference_containment ) {
-        // if reference based identification requested, a reference FASTA file must be included
-        if ( !params.reference_virus_fasta ) {
-            error "[nf-core/phageannotator] ERROR: reference containment requested, but no --reference_virus_fasta provided"
-        }
+        /*----------------------------------------------------------------------------
+            OPTIONAL: Identify reference virus genomes contained in reads
+        ------------------------------------------------------------------------------*/
+        // if skip_reference_containment == false, run subworkflow
+        if ( !params.skip_reference_containment ) {
+            // if reference based identification requested, a reference FASTA file must be included
+            if ( !params.reference_virus_fasta ) {
+                error "[nf-core/phageannotator] ERROR: reference containment requested, but no --reference_virus_fasta provided"
+            }
 
-        // create channel from params.reference_virus_fasta
-        ch_reference_virus_fasta_gz = Channel.of([ [ id:'reference_viruses' ], file( params.reference_virus_fasta, checkIfExists:true ) ])
-        ch_reference_virus_fasta_gz
+            // create channel from params.reference_virus_fasta
+            ch_reference_virus_fasta_gz = Channel.of([ [ id:'reference_viruses' ], file( params.reference_virus_fasta, checkIfExists:true ) ])
+            ch_reference_virus_fasta_gz
 
-        // create channel from params.reference_virus_sketch
-        if ( !params.reference_virus_sketch ){
-            ch_reference_virus_sketch_msh = null
+            // create channel from params.reference_virus_sketch
+            if ( !params.reference_virus_sketch ){
+                ch_reference_virus_sketch_msh = null
+            } else {
+                ch_reference_virus_sketch_msh = [ [ id:'reference_viruses' ], file( params.reference_virus_sketch, checkIfExists:true ) ]
+            }
+
+            //
+            // SUBWORKFLOW: Identify contained reference genomes
+            //
+            ch_containment_results_tsv = FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH ( fastq_gz, ch_filtered_input_fasta_gz, ch_reference_virus_fasta_gz.first(), ch_reference_virus_sketch_msh ).mash_screen_results
+            ch_versions = ch_versions.mix(FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH.out.versions.first())
+
+            // join mash screen and assembly fasta by meta.id
+            ch_append_screen_hits_input = ch_containment_results_tsv.join( ch_filtered_input_fasta_gz, by:0 )
+
+            //
+            // MODULE: Append screen hits to assemblies
+            //
+            ch_assembly_w_references_fasta_gz = APPENDSCREENHITS ( ch_append_screen_hits_input, ch_reference_virus_fasta_gz.first() ).assembly_w_screen_hits
+            ch_versions = ch_versions.mix(APPENDSCREENHITS.out.versions.first())
+
+            //
+            // MODULE: Combine mash screen outputs across samples
+            //
+            ch_combined_mash_screen_tsv = CAT_MASHSCREEN( ch_containment_results_tsv.map{ [ [ id:'all_samples' ], it[1] ] }.groupTuple( sort: 'deep' ) ).file_out
+            ch_versions = ch_versions.mix(CAT_MASHSCREEN.out.versions.first())
         } else {
-            ch_reference_virus_sketch_msh = [ [ id:'reference_viruses' ], file( params.reference_virus_sketch, checkIfExists:true ) ]
+            // if skip_reference_containment == true, skip subworkflow and use input assemblies
+            ch_assembly_w_references_fasta_gz = ch_filtered_input_fasta_gz
+            ch_combined_mash_screen_tsv = null
+        }
+
+
+        /*----------------------------------------------------------------------------
+            Classify/annotate viral sequences
+        ------------------------------------------------------------------------------*/
+        // create channel from params.genomad_db
+        if ( !params.genomad_db ){
+            ch_genomad_db = null
+        } else {
+            ch_genomad_db = file( params.genomad_db, checkIfExists:true )
         }
 
         //
-        // SUBWORKFLOW: Identify contained reference genomes
+        // SUBWORKFLOW: Classify and annotate sequences
         //
-        ch_containment_results_tsv = FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH ( fastq_gz, ch_filtered_input_fasta_gz, ch_reference_virus_fasta_gz.first(), ch_reference_virus_sketch_msh ).mash_screen_results
-        ch_versions = ch_versions.mix(FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH.out.versions.first())
+        ch_viruses_fna_gz = FASTA_VIRUS_CLASSIFICATION_GENOMAD ( ch_assembly_w_references_fasta_gz, ch_genomad_db ).viruses_fna_gz
+        ch_genomad_db_dir = FASTA_VIRUS_CLASSIFICATION_GENOMAD.out.genomad_db
+        ch_versions = ch_versions.mix(FASTA_VIRUS_CLASSIFICATION_GENOMAD.out.versions.first())
 
-        // join mash screen and assembly fasta by meta.id
-        ch_append_screen_hits_input = ch_containment_results_tsv.join( ch_filtered_input_fasta_gz, by:0 )
-
-        //
-        // MODULE: Append screen hits to assemblies
-        //
-        ch_assembly_w_references_fasta_gz = APPENDSCREENHITS ( ch_append_screen_hits_input, ch_reference_virus_fasta_gz.first() ).assembly_w_screen_hits
-        ch_versions = ch_versions.mix(APPENDSCREENHITS.out.versions.first())
+        // create a channel for combining geNomad virus summaries (sorted so output is the same for tests)
+        ch_awk_genomad_input = FASTA_VIRUS_CLASSIFICATION_GENOMAD.out.virus_summaries_tsv
+                                .map { [ [ id:'all_samples' ], it[1] ] }
+                                .groupTuple(sort: 'deep')
 
         //
-        // MODULE: Combine mash screen outputs across samples
+        // MODULE: Combine geNomad summaries across samples
         //
-        ch_combined_mash_screen_tsv = CAT_MASHSCREEN( ch_containment_results_tsv.map{ [ [ id:'all_samples' ], it[1] ] }.groupTuple( sort: 'deep' ) ).file_out
-        ch_versions = ch_versions.mix(CAT_MASHSCREEN.out.versions.first())
-    } else {
-        // if skip_reference_containment == true, skip subworkflow and use input assemblies
-        ch_assembly_w_references_fasta_gz = ch_filtered_input_fasta_gz
-        ch_combined_mash_screen_tsv = null
+        ch_combined_virus_summaries_tsv = AWK_GENOMAD ( ch_awk_genomad_input ).file_out
+        ch_versions = ch_versions.mix(AWK_GENOMAD.out.versions.first())
     }
 
 
-    /*----------------------------------------------------------------------------
-        Classify/annotate viral sequences
-    ------------------------------------------------------------------------------*/
-    // create channel from params.genomad_db
-    if ( !params.genomad_db ){
-        ch_genomad_db = null
-    } else {
-        ch_genomad_db = file( params.genomad_db, checkIfExists:true )
+    // Run virus quality assessment and filtering
+    if ( !params.skip_virus_quality_filter ) {
+
+        /*----------------------------------------------------------------------------
+            Assess virus quality and filter
+        ------------------------------------------------------------------------------*/
+        // create channel from params.checkv_db
+        if ( !params.checkv_db ){
+            ch_checkv_db = null
+        } else {
+            ch_checkv_db = file( params.checkv_db, checkIfExists:true )
+        }
+
+        //
+        // SUBWORKFLOW: Assess virus quality
+        //
+        FASTA_VIRUS_QUALITY_CHECKV ( ch_viruses_fna_gz, ch_checkv_db )
+        ch_versions = ch_versions.mix(FASTA_VIRUS_QUALITY_CHECKV.out.versions.first())
+
+        // create a channel for combining Checkv quality summaries (sorted so output is the same for tests)
+        ch_awk_checkv_input = FASTA_VIRUS_QUALITY_CHECKV.out.quality_summary_tsv
+                                .map { [ [ id:'all_samples' ], it[1] ] }
+                                .groupTuple( sort: 'deep' )
+
+        //
+        // MODULE: Combine quality summaries across samples
+        //
+        ch_combined_quality_summaries_tsv = AWK_CHECKV ( ch_awk_checkv_input ).file_out
+        ch_versions = ch_versions.mix(AWK_CHECKV.out.versions.first())
+
+        // create channel for input into QUALITY_FILTER_VIRUSES
+        ch_quality_filter_viruses_input1 = FASTA_VIRUS_QUALITY_CHECKV.out.viruses_fna_gz.join(FASTA_VIRUS_QUALITY_CHECKV.out.proviruses_fna_gz)
+        ch_quality_filter_viruses_input2 = ch_quality_filter_viruses_input1.join(FASTA_VIRUS_QUALITY_CHECKV.out.quality_summary_tsv)
+
+        //
+        // MODULE: Quality filter viruses
+        //
+        ch_filtered_viruses_fna_gz = QUALITYFILTERVIRUSES ( ch_quality_filter_viruses_input2 ).filtered_viruses
+        ch_versions = ch_versions.mix(QUALITYFILTERVIRUSES.out.versions.first())
     }
 
-    //
-    // SUBWORKFLOW: Classify and annotate sequences
-    //
-    ch_viruses_fna_gz = FASTA_VIRUS_CLASSIFICATION_GENOMAD ( ch_assembly_w_references_fasta_gz, ch_genomad_db ).viruses_fna_gz
-    ch_genomad_db_dir = FASTA_VIRUS_CLASSIFICATION_GENOMAD.out.genomad_db
-    ch_versions = ch_versions.mix(FASTA_VIRUS_CLASSIFICATION_GENOMAD.out.versions.first())
 
-    // create a channel for combining geNomad virus summaries (sorted so output is the same for tests)
-    ch_awk_genomad_input = FASTA_VIRUS_CLASSIFICATION_GENOMAD.out.virus_summaries_tsv
-                            .map { [ [ id:'all_samples' ], it[1] ] }
-                            .groupTuple(sort: 'deep')
+    // Run virus clustering
+    if ( !params.skip_virus_clustering  ) {
 
-    //
-    // MODULE: Combine geNomad summaries across samples
-    //
-    ch_combined_virus_summaries_tsv = AWK_GENOMAD ( ch_awk_genomad_input ).file_out
-    ch_versions = ch_versions.mix(AWK_GENOMAD.out.versions.first())
+        /*----------------------------------------------------------------------------
+            Cluster viruses using all-v-all BLAST approach
+        ------------------------------------------------------------------------------*/
+        // create a channel for combining filtered viruses (sorted so output is the same for tests)
+        ch_cat_viruses_input = ch_filtered_viruses_fna_gz
+                                .map { [ [ id:'all_samples' ], it[1] ] }
+                                .groupTuple( sort: 'deep' )
 
+        //
+        // MODULE: Concatenate all quality filtered viruses into one file
+        //
+        ch_filtered_viruses_combined_fna_gz = CAT_VIRUSES ( ch_cat_viruses_input ).file_out
 
-    /*----------------------------------------------------------------------------
-        Assess virus quality and filter
-    ------------------------------------------------------------------------------*/
-    // create channel from params.checkv_db
-    if ( !params.checkv_db ){
-        ch_checkv_db = null
-    } else {
-        ch_checkv_db = file( params.checkv_db, checkIfExists:true )
+        //
+        // SUBWORKFLOW: Perform all-v-all BLAST
+        //
+        ch_blast_txt = FASTA_ALL_V_ALL_BLAST ( ch_filtered_viruses_combined_fna_gz ).blast_txt
+        ch_versions = ch_versions.mix( FASTA_ALL_V_ALL_BLAST.out.versions )
+
+        //
+        // MODULE: Calculate average nucleotide identity (ANI) and alignment fraction (AF) based on BLAST
+        //
+        ch_ani_tsv = ANICLUSTER_ANICALC ( ch_blast_txt ).ani
+        ch_versions = ch_versions.mix( ANICLUSTER_ANICALC.out.versions )
+
+        // create input for ANICLUSTER_ANICALC
+        ch_aniclust_input = ch_filtered_viruses_combined_fna_gz.join( ch_ani_tsv )
+
+        //
+        // MODULE: Cluster virus sequences based on ANI and AF
+        //
+        ch_clusters_tsv = ANICLUSTER_ANICLUST ( ch_aniclust_input ).clusters
+        ch_versions = ch_versions.mix( ANICLUSTER_ANICLUST.out.versions )
+
+        // create input for extracting cluster representatives
+        ch_extractreps_input = ch_filtered_viruses_combined_fna_gz.join( ch_clusters_tsv )
+
+        //
+        // MODULE: Extract cluster representatives
+        //
+        ch_anicluster_reps_fasta_gz = ANICLUSTER_EXTRACTREPS ( ch_extractreps_input ).representatives
+        ch_versions = ch_versions.mix( ANICLUSTER_EXTRACTREPS.out.versions )
     }
-
-    //
-    // SUBWORKFLOW: Assess virus quality
-    //
-    FASTA_VIRUS_QUALITY_CHECKV ( ch_viruses_fna_gz, ch_checkv_db )
-    ch_versions = ch_versions.mix(FASTA_VIRUS_QUALITY_CHECKV.out.versions.first())
-
-    // create a channel for combining Checkv quality summaries (sorted so output is the same for tests)
-    ch_awk_checkv_input = FASTA_VIRUS_QUALITY_CHECKV.out.quality_summary_tsv
-                            .map { [ [ id:'all_samples' ], it[1] ] }
-                            .groupTuple( sort: 'deep' )
-
-    //
-    // MODULE: Combine quality summaries across samples
-    //
-    ch_combined_quality_summaries_tsv = AWK_CHECKV ( ch_awk_checkv_input ).file_out
-    ch_versions = ch_versions.mix(AWK_CHECKV.out.versions.first())
-
-    // create channel for input into QUALITY_FILTER_VIRUSES
-    ch_quality_filter_viruses_input1 = FASTA_VIRUS_QUALITY_CHECKV.out.viruses_fna_gz.join(FASTA_VIRUS_QUALITY_CHECKV.out.proviruses_fna_gz)
-    ch_quality_filter_viruses_input2 = ch_quality_filter_viruses_input1.join(FASTA_VIRUS_QUALITY_CHECKV.out.quality_summary_tsv)
-
-    //
-    // MODULE: Quality filter viruses
-    //
-    ch_filtered_viruses_fna_gz = QUALITYFILTERVIRUSES ( ch_quality_filter_viruses_input2 ).filtered_viruses
-    ch_versions = ch_versions.mix(QUALITYFILTERVIRUSES.out.versions.first())
-
-
-    /*----------------------------------------------------------------------------
-        Cluster viruses using all-v-all BLAST approach
-    ------------------------------------------------------------------------------*/
-    // create a channel for combining filtered viruses (sorted so output is the same for tests)
-    ch_cat_viruses_input = ch_filtered_viruses_fna_gz
-                            .map { [ [ id:'all_samples' ], it[1] ] }
-                            .groupTuple( sort: 'deep' )
-
-    //
-    // MODULE: Concatenate all quality filtered viruses into one file
-    //
-    ch_filtered_viruses_combined_fna_gz = CAT_VIRUSES ( ch_cat_viruses_input ).file_out
-
-    //
-    // SUBWORKFLOW: Perform all-v-all BLAST
-    //
-    ch_blast_txt = FASTA_ALL_V_ALL_BLAST ( ch_filtered_viruses_combined_fna_gz ).blast_txt
-    ch_versions = ch_versions.mix( FASTA_ALL_V_ALL_BLAST.out.versions )
-
-    //
-    // MODULE: Calculate average nucleotide identity (ANI) and alignment fraction (AF) based on BLAST
-    //
-    ch_ani_tsv = ANICLUSTER_ANICALC ( ch_blast_txt ).ani
-    ch_versions = ch_versions.mix( ANICLUSTER_ANICALC.out.versions )
-
-    // create input for ANICLUSTER_ANICALC
-    ch_aniclust_input = ch_filtered_viruses_combined_fna_gz.join( ch_ani_tsv )
-
-    //
-    // MODULE: Cluster virus sequences based on ANI and AF
-    //
-    ch_clusters_tsv = ANICLUSTER_ANICLUST ( ch_aniclust_input ).clusters
-    ch_versions = ch_versions.mix( ANICLUSTER_ANICLUST.out.versions )
-
-    // create input for extracting cluster representatives
-    ch_extractreps_input = ch_filtered_viruses_combined_fna_gz.join( ch_clusters_tsv )
-
-    //
-    // MODULE: Extract cluster representatives
-    //
-    ch_anicluster_reps_fasta_gz = ANICLUSTER_EXTRACTREPS ( ch_extractreps_input ).representatives
-    ch_versions = ch_versions.mix( ANICLUSTER_EXTRACTREPS.out.versions )
 
 
     /*----------------------------------------------------------------------------
@@ -327,6 +338,35 @@ workflow PHAGEANNOTATOR {
     //
     ch_gene_info_tsv = FASTA_MICRODIVERSITY_INSTRAIN ( ch_cluster_rep_alignment_bam, ch_anicluster_reps_fasta_gz, ch_prodigalgv_proteins_fna_gz, ch_stb_file_tsv ).gene_info_tsv
     ch_versions = ch_versions = ch_versions.mix(FASTA_MICRODIVERSITY_INSTRAIN.out.versions)
+
+
+    /*----------------------------------------------------------------------------
+        Predict prophage activity
+    ------------------------------------------------------------------------------*/
+    // create input for identifying prophage
+    ch_identifyprophage_input1 = ch_filtered_viruses_fna_gz.join ( FASTA_VIRUS_QUALITY_CHECKV.out.quality_summary_tsv )
+    ch_identifyprophage_input2 = ch_identifyprophage_input1.join ( FASTA_VIRUS_CLASSIFICATION_GENOMAD.out.virus_summaries_tsv )
+
+    //
+    // MODULE: Identify prophage in quality-filtered viruses
+    //
+    PROPAGATE_IDENTIFYPROPHAGE ( ch_identifyprophage_input2 )
+
+    //
+    // MODULE: Extract contigs containing prophage
+    //
+
+    //
+    // MODULE: Dereplicate contigs within groups
+    //
+
+    //
+    // MODULE: Extract prophage coordinates
+    //
+
+    //
+    // MODULE: Run propagate
+    //
 
 
     emit:
