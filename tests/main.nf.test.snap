@@ -86,8 +86,8 @@
             ],
             "test1.IS_gene_info.tsv:md5,dd7c9eb0c52908beaf21b5fb9ec91135",
             "test2.IS_gene_info.tsv:md5,dd7c9eb0c52908beaf21b5fb9ec91135",
-            "software_versions.yml:md5,d7cce4b68af126a2e79c858fa25f7ae9"
+            "software_versions.yml:md5,97f0915c7f1d9d706d2d05da31d12bb4"
         ],
-        "timestamp": "2023-12-08T11:27:46.702527783"
+        "timestamp": "2023-12-26T22:50:31.06457797"
     }
 }
