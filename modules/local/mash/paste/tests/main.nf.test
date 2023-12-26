@@ -1,0 +1,32 @@
+nextflow_process {
+
+    name "Test Process: MASH_PASTE"
+    script "../main.nf"
+    process "MASH_PASTE"
+    tag "modules"
+    tag "modules_local"
+    tag "mash/paste"
+
+
+    test("['modules_local']['mash_sketch1_msh'] & ['modules_local']['mash_sketch2_msh']") {
+
+        when {
+            params {
+                outdir              = "$outputDir"
+            }
+            process {
+                """
+                input[0] = [ [id: 'test1'], [file(params.test_data['modules_local']['mash_sketch1_msh'], checkIfExists: true)] ]
+                input[1] = [ [id: 'test2'], [file(params.test_data['modules_local']['mash_sketch2_msh'], checkIfExists: true)] ]
+                """
+            }
+        }
+
+        then {
+            assertAll (
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+}

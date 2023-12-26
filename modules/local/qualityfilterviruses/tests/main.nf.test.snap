@@ -1,0 +1,31 @@
+{
+    "['modules_local']['viruses_fna_gz'] & ['modules_local']['proviruses_fna_gz'] & ['modules_local']['quality_summary_tsv']": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.filtered.fna.gz:md5,e807764af50f14c5ca5828c51869c113"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,4065a8af6c710ebcd076fbcbabc91f17"
+                ],
+                "filtered_viruses": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.filtered.fna.gz:md5,e807764af50f14c5ca5828c51869c113"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,4065a8af6c710ebcd076fbcbabc91f17"
+                ]
+            }
+        ],
+        "timestamp": "2023-12-06T15:23:36.70796592"
+    }
+}

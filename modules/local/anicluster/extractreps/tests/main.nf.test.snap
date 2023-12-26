@@ -1,0 +1,31 @@
+{
+    "['bacteroides_fragilis']['illumina']['contigs_fa_gz'] & ['modules_local']['clusters_tsv']": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_anicluster_representatives.fna.gz:md5,b4ae3ed3aa26b50c3e3d3277e94ac940"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,15b724eac7b61bbed8de17f17eae0bf8"
+                ],
+                "representatives": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_anicluster_representatives.fna.gz:md5,b4ae3ed3aa26b50c3e3d3277e94ac940"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,15b724eac7b61bbed8de17f17eae0bf8"
+                ]
+            }
+        ],
+        "timestamp": "2023-12-06T15:24:32.364815085"
+    }
+}

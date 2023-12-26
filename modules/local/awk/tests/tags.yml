@@ -1,0 +1,2 @@
+awk:
+  - modules/local/awk/**

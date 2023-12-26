@@ -1,0 +1,33 @@
+nextflow_process {
+
+    name "Test process: ANICLUSTER_ANICLUST"
+    script "../main.nf"
+    process "ANICLUSTER_ANICLUST"
+    tag "modules"
+    tag "modules_local"
+    tag "anicluster"
+    tag "anicluster/aniclust"
+
+
+    test("['bacteroides_fragilis']['illumina']['contigs_fa_gz'] & ['modules_local']['ani_tsv']") {
+
+        when {
+            params {
+                outdir   = "$outputDir"
+            }
+            process {
+                """
+                input[0] = [ [ id: 'test' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['contigs_fa_gz'], checkIfExists: true ) ],
+                                                [ file(params.test_data['modules_local']['ani_tsv'], checkIfExists: true ) ] ]
+                """
+            }
+        }
+
+        then {
+            assertAll (
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+}

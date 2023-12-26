@@ -1,0 +1,31 @@
+nextflow_process {
+
+    name "Test Process: AWK"
+    script "../main.nf"
+    process "AWK"
+    tag "modules"
+    tag "modules_local"
+    tag "awk"
+
+
+    test("['modules_local']['virus_summary1_tsv'] & ['modules_local']['virus_summary2_tsv']") {
+
+        when {
+            params {
+                outdir   = "$outputDir"
+            }
+            process {
+                """
+                input[0] = [ [ id: 'all_samples' ], [ file(params.test_data['modules_local']['virus_summary1_tsv'], checkIfExists: true), file(params.test_data['modules_local']['virus_summary2_tsv'], checkIfExists: true) ] ]
+                """
+            }
+        }
+
+        then {
+            assertAll (
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+}

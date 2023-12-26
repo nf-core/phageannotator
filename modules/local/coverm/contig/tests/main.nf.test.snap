@@ -1,0 +1,31 @@
+{
+    "['bacteroides_fragilis']['test1_bam'] & ['bacteroides_fragilis']['test2_bam']": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "all_samples"
+                        },
+                        "all_samples_alignment_results.tsv:md5,f7624089f001fd3079bc43e3c3372a7e"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,3f5dd63588c677b43b85a327268cd825"
+                ],
+                "alignment_results": [
+                    [
+                        {
+                            "id": "all_samples"
+                        },
+                        "all_samples_alignment_results.tsv:md5,f7624089f001fd3079bc43e3c3372a7e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,3f5dd63588c677b43b85a327268cd825"
+                ]
+            }
+        ],
+        "timestamp": "2023-11-13T11:52:17.129290553"
+    }
+}

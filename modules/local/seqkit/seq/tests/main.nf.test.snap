@@ -1,0 +1,31 @@
+{
+    "['modules_local']['assembly_fasta_gz']": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.fasta.gz:md5,5c3970a6403ad9383b04e0e71ed69ac7"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,de038a980ca1e484c0e34f4af3f05c2a"
+                ],
+                "fastx": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.fasta.gz:md5,5c3970a6403ad9383b04e0e71ed69ac7"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,de038a980ca1e484c0e34f4af3f05c2a"
+                ]
+            }
+        ],
+        "timestamp": "2023-12-06T15:25:04.913990939"
+    }
+}

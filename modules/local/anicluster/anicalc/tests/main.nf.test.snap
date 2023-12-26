@@ -1,0 +1,31 @@
+{
+    "['modules_local']['blast_txt']": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_ani.tsv:md5,1934eb09849f6df88083ad25aa47923d"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,e762f9268614324a9143737b92563257"
+                ],
+                "ani": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_ani.tsv:md5,1934eb09849f6df88083ad25aa47923d"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,e762f9268614324a9143737b92563257"
+                ]
+            }
+        ],
+        "timestamp": "2023-11-13T11:49:17.964318426"
+    }
+}

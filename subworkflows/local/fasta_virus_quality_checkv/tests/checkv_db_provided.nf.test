@@ -1,0 +1,37 @@
+nextflow_workflow {
+
+    name "Test Subworkflow: FASTA_VIRUS_QUALITY_CHECKV"
+    script "subworkflows/local/fasta_virus_quality_checkv/main.nf"
+    workflow "FASTA_VIRUS_QUALITY_CHECKV"
+    tag "subworkflows"
+    tag "subworkflows_local"
+    tag "fasta_virus_quality_checkv"
+    tag "fasta_virus_quality_checkv_db_provided"
+
+
+    test("Parameters: --checkv_db provided") {
+
+        when {
+            params {
+                load("$baseDir/tests/nf-test-local-db-params.json")
+                outdir              = "$outputDir"
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    [ [ id:'test' ], [ file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists: true) ] ],
+                    [ [ id:'test2' ], [ file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists: true) ] ]
+                )
+                input[1] = Channel.of([ file(params.checkv_db, checkIfExists:true ) ])
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+}
