@@ -30,7 +30,7 @@ The core identification/quantification portion of this pipeline takes (meta)-gen
 3. ANI clustering/dereplication ([`BLAST`](https://blast.ncbi.nlm.nih.gov/doc/blast-help/))([`CheckV`](https://bitbucket.org/berkeleylab/checkv/src/master/))
 4. Binning ([`VRhyme`](https://github.com/AnantharamanLab/vRhyme))
 5. Abundance estimation ([`bowtie2`](https://bowtie-bio.sourceforge.net/bowtie2/manual.shtml))([`CoverM`](https://github.com/wwood/CoverM))
-   - _Output can be used as input for_ [**nf-core/differentialabundance**](https://nf-co.re/differentialabundance/1.2.0)
+   - _Output can be used as input for_ [**nf-core/differentialabundance**](https://nf-co.re/differentialabundance)
 6. _OPTIONAL_ - Strain profiling ([`inStrain`](https://instrain.readthedocs.io/en/latest/))
 7. _OPTIONAL_ - Prophage activity prediction ([`propagAtE`](https://github.com/AnantharamanLab/PropagAtE))
 
@@ -41,7 +41,7 @@ The annotation portion of this pipeline performs the following steps:
 3. Host prediction ([`iPHoP`](https://bitbucket.org/srouxjgi/iphop/src/main/))
 4. Lifestyle prediction ([`BACPHLIP`](https://github.com/adamhockenberry/bacphlip))
 5. Protein-coding gene prediction ([`Prodigal-gv`](https://github.com/apcamargo/prodigal-gv))
-   - _Output can be used as input for_ [**nf-core/funcscan**](https://nf-co.re/funcscan/1.1.2)
+   - _Output can be used as input for_ [**nf-core/funcscan**](https://nf-co.re/funcscan)
 
 ## Quick Start
 
