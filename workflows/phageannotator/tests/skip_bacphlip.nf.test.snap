@@ -1,5 +1,5 @@
 {
-    "Parameters: --skip-reference-containment": {
+    "Parameters: default": {
         "content": [
             {
                 "0": [
@@ -11,13 +11,13 @@
                         {
                             "id": "test2"
                         },
-                        "test2_virus_summary.tsv:md5,ae6d66b39f6ea43628db461e42012027"
+                        "test2.fasta_w_screen_hits_virus_summary.tsv:md5,617215f2a883d4ec8d95aacd0b09d8a1"
                     ],
                     [
                         {
                             "id": "test"
                         },
-                        "test_virus_summary.tsv:md5,ae6d66b39f6ea43628db461e42012027"
+                        "test.fasta_w_screen_hits_virus_summary.tsv:md5,f5b59da727b9793461f8b85cf7c818df"
                     ]
                 ],
                 "2": [
@@ -25,13 +25,13 @@
                         {
                             "id": "test2"
                         },
-                        "test2_quality_summary.tsv:md5,5f1b0ace5264c11b2f5e8b0decbf2f9e"
+                        "test2_quality_summary.tsv:md5,db5422a546af97a3d997045b3eb9f321"
                     ],
                     [
                         {
                             "id": "test"
                         },
-                        "test_quality_summary.tsv:md5,5f1b0ace5264c11b2f5e8b0decbf2f9e"
+                        "test_quality_summary.tsv:md5,f5273c5640e76d64d46c54c09f75f2d9"
                     ]
                 ],
                 "3": [
@@ -39,13 +39,13 @@
                         {
                             "id": "test2"
                         },
-                        "test2.filtered.fna.gz:md5,41b1f1f20079a5994f18090c6b562ad5"
+                        "test2.filtered.fna.gz:md5,741ab7b127375e64069553fa51b2eac9"
                     ],
                     [
                         {
                             "id": "test"
                         },
-                        "test.filtered.fna.gz:md5,41b1f1f20079a5994f18090c6b562ad5"
+                        "test.filtered.fna.gz:md5,a3f4a97cd394993502c30dd444bc1b88"
                     ]
                 ],
                 "4": [
@@ -53,7 +53,7 @@
                         {
                             "id": "all_samples"
                         },
-                        "all_samples_anicluster_representatives.fna.gz:md5,41b1f1f20079a5994f18090c6b562ad5"
+                        "all_samples_anicluster_representatives.fna.gz:md5,07bf1a1918d0a5aa2422c7b1a3b1c085"
                     ]
                 ],
                 "5": [
@@ -69,7 +69,7 @@
                         {
                             "id": "all_samples"
                         },
-                        "all_samples_anicluster_representatives_taxonomy.tsv:md5,abdd8c513020846ae85afdc42c800658"
+                        "all_samples_anicluster_representatives_taxonomy.tsv:md5,fb8440b1fd32f96414b71b76ec228df1"
                     ]
                 ],
                 "7": [
@@ -77,7 +77,7 @@
                         {
                             "id": "all_samples"
                         },
-                        "all_samples.prodigalgv.faa.gz:md5,ba02f7f691834c78746d404d5408b693"
+                        "all_samples.prodigalgv.faa.gz:md5,49a7f8cea341b7069a0943388d135e9f"
                     ]
                 ],
                 "8": [
@@ -85,13 +85,13 @@
                         {
                             "id": "test2"
                         },
-                        "test2.IS_gene_info.tsv:md5,0d05798c82a35fd4fd2787ff1cb9b607"
+                        "test2.IS_gene_info.tsv:md5,dd7c9eb0c52908beaf21b5fb9ec91135"
                     ],
                     [
                         {
                             "id": "test"
                         },
-                        "test.IS_gene_info.tsv:md5,0d05798c82a35fd4fd2787ff1cb9b607"
+                        "test.IS_gene_info.tsv:md5,dd7c9eb0c52908beaf21b5fb9ec91135"
                     ]
                 ],
                 "9": [
@@ -99,10 +99,10 @@
                     "versions.yml:md5,04bf25e5231ce1f8077581bb7a2c07f4",
                     "versions.yml:md5,1097ac7d62d13e9e74916d9dc1fabb7b",
                     "versions.yml:md5,1439e948f383899aaccbf49506923b04",
+                    "versions.yml:md5,2b068b9678f63d6bb06a2a3652e92ba9",
                     "versions.yml:md5,2d1864a0523e2738f150eaf87d4472d5",
                     "versions.yml:md5,3c8b8ac5a86d6d7fba86fc61f4d5fca9",
                     "versions.yml:md5,3d3432539468e0fae3b05d63cd5237d0",
-                    "versions.yml:md5,42ce3c1803e6f3030b60d1d4610b629d",
                     "versions.yml:md5,45fa41ba465519ccbfe26974f9aebcc4",
                     "versions.yml:md5,4698f3f4cdba1748298d6fc664fe55d4",
                     "versions.yml:md5,478c8fdcebf1357f40c26d7991d85eb4",
@@ -124,6 +124,7 @@
                     "versions.yml:md5,987d2e54a85311b917599dc41c90418c",
                     "versions.yml:md5,a6aa8efc5dbcafe7129f58ed120eaa93",
                     "versions.yml:md5,a856eefde99260259440d942c1d56ff4",
+                    "versions.yml:md5,c0598196e761dbcdc90ff95a2f623b9c",
                     "versions.yml:md5,c7c1550786083ee8f3264b19ccf0fcbb",
                     "versions.yml:md5,c7c1550786083ee8f3264b19ccf0fcbb",
                     "versions.yml:md5,c97cb7740ce1aa3cf22cb6e8be2d62ce",
@@ -138,7 +139,7 @@
                         {
                             "id": "all_samples"
                         },
-                        "all_samples_anicluster_representatives.fna.gz:md5,41b1f1f20079a5994f18090c6b562ad5"
+                        "all_samples_anicluster_representatives.fna.gz:md5,07bf1a1918d0a5aa2422c7b1a3b1c085"
                     ]
                 ],
                 "filtered_viruses_fna_gz": [
@@ -146,13 +147,13 @@
                         {
                             "id": "test2"
                         },
-                        "test2.filtered.fna.gz:md5,41b1f1f20079a5994f18090c6b562ad5"
+                        "test2.filtered.fna.gz:md5,741ab7b127375e64069553fa51b2eac9"
                     ],
                     [
                         {
                             "id": "test"
                         },
-                        "test.filtered.fna.gz:md5,41b1f1f20079a5994f18090c6b562ad5"
+                        "test.filtered.fna.gz:md5,a3f4a97cd394993502c30dd444bc1b88"
                     ]
                 ],
                 "host_predictions_tsv": [
@@ -168,13 +169,13 @@
                         {
                             "id": "test2"
                         },
-                        "test2.IS_gene_info.tsv:md5,0d05798c82a35fd4fd2787ff1cb9b607"
+                        "test2.IS_gene_info.tsv:md5,dd7c9eb0c52908beaf21b5fb9ec91135"
                     ],
                     [
                         {
                             "id": "test"
                         },
-                        "test.IS_gene_info.tsv:md5,0d05798c82a35fd4fd2787ff1cb9b607"
+                        "test.IS_gene_info.tsv:md5,dd7c9eb0c52908beaf21b5fb9ec91135"
                     ]
                 ],
                 "marker_taxonomy_tsv": [
@@ -182,7 +183,7 @@
                         {
                             "id": "all_samples"
                         },
-                        "all_samples_anicluster_representatives_taxonomy.tsv:md5,abdd8c513020846ae85afdc42c800658"
+                        "all_samples_anicluster_representatives_taxonomy.tsv:md5,fb8440b1fd32f96414b71b76ec228df1"
                     ]
                 ],
                 "prodigalgv_proteins_faa_gz": [
@@ -190,7 +191,7 @@
                         {
                             "id": "all_samples"
                         },
-                        "all_samples.prodigalgv.faa.gz:md5,ba02f7f691834c78746d404d5408b693"
+                        "all_samples.prodigalgv.faa.gz:md5,49a7f8cea341b7069a0943388d135e9f"
                     ]
                 ],
                 "versions": [
@@ -198,10 +199,10 @@
                     "versions.yml:md5,04bf25e5231ce1f8077581bb7a2c07f4",
                     "versions.yml:md5,1097ac7d62d13e9e74916d9dc1fabb7b",
                     "versions.yml:md5,1439e948f383899aaccbf49506923b04",
+                    "versions.yml:md5,2b068b9678f63d6bb06a2a3652e92ba9",
                     "versions.yml:md5,2d1864a0523e2738f150eaf87d4472d5",
                     "versions.yml:md5,3c8b8ac5a86d6d7fba86fc61f4d5fca9",
                     "versions.yml:md5,3d3432539468e0fae3b05d63cd5237d0",
-                    "versions.yml:md5,42ce3c1803e6f3030b60d1d4610b629d",
                     "versions.yml:md5,45fa41ba465519ccbfe26974f9aebcc4",
                     "versions.yml:md5,4698f3f4cdba1748298d6fc664fe55d4",
                     "versions.yml:md5,478c8fdcebf1357f40c26d7991d85eb4",
@@ -223,6 +224,7 @@
                     "versions.yml:md5,987d2e54a85311b917599dc41c90418c",
                     "versions.yml:md5,a6aa8efc5dbcafe7129f58ed120eaa93",
                     "versions.yml:md5,a856eefde99260259440d942c1d56ff4",
+                    "versions.yml:md5,c0598196e761dbcdc90ff95a2f623b9c",
                     "versions.yml:md5,c7c1550786083ee8f3264b19ccf0fcbb",
                     "versions.yml:md5,c7c1550786083ee8f3264b19ccf0fcbb",
                     "versions.yml:md5,c97cb7740ce1aa3cf22cb6e8be2d62ce",
@@ -237,13 +239,13 @@
                         {
                             "id": "test2"
                         },
-                        "test2_virus_summary.tsv:md5,ae6d66b39f6ea43628db461e42012027"
+                        "test2.fasta_w_screen_hits_virus_summary.tsv:md5,617215f2a883d4ec8d95aacd0b09d8a1"
                     ],
                     [
                         {
                             "id": "test"
                         },
-                        "test_virus_summary.tsv:md5,ae6d66b39f6ea43628db461e42012027"
+                        "test.fasta_w_screen_hits_virus_summary.tsv:md5,f5b59da727b9793461f8b85cf7c818df"
                     ]
                 ],
                 "virus_enrichment_tsv": [
@@ -255,17 +257,17 @@
                         {
                             "id": "test2"
                         },
-                        "test2_quality_summary.tsv:md5,5f1b0ace5264c11b2f5e8b0decbf2f9e"
+                        "test2_quality_summary.tsv:md5,db5422a546af97a3d997045b3eb9f321"
                     ],
                     [
                         {
                             "id": "test"
                         },
-                        "test_quality_summary.tsv:md5,5f1b0ace5264c11b2f5e8b0decbf2f9e"
+                        "test_quality_summary.tsv:md5,f5273c5640e76d64d46c54c09f75f2d9"
                     ]
                 ]
             }
         ],
-        "timestamp": "2024-01-01T09:56:02.931862867"
+        "timestamp": "2024-01-01T10:33:56.209289595"
     }
 }

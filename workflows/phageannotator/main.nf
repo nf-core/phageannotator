@@ -75,8 +75,10 @@ workflow PHAGEANNOTATOR {
         Estimate viral enrichment in reads
     ------------------------------------------------------------------------------*/
     if ( !params.skip_viromeqc ) {
-        FASTQ_VIRUS_ENRICHMENT_VIROMEQC ( fastq_gz )
+        ch_virus_enrichment_tsv = FASTQ_VIRUS_ENRICHMENT_VIROMEQC ( fastq_gz ).enrichment_tsv
         ch_versions = ch_versions.mix(FASTQ_VIRUS_ENRICHMENT_VIROMEQC.out.versions)
+    } else {
+        ch_virus_enrichment_tsv = Channel.empty()
     }
 
 
@@ -125,7 +127,6 @@ workflow PHAGEANNOTATOR {
     } else {
         // if skip_reference_containment == true, skip subworkflow and use input assemblies
         ch_assembly_w_references_fasta_gz = ch_filtered_input_fasta_gz
-        ch_combined_mash_screen_tsv = Channel.empty()
     }
 
 
@@ -152,7 +153,7 @@ workflow PHAGEANNOTATOR {
             ch_versions = ch_versions.mix(FASTA_VIRUS_CLASSIFICATION_GENOMAD.out.versions.first())
             ch_virus_summaries_tsv = FASTA_VIRUS_CLASSIFICATION_GENOMAD.out.virus_summaries_tsv
         } else {
-            ch_genomad_db_dir = FASTA_VIRUS_CLASSIFICATION_GENOMAD ( [], ch_genomad_db ).genomad_db
+            ch_genomad_db_dir = FASTA_VIRUS_CLASSIFICATION_GENOMAD ( Channel.empty(), ch_genomad_db ).genomad_db
             ch_versions = ch_versions.mix(FASTA_VIRUS_CLASSIFICATION_GENOMAD.out.versions.first())
             ch_viruses_fna_gz = ch_assembly_w_references_fasta_gz
             ch_virus_summaries_tsv = Channel.empty()
@@ -249,24 +250,31 @@ workflow PHAGEANNOTATOR {
     /*----------------------------------------------------------------------------
         Align reads to viruses
     ------------------------------------------------------------------------------*/
-    //
-    // MODULE: Make bowtie2 index
-    //
-    ch_anicluster_reps_bt2 = BOWTIE2_BUILD ( ch_anicluster_reps_fasta_gz ).index.first()
-    ch_versions = ch_versions.mix( BOWTIE2_BUILD.out.versions )
+    if ( !params.skip_read_alignment ) {
+        //
+        // MODULE: Make bowtie2 index
+        //
+        ch_anicluster_reps_bt2 = BOWTIE2_BUILD ( ch_anicluster_reps_fasta_gz ).index.first()
+        ch_versions = ch_versions.mix( BOWTIE2_BUILD.out.versions )
 
-    //
-    // SUBWORKFLOW: Align reads to bowtie2 index
-    //
-    ch_cluster_rep_alignment_bam = FASTQ_ALIGN_BOWTIE2 ( fastq_gz, ch_anicluster_reps_bt2, false, false, ch_anicluster_reps_fasta_gz ).bam
-    ch_versions = ch_versions.mix( FASTQ_ALIGN_BOWTIE2.out.versions )
+        //
+        // SUBWORKFLOW: Align reads to bowtie2 index
+        //
+        ch_cluster_rep_alignment_bam = FASTQ_ALIGN_BOWTIE2 ( fastq_gz, ch_anicluster_reps_bt2, false, false, ch_anicluster_reps_fasta_gz ).bam
+        ch_versions = ch_versions.mix( FASTQ_ALIGN_BOWTIE2.out.versions )
 
-    //
-    // MODULE: Calculate abundance metrics from BAM file
-    //
-    ch_combined_bams = ch_cluster_rep_alignment_bam.map { [ [ id:'all_samples' ], it[1] ] }.groupTuple( sort: 'deep' )
-    ch_alignment_results_tsv = COVERM_CONTIG ( ch_combined_bams ).alignment_results
-    ch_versions = ch_versions.mix( COVERM_CONTIG.out.versions )
+        //
+        // MODULE: Calculate abundance metrics from BAM file
+        //
+        ch_combined_bams = ch_cluster_rep_alignment_bam.map { [ [ id:'all_samples' ], it[1] ] }.groupTuple( sort: 'deep' )
+        ch_alignment_results_tsv = COVERM_CONTIG ( ch_combined_bams ).alignment_results
+        ch_versions = ch_versions.mix( COVERM_CONTIG.out.versions )
+    } else {
+        ch_alignment_results_tsv = Channel.empty()
+        if ( !params.skip_instrain ) {
+            error "[nf-core/phageannotator] ERROR: skip_read_alignment = true but skip_instrain = false; read alignment must take place for inStrain to run"
+        }
+    }
 
 
     /*----------------------------------------------------------------------------
@@ -331,6 +339,7 @@ workflow PHAGEANNOTATOR {
         ch_versions = ch_versions.mix( PRODIGAL_PRODIGALGV.out.versions )
     } else {
         ch_prodigalgv_proteins_faa_gz = Channel.empty()
+        ch_prodigalgv_proteins_fna_gz = Channel.empty()
     }
 
 
@@ -355,7 +364,7 @@ workflow PHAGEANNOTATOR {
 
 
     emit:
-    reference_containment_tsv   = ch_combined_mash_screen_tsv
+    virus_enrichment_tsv        = ch_virus_enrichment_tsv
     virus_classification_tsv    = ch_virus_summaries_tsv
     virus_quality_tsv           = ch_quality_summary_tsv
     filtered_viruses_fna_gz     = ch_filtered_viruses_fna_gz
