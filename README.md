@@ -30,7 +30,7 @@ The core identification/quantification portion of this pipeline takes (meta)-gen
 3. ANI clustering/dereplication ([`BLAST`](https://blast.ncbi.nlm.nih.gov/doc/blast-help/))([`CheckV`](https://bitbucket.org/berkeleylab/checkv/src/master/))
 4. Binning ([`VRhyme`](https://github.com/AnantharamanLab/vRhyme))
 5. Abundance estimation ([`bowtie2`](https://bowtie-bio.sourceforge.net/bowtie2/manual.shtml))([`CoverM`](https://github.com/wwood/CoverM))
-   - _Output can be used as input for_ [**nf-core/differentialabundance**](https://nf-co.re/differentialabundance/1.2.0)
+   - _Output can be used as input for_ [**nf-core/differentialabundance**](https://nf-co.re/differentialabundance)
 6. _OPTIONAL_ - Strain profiling ([`inStrain`](https://instrain.readthedocs.io/en/latest/))
 7. _OPTIONAL_ - Prophage activity prediction ([`propagAtE`](https://github.com/AnantharamanLab/PropagAtE))
 
@@ -41,7 +41,7 @@ The annotation portion of this pipeline performs the following steps:
 3. Host prediction ([`iPHoP`](https://bitbucket.org/srouxjgi/iphop/src/main/))
 4. Lifestyle prediction ([`BACPHLIP`](https://github.com/adamhockenberry/bacphlip))
 5. Protein-coding gene prediction ([`Prodigal-gv`](https://github.com/apcamargo/prodigal-gv))
-   - _Output can be used as input for_ [**nf-core/funcscan**](https://nf-co.re/funcscan/1.1.2)
+   - _Output can be used as input for_ [**nf-core/funcscan**](https://nf-co.re/funcscan)
 
 ## Quick Start
 
@@ -52,7 +52,7 @@ The annotation portion of this pipeline performs the following steps:
 3. Download the pipeline and test it on a minimal dataset with a single command:
 
    ```bash
-   nextflow run nf-core/taxprofiler -profile test,YOURPROFILE --outdir <OUTDIR>
+   nextflow run nf-core/phageannotater -profile test,YOURPROFILE --outdir <OUTDIR>
    ```
 
    Note that some form of configuration will be needed so that Nextflow knows how to fetch the required software. This is usually done in the form of a config profile (`YOURPROFILE` in the example command above). You can chain multiple config profiles in a comma-separated string.
@@ -65,7 +65,7 @@ The annotation portion of this pipeline performs the following steps:
 4. Start running your own analysis!
 
    ```console
-   nextflow run nf-core/taxprofiler --input samplesheet.csv --databases database.csv --outdir <OUTDIR> --run_<TOOL1> --run_<TOOL1> -profile <docker/singularity/podman/shifter/charliecloud/conda/institute>
+   nextflow run nf-core/phageannotater --input samplesheet.csv --outdir <OUTDIR> -profile <docker/singularity/podman/shifter/charliecloud/conda/institute>
    ```
 
    **nf-core/phageannotator** is a bioinformatics pipeline that ...
@@ -123,7 +123,7 @@ For more details and further functionality, please refer to the [usage documenta
 
 ## Documentation
 
-The nf-core/taxprofiler pipeline comes with documentation about the pipeline [usage](https://nf-co.re/phageannotater/usage), [parameters](https://nf-co.re/phageannotater/parameters) and [output](https://nf-co.re/phageannotater/output).
+The nf-core/phageannotater pipeline comes with documentation about the pipeline [usage](https://nf-co.re/phageannotater/usage), [parameters](https://nf-co.re/phageannotater/parameters) and [output](https://nf-co.re/phageannotater/output).
 
 ## Credits
 
