@@ -25,7 +25,7 @@ workflow FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH {
 
     // if provided, use reference sketch. If not, create one
     if ( reference_sketch_msh ) {
-        ch_reference_sketch_msh = Channel.value( reference_sketch_msh )
+        ch_reference_sketch_msh = reference_sketch_msh
     } else {
         //
         // MODULE: Create sketch of reference sequences
