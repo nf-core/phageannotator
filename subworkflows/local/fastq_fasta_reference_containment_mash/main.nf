@@ -25,7 +25,7 @@ workflow FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH {
 
     // if provided, use reference sketch. If not, create one
     if ( reference_sketch_msh ) {
-        ch_reference_sketch_msh = reference_sketch_msh
+        ch_reference_sketch_msh = Channel.value( reference_sketch_msh )
     } else {
         //
         // MODULE: Create sketch of reference sequences
@@ -37,7 +37,7 @@ workflow FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH {
     //
     // MODULE: Combine assembly and reference sketches
     //
-    ch_combined_sketch_msh = MASH_PASTE ( ch_assembly_sketch_msh, ch_reference_sketch_msh.first() ).msh
+    ch_combined_sketch_msh = MASH_PASTE ( ch_assembly_sketch_msh, ch_reference_sketch_msh ).msh
     ch_versions = ch_versions.mix(MASH_PASTE.out.versions.first())
 
     // join reads and combined sketch by meta.id

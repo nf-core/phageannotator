@@ -139,9 +139,9 @@ workflow PHAGEANNOTATOR {
         //
         // create channel from params.genomad_db
         if ( !params.genomad_db ){
-            ch_genomad_db = null
+            ch_genomad_db = Channel.value()
         } else {
-            ch_genomad_db = file( params.genomad_db, checkIfExists:true )
+            ch_genomad_db = Channel.value( file( params.genomad_db, checkIfExists:true ) )
         }
 
         //
@@ -171,9 +171,9 @@ workflow PHAGEANNOTATOR {
     if ( !params.skip_checkv ) {
         // create channel from params.checkv_db
         if ( !params.checkv_db ){
-            ch_checkv_db = null
+            ch_checkv_db = Channel.value()
         } else {
-            ch_checkv_db = file( params.checkv_db, checkIfExists:true )
+            ch_checkv_db = Channel.value( file( params.checkv_db, checkIfExists:true ) )
         }
 
         //

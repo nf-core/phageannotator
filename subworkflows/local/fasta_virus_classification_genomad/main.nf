@@ -27,7 +27,7 @@ workflow FASTA_VIRUS_CLASSIFICATION_GENOMAD {
     //
     // MODULE: Classify/annotate viral sequences
     //
-    ch_viruses_fna_gz = GENOMAD_ENDTOEND ( fasta_gz, ch_genomad_db.first() ).virus_fasta
+    ch_viruses_fna_gz = GENOMAD_ENDTOEND ( fasta_gz, ch_genomad_db ).virus_fasta
     ch_virus_summaries_tsv = GENOMAD_ENDTOEND.out.virus_summary
     ch_versions = ch_versions.mix(GENOMAD_ENDTOEND.out.versions.first())
 
