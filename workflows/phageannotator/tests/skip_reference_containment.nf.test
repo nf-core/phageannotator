@@ -5,7 +5,7 @@ nextflow_workflow {
     workflow "PHAGEANNOTATOR"
     tag "workflows"
     tag "phageannotator"
-    tag "phageannotator_skip_reference"
+    tag "phageannotator_skip_reference_containment"
 
 
     test("Parameters: --skip-reference-containment") {
