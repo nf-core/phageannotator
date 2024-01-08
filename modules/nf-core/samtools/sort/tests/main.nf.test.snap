@@ -35,5 +35,42 @@
             }
         ],
         "timestamp": "2023-10-17T17:21:46.5427968"
+    },
+    "test_samtools_sort_stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test",
+                            "single_end": false
+                        },
+                        "test.sorted.bam:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    
+                ],
+                "2": [
+                    "versions.yml:md5,46f7a36082fa1f68285fe30d689244e8"
+                ],
+                "bam": [
+                    [
+                        {
+                            "id": "test",
+                            "single_end": false
+                        },
+                        "test.sorted.bam:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "csi": [
+                    
+                ],
+                "versions": [
+                    "versions.yml:md5,46f7a36082fa1f68285fe30d689244e8"
+                ]
+            }
+        ],
+        "timestamp": "2024-01-08T09:16:32.318049826"
     }
 }
