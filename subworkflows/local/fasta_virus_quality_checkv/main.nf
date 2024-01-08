@@ -44,7 +44,7 @@ workflow FASTA_VIRUS_QUALITY_CHECKV {
     //
     // MODULE: Assess virus quality
     //
-    CHECKV_ENDTOEND ( virus_fasta_gz, ch_checkv_db )
+    CHECKV_ENDTOEND ( virus_fasta_gz, ch_checkv_db.collect() )
     ch_quality_summary_tsv  = CHECKV_ENDTOEND.out.quality_summary
     ch_viruses_fna_gz       = CHECKV_ENDTOEND.out.viruses
     ch_proviruses_fna_gz    = CHECKV_ENDTOEND.out.proviruses

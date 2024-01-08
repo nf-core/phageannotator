@@ -24,6 +24,7 @@ nextflow_pipeline {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
+                    path("${params.outdir}/VirusEnrichment"),
                     path("${params.outdir}/AssemblyFilter"),
                     path("${params.outdir}/ReferenceContainment"),
                     path("${params.outdir}/VirusClassification"),
@@ -36,9 +37,9 @@ nextflow_pipeline {
                     path("${params.outdir}/VirusMicrodiversity/instrain/profile/test2.IS/output/test2.IS_gene_info.tsv"),
                     path("${params.outdir}/pipeline_info/software_versions.yml")
                     ).match() },
-                { assert new File("${outputDir}/VirusLifestyle/bacphlip/all_samples_anicluster_representatives.fna.bacphlip").exists() },
-                { assert new File("${outputDir}/VirusAbundance/coverm/contig/all_samples_alignment_results.tsv").exists() },
-                { assert new File("${params.outdir}/VirusMicrodiversity/instrain/compare/all_samples.IS_compare/output/all_samples.IS_compare_pooled_SNV_data.tsv").exists() },
+                { assert path("${outputDir}/VirusLifestyle/bacphlip/all_samples_anicluster_representatives.fna.bacphlip").readLines().size() == 4 },
+                { assert path("${outputDir}/VirusAbundance/coverm/contig/all_samples_alignment_results.tsv").readLines().size() == 4 },
+                { assert path("${params.outdir}/VirusMicrodiversity/instrain/compare/all_samples.IS_compare/output/all_samples.IS_compare_pooled_SNV_data.tsv").readLines().size() == 15 },
                 { assert new File("$outputDir/ReadQuality/fastqc/test1_1_fastqc.html").exists() },
                 { assert new File("$outputDir/ReadQuality/fastqc/test1_2_fastqc.html").exists() },
                 { assert new File("$outputDir/VirusAbundance/bowtie2/align/test1.bam").exists() },

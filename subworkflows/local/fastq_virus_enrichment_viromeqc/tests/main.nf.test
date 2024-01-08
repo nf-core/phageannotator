@@ -1,0 +1,35 @@
+nextflow_workflow {
+
+    name "Test subworkflow: FASTQ_VIRUS_ENRICHMENT_VIROMEQC"
+    script "subworkflows/local/fastq_virus_enrichment_viromeqc/main.nf"
+    workflow "FASTQ_VIRUS_ENRICHMENT_VIROMEQC"
+    tag "subworkflows"
+    tag "subworkflows_local"
+    tag "fastq_virus_enrichment_viromeqc"
+    tag "fastq_virus_enrichment_viromeqc_default"
+
+
+    test("Parameters: default") {
+
+        when {
+            workflow {
+                """
+                input[0] = [
+                    [ id:'test' ], // meta map
+                    [
+                        file(params.test_data['sarscov2']['illumina']['test_1_fastq_gz'], checkifExists: true),
+                        file(params.test_data['sarscov2']['illumina']['test_2_fastq_gz'], checkifExists: true),
+                    ]
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+}

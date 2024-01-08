@@ -5,11 +5,9 @@ nextflow_workflow {
     workflow "PHAGEANNOTATOR"
     tag "workflows"
     tag "phageannotator"
-    tag "phageannotator_skip_reference_containment"
+    tag "phageannotator_skip_prodigalgv"
 
-
-    test("Parameters: --skip-reference-containment") {
-
+    test("Parameters: skip_prodigalgv = true") {
         when {
             workflow {
                 """
@@ -22,8 +20,9 @@ nextflow_workflow {
                 """
             }
             params {
-                skip_reference_containment  = true
-                outdir                      = "$outputDir"
+                outdir                  = "$outputDir"
+                skip_prodigalgv         = true
+                mash_screen_min_score   = 0.5
                 genomad_min_score       = 0.01
                 genomad_max_fdr         = 1
                 genomad_disable_nn      = true

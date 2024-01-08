@@ -5,6 +5,12 @@
                 "0": [
                     [
                         {
+                            "id": "test2"
+                        },
+                        "viruses.fna.gz:md5,67028c9f9447855f86013fd43a5f6105"
+                    ],
+                    [
+                        {
                             "id": "test"
                         },
                         "viruses.fna.gz:md5,67028c9f9447855f86013fd43a5f6105"
@@ -13,12 +19,24 @@
                 "1": [
                     [
                         {
+                            "id": "test2"
+                        },
+                        "proviruses.fna.gz:md5,f2b8287ef49757e3a0320217b8add37d"
+                    ],
+                    [
+                        {
                             "id": "test"
                         },
                         "proviruses.fna.gz:md5,f2b8287ef49757e3a0320217b8add37d"
                     ]
                 ],
                 "2": [
+                    [
+                        {
+                            "id": "test2"
+                        },
+                        "test2_quality_summary.tsv:md5,04e827b7efefe52727a904cfd3af1639"
+                    ],
                     [
                         {
                             "id": "test"
@@ -33,12 +51,24 @@
                 "proviruses_fna_gz": [
                     [
                         {
+                            "id": "test2"
+                        },
+                        "proviruses.fna.gz:md5,f2b8287ef49757e3a0320217b8add37d"
+                    ],
+                    [
+                        {
                             "id": "test"
                         },
                         "proviruses.fna.gz:md5,f2b8287ef49757e3a0320217b8add37d"
                     ]
                 ],
                 "quality_summary_tsv": [
+                    [
+                        {
+                            "id": "test2"
+                        },
+                        "test2_quality_summary.tsv:md5,04e827b7efefe52727a904cfd3af1639"
+                    ],
                     [
                         {
                             "id": "test"
@@ -53,6 +83,12 @@
                 "viruses_fna_gz": [
                     [
                         {
+                            "id": "test2"
+                        },
+                        "viruses.fna.gz:md5,67028c9f9447855f86013fd43a5f6105"
+                    ],
+                    [
+                        {
                             "id": "test"
                         },
                         "viruses.fna.gz:md5,67028c9f9447855f86013fd43a5f6105"
@@ -60,6 +96,6 @@
                 ]
             }
         ],
-        "timestamp": "2023-12-06T15:54:04.516229718"
+        "timestamp": "2024-01-08T08:57:05.04137914"
     }
 }

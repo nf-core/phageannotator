@@ -5,11 +5,9 @@ nextflow_workflow {
     workflow "PHAGEANNOTATOR"
     tag "workflows"
     tag "phageannotator"
-    tag "phageannotator_skip_reference_containment"
+    tag "phageannotator_skip_bacphlip"
 
-
-    test("Parameters: --skip-reference-containment") {
-
+    test("Parameters: default") {
         when {
             workflow {
                 """
@@ -22,8 +20,9 @@ nextflow_workflow {
                 """
             }
             params {
-                skip_reference_containment  = true
-                outdir                      = "$outputDir"
+                outdir                  = "$outputDir"
+                skip_bacphlip           = true
+                mash_screen_min_score   = 0.5
                 genomad_min_score       = 0.01
                 genomad_max_fdr         = 1
                 genomad_disable_nn      = true
@@ -37,7 +36,7 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(workflow.out).match() },
-                { assert path("${outputDir}/VirusLifestyle/bacphlip/all_samples_anicluster_representatives.fna.bacphlip").readLines().size() == 4 },
+                { assert !path("${outputDir}/VirusLifestyle/bacphlip/test.filtered.fna.bacphlip").exists() },
                 { assert path("${outputDir}/VirusAbundance/coverm/contig/all_samples_alignment_results.tsv").readLines().size() == 4 }
             )
         }
