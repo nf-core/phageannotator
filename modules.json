@@ -148,7 +148,7 @@
                 "nf-core": {
                     "bam_sort_stats_samtools": {
                         "branch": "master",
-                        "git_sha": "af41b722617a973f3c2c0f83a5f64095e4d87ca2",
+                        "git_sha": "a64788f5ad388f1d2ac5bd5f1f3f8fc81476148c",
                         "installed_by": ["fastq_align_bowtie2"]
                     },
                     "bam_stats_samtools": {
