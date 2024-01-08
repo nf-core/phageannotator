@@ -46,12 +46,24 @@
                 "1": [
                     [
                         {
+                            "id": "test2"
+                        },
+                        "genome_virus.fna.gz:md5,1b10bd0f19c8c41c426c0a75ea38efb9"
+                    ],
+                    [
+                        {
                             "id": "test"
                         },
                         "genome_virus.fna.gz:md5,1b10bd0f19c8c41c426c0a75ea38efb9"
                     ]
                 ],
                 "2": [
+                    [
+                        {
+                            "id": "test2"
+                        },
+                        "genome_virus_summary.tsv:md5,6899de91e735b5b930347d9d0fda8a7a"
+                    ],
                     [
                         {
                             "id": "test"
@@ -109,12 +121,24 @@
                 "virus_summaries_tsv": [
                     [
                         {
+                            "id": "test2"
+                        },
+                        "genome_virus_summary.tsv:md5,6899de91e735b5b930347d9d0fda8a7a"
+                    ],
+                    [
+                        {
                             "id": "test"
                         },
                         "genome_virus_summary.tsv:md5,6899de91e735b5b930347d9d0fda8a7a"
                     ]
                 ],
                 "viruses_fna_gz": [
+                    [
+                        {
+                            "id": "test2"
+                        },
+                        "genome_virus.fna.gz:md5,1b10bd0f19c8c41c426c0a75ea38efb9"
+                    ],
                     [
                         {
                             "id": "test"
@@ -124,6 +148,6 @@
                 ]
             }
         ],
-        "timestamp": "2024-01-05T13:49:37.148224346"
+        "timestamp": "2023-12-06T15:47:41.364409205"
     }
 }

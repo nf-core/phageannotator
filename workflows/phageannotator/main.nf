@@ -100,13 +100,14 @@ workflow PHAGEANNOTATOR {
         }
 
         // create channel from params.reference_virus_fasta
-        ch_reference_virus_fasta_gz = Channel.value( [ [ id:'reference_viruses' ], file( params.reference_virus_fasta, checkIfExists:true ) ] )
+        ch_reference_virus_fasta_gz = Channel.of([ [ id:'reference_viruses' ], file( params.reference_virus_fasta, checkIfExists:true ) ])
+        ch_reference_virus_fasta_gz
 
         // create channel from params.reference_virus_sketch
         if ( !params.reference_virus_sketch ){
             ch_reference_virus_sketch_msh = null
         } else {
-            ch_reference_virus_sketch_msh = Channel.value( [ [ id:'reference_viruses' ], file( params.reference_virus_sketch, checkIfExists:true ) ] )
+            ch_reference_virus_sketch_msh = [ [ id:'reference_viruses' ], file( params.reference_virus_sketch, checkIfExists:true ) ]
         }
 
         //
@@ -138,7 +139,7 @@ workflow PHAGEANNOTATOR {
         //
         // create channel from params.genomad_db
         if ( !params.genomad_db ){
-            ch_genomad_db = null
+            ch_genomad_db = Channel.value()
         } else {
             ch_genomad_db = Channel.value( file( params.genomad_db, checkIfExists:true ) )
         }
@@ -170,7 +171,7 @@ workflow PHAGEANNOTATOR {
     if ( !params.skip_checkv ) {
         // create channel from params.checkv_db
         if ( !params.checkv_db ){
-            ch_checkv_db = null
+            ch_checkv_db = Channel.value()
         } else {
             ch_checkv_db = Channel.value( file( params.checkv_db, checkIfExists:true ) )
         }
