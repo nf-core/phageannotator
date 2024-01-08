@@ -96,6 +96,10 @@
                     "type": "number",
                     "default": 0.95,
                     "description": "Minimum mash screen score to consider a genome contained"
+                },
+                "mash_screen_winner_take_all": {
+                    "type": "boolean",
+                    "description": "Hashes present in multiple references are assigned only to top sequence"
                 }
             },
             "fa_icon": "fas fa-search"
