@@ -91,8 +91,8 @@
             ],
             "test1.IS_gene_info.tsv:md5,dd7c9eb0c52908beaf21b5fb9ec91135",
             "test2.IS_gene_info.tsv:md5,dd7c9eb0c52908beaf21b5fb9ec91135",
-            "software_versions.yml:md5,224a0263797d9b3d7b34f5e815fd35cf"
+            "software_versions.yml:md5,42e06c9500d2f348067bd95971416063"
         ],
-        "timestamp": "2024-01-08T11:05:20.138417988"
+        "timestamp": "2024-01-01T14:52:30.765707152"
     }
 }
