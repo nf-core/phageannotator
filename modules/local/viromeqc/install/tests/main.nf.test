@@ -16,4 +16,13 @@ nextflow_process {
             )
         }
     }
+
+    test("No input required - stub") {
+        then {
+            assertAll (
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
 }

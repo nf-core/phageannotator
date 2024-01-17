@@ -43,7 +43,8 @@ process APPENDSCREENHITS {
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
-    touch ${prefix}.fasta_w_screen_hits.fna.gz
+    touch ${prefix}.fasta_w_screen_hits.fna
+    gzip ${prefix}.fasta_w_screen_hits.fna
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

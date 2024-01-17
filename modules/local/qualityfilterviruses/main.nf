@@ -42,7 +42,8 @@ process QUALITYFILTERVIRUSES {
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
-    touch ${prefix}.filtered.fna.gz
+    touch ${prefix}.filtered.fna
+    gzip ${prefix}.filtered.fna
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

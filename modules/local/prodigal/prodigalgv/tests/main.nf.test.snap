@@ -43,5 +43,50 @@
             }
         ],
         "timestamp": "2023-12-06T15:25:14.501666251"
+    },
+    "['sarscov2']['genome']['genome_fasta'] - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "all_samples"
+                        },
+                        "all_samples.prodigalgv.faa.gz:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "all_samples"
+                        },
+                        "all_samples.prodigalgv.fna.gz:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "2": [
+                    "versions.yml:md5,3849079cb0a073e302ead9d90e4624d4"
+                ],
+                "faa": [
+                    [
+                        {
+                            "id": "all_samples"
+                        },
+                        "all_samples.prodigalgv.faa.gz:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "fna": [
+                    [
+                        {
+                            "id": "all_samples"
+                        },
+                        "all_samples.prodigalgv.fna.gz:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,3849079cb0a073e302ead9d90e4624d4"
+                ]
+            }
+        ],
+        "timestamp": "2024-01-17T22:52:02.155249524"
     }
 }
