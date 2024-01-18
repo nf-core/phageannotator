@@ -4,13 +4,20 @@
             [
                 [
                     [
+                        "test1.viromeqc.tsv:md5,86a186c8212323e36c5c6e0aae844648",
+                        "test2.viromeqc.tsv:md5,728ab79cbb6c7afd0dc3f38c5ddfe642"
+                    ]
+                ]
+            ],
+            [
+                [
+                    [
                         "test1.fasta.gz:md5,eb5b39fab473c61e4e73802d0e1ef518",
                         "test2.fasta.gz:md5,eb5b39fab473c61e4e73802d0e1ef518"
                     ]
                 ]
             ],
             [
-                "all_samples.screen:md5,fc2fb984bfee82658841c52bbddb92b7",
                 [
                     "test1.fasta_w_screen_hits.fna.gz:md5,e93c24be014c9bb221dc97caf118ad61",
                     "test2.fasta_w_screen_hits.fna.gz:md5,21a504e49b0bf3547604573aef34d6c1"
@@ -23,7 +30,6 @@
                 ]
             ],
             [
-                "all_samples.tsv:md5,6baa27deb67e2c537005b906c15323ea",
                 [
                     [
                         [
@@ -42,7 +48,6 @@
                 ]
             ],
             [
-                "all_samples.tsv:md5,e03fbc83fa7eb68d9d2ff062f4a8694d",
                 [
                     [
                         [
@@ -86,8 +91,8 @@
             ],
             "test1.IS_gene_info.tsv:md5,dd7c9eb0c52908beaf21b5fb9ec91135",
             "test2.IS_gene_info.tsv:md5,dd7c9eb0c52908beaf21b5fb9ec91135",
-            "software_versions.yml:md5,97f0915c7f1d9d706d2d05da31d12bb4"
+            "software_versions.yml:md5,4fc2cd8b3cafaee61184a336efba386e"
         ],
-        "timestamp": "2023-12-26T22:50:31.06457797"
+        "timestamp": "2024-01-18T14:21:14.502195995"
     }
 }

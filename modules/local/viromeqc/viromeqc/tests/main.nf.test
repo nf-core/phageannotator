@@ -1,0 +1,73 @@
+nextflow_process {
+
+    name "Test Process: VIROMEQC_VIROMEQC"
+    script "../main.nf"
+    process "VIROMEQC_VIROMEQC"
+    tag "modules"
+    tag "modules_local"
+    tag "viromeqc/viromeqc"
+    tag "viromeqc/install"
+
+    test("sarscov2 - illumina - test_1_fastq_gz") {
+        setup {
+            run("VIROMEQC_INSTALL") {
+                script "../../install/main.nf"
+            }
+        }
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [ id:'test' ], // meta map
+                    [
+                        file(params.test_data['sarscov2']['illumina']['test_1_fastq_gz'], checkifExists: true),
+                        file(params.test_data['sarscov2']['illumina']['test_2_fastq_gz'], checkifExists: true),
+                    ]
+                ]
+                input[1] = VIROMEQC_INSTALL.out.viromeqc_index
+                """
+            }
+        }
+
+        then {
+            assertAll (
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+
+    test("sarscov2 - illumina - test_1_fastq_gz - stub") {
+
+        options "-stub"
+
+        setup {
+            run("VIROMEQC_INSTALL") {
+                script "../../install/main.nf"
+            }
+        }
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [ id:'test' ], // meta map
+                    [
+                        file(params.test_data['sarscov2']['illumina']['test_1_fastq_gz'], checkifExists: true),
+                        file(params.test_data['sarscov2']['illumina']['test_2_fastq_gz'], checkifExists: true),
+                    ]
+                ]
+                input[1] = VIROMEQC_INSTALL.out.viromeqc_index
+                """
+            }
+        }
+
+        then {
+            assertAll (
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+}

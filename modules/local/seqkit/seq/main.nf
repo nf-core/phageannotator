@@ -48,7 +48,8 @@ process SEQKIT_SEQ {
     }
     def endswith = task.ext.suffix ?: "${extension}.gz"
     """
-    touch ${prefix}.${endswith}
+    touch ${prefix}.fasta
+    gzip ${prefix}.fasta
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

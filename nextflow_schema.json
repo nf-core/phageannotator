@@ -43,6 +43,18 @@
                 }
             }
         },
+        "virus_enrichment_options": {
+            "title": "Virus enrichment options",
+            "type": "object",
+            "description": "Estimate level of viral enrichment in reads",
+            "default": "",
+            "properties": {
+                "skip_viromeqc": {
+                    "type": "boolean",
+                    "description": "Skip running ViromeQC to estimate viral enrichment"
+                }
+            }
+        },
         "assembly_filtering_options": {
             "title": "Assembly filtering options",
             "type": "object",
@@ -84,6 +96,10 @@
                     "type": "number",
                     "default": 0.95,
                     "description": "Minimum mash screen score to consider a genome contained"
+                },
+                "mash_screen_winner_take_all": {
+                    "type": "boolean",
+                    "description": "Hashes present in multiple references are assigned only to top sequence"
                 }
             },
             "fa_icon": "fas fa-search"
@@ -94,6 +110,10 @@
             "description": "Classify viral sequences using geNomad",
             "default": "",
             "properties": {
+                "skip_genomad": {
+                    "type": "boolean",
+                    "description": "Skip running geNomad to classify viral/non-viral sequences"
+                },
                 "genomad_db": {
                     "type": "string",
                     "description": "Path to directory containing geNomad's database",
@@ -126,6 +146,10 @@
             "description": "Assess virus quality and filter",
             "default": "",
             "properties": {
+                "skip_checkv": {
+                    "type": "boolean",
+                    "description": "Skip running CheckV to assess virus quality and filter sequences"
+                },
                 "checkv_db": {
                     "type": "string",
                     "description": "Path to directory containing CheckV database"
@@ -160,6 +184,10 @@
             "description": "Cluster virus genomes based on nucleotide/protein similarity",
             "default": "",
             "properties": {
+                "skip_virus_clustering": {
+                    "type": "boolean",
+                    "description": "Skip ANI-based virus clustering"
+                },
                 "blast_min_percent_identity": {
                     "type": "integer",
                     "default": 90,
@@ -193,6 +221,10 @@
             "description": "Align reads to virus database",
             "default": "",
             "properties": {
+                "skip_read_alignment": {
+                    "type": "boolean",
+                    "description": "Skip read alignment to viral sequences"
+                },
                 "coverm_min_read_alignment": {
                     "type": "integer",
                     "default": 0,
@@ -223,7 +255,7 @@
             "properties": {
                 "skip_genomad_taxonomy": {
                     "type": "boolean",
-                    "description": "Bypass geNomad's marker-gene based classification"
+                    "description": "Skip geNomad's marker-gene based classification"
                 }
             }
         },
@@ -235,7 +267,7 @@
             "properties": {
                 "skip_iphop": {
                     "type": "boolean",
-                    "description": "Bypass phage host prediction using iPHoP"
+                    "description": "Skip phage host prediction using iPHoP"
                 },
                 "iphop_db": {
                     "type": "string",
@@ -261,6 +293,18 @@
                 "skip_bacphlip": {
                     "type": "boolean",
                     "description": "Skip running BACPHLIP to predict phage lifestyles"
+                }
+            }
+        },
+        "virus_gene_prediction": {
+            "title": "Virus gene prediction",
+            "type": "object",
+            "description": "Predict ORFs contained in viral sequences",
+            "default": "",
+            "properties": {
+                "skip_prodigalgv": {
+                    "type": "boolean",
+                    "description": "Skip running Prodigal-gv to predict ORFs in viral sequences"
                 }
             }
         },
@@ -550,6 +594,9 @@
             "$ref": "#/definitions/input_output_options"
         },
         {
+            "$ref": "#/definitions/virus_enrichment_options"
+        },
+        {
             "$ref": "#/definitions/assembly_filtering_options"
         },
         {
@@ -575,6 +622,9 @@
         },
         {
             "$ref": "#/definitions/virus_lifestyle_options"
+        },
+        {
+            "$ref": "#/definitions/virus_gene_prediction"
         },
         {
             "$ref": "#/definitions/virus_microdiversity_options"

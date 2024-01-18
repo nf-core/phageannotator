@@ -39,7 +39,8 @@ process ANICLUSTER_EXTRACTREPS {
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
-    touch ${prefix}_representatives.fna.gz
+    touch ${prefix}_representatives.fna
+    gzip ${prefix}_representatives.fna
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
