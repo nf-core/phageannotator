@@ -266,7 +266,7 @@ parser.add_argument(
 parser.add_argument(
     "--medians",
     type=str,
-    default=CHECKER_PATH + "/../assets/viromeqc/medians.csv",
+    default="https://raw.githubusercontent.com/nf-core/test-datasets/phageannotator/modules/local/viromeqc/viromeqc/medians.csv",
     help="File containing reference medians to calculate the enrichment. Default is medians.csv in the script directory. You can specify a different file with this parameter.",
 )
 
