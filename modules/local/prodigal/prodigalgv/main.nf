@@ -42,7 +42,9 @@ process PRODIGAL_PRODIGALGV {
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
     touch ${prefix}.prodigalgv.fna
+    gzip ${prefix}.prodigalgv.fna
     touch ${prefix}.prodigalgv.faa
+    gzip ${prefix}.prodigalgv.faa
 
     gzip ${prefix}.prodigalgv.faa ${prefix}.prodigalgv.fna
 

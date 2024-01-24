@@ -26,6 +26,35 @@
                 ]
             }
         ],
-        "timestamp": "2023-11-13T11:49:17.964318426"
+        "timestamp": "2024-01-17T22:30:23.52522149"
+    },
+    "['modules_local']['blast_txt'] - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_ani.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,e762f9268614324a9143737b92563257"
+                ],
+                "ani": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_ani.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,e762f9268614324a9143737b92563257"
+                ]
+            }
+        ],
+        "timestamp": "2024-01-17T22:30:36.176793213"
     }
 }

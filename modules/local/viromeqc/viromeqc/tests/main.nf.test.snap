@@ -1,4 +1,23 @@
 {
+    "sarscov2 - illumina - test_1_fastq_gz - stub": {
+        "content": [
+            {
+                "0": [
+                    "test.viromeqc.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                "1": [
+                    "versions.yml:md5,2877c7f2bffbd5cd7c2cccc730b9f093"
+                ],
+                "enrichment": [
+                    "test.viromeqc.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                "versions": [
+                    "versions.yml:md5,2877c7f2bffbd5cd7c2cccc730b9f093"
+                ]
+            }
+        ],
+        "timestamp": "2024-01-17T22:42:18.098035496"
+    },
     "sarscov2 - illumina - test_1_fastq_gz": {
         "content": [
             {

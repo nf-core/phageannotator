@@ -27,5 +27,34 @@
             }
         ],
         "timestamp": "2023-12-04T16:35:57.01447565"
+    },
+    "['homo_sapiens']['genome']['genome_fasta'] - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "reference_fasta"
+                        },
+                        "reference_fasta.stb:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,7df22a05d168d97527754f453fe59894"
+                ],
+                "stb": [
+                    [
+                        {
+                            "id": "reference_fasta"
+                        },
+                        "reference_fasta.stb:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,7df22a05d168d97527754f453fe59894"
+                ]
+            }
+        ],
+        "timestamp": "2024-01-17T22:32:54.38815316"
     }
 }
