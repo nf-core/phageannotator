@@ -5,13 +5,12 @@
 include { IPHOP_DOWNLOAD    } from '../../../modules/nf-core/iphop/download/main'
 include { UNTAR             } from '../../../modules/nf-core/untar/main'
 include { UNTAR as UNTAR2   } from '../../../modules/nf-core/untar/main'
-include { GUNZIP            } from '../../../modules/nf-core/gunzip/main'
 include { IPHOP_PREDICT     } from '../../../modules/nf-core/iphop/predict/main'
 
 workflow FASTA_PHAGE_HOST_IPHOP {
     take:
-    virus_fasta_gz  // [ [ meta ], fasta.gz ]   , virus sequences (mandatory)
-    iphop_db        // [ checkv_db ]            , iPHoP database directory (optional)
+    virus_fasta     // [ [ meta ], fasta ]  , virus sequences (mandatory)
+    iphop_db        // [ checkv_db ]        , iPHoP database directory (optional)
 
     main:
     ch_versions = Channel.empty()
@@ -36,12 +35,6 @@ workflow FASTA_PHAGE_HOST_IPHOP {
         }
     }
 
-    //
-    // MODULE: Gunzip fasta for IPHoP
-    //
-    ch_viruses_fasta = GUNZIP ( virus_fasta_gz ).gunzip
-    ch_versions = ch_versions.mix(GUNZIP.out.versions.first())
-
     // create input for partial iphop run
     ch_iphop_partial_input = []
     if ( params.iphop_partial_test ) {
@@ -55,11 +48,10 @@ workflow FASTA_PHAGE_HOST_IPHOP {
     //
     // MODULE: Predict virus host
     //
-    IPHOP_PREDICT ( ch_viruses_fasta, ch_iphop_db, ch_iphop_partial_input )
-    ch_host_predictions_tsv  = IPHOP_PREDICT.out.iphop_genus
+    ch_host_predictions_tsv = IPHOP_PREDICT ( virus_fasta, ch_iphop_db, ch_iphop_partial_input ).iphop_genus
     ch_versions = ch_versions.mix(IPHOP_PREDICT.out.versions.first())
 
     emit:
-    host_predictions_tsv    = ch_host_predictions_tsv  // [ [ meta ], genus_predictions.tsv ]   , TSV file containing host genus predictions
+    host_predictions_tsv    = ch_host_predictions_tsv   // [ [ meta ], genus_predictions.tsv ]   , TSV file containing host genus predictions
     versions                = ch_versions               // [ versions.yml ]
 }

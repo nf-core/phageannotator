@@ -5,9 +5,9 @@ nextflow_workflow {
     workflow "PHAGEANNOTATOR"
     tag "workflows"
     tag "phageannotator"
-    tag "phageannotator_skip_prodigalgv"
+    tag "phageannotator_skip_pharokka"
 
-    test("Parameters: skip_prodigalgv = true") {
+    test("Parameters: skip_pharokka = true") {
         when {
             workflow {
                 """
@@ -21,7 +21,7 @@ nextflow_workflow {
             }
             params {
                 outdir                  = "$outputDir"
-                skip_prodigalgv         = true
+                skip_pharokka           = true
                 mash_screen_min_score   = 0.5
                 genomad_min_score       = 0.01
                 genomad_max_fdr         = 1

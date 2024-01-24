@@ -112,6 +112,16 @@
                         "git_sha": "4ab13872435962dadc239979554d13709e20bf29",
                         "installed_by": ["modules"]
                     },
+                    "pharokka/installdatabases": {
+                        "branch": "master",
+                        "git_sha": "10e88ef2f1f3ff012a2c9562de95c264006ebf21",
+                        "installed_by": ["modules"]
+                    },
+                    "pharokka/pharokka": {
+                        "branch": "master",
+                        "git_sha": "10e88ef2f1f3ff012a2c9562de95c264006ebf21",
+                        "installed_by": ["modules"]
+                    },
                     "samtools/flagstat": {
                         "branch": "master",
                         "git_sha": "8fc1d24c710ebe1d5de0f2447ec9439fd3d9d66a",

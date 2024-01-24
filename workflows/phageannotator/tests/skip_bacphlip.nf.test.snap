@@ -73,66 +73,40 @@
                     ]
                 ],
                 "7": [
-                    [
-                        {
-                            "id": "all_samples"
-                        },
-                        "all_samples.prodigalgv.faa.gz:md5,49a7f8cea341b7069a0943388d135e9f"
-                    ]
+                    
                 ],
                 "8": [
-                    [
-                        {
-                            "id": "test2"
-                        },
-                        "test2.IS_gene_info.tsv:md5,dd7c9eb0c52908beaf21b5fb9ec91135"
-                    ],
-                    [
-                        {
-                            "id": "test"
-                        },
-                        "test.IS_gene_info.tsv:md5,dd7c9eb0c52908beaf21b5fb9ec91135"
-                    ]
+                    
                 ],
                 "9": [
                     "versions.yml:md5,00a12ed45ed179a55e30c05dbb3d31f3",
                     "versions.yml:md5,04bf25e5231ce1f8077581bb7a2c07f4",
+                    "versions.yml:md5,0c310e8a973612ff99e0df847fb656ea",
                     "versions.yml:md5,1097ac7d62d13e9e74916d9dc1fabb7b",
                     "versions.yml:md5,1439e948f383899aaccbf49506923b04",
                     "versions.yml:md5,2b068b9678f63d6bb06a2a3652e92ba9",
-                    "versions.yml:md5,2d1864a0523e2738f150eaf87d4472d5",
                     "versions.yml:md5,3c8b8ac5a86d6d7fba86fc61f4d5fca9",
-                    "versions.yml:md5,3d3432539468e0fae3b05d63cd5237d0",
                     "versions.yml:md5,45fa41ba465519ccbfe26974f9aebcc4",
-                    "versions.yml:md5,4698f3f4cdba1748298d6fc664fe55d4",
                     "versions.yml:md5,478c8fdcebf1357f40c26d7991d85eb4",
                     "versions.yml:md5,5074b29ede738ba6d39ef056e1cde929",
-                    "versions.yml:md5,57a9c1152c52dc32d2023ce8e2b939ab",
-                    "versions.yml:md5,57a9c1152c52dc32d2023ce8e2b939ab",
+                    "versions.yml:md5,5bf636608598d8b495d8b38fcee37dd0",
                     "versions.yml:md5,6bf7a212d54ddc08bb3d6c7ce9f4cddb",
                     "versions.yml:md5,6bf7a212d54ddc08bb3d6c7ce9f4cddb",
-                    "versions.yml:md5,6fd21ed738b35b25a1f47b313be8f47e",
-                    "versions.yml:md5,755876cdfeb32585833c108ed6635839",
-                    "versions.yml:md5,755876cdfeb32585833c108ed6635839",
+                    "versions.yml:md5,716410d7e9dc048a64ada71202cbc23e",
                     "versions.yml:md5,769114e3bb009aceb4763a1a0fa80d5a",
                     "versions.yml:md5,76fc7f1f019facce5a0af4d78f01c624",
                     "versions.yml:md5,76fc7f1f019facce5a0af4d78f01c624",
-                    "versions.yml:md5,78b447897aac9e6a891f06a6c4af0e99",
                     "versions.yml:md5,7e54b5f822df67b99faf67629e81963f",
                     "versions.yml:md5,7e54b5f822df67b99faf67629e81963f",
                     "versions.yml:md5,8aebba726df29aad131772449019ee78",
-                    "versions.yml:md5,987d2e54a85311b917599dc41c90418c",
-                    "versions.yml:md5,a6aa8efc5dbcafe7129f58ed120eaa93",
                     "versions.yml:md5,a856eefde99260259440d942c1d56ff4",
                     "versions.yml:md5,c0598196e761dbcdc90ff95a2f623b9c",
-                    "versions.yml:md5,c7c1550786083ee8f3264b19ccf0fcbb",
-                    "versions.yml:md5,c7c1550786083ee8f3264b19ccf0fcbb",
                     "versions.yml:md5,c97cb7740ce1aa3cf22cb6e8be2d62ce",
                     "versions.yml:md5,d73a3ecea014f00c8d95513555c42d23",
                     "versions.yml:md5,de688faac0a9124c4f2db74ce1b2c795",
                     "versions.yml:md5,dfa7110695181c4e8daa47d384563588",
-                    "versions.yml:md5,f383a8d4db50b157e4a6a0ef4670fbc6",
-                    "versions.yml:md5,fc95484076ab0130345b4f7ab7f2e37a"
+                    "versions.yml:md5,e70dcabc3ee5ee42a1800b07fdfd90fd",
+                    "versions.yml:md5,f383a8d4db50b157e4a6a0ef4670fbc6"
                 ],
                 "anicluster_reps_fna_gz": [
                     [
@@ -165,18 +139,7 @@
                     ]
                 ],
                 "instrain_gene_info": [
-                    [
-                        {
-                            "id": "test2"
-                        },
-                        "test2.IS_gene_info.tsv:md5,dd7c9eb0c52908beaf21b5fb9ec91135"
-                    ],
-                    [
-                        {
-                            "id": "test"
-                        },
-                        "test.IS_gene_info.tsv:md5,dd7c9eb0c52908beaf21b5fb9ec91135"
-                    ]
+                    
                 ],
                 "marker_taxonomy_tsv": [
                     [
@@ -186,53 +149,38 @@
                         "all_samples_anicluster_representatives_taxonomy.tsv:md5,fb8440b1fd32f96414b71b76ec228df1"
                     ]
                 ],
-                "prodigalgv_proteins_faa_gz": [
-                    [
-                        {
-                            "id": "all_samples"
-                        },
-                        "all_samples.prodigalgv.faa.gz:md5,49a7f8cea341b7069a0943388d135e9f"
-                    ]
+                "pharokka_output_tsv": [
+                    
                 ],
                 "versions": [
                     "versions.yml:md5,00a12ed45ed179a55e30c05dbb3d31f3",
                     "versions.yml:md5,04bf25e5231ce1f8077581bb7a2c07f4",
+                    "versions.yml:md5,0c310e8a973612ff99e0df847fb656ea",
                     "versions.yml:md5,1097ac7d62d13e9e74916d9dc1fabb7b",
                     "versions.yml:md5,1439e948f383899aaccbf49506923b04",
                     "versions.yml:md5,2b068b9678f63d6bb06a2a3652e92ba9",
-                    "versions.yml:md5,2d1864a0523e2738f150eaf87d4472d5",
                     "versions.yml:md5,3c8b8ac5a86d6d7fba86fc61f4d5fca9",
-                    "versions.yml:md5,3d3432539468e0fae3b05d63cd5237d0",
                     "versions.yml:md5,45fa41ba465519ccbfe26974f9aebcc4",
-                    "versions.yml:md5,4698f3f4cdba1748298d6fc664fe55d4",
                     "versions.yml:md5,478c8fdcebf1357f40c26d7991d85eb4",
                     "versions.yml:md5,5074b29ede738ba6d39ef056e1cde929",
-                    "versions.yml:md5,57a9c1152c52dc32d2023ce8e2b939ab",
-                    "versions.yml:md5,57a9c1152c52dc32d2023ce8e2b939ab",
+                    "versions.yml:md5,5bf636608598d8b495d8b38fcee37dd0",
                     "versions.yml:md5,6bf7a212d54ddc08bb3d6c7ce9f4cddb",
                     "versions.yml:md5,6bf7a212d54ddc08bb3d6c7ce9f4cddb",
-                    "versions.yml:md5,6fd21ed738b35b25a1f47b313be8f47e",
-                    "versions.yml:md5,755876cdfeb32585833c108ed6635839",
-                    "versions.yml:md5,755876cdfeb32585833c108ed6635839",
+                    "versions.yml:md5,716410d7e9dc048a64ada71202cbc23e",
                     "versions.yml:md5,769114e3bb009aceb4763a1a0fa80d5a",
                     "versions.yml:md5,76fc7f1f019facce5a0af4d78f01c624",
                     "versions.yml:md5,76fc7f1f019facce5a0af4d78f01c624",
-                    "versions.yml:md5,78b447897aac9e6a891f06a6c4af0e99",
                     "versions.yml:md5,7e54b5f822df67b99faf67629e81963f",
                     "versions.yml:md5,7e54b5f822df67b99faf67629e81963f",
                     "versions.yml:md5,8aebba726df29aad131772449019ee78",
-                    "versions.yml:md5,987d2e54a85311b917599dc41c90418c",
-                    "versions.yml:md5,a6aa8efc5dbcafe7129f58ed120eaa93",
                     "versions.yml:md5,a856eefde99260259440d942c1d56ff4",
                     "versions.yml:md5,c0598196e761dbcdc90ff95a2f623b9c",
-                    "versions.yml:md5,c7c1550786083ee8f3264b19ccf0fcbb",
-                    "versions.yml:md5,c7c1550786083ee8f3264b19ccf0fcbb",
                     "versions.yml:md5,c97cb7740ce1aa3cf22cb6e8be2d62ce",
                     "versions.yml:md5,d73a3ecea014f00c8d95513555c42d23",
                     "versions.yml:md5,de688faac0a9124c4f2db74ce1b2c795",
                     "versions.yml:md5,dfa7110695181c4e8daa47d384563588",
-                    "versions.yml:md5,f383a8d4db50b157e4a6a0ef4670fbc6",
-                    "versions.yml:md5,fc95484076ab0130345b4f7ab7f2e37a"
+                    "versions.yml:md5,e70dcabc3ee5ee42a1800b07fdfd90fd",
+                    "versions.yml:md5,f383a8d4db50b157e4a6a0ef4670fbc6"
                 ],
                 "virus_classification_tsv": [
                     [
@@ -268,6 +216,6 @@
                 ]
             }
         ],
-        "timestamp": "2024-01-01T10:33:56.209289595"
+        "timestamp": "2024-01-23T16:45:40.239742787"
     }
 }

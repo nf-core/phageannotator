@@ -1,0 +1,27 @@
+{
+    "Parameters: default": {
+        "content": [
+            {
+                "0": [
+                    "versions.yml:md5,7715e330cd5621f95141e256b567ec19"
+                ],
+                "1": [
+                    
+                ],
+                "2": [
+                    
+                ],
+                "pharokka_ffn_gz": [
+                    
+                ],
+                "pharokka_final_output_tsv": [
+                    
+                ],
+                "versions": [
+                    "versions.yml:md5,7715e330cd5621f95141e256b567ec19"
+                ]
+            }
+        ],
+        "timestamp": "2024-01-24T09:28:21.667432563"
+    }
+}

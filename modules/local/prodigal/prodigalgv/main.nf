@@ -44,6 +44,8 @@ process PRODIGAL_PRODIGALGV {
     touch ${prefix}.prodigalgv.fna
     touch ${prefix}.prodigalgv.faa
 
+    gzip ${prefix}.prodigalgv.faa ${prefix}.prodigalgv.fna
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         prodigalgv: \$(echo \$(prodigal-gv --version 2>&1) | awk 'NF{ print \$NF }')
