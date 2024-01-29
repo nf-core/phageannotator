@@ -1,0 +1,2 @@
+fasta_virus_classification_genomad_default:
+  - subworkflows/local/fasta_virus_classification_genomad/**

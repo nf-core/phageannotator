@@ -1,0 +1,38 @@
+nextflow_workflow {
+
+    name "Test subworkflow: FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH"
+    script "subworkflows/local/fastq_fasta_reference_containment_mash/main.nf"
+    workflow "FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH"
+    tag "subworkflows"
+    tag "subworkflows_local"
+    tag "fastq_fasta_reference_containment_mash"
+    tag "fastq_fasta_reference_containment_mash_default"
+
+
+    test("Parameters: default") {
+
+        when {
+            params {
+                outdir                  = "$outputDir"
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    [ [ id:'test' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['test1_1_fastq_gz'], checkIfExists:true), file(params.test_data['bacteroides_fragilis']['illumina']['test1_2_fastq_gz'], checkIfExists: true) ] ],
+                    [ [ id:'test2' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['test2_1_fastq_gz'], checkIfExists:true), file(params.test_data['bacteroides_fragilis']['illumina']['test2_2_fastq_gz'], checkIfExists: true) ] ]
+                )
+                input[1] = Channel.of([ [ id:'test' ], [ file(params.test_data['bacteroides_fragilis']['genome']['genome_fna_gz'], checkIfExists:true) ] ], [ [ id:'test2' ], [ file(params.test_data['bacteroides_fragilis']['genome']['genome_fna_gz'], checkIfExists:true) ] ])
+                input[2] = Channel.of([ [ id:'reference_viruses' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['contigs_fa_gz'], checkIfExists:true) ] ])
+                input[3] = null
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+}

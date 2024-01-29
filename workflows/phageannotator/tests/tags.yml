@@ -1,0 +1,24 @@
+phageannotator_default:
+  - workflows/phageannotator/**
+phageannotator_no_reference:
+  - workflows/phageannotator/**
+phageannotator_skip_bacphlip:
+  - workflows/phageannotator/**
+phageannotator_skip_checkv:
+  - workflows/phageannotator/**
+phageannotator_skip_genomad_taxonomy:
+  - workflows/phageannotator/**
+phageannotator_skip_genomad:
+  - workflows/phageannotator/**
+phageannotator_skip_instrain:
+  - workflows/phageannotator/**
+phageannotator_skip_iphop:
+  - workflows/phageannotator/**
+phageannotator_skip_prodigalgv:
+  - workflows/phageannotator/**
+phageannotator_skip_reference_containment:
+  - workflows/phageannotator/**
+phageannotator_skip_viromeqc:
+  - workflows/phageannotator/**
+phageannotator_skip_virus_clustering:
+  - workflows/phageannotator/**
