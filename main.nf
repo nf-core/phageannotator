@@ -66,7 +66,7 @@ def summary_params = paramsSummaryMap(workflow)
 //
 workflow NFCORE_PHAGEANNOTATOR {
 
-    INITIALISE ( params.version, params.help, params.valid_params )
+    INITIALISE ( params.version, params.help, params.validate_params, params.logo )
 
     ch_versions = Channel.empty()
 
