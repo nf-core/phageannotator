@@ -376,7 +376,6 @@
                 },
                 "genomad_sensitivity": {
                     "type": "number",
-                    "default": 4.2,
                     "hidden": true
                 },
                 "checkv_minimal_db": {
