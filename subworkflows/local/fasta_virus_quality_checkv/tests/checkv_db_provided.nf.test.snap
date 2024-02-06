@@ -45,8 +45,7 @@
                     ]
                 ],
                 "3": [
-                    "versions.yml:md5,bde8142f045061369c16cd56d51698ed",
-                    "versions.yml:md5,e4d4311cae4bcb6711e82eef25b187ff"
+                    "versions.yml:md5,bde8142f045061369c16cd56d51698ed"
                 ],
                 "proviruses_fna_gz": [
                     [
@@ -77,8 +76,7 @@
                     ]
                 ],
                 "versions": [
-                    "versions.yml:md5,bde8142f045061369c16cd56d51698ed",
-                    "versions.yml:md5,e4d4311cae4bcb6711e82eef25b187ff"
+                    "versions.yml:md5,bde8142f045061369c16cd56d51698ed"
                 ],
                 "viruses_fna_gz": [
                     [
@@ -96,6 +94,6 @@
                 ]
             }
         ],
-        "timestamp": "2024-01-08T08:57:05.04137914"
+        "timestamp": "2024-01-31T11:25:22.342656511"
     }
 }

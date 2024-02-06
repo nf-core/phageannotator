@@ -3,47 +3,23 @@
         "content": [
             {
                 "0": [
-                    [
-                        {
-                            "id": "test2"
-                        },
-                        "test2.IS_gene_info.tsv:md5,43f12c345cca84b8a852fd056cc325ad"
-                    ],
-                    [
-                        {
-                            "id": "test"
-                        },
-                        "test.IS_gene_info.tsv:md5,af8e354716ea235b3487862abd837884"
-                    ]
+                    
                 ],
                 "1": [
-                    "versions.yml:md5,6b5a937ad6a7261cd10742b95cb28df2",
                     "versions.yml:md5,816a6bc0dc4c7fe8dee2a3cd012b38e2",
                     "versions.yml:md5,ca6a3c4a779d53a24bd7303d2f0736da",
                     "versions.yml:md5,ca6a3c4a779d53a24bd7303d2f0736da"
                 ],
                 "gene_info_tsv": [
-                    [
-                        {
-                            "id": "test2"
-                        },
-                        "test2.IS_gene_info.tsv:md5,43f12c345cca84b8a852fd056cc325ad"
-                    ],
-                    [
-                        {
-                            "id": "test"
-                        },
-                        "test.IS_gene_info.tsv:md5,af8e354716ea235b3487862abd837884"
-                    ]
+                    
                 ],
                 "versions": [
-                    "versions.yml:md5,6b5a937ad6a7261cd10742b95cb28df2",
                     "versions.yml:md5,816a6bc0dc4c7fe8dee2a3cd012b38e2",
                     "versions.yml:md5,ca6a3c4a779d53a24bd7303d2f0736da",
                     "versions.yml:md5,ca6a3c4a779d53a24bd7303d2f0736da"
                 ]
             }
         ],
-        "timestamp": "2023-12-06T15:49:43.895338311"
+        "timestamp": "2024-01-31T08:59:05.93091557"
     }
 }

@@ -9,7 +9,7 @@ nextflow_process {
     tag "anicluster/aniclust"
 
 
-    test("['bacteroides_fragilis']['illumina']['contigs_fa_gz'] & ['modules_local']['ani_tsv']") {
+    test("['bacteroides_fragilis']['illumina']['test1_contigs_fa_gz'] & ['modules_local']['ani_tsv']") {
 
         when {
             params {
@@ -17,7 +17,7 @@ nextflow_process {
             }
             process {
                 """
-                input[0] = [ [ id: 'test' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['contigs_fa_gz'], checkIfExists: true ) ],
+                input[0] = [ [ id: 'test' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['test1_contigs_fa_gz'], checkIfExists: true ) ],
                                                 [ file(params.test_data['modules_local']['ani_tsv'], checkIfExists: true ) ] ]
                 """
             }
@@ -31,7 +31,7 @@ nextflow_process {
         }
     }
 
-    test("['bacteroides_fragilis']['illumina']['contigs_fa_gz'] & ['modules_local']['ani_tsv'] - stub") {
+    test("['bacteroides_fragilis']['illumina']['test1_contigs_fa_gz'] & ['modules_local']['ani_tsv'] - stub") {
 
         options "-stub"
 
@@ -41,7 +41,7 @@ nextflow_process {
             }
             process {
                 """
-                input[0] = [ [ id: 'test' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['contigs_fa_gz'], checkIfExists: true ) ],
+                input[0] = [ [ id: 'test' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['test1_contigs_fa_gz'], checkIfExists: true ) ],
                                                 [ file(params.test_data['modules_local']['ani_tsv'], checkIfExists: true ) ] ]
                 """
             }

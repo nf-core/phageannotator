@@ -8,7 +8,7 @@ nextflow_process {
     tag "coverm/contig"
 
 
-    test("['bacteroides_fragilis']['test1_bam'] & ['bacteroides_fragilis']['test2_bam']") {
+    test("['bacteroides_fragilis']['illumina']['test1_paired_end_bam'] & ['bacteroides_fragilis']['illumina']['test2_paired_end_bam']") {
 
         when {
             params {
@@ -16,7 +16,7 @@ nextflow_process {
             }
             process {
                 """
-                input[0] = [ [ id: 'all_samples' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['test1_bam'], checkIfExists: true), file(params.test_data['bacteroides_fragilis']['illumina']['test2_bam'], checkIfExists: true) ] ]
+                input[0] = [ [ id: 'all_samples' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['test1_paired_end_bam'], checkIfExists: true), file(params.test_data['bacteroides_fragilis']['illumina']['test2_paired_end_bam'], checkIfExists: true) ] ]
                 """
             }
         }
@@ -29,7 +29,7 @@ nextflow_process {
         }
     }
 
-    test("['bacteroides_fragilis']['test1_bam'] & ['bacteroides_fragilis']['test2_bam'] - stub") {
+    test("['bacteroides_fragilis']['illumina']['test1_paired_end_bam'] & ['bacteroides_fragilis']['illumina']['test2_paired_end_bam'] - stub") {
 
         options "-stub"
 
@@ -39,7 +39,7 @@ nextflow_process {
             }
             process {
                 """
-                input[0] = [ [ id: 'all_samples' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['test1_bam'], checkIfExists: true), file(params.test_data['bacteroides_fragilis']['illumina']['test2_bam'], checkIfExists: true) ] ]
+                input[0] = [ [ id: 'all_samples' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['test1_paired_end_bam'], checkIfExists: true), file(params.test_data['bacteroides_fragilis']['illumina']['test2_paired_end_bam'], checkIfExists: true) ] ]
                 """
             }
         }

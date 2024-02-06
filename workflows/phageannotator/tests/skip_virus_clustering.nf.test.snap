@@ -3,8 +3,18 @@
         "content": [
             {
                 "0": [
-                    "test.viromeqc.tsv:md5,b55f2c77b63adc41da980568819d1aae",
-                    "test2.viromeqc.tsv:md5,728ab79cbb6c7afd0dc3f38c5ddfe642"
+                    [
+                        {
+                            "id": "test2"
+                        },
+                        "test2.viromeqc.tsv:md5,728ab79cbb6c7afd0dc3f38c5ddfe642"
+                    ],
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.viromeqc.tsv:md5,b55f2c77b63adc41da980568819d1aae"
+                    ]
                 ],
                 "1": [
                     [
@@ -91,7 +101,18 @@
                     ]
                 ],
                 "7": [
-                    
+                    [
+                        {
+                            "id": "test2"
+                        },
+                        "test2_cds_final_merged_output.tsv:md5,ec0ed1086d239db645779da72b713f6c"
+                    ],
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_cds_final_merged_output.tsv:md5,4b3fbda61d1af94fed989c70fde8088b"
+                    ]
                 ],
                 "8": [
                     
@@ -102,12 +123,15 @@
                     "versions.yml:md5,1097ac7d62d13e9e74916d9dc1fabb7b",
                     "versions.yml:md5,1439e948f383899aaccbf49506923b04",
                     "versions.yml:md5,2b068b9678f63d6bb06a2a3652e92ba9",
+                    "versions.yml:md5,3d3432539468e0fae3b05d63cd5237d0",
                     "versions.yml:md5,42ce3c1803e6f3030b60d1d4610b629d",
                     "versions.yml:md5,42ce3c1803e6f3030b60d1d4610b629d",
-                    "versions.yml:md5,45fa41ba465519ccbfe26974f9aebcc4",
-                    "versions.yml:md5,45fa41ba465519ccbfe26974f9aebcc4",
+                    "versions.yml:md5,4698f3f4cdba1748298d6fc664fe55d4",
+                    "versions.yml:md5,4698f3f4cdba1748298d6fc664fe55d4",
                     "versions.yml:md5,478c8fdcebf1357f40c26d7991d85eb4",
                     "versions.yml:md5,5074b29ede738ba6d39ef056e1cde929",
+                    "versions.yml:md5,57a9c1152c52dc32d2023ce8e2b939ab",
+                    "versions.yml:md5,57a9c1152c52dc32d2023ce8e2b939ab",
                     "versions.yml:md5,5bf636608598d8b495d8b38fcee37dd0",
                     "versions.yml:md5,6bf7a212d54ddc08bb3d6c7ce9f4cddb",
                     "versions.yml:md5,6bf7a212d54ddc08bb3d6c7ce9f4cddb",
@@ -115,15 +139,18 @@
                     "versions.yml:md5,716410d7e9dc048a64ada71202cbc23e",
                     "versions.yml:md5,7e54b5f822df67b99faf67629e81963f",
                     "versions.yml:md5,7e54b5f822df67b99faf67629e81963f",
+                    "versions.yml:md5,987d2e54a85311b917599dc41c90418c",
+                    "versions.yml:md5,a6aa8efc5dbcafe7129f58ed120eaa93",
                     "versions.yml:md5,a856eefde99260259440d942c1d56ff4",
+                    "versions.yml:md5,afc743a69ab04322fbc732b24e18d208",
                     "versions.yml:md5,c0598196e761dbcdc90ff95a2f623b9c",
+                    "versions.yml:md5,c7c1550786083ee8f3264b19ccf0fcbb",
+                    "versions.yml:md5,c7c1550786083ee8f3264b19ccf0fcbb",
                     "versions.yml:md5,c97cb7740ce1aa3cf22cb6e8be2d62ce",
                     "versions.yml:md5,d73a3ecea014f00c8d95513555c42d23",
                     "versions.yml:md5,d73a3ecea014f00c8d95513555c42d23",
                     "versions.yml:md5,de688faac0a9124c4f2db74ce1b2c795",
                     "versions.yml:md5,dfa7110695181c4e8daa47d384563588",
-                    "versions.yml:md5,e70dcabc3ee5ee42a1800b07fdfd90fd",
-                    "versions.yml:md5,e70dcabc3ee5ee42a1800b07fdfd90fd",
                     "versions.yml:md5,f383a8d4db50b157e4a6a0ef4670fbc6",
                     "versions.yml:md5,f383a8d4db50b157e4a6a0ef4670fbc6"
                 ],
@@ -187,7 +214,18 @@
                     ]
                 ],
                 "pharokka_output_tsv": [
-                    
+                    [
+                        {
+                            "id": "test2"
+                        },
+                        "test2_cds_final_merged_output.tsv:md5,ec0ed1086d239db645779da72b713f6c"
+                    ],
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_cds_final_merged_output.tsv:md5,4b3fbda61d1af94fed989c70fde8088b"
+                    ]
                 ],
                 "versions": [
                     "versions.yml:md5,0c310e8a973612ff99e0df847fb656ea",
@@ -195,12 +233,15 @@
                     "versions.yml:md5,1097ac7d62d13e9e74916d9dc1fabb7b",
                     "versions.yml:md5,1439e948f383899aaccbf49506923b04",
                     "versions.yml:md5,2b068b9678f63d6bb06a2a3652e92ba9",
+                    "versions.yml:md5,3d3432539468e0fae3b05d63cd5237d0",
                     "versions.yml:md5,42ce3c1803e6f3030b60d1d4610b629d",
                     "versions.yml:md5,42ce3c1803e6f3030b60d1d4610b629d",
-                    "versions.yml:md5,45fa41ba465519ccbfe26974f9aebcc4",
-                    "versions.yml:md5,45fa41ba465519ccbfe26974f9aebcc4",
+                    "versions.yml:md5,4698f3f4cdba1748298d6fc664fe55d4",
+                    "versions.yml:md5,4698f3f4cdba1748298d6fc664fe55d4",
                     "versions.yml:md5,478c8fdcebf1357f40c26d7991d85eb4",
                     "versions.yml:md5,5074b29ede738ba6d39ef056e1cde929",
+                    "versions.yml:md5,57a9c1152c52dc32d2023ce8e2b939ab",
+                    "versions.yml:md5,57a9c1152c52dc32d2023ce8e2b939ab",
                     "versions.yml:md5,5bf636608598d8b495d8b38fcee37dd0",
                     "versions.yml:md5,6bf7a212d54ddc08bb3d6c7ce9f4cddb",
                     "versions.yml:md5,6bf7a212d54ddc08bb3d6c7ce9f4cddb",
@@ -208,15 +249,18 @@
                     "versions.yml:md5,716410d7e9dc048a64ada71202cbc23e",
                     "versions.yml:md5,7e54b5f822df67b99faf67629e81963f",
                     "versions.yml:md5,7e54b5f822df67b99faf67629e81963f",
+                    "versions.yml:md5,987d2e54a85311b917599dc41c90418c",
+                    "versions.yml:md5,a6aa8efc5dbcafe7129f58ed120eaa93",
                     "versions.yml:md5,a856eefde99260259440d942c1d56ff4",
+                    "versions.yml:md5,afc743a69ab04322fbc732b24e18d208",
                     "versions.yml:md5,c0598196e761dbcdc90ff95a2f623b9c",
+                    "versions.yml:md5,c7c1550786083ee8f3264b19ccf0fcbb",
+                    "versions.yml:md5,c7c1550786083ee8f3264b19ccf0fcbb",
                     "versions.yml:md5,c97cb7740ce1aa3cf22cb6e8be2d62ce",
                     "versions.yml:md5,d73a3ecea014f00c8d95513555c42d23",
                     "versions.yml:md5,d73a3ecea014f00c8d95513555c42d23",
                     "versions.yml:md5,de688faac0a9124c4f2db74ce1b2c795",
                     "versions.yml:md5,dfa7110695181c4e8daa47d384563588",
-                    "versions.yml:md5,e70dcabc3ee5ee42a1800b07fdfd90fd",
-                    "versions.yml:md5,e70dcabc3ee5ee42a1800b07fdfd90fd",
                     "versions.yml:md5,f383a8d4db50b157e4a6a0ef4670fbc6",
                     "versions.yml:md5,f383a8d4db50b157e4a6a0ef4670fbc6"
                 ],
@@ -235,8 +279,18 @@
                     ]
                 ],
                 "virus_enrichment_tsv": [
-                    "test.viromeqc.tsv:md5,b55f2c77b63adc41da980568819d1aae",
-                    "test2.viromeqc.tsv:md5,728ab79cbb6c7afd0dc3f38c5ddfe642"
+                    [
+                        {
+                            "id": "test2"
+                        },
+                        "test2.viromeqc.tsv:md5,728ab79cbb6c7afd0dc3f38c5ddfe642"
+                    ],
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.viromeqc.tsv:md5,b55f2c77b63adc41da980568819d1aae"
+                    ]
                 ],
                 "virus_quality_tsv": [
                     [
@@ -254,6 +308,6 @@
                 ]
             }
         ],
-        "timestamp": "2024-01-23T16:15:10.435647908"
+        "timestamp": "2024-02-01T15:21:27.006208845"
     }
 }

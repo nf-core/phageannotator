@@ -3,25 +3,47 @@
         "content": [
             {
                 "0": [
-                    "versions.yml:md5,7715e330cd5621f95141e256b567ec19"
+                    "versions.yml:md5,7715e330cd5621f95141e256b567ec19",
+                    "versions.yml:md5,b225eb2829469045a5bda2c5d7a69009"
                 ],
                 "1": [
-                    
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.gbk.gz:md5,e719cd124ccca0524df508cd178e853e"
+                    ]
                 ],
                 "2": [
-                    
-                ],
-                "pharokka_ffn_gz": [
-                    
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_cds_final_merged_output.tsv:md5,1242b6ffe6e53ef5bce0a9a2cac3cd45"
+                    ]
                 ],
                 "pharokka_final_output_tsv": [
-                    
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_cds_final_merged_output.tsv:md5,1242b6ffe6e53ef5bce0a9a2cac3cd45"
+                    ]
+                ],
+                "pharokka_gbk_gz": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.gbk.gz:md5,e719cd124ccca0524df508cd178e853e"
+                    ]
                 ],
                 "versions": [
-                    "versions.yml:md5,7715e330cd5621f95141e256b567ec19"
+                    "versions.yml:md5,7715e330cd5621f95141e256b567ec19",
+                    "versions.yml:md5,b225eb2829469045a5bda2c5d7a69009"
                 ]
             }
         ],
-        "timestamp": "2024-01-24T09:28:21.667432563"
+        "timestamp": "2024-01-24T14:00:39.927815714"
     }
 }

@@ -7,7 +7,7 @@
                         {
                             "id": "all_samples"
                         },
-                        "all_samples.prodigalgv.faa.gz:md5,6f28a3b4d319835fe5ce4864bc3b7c2c"
+                        "all_samples.prodigalgv.faa.gz:md5,df108523d0141cb4cec62a09e2646348"
                     ]
                 ],
                 "1": [
@@ -15,7 +15,7 @@
                         {
                             "id": "all_samples"
                         },
-                        "all_samples.prodigalgv.fna.gz:md5,d6eb37cf9a223db5dcf56538f5050c76"
+                        "all_samples.prodigalgv.fna.gz:md5,c2a99be1dfbcea362f0e0ece02e7c0a6"
                     ]
                 ],
                 "2": [
@@ -26,7 +26,7 @@
                         {
                             "id": "all_samples"
                         },
-                        "all_samples.prodigalgv.faa.gz:md5,6f28a3b4d319835fe5ce4864bc3b7c2c"
+                        "all_samples.prodigalgv.faa.gz:md5,df108523d0141cb4cec62a09e2646348"
                     ]
                 ],
                 "fna": [
@@ -34,7 +34,7 @@
                         {
                             "id": "all_samples"
                         },
-                        "all_samples.prodigalgv.fna.gz:md5,d6eb37cf9a223db5dcf56538f5050c76"
+                        "all_samples.prodigalgv.fna.gz:md5,c2a99be1dfbcea362f0e0ece02e7c0a6"
                     ]
                 ],
                 "versions": [
@@ -42,7 +42,7 @@
                 ]
             }
         ],
-        "timestamp": "2023-12-06T15:25:14.501666251"
+        "timestamp": "2024-01-24T13:41:31.810729686"
     },
     "['sarscov2']['genome']['genome_fasta'] - stub": {
         "content": [
@@ -87,6 +87,6 @@
                 ]
             }
         ],
-        "timestamp": "2024-01-17T22:52:02.155249524"
+        "timestamp": "2024-01-24T13:41:41.320396288"
     }
 }

@@ -3,14 +3,24 @@
         "content": [
             {
                 "0": [
-                    "test.viromeqc.tsv:md5,6acbffc97f75774cf9fcc953b98913ed"
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.viromeqc.tsv:md5,6acbffc97f75774cf9fcc953b98913ed"
+                    ]
                 ],
                 "1": [
                     "versions.yml:md5,c26288b67351c3bdaad635c87a0249e7",
                     "versions.yml:md5,f771871e8cbe81944f6d5fbbc56cc7a5"
                 ],
                 "enrichment_tsv": [
-                    "test.viromeqc.tsv:md5,6acbffc97f75774cf9fcc953b98913ed"
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.viromeqc.tsv:md5,6acbffc97f75774cf9fcc953b98913ed"
+                    ]
                 ],
                 "versions": [
                     "versions.yml:md5,c26288b67351c3bdaad635c87a0249e7",
@@ -18,6 +28,6 @@
                 ]
             }
         ],
-        "timestamp": "2023-12-28T13:57:38.935414881"
+        "timestamp": "2024-01-31T13:33:23.516887168"
     }
 }

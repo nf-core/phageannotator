@@ -15,7 +15,7 @@ process PHAROKKA_PHAROKKA {
     tuple val(meta), path("${prefix}_pharokka/${prefix}_cds_final_merged_output.tsv")           , emit: cds_final_merged_output
     tuple val(meta), path("${prefix}_pharokka/${prefix}_cds_functions.tsv")                     , emit: cds_functions
     tuple val(meta), path("${prefix}_pharokka/${prefix}_length_gc_cds_density.tsv")             , emit: length_gc_cds_density
-    tuple val(meta), path("${prefix}_pharokka/p*.ffn.gz")                                       , emit: ffn
+    tuple val(meta), path("${prefix}_pharokka/${prefix}.gbk.gz")                                , emit: gbk
     tuple val(meta), path("${prefix}_pharokka/${prefix}_top_hits_card.tsv")                     , emit: card                    , optional: true
     tuple val(meta), path("${prefix}_pharokka/${prefix}_top_hits_vfdb.tsv")                     , emit: vfdb                    , optional: true
     tuple val(meta), path("${prefix}_pharokka/${prefix}_top_hits_mash_inphared.tsv")            , emit: mash                    , optional: true
@@ -38,7 +38,7 @@ process PHAROKKA_PHAROKKA {
         --prefix ${prefix} \\
         $args 
 
-    gzip ${prefix}_pharokka/*.ffn ${prefix}_pharokka/*.faa ${prefix}_pharokka/*.gff
+    gzip ${prefix}_pharokka/*.ffn ${prefix}_pharokka/*.faa ${prefix}_pharokka/*.gff ${prefix}_pharokka/*.gbk
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
@@ -52,6 +52,8 @@ process PHAROKKA_PHAROKKA {
 
     """
     mkdir -p ${prefix}_pharokka
+    touch ${prefix}_pharokka/prodigal-gv.ffn
+    touch ${prefix}_pharokka/prodigal-gv.faa
     touch ${prefix}_pharokka/${prefix}.gbk
     touch ${prefix}_pharokka/${prefix}.log
     touch ${prefix}_pharokka/${prefix}_cds_functions.tsv
@@ -59,6 +61,8 @@ process PHAROKKA_PHAROKKA {
     touch ${prefix}_pharokka/top_hits_vfdb.tsv
     touch ${prefix}_pharokka/${prefix}_top_hits_inphared
     touch ${prefix}_pharokka/${prefix}
+
+    gzip ${prefix}_pharokka/*.ffn ${prefix}_pharokka/*.faa ${prefix}_pharokka/*.gff ${prefix}_pharokka/*.gbk
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

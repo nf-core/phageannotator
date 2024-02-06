@@ -47,7 +47,6 @@ include { BOWTIE2_BUILD                         } from '../../modules/nf-core/bo
 include { GENOMAD_ENDTOEND as GENOMAD_TAXONOMY  } from '../../modules/nf-core/genomad/endtoend/main'
 include { GUNZIP as GUNZIP_CLUSTER_REPS         } from '../../modules/nf-core/gunzip/main'
 include { GUNZIP as GUNZIP_VIRUS_PROTEINS       } from '../../modules/nf-core/gunzip/main'
-include { GUNZIP as GUNZIP_VIRUS_GFF            } from '../../modules/nf-core/gunzip/main'
 include { BACPHLIP                              } from '../../modules/nf-core/bacphlip/main'
 
 //
@@ -104,7 +103,6 @@ workflow PHAGEANNOTATOR {
 
         // create channel from params.reference_virus_fasta
         ch_reference_virus_fasta_gz = Channel.value([ [ id:'reference_viruses' ], file( params.reference_virus_fasta, checkIfExists:true ) ])
-        ch_reference_virus_fasta_gz
 
         // create channel from params.reference_virus_sketch
         if ( !params.reference_virus_sketch ){
@@ -336,19 +334,6 @@ workflow PHAGEANNOTATOR {
     /*----------------------------------------------------------------------------
         Phage functional annotation
     ------------------------------------------------------------------------------*/
-    if ( !params.skip_prodigalgv ) {
-        ch_prodigalgv_proteins_fna_gz = PRODIGAL_PRODIGALGV ( ch_anicluster_reps_fasta ).fna
-        ch_prodigalgv_proteins_faa_gz = PRODIGAL_PRODIGALGV.out.faa
-        ch_versions = ch_versions.mix( PRODIGAL_PRODIGALGV.out.versions )
-    } else {
-        ch_prodigalgv_proteins_faa_gz = Channel.empty()
-        ch_prodigalgv_proteins_gff_gz = Channel.empty()
-    }
-
-    // gunzip fasta for input into iphop, bacphlip, pharokka,
-    ch_prodigalgv_proteins_faa = GUNZIP_VIRUS_GFF ( ch_prodigalgv_proteins_faa_gz ).gunzip
-    ch_versions = ch_versions.mix( GUNZIP_VIRUS_GFF.out.versions )
-
     if ( !params.skip_pharokka ) {
         // create channel from params.pharokka_db
         if ( !params.pharokka_db ){
@@ -360,11 +345,12 @@ workflow PHAGEANNOTATOR {
         //
         // SUBWORKFLOW: Functionally annotate phage sequences
         //
-        ch_pharokka_ffn_gz = FASTA_PHAGE_FUNCTION_PHAROKKA ( ch_prodigalgv_proteins_faa, ch_pharokka_db ).pharokka_ffn_gz
+        ch_pharokka_gbk_gz = FASTA_PHAGE_FUNCTION_PHAROKKA ( ch_anicluster_reps_fasta, ch_pharokka_db ).pharokka_gbk_gz
         ch_pharokka_output_tsv = FASTA_PHAGE_FUNCTION_PHAROKKA.out.pharokka_final_output_tsv
         ch_versions = ch_versions.mix( FASTA_PHAGE_FUNCTION_PHAROKKA.out.versions )
     } else {
-        ch_prodigalgv_proteins_fna_gz = Channel.empty()
+        ch_pharokka_gbk_gz = Channel.empty()
+        ch_pharokka_output_tsv = Channel.empty()
     }
 
 
@@ -372,8 +358,25 @@ workflow PHAGEANNOTATOR {
         Analyze phage microdiversity
     ------------------------------------------------------------------------------*/
     // gunzip proteins for input into instrain
-    ch_prodigalgv_proteins_fna = GUNZIP_VIRUS_PROTEINS ( ch_prodigalgv_proteins_fna_gz ).gunzip
+    ch_pharokka_gbk = GUNZIP_VIRUS_PROTEINS ( ch_pharokka_gbk_gz ).gunzip
     ch_versions = ch_versions.mix( GUNZIP_VIRUS_PROTEINS.out.versions )
+
+    // add gene identifier to gbk for inStrain
+    ch_pharokka_gbk_mod = ch_pharokka_gbk
+    .map { meta, gbk ->
+        def gbk_mod = file("${workDir}/${meta.id}_mod.gbk")
+
+        gbk.withReader { source ->
+            gbk_mod.withWriter { target ->
+                String line
+                while( line=source.readLine() ) {
+                    target << line.replaceAll('/ID=','/gene=') << '\n'
+                }
+            }
+        }
+
+        return [ meta, gbk_mod]
+    }
 
     if ( !params.skip_instrain ) {
         //
@@ -385,7 +388,7 @@ workflow PHAGEANNOTATOR {
         //
         // SUBWORKFLOW: Assess virus microdiversity within and across samples
         //
-        ch_gene_info_tsv = FASTA_MICRODIVERSITY_INSTRAIN ( ch_cluster_rep_alignment_bam, ch_anicluster_reps_fasta, ch_prodigalgv_proteins_fna, ch_stb_file_tsv ).gene_info_tsv
+        ch_gene_info_tsv = FASTA_MICRODIVERSITY_INSTRAIN ( ch_cluster_rep_alignment_bam, ch_anicluster_reps_fasta, ch_pharokka_gbk_mod, ch_stb_file_tsv ).gene_info_tsv
         ch_versions = ch_versions = ch_versions.mix(FASTA_MICRODIVERSITY_INSTRAIN.out.versions)
     } else {
         ch_gene_info_tsv = Channel.empty()

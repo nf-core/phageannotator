@@ -28,7 +28,7 @@ Channel
     .fromSamplesheet("input")
     .multiMap { meta, fastq_1, fastq_2, fasta ->
         fastq_gz: [ meta, [ fastq_1, fastq_2 ] ]
-        fasta_gz: [ meta, [ fasta ] ]
+        fasta_gz: [ meta, fasta ]
     }
     .set { ch_input }
 

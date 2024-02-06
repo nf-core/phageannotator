@@ -17,9 +17,17 @@ workflow FASTA_MICRODIVERSITY_INSTRAIN {
     ch_versions = Channel.empty()
 
     // remove meta information for instrain profile inputs
-    ch_stb_file_tsv_nometa = instrain_stb.map { it[1] }.first()
     ch_genome_fasta_nometa = genome_fasta.map { it[1] }.first()
-    ch_proteins_fna_nometa = proteins_fna.map { it[1] }.first()
+    if ( proteins_fna ){
+        ch_proteins_fna_nometa = proteins_fna.map { it[1] }.first()
+    } else {
+        ch_proteins_fna_nometa = []
+    }
+    if ( instrain_stb ){
+        ch_stb_file_tsv_nometa = instrain_stb.map { it[1] }.first()
+    } else {
+        ch_stb_file_tsv_nometa = []
+    }
 
     //
     // MODULE: Profile microdiveristy within each sample
