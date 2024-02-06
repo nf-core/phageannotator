@@ -376,7 +376,6 @@
                 },
                 "genomad_sensitivity": {
                     "type": "number",
-                    "default": 4.2,
                     "hidden": true
                 },
                 "checkv_minimal_db": {
@@ -564,6 +563,11 @@
                     "default": true,
                     "fa_icon": "fas fa-check-square",
                     "hidden": true
+                },
+                "logo": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Use logo in initialise subworkflow"
                 },
                 "validationShowHiddenParams": {
                     "type": "boolean",

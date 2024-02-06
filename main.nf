@@ -66,7 +66,7 @@ def summary_params = paramsSummaryMap(workflow)
 //
 workflow NFCORE_PHAGEANNOTATOR {
 
-    INITIALISE ( params.version, params.help, params.valid_params )
+    INITIALISE ( params.version, params.help, params.validate_params, params.logo )
 
     ch_versions = Channel.empty()
 
@@ -151,6 +151,12 @@ workflow.onComplete {
     }
 }
 
+workflow.onError {
+    if (workflow.errorReport.contains("Process requirement exceeds available memory")) {
+        println("🛑 Default resources exceed availability 🛑 ")
+        println("💡 See here on how to configure pipeline: https://nf-co.re/docs/usage/configuration#tuning-workflow-resources 💡")
+    }
+}
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
