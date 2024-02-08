@@ -17,7 +17,6 @@ include { ANICLUSTER_ANICALC                        } from '../../modules/local/
 include { ANICLUSTER_ANICLUST                       } from '../../modules/local/anicluster/aniclust/main'
 include { ANICLUSTER_EXTRACTREPS                    } from '../../modules/local/anicluster/extractreps/main'
 include { COVERM_CONTIG                             } from '../../modules/local/coverm/contig/main'                                 // TODO: Add to nf-core
-include { PRODIGAL_PRODIGALGV                       } from '../../modules/local/prodigal/prodigalgv/main'                           // TODO: Add to nf-core
 include { INSTRAIN_STB                              } from '../../modules/local/instrain/stb/main'
 
 //
