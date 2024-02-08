@@ -566,6 +566,11 @@
                     "fa_icon": "fas fa-check-square",
                     "hidden": true
                 },
+                "logo": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Use logo in initialise subworkflow"
+                },
                 "validationShowHiddenParams": {
                     "type": "boolean",
                     "fa_icon": "far fa-eye-slash",

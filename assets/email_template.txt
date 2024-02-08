@@ -4,7 +4,7 @@
   |\\ | |__  __ /  ` /  \\ |__) |__         }  {
   | \\| |       \\__, \\__/ |  \\ |___     \\`-._,-`-,
                                         `._,._,'
-  nf-core/phageannotator v${version}
+  nf-core/phageannotator ${version}
 ----------------------------------------------------
 Run Name: $runName
 
