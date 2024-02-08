@@ -120,7 +120,8 @@
                     "pharokka/pharokka": {
                         "branch": "master",
                         "git_sha": "10e88ef2f1f3ff012a2c9562de95c264006ebf21",
-                        "installed_by": ["modules"]
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/pharokka/pharokka/pharokka-pharokka.diff"
                     },
                     "samtools/flagstat": {
                         "branch": "master",
@@ -139,7 +140,7 @@
                     },
                     "samtools/sort": {
                         "branch": "master",
-                        "git_sha": "a64788f5ad388f1d2ac5bd5f1f3f8fc81476148c",
+                        "git_sha": "ce0b1aed7d504883061e748f492a31bf44c5777c",
                         "installed_by": ["bam_sort_stats_samtools"]
                     },
                     "samtools/stats": {

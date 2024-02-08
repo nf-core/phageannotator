@@ -1,0 +1,73 @@
+Changes in module 'nf-core/pharokka/pharokka'
+--- /dev/null
++++ modules/nf-core/pharokka/pharokka/nextflow.config
+@@ -0,0 +1,12 @@
++process {
++    withName: PHAROKKA_PHAROKKA {
++        ext.args   = [
++            "--meta",
++        ].join(' ').trim()
++        publishDir = [
++                path: { "${params.outdir}/PhageFunction/pharokka/pharokka" },
++                mode: params.publish_dir_mode,
++                pattern: '*',
++        ]
++    }
++}
+--- modules/nf-core/pharokka/pharokka/main.nf
++++ modules/nf-core/pharokka/pharokka/main.nf
+@@ -12,14 +12,15 @@
+     path pharokka_db
+ 
+     output:
+-    tuple val(meta), path("${prefix}_pharokka/${prefix}_cds_final_merged_output.tsv")       , emit: cds_final_merged_output
+-    tuple val(meta), path("${prefix}_pharokka/${prefix}_cds_functions.tsv")                 , emit: cds_functions
+-    tuple val(meta), path("${prefix}_pharokka/${prefix}_length_gc_cds_density.tsv")         , emit: length_gc_cds_density
+-    tuple val(meta), path("${prefix}_pharokka/${prefix}_top_hits_card.tsv")                 , emit: card                    , optional: true
+-    tuple val(meta), path("${prefix}_pharokka/${prefix}_top_hits_vfdb.tsv")                 , emit: vfdb                    , optional: true
+-    tuple val(meta), path("${prefix}_pharokka/${prefix}_top_hits_mash_inphared.tsv")        , emit: mash                    , optional: true
+-    tuple val(meta), path("${prefix}_pharokka/${prefix}_genome_terminase_reoriented.fasta") , emit: reoriented              , optional: true
+-    path "versions.yml"                                                                     , emit: versions
++    tuple val(meta), path("${prefix}_pharokka/${prefix}_cds_final_merged_output.tsv")           , emit: cds_final_merged_output
++    tuple val(meta), path("${prefix}_pharokka/${prefix}_cds_functions.tsv")                     , emit: cds_functions
++    tuple val(meta), path("${prefix}_pharokka/${prefix}_length_gc_cds_density.tsv")             , emit: length_gc_cds_density
++    tuple val(meta), path("${prefix}_pharokka/${prefix}.gbk.gz")                                , emit: gbk
++    tuple val(meta), path("${prefix}_pharokka/${prefix}_top_hits_card.tsv")                     , emit: card                    , optional: true
++    tuple val(meta), path("${prefix}_pharokka/${prefix}_top_hits_vfdb.tsv")                     , emit: vfdb                    , optional: true
++    tuple val(meta), path("${prefix}_pharokka/${prefix}_top_hits_mash_inphared.tsv")            , emit: mash                    , optional: true
++    tuple val(meta), path("${prefix}_pharokka/${prefix}_genome_terminase_reoriented.fasta.gz")  , emit: reoriented              , optional: true
++    path "versions.yml"                                                                         , emit: versions
+ 
+     when:
+     task.ext.when == null || task.ext.when
+@@ -35,7 +36,9 @@
+         --database ${pharokka_db} \\
+         --threads ${task.cpus} \\
+         --prefix ${prefix} \\
+-        $args
++        $args 
++
++    gzip ${prefix}_pharokka/*.ffn ${prefix}_pharokka/*.faa ${prefix}_pharokka/*.gff ${prefix}_pharokka/*.gbk
+ 
+     cat <<-END_VERSIONS > versions.yml
+     "${task.process}":
+@@ -49,6 +52,8 @@
+ 
+     """
+     mkdir -p ${prefix}_pharokka
++    touch ${prefix}_pharokka/prodigal-gv.ffn
++    touch ${prefix}_pharokka/prodigal-gv.faa
+     touch ${prefix}_pharokka/${prefix}.gbk
+     touch ${prefix}_pharokka/${prefix}.log
+     touch ${prefix}_pharokka/${prefix}_cds_functions.tsv
+@@ -57,6 +62,8 @@
+     touch ${prefix}_pharokka/${prefix}_top_hits_inphared
+     touch ${prefix}_pharokka/${prefix}
+ 
++    gzip ${prefix}_pharokka/*.ffn ${prefix}_pharokka/*.faa ${prefix}_pharokka/*.gff ${prefix}_pharokka/*.gbk
++
+     cat <<-END_VERSIONS > versions.yml
+     "${task.process}":
+         pharokka: \$(pharokka.py --version)
+
+************************************************************
