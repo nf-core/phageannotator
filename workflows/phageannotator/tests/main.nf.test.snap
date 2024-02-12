@@ -133,7 +133,6 @@
                     "versions.yml:md5,7e54b5f822df67b99faf67629e81963f",
                     "versions.yml:md5,8aebba726df29aad131772449019ee78",
                     "versions.yml:md5,987d2e54a85311b917599dc41c90418c",
-                    "versions.yml:md5,a6aa8efc5dbcafe7129f58ed120eaa93",
                     "versions.yml:md5,a856eefde99260259440d942c1d56ff4",
                     "versions.yml:md5,afc743a69ab04322fbc732b24e18d208",
                     "versions.yml:md5,c0598196e761dbcdc90ff95a2f623b9c",
@@ -143,6 +142,7 @@
                     "versions.yml:md5,d73a3ecea014f00c8d95513555c42d23",
                     "versions.yml:md5,de688faac0a9124c4f2db74ce1b2c795",
                     "versions.yml:md5,dfa7110695181c4e8daa47d384563588",
+                    "versions.yml:md5,eabc04f1b3bfdaf113cf421fbc72672b",
                     "versions.yml:md5,f383a8d4db50b157e4a6a0ef4670fbc6"
                 ],
                 "anicluster_reps_fna_gz": [
@@ -234,7 +234,6 @@
                     "versions.yml:md5,7e54b5f822df67b99faf67629e81963f",
                     "versions.yml:md5,8aebba726df29aad131772449019ee78",
                     "versions.yml:md5,987d2e54a85311b917599dc41c90418c",
-                    "versions.yml:md5,a6aa8efc5dbcafe7129f58ed120eaa93",
                     "versions.yml:md5,a856eefde99260259440d942c1d56ff4",
                     "versions.yml:md5,afc743a69ab04322fbc732b24e18d208",
                     "versions.yml:md5,c0598196e761dbcdc90ff95a2f623b9c",
@@ -244,6 +243,7 @@
                     "versions.yml:md5,d73a3ecea014f00c8d95513555c42d23",
                     "versions.yml:md5,de688faac0a9124c4f2db74ce1b2c795",
                     "versions.yml:md5,dfa7110695181c4e8daa47d384563588",
+                    "versions.yml:md5,eabc04f1b3bfdaf113cf421fbc72672b",
                     "versions.yml:md5,f383a8d4db50b157e4a6a0ef4670fbc6"
                 ],
                 "virus_classification_tsv": [
@@ -290,6 +290,10 @@
                 ]
             }
         ],
-        "timestamp": "2024-01-31T15:39:29.234720854"
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-02-09T15:49:14.848581359"
     }
 }

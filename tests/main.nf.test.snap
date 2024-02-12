@@ -89,14 +89,14 @@
             [
                 "Host_prediction_to_genus_m90.csv:md5,528dcefb6a6c743b43f0dbc40bec3692"
             ],
-            "test1.IS_gene_info.tsv:md5,dd7c9eb0c52908beaf21b5fb9ec91135",
-            "test2.IS_gene_info.tsv:md5,dd7c9eb0c52908beaf21b5fb9ec91135",
-            "software_versions.yml:md5,c355834117410512c963268dc0d073a4"
+            "test1.IS_gene_info.tsv:md5,30955831e41455af9e653516ae6a9a6b",
+            "test2.IS_gene_info.tsv:md5,30955831e41455af9e653516ae6a9a6b",
+            "software_versions.yml:md5,d6a63054b92c6bd4cda093b3592e81e1"
         ],
         "meta": {
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-02-06T10:51:33.932290548"
+        "timestamp": "2024-02-09T13:37:29.504208615"
     }
 }
