@@ -13,7 +13,7 @@ nextflow_workflow {
 
         when {
             params {
-                outdir              = "$outputDir"
+                genomad_splits = 5
             }
             workflow {
                 """
