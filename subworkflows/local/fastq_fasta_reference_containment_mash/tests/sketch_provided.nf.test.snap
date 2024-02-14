@@ -13,7 +13,7 @@
                         {
                             "id": "test"
                         },
-                        "test.screen:md5,2d7ddb331f2c0c07e927adc8685e3deb"
+                        "test.screen:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "1": [
@@ -32,7 +32,7 @@
                         {
                             "id": "test"
                         },
-                        "test.screen:md5,2d7ddb331f2c0c07e927adc8685e3deb"
+                        "test.screen:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "versions": [
@@ -42,6 +42,10 @@
                 ]
             }
         ],
-        "timestamp": "2023-12-04T13:20:53.978507251"
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-02-14T14:03:25.561022329"
     }
 }

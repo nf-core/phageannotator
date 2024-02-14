@@ -7,13 +7,13 @@
                         {
                             "id": "test2"
                         },
-                        "test2.screen:md5,f4bfb5bdeab99353236ebf8100911405"
+                        "test2.screen:md5,a50700d95a3bc0c9913997f142817bbd"
                     ],
                     [
                         {
                             "id": "test"
                         },
-                        "test.screen:md5,77858d67f1513d5883d1d1aa22f48629"
+                        "test.screen:md5,9cd27acafbf63f1fa92e26c3e83bfa3e"
                     ]
                 ],
                 "1": [
@@ -27,13 +27,13 @@
                         {
                             "id": "test2"
                         },
-                        "test2.screen:md5,f4bfb5bdeab99353236ebf8100911405"
+                        "test2.screen:md5,a50700d95a3bc0c9913997f142817bbd"
                     ],
                     [
                         {
                             "id": "test"
                         },
-                        "test.screen:md5,77858d67f1513d5883d1d1aa22f48629"
+                        "test.screen:md5,9cd27acafbf63f1fa92e26c3e83bfa3e"
                     ]
                 ],
                 "versions": [
@@ -44,6 +44,10 @@
                 ]
             }
         ],
-        "timestamp": "2023-12-04T12:35:32.588786845"
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-02-14T14:03:12.481182772"
     }
 }
