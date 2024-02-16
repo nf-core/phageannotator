@@ -9,16 +9,18 @@ nextflow_pipeline {
     test("Parameters: default") {
         when {
             params {
-                outdir                  = "$outputDir"
-                mash_screen_min_score   = 0.5
-                genomad_min_score       = 0.01
-                genomad_max_fdr         = 1
-                genomad_disable_nn      = true
-                genomad_sensitivity     = 0.1
-                checkv_minimal_db       = true
-                iphop_partial_test      = true
-                max_cpus                = 4
-                max_memory              = '15.GB'
+                outdir                      = "$outputDir"
+                mash_screen_min_score       = 1
+                mash_screen_winner_take_all = true
+                genomad_min_score           = 0.01
+                genomad_max_fdr             = 1
+                genomad_disable_nn          = true
+                genomad_sensitivity         = 0.1
+                checkv_minimal_db           = true
+                checkv_min_length           = 3000
+                iphop_partial_test          = true
+                max_cpus                    = 4
+                max_memory                  = '15.GB'
             }
         }
 

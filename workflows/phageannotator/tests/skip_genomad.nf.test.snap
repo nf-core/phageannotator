@@ -24,13 +24,13 @@
                         {
                             "id": "test2"
                         },
-                        "test2_quality_summary.tsv:md5,134567fa42775bd31cc4c59e9e3b1e95"
+                        "test2_quality_summary.tsv:md5,943d161e6ea6cc7795c8454fe980c1c3"
                     ],
                     [
                         {
                             "id": "test"
                         },
-                        "test_quality_summary.tsv:md5,162b77bec682c86854b973563674ee01"
+                        "test_quality_summary.tsv:md5,91f8c8ae4b4c62ce31ab3041dd2e0941"
                     ]
                 ],
                 "3": [
@@ -38,13 +38,13 @@
                         {
                             "id": "test2"
                         },
-                        "test2.filtered.fna.gz:md5,3edfb732b7f8e340569a6be387493e3e"
+                        "test2.filtered.fna.gz:md5,79206a59e5a337cbdf164e92000e52b2"
                     ],
                     [
                         {
                             "id": "test"
                         },
-                        "test.filtered.fna.gz:md5,05ad743c75dc1aea6884b7f4a0815b2e"
+                        "test.filtered.fna.gz:md5,771bb2a2cdb8bd4468d158b4cae79db5"
                     ]
                 ],
                 "4": [
@@ -52,7 +52,7 @@
                         {
                             "id": "all_samples"
                         },
-                        "all_samples_anicluster_representatives.fna.gz:md5,98e8ecda37d58a4527be87c6595d142d"
+                        "all_samples_anicluster_representatives.fna.gz:md5,fcc8aed2c5786ef570a12d222345b34f"
                     ]
                 ],
                 "5": [
@@ -68,7 +68,7 @@
                         {
                             "id": "all_samples"
                         },
-                        "all_samples_anicluster_representatives_taxonomy.tsv:md5,d75d2b561adf4f6fef576e27d564aefc"
+                        "all_samples_anicluster_representatives_taxonomy.tsv:md5,c2cb503e207b7f0c1f8a69515d2604f3"
                     ]
                 ],
                 "7": [
@@ -76,7 +76,7 @@
                         {
                             "id": "all_samples"
                         },
-                        "all_samples_cds_final_merged_output.tsv:md5,5f0e32592da6d396edf19d50ed9ba3ba"
+                        "all_samples_cds_final_merged_output.tsv:md5,1315c8df1556d24b0e793e99e302196b"
                     ]
                 ],
                 "8": [
@@ -84,13 +84,13 @@
                         {
                             "id": "test2"
                         },
-                        "test2.IS_gene_info.tsv:md5,e1090cd42f83f77a626325de8a3360e7"
+                        "test2.IS_gene_info.tsv:md5,15ad6b92076f3c8f99075aed11bd7831"
                     ],
                     [
                         {
                             "id": "test"
                         },
-                        "test.IS_gene_info.tsv:md5,e1090cd42f83f77a626325de8a3360e7"
+                        "test.IS_gene_info.tsv:md5,15ad6b92076f3c8f99075aed11bd7831"
                     ]
                 ],
                 "9": [
@@ -139,7 +139,7 @@
                         {
                             "id": "all_samples"
                         },
-                        "all_samples_anicluster_representatives.fna.gz:md5,98e8ecda37d58a4527be87c6595d142d"
+                        "all_samples_anicluster_representatives.fna.gz:md5,fcc8aed2c5786ef570a12d222345b34f"
                     ]
                 ],
                 "filtered_viruses_fna_gz": [
@@ -147,13 +147,13 @@
                         {
                             "id": "test2"
                         },
-                        "test2.filtered.fna.gz:md5,3edfb732b7f8e340569a6be387493e3e"
+                        "test2.filtered.fna.gz:md5,79206a59e5a337cbdf164e92000e52b2"
                     ],
                     [
                         {
                             "id": "test"
                         },
-                        "test.filtered.fna.gz:md5,05ad743c75dc1aea6884b7f4a0815b2e"
+                        "test.filtered.fna.gz:md5,771bb2a2cdb8bd4468d158b4cae79db5"
                     ]
                 ],
                 "host_predictions_tsv": [
@@ -169,13 +169,13 @@
                         {
                             "id": "test2"
                         },
-                        "test2.IS_gene_info.tsv:md5,e1090cd42f83f77a626325de8a3360e7"
+                        "test2.IS_gene_info.tsv:md5,15ad6b92076f3c8f99075aed11bd7831"
                     ],
                     [
                         {
                             "id": "test"
                         },
-                        "test.IS_gene_info.tsv:md5,e1090cd42f83f77a626325de8a3360e7"
+                        "test.IS_gene_info.tsv:md5,15ad6b92076f3c8f99075aed11bd7831"
                     ]
                 ],
                 "marker_taxonomy_tsv": [
@@ -183,7 +183,7 @@
                         {
                             "id": "all_samples"
                         },
-                        "all_samples_anicluster_representatives_taxonomy.tsv:md5,d75d2b561adf4f6fef576e27d564aefc"
+                        "all_samples_anicluster_representatives_taxonomy.tsv:md5,c2cb503e207b7f0c1f8a69515d2604f3"
                     ]
                 ],
                 "pharokka_output_tsv": [
@@ -191,7 +191,7 @@
                         {
                             "id": "all_samples"
                         },
-                        "all_samples_cds_final_merged_output.tsv:md5,5f0e32592da6d396edf19d50ed9ba3ba"
+                        "all_samples_cds_final_merged_output.tsv:md5,1315c8df1556d24b0e793e99e302196b"
                     ]
                 ],
                 "versions": [
@@ -257,13 +257,13 @@
                         {
                             "id": "test2"
                         },
-                        "test2_quality_summary.tsv:md5,134567fa42775bd31cc4c59e9e3b1e95"
+                        "test2_quality_summary.tsv:md5,943d161e6ea6cc7795c8454fe980c1c3"
                     ],
                     [
                         {
                             "id": "test"
                         },
-                        "test_quality_summary.tsv:md5,162b77bec682c86854b973563674ee01"
+                        "test_quality_summary.tsv:md5,91f8c8ae4b4c62ce31ab3041dd2e0941"
                     ]
                 ]
             }
@@ -272,6 +272,6 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-02-15T16:02:38.423761425"
+        "timestamp": "2024-02-16T09:06:50.306980862"
     }
 }
