@@ -1,2 +1,2 @@
-anicluster/anicalc:
+anicluster_anicalc:
   - modules/local/anicluster/anicalc/**

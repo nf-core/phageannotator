@@ -91,7 +91,7 @@
             ],
             "test1.IS_gene_info.tsv:md5,30955831e41455af9e653516ae6a9a6b",
             "test2.IS_gene_info.tsv:md5,30955831e41455af9e653516ae6a9a6b",
-            "software_versions.yml:md5,d6a63054b92c6bd4cda093b3592e81e1"
+            "software_versions.yml:md5,3d2ea4a6e456777a0a77bd88676f1994"
         ],
         "meta": {
             "nf-test": "0.8.4",

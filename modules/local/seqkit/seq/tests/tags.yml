@@ -1,2 +1,2 @@
-seqkit/seq:
+seqkit_seq:
   - modules/local/seqkit/seq/**

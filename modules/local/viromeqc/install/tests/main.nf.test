@@ -5,7 +5,7 @@ nextflow_process {
     process "VIROMEQC_INSTALL"
     tag "modules"
     tag "modules_local"
-    tag "viromeqc/install"
+    tag "viromeqc_install"
 
 
     test("No input required") {

@@ -17,6 +17,8 @@ nextflow_pipeline {
                 genomad_sensitivity     = 0.1
                 checkv_minimal_db       = true
                 iphop_partial_test      = true
+                max_cpus                = 4
+                max_memory              = '15.GB'
             }
         }
 
