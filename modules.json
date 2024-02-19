@@ -7,82 +7,79 @@
                 "nf-core": {
                     "bacphlip": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "9ca62539bfc7660e4943134d1c3cc63410ba01a9",
                         "installed_by": ["modules"]
                     },
                     "blast/blastn": {
                         "branch": "master",
-                        "git_sha": "1728df69ccbaf4ccb1027c6fd4e9191f48c22194",
+                        "git_sha": "209e5a3e2753c5e628736a662c877c20f341ee15",
                         "installed_by": ["modules"]
                     },
                     "blast/makeblastdb": {
                         "branch": "master",
-                        "git_sha": "1728df69ccbaf4ccb1027c6fd4e9191f48c22194",
+                        "git_sha": "a01c66c96e0bc610ad126e7adc4a94cd4acd1b48",
                         "installed_by": ["modules"]
                     },
                     "bowtie2/align": {
                         "branch": "master",
-                        "git_sha": "8fc1d24c710ebe1d5de0f2447ec9439fd3d9d66a",
+                        "git_sha": "3c77ca9aac783e76c3614a06db3bfe4fef619bde",
                         "installed_by": ["fastq_align_bowtie2"]
                     },
                     "bowtie2/build": {
                         "branch": "master",
-                        "git_sha": "69d6b0e0f19eace1a08896e50b4e106217d1cf46",
+                        "git_sha": "1fea64f5132a813ec97c1c6d3a74e0aee7142b6d",
                         "installed_by": ["modules"]
                     },
                     "cat/cat": {
                         "branch": "master",
-                        "git_sha": "911696ea0b62df80e900ef244d7867d177971f73",
+                        "git_sha": "81f27e75847087865299cc46605deb3b09b4e0a2",
                         "installed_by": ["modules"]
                     },
                     "checkv/downloaddatabase": {
                         "branch": "master",
-                        "git_sha": "911696ea0b62df80e900ef244d7867d177971f73",
+                        "git_sha": "56cf5a89c2646ad50195635cf18df4028a6928ce",
                         "installed_by": ["modules"]
                     },
                     "checkv/endtoend": {
                         "branch": "master",
-                        "git_sha": "911696ea0b62df80e900ef244d7867d177971f73",
+                        "git_sha": "56cf5a89c2646ad50195635cf18df4028a6928ce",
                         "installed_by": ["modules"],
                         "patch": "modules/nf-core/checkv/endtoend/checkv-endtoend.diff"
                     },
                     "custom/dumpsoftwareversions": {
                         "branch": "master",
-                        "git_sha": "8ec825f465b9c17f9d83000022995b4f7de6fe93",
+                        "git_sha": "de45447d060b8c8b98575bc637a4a575fd0638e1",
                         "installed_by": ["modules"]
                     },
                     "fastqc": {
                         "branch": "master",
-                        "git_sha": "c9488585ce7bd35ccd2a30faa2371454c8112fb9",
+                        "git_sha": "f4ae1d942bd50c5c0b9bd2de1393ce38315ba57c",
                         "installed_by": ["modules"]
                     },
                     "genomad/download": {
                         "branch": "master",
-                        "git_sha": "ca813f3f73adedf3547a5a677e992d9d43a71870",
+                        "git_sha": "9b68cbd01a704aaf2c34f6d6bc7c25e9b4670147",
                         "installed_by": ["modules"]
                     },
                     "genomad/endtoend": {
                         "branch": "master",
-                        "git_sha": "ca813f3f73adedf3547a5a677e992d9d43a71870",
-                        "installed_by": ["modules"],
-                        "patch": "modules/nf-core/genomad/endtoend/genomad-endtoend.diff"
+                        "git_sha": "9b68cbd01a704aaf2c34f6d6bc7c25e9b4670147",
+                        "installed_by": ["modules"]
                     },
                     "gunzip": {
                         "branch": "master",
-                        "git_sha": "e06548bfa36ee31869b81041879dd6b3a83b1d57",
+                        "git_sha": "3a5fef109d113b4997c9822198664ca5f2716208",
                         "installed_by": ["modules"]
                     },
                     "instrain/compare": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
-                        "installed_by": ["modules"],
-                        "patch": "modules/nf-core/instrain/compare/instrain-compare.diff"
+                        "git_sha": "9c070598b0d23b9ecba0d76b7749728855150f10",
+                        "installed_by": ["modules"]
                     },
                     "instrain/profile": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
-                        "installed_by": ["modules"],
-                        "patch": "modules/nf-core/instrain/profile/instrain-profile.diff"
+                        "git_sha": "9c070598b0d23b9ecba0d76b7749728855150f10",
+                        "installed_by": ["modules"]
                     },
                     "iphop/download": {
                         "branch": "master",
@@ -97,19 +94,17 @@
                     },
                     "mash/screen": {
                         "branch": "master",
-                        "git_sha": "911696ea0b62df80e900ef244d7867d177971f73",
-                        "installed_by": ["modules"],
-                        "patch": "modules/nf-core/mash/screen/mash-screen.diff"
+                        "git_sha": "10f1f6526942539d5368cedb05afd1aa16eda5be",
+                        "installed_by": ["modules"]
                     },
                     "mash/sketch": {
                         "branch": "master",
-                        "git_sha": "911696ea0b62df80e900ef244d7867d177971f73",
-                        "installed_by": ["modules"],
-                        "patch": "modules/nf-core/mash/sketch/mash-sketch.diff"
+                        "git_sha": "10f1f6526942539d5368cedb05afd1aa16eda5be",
+                        "installed_by": ["modules"]
                     },
                     "multiqc": {
                         "branch": "master",
-                        "git_sha": "8ec825f465b9c17f9d83000022995b4f7de6fe93",
+                        "git_sha": "ccacf6f5de6df3bc6d73b665c1fd2933d8bbc290",
                         "installed_by": ["modules"]
                     },
                     "pharokka/installdatabases": {
@@ -150,7 +145,7 @@
                     },
                     "untar": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "e719354ba77df0a1bd310836aa2039b45c29d620",
                         "installed_by": ["modules"]
                     }
                 }

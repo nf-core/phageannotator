@@ -4,8 +4,8 @@ process INSTRAIN_PROFILE {
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/instrain:1.6.1--pyhdfd78af_0':
-        'biocontainers/instrain:1.6.1--pyhdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/instrain:1.7.1--pyhdfd78af_0':
+        'biocontainers/instrain:1.7.1--pyhdfd78af_0' }"
 
     input:
     tuple val(meta), path(bam)
@@ -41,6 +41,27 @@ process INSTRAIN_PROFILE {
         $genes_args \\
         $stb_args \\
         $args
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        instrain: \$(echo \$(inStrain profile --version 2>&1) | awk 'NF{ print \$NF }')
+    END_VERSIONS
+    """
+
+    stub:
+    def args = task.ext.args ?: ''
+    def prefix = task.ext.prefix ?: "${meta.id}"
+    def genes_args = genes_fasta ? "-g ${genes_fasta}": ''
+    def stb_args = stb_file ? "-s ${stb_file}": ''
+    """
+    mkdir -p ${prefix}.IS/output
+    touch ${prefix}.IS/output/${prefix}.IS_SNVs.tsv
+    touch ${prefix}.IS/output/${prefix}.IS_gene_info.tsv
+    touch ${prefix}.IS/output/${prefix}.IS_genome_info.tsv
+    touch ${prefix}.IS/output/${prefix}.IS_linkage.tsv
+    touch ${prefix}.IS/output/${prefix}.IS_mapping_info.tsv
+    touch ${prefix}.IS/output/${prefix}.IS_scaffold_info.tsv
+
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

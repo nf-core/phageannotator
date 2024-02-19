@@ -20,14 +20,14 @@ Changes in module 'nf-core/checkv/endtoend'
      path "versions.yml"                                     , emit: versions
  
      when:
-@@ -36,6 +36,8 @@
+@@ -35,6 +35,8 @@
+         -d $db \\
          $fasta \\
          $prefix
- 
-+    gzip ${prefix}/*viruses.fna
 +
++    gzip ${prefix}/*viruses.fna
+ 
      cat <<-END_VERSIONS > versions.yml
      "${task.process}":
-         checkv: \$(checkv -h 2>&1  | sed -n 's/^.*CheckV v//; s/: assessing.*//; 1p')
 
 ************************************************************

@@ -2,14 +2,14 @@ process GENOMAD_ENDTOEND {
     tag "$meta.id"
     label 'process_high'
 
-    conda "bioconda::genomad=1.5.2"
+    conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/genomad:1.5.2--pyhdfd78af_0':
-        'biocontainers/genomad:1.5.2--pyhdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/genomad:1.7.4--pyhdfd78af_0':
+        'biocontainers/genomad:1.7.4--pyhdfd78af_0' }"
 
     input:
-    tuple val(meta), path(fasta)
-    tuple path(genomad_db)
+    tuple val(meta) , path(fasta)
+    path  genomad_db
 
     output:
     tuple val(meta), path("*_aggregated_classification/*_aggregated_classification.tsv")    , emit: aggregated_classification   , optional: true
@@ -41,8 +41,8 @@ process GENOMAD_ENDTOEND {
         $genomad_db \\
         --threads $task.cpus \\
         $args
-    
-    gzip ./**/*.fna 
+
+    gzip ./**/*.fna
     gzip ./**/*.faa
 
     cat <<-END_VERSIONS > versions.yml
