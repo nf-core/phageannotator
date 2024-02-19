@@ -3,8 +3,11 @@ nextflow_workflow {
     name "Test Subworkflow: FASTA_PHAGE_FUNCTION_PHAROKKA"
     script "../main.nf"
     workflow "FASTA_PHAGE_FUNCTION_PHAROKKA"
-    tag "FASTA_PHAGE_FUNCTION_PHAROKKA"
     config "./nextflow.config"
+
+    // Dependencies
+    tag "PHAROKKA_INSTALLDATABASES"
+    tag "PHAROKKA_PHAROKKA"
 
     test("Parameters: default") {
 

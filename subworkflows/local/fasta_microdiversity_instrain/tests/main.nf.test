@@ -3,7 +3,10 @@ nextflow_workflow {
     name "Test Subworkflow: FASTA_MICRODIVERSITY_INSTRAIN"
     script "../main.nf"
     workflow "FASTA_MICRODIVERSITY_INSTRAIN"
-    tag "FASTA_MICRODIVERSITY_INSTRAIN"
+
+    // Dependencies
+    tag "INSTRAIN_PROFILE"
+    tag "INSTRAIN_COMPARE"
 
     test("Parameters: default") {
 

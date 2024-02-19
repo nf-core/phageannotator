@@ -3,7 +3,11 @@ nextflow_workflow {
     name "Test Subworkflow: FASTA_PHAGE_HOST_IPHOP"
     script "../main.nf"
     workflow "FASTA_PHAGE_HOST_IPHOP"
-    tag "FASTA_PHAGE_HOST_IPHOP"
+
+    // Dependencies
+    tag "IPHOP_DOWNLOAD"
+    tag "UNTAR"
+    tag "IPHOP_PREDICT"
 
     test("Parameters: default") {
 

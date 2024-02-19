@@ -3,7 +3,10 @@ nextflow_workflow {
     name "Test subworkflow: FASTQ_VIRUS_ENRICHMENT_VIROMEQC"
     script "subworkflows/local/fastq_virus_enrichment_viromeqc/main.nf"
     workflow "FASTQ_VIRUS_ENRICHMENT_VIROMEQC"
-    tag "FASTQ_VIRUS_ENRICHMENT_VIROMEQC"
+
+    // Depencies
+    tag "VIROMEQC_INSTALL"
+    tag "VIROMEQC_VIROMEQC"
 
     test("Parameters: default") {
 
