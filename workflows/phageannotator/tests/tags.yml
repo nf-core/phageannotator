@@ -14,7 +14,7 @@ phageannotator_skip_instrain:
   - workflows/phageannotator/**
 phageannotator_skip_iphop:
   - workflows/phageannotator/**
-phageannotator_skip_prodigalgv:
+phageannotator_skip_pharokka:
   - workflows/phageannotator/**
 phageannotator_skip_reference_containment:
   - workflows/phageannotator/**

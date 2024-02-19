@@ -9,14 +9,19 @@ nextflow_pipeline {
     test("Parameters: default") {
         when {
             params {
-                outdir                  = "$outputDir"
-                mash_screen_min_score   = 0.5
-                genomad_min_score       = 0.01
-                genomad_max_fdr         = 1
-                genomad_disable_nn      = true
-                genomad_sensitivity     = 0.1
-                checkv_minimal_db       = true
-                iphop_partial_test      = true
+                outdir                      = "$outputDir"
+                assembly_min_length         = 3000
+                mash_screen_min_score       = 1
+                mash_screen_winner_take_all = true
+                genomad_min_score           = 0.7
+                genomad_max_fdr             = 1
+                genomad_disable_nn          = true
+                genomad_sensitivity         = 0.1
+                checkv_minimal_db           = true
+                checkv_min_length           = 3000
+                iphop_partial_test          = true
+                max_cpus                    = 4
+                max_memory                  = '15.GB'
             }
         }
 
@@ -37,9 +42,9 @@ nextflow_pipeline {
                     path("${params.outdir}/VirusMicrodiversity/instrain/profile/test2.IS/output/test2.IS_gene_info.tsv"),
                     path("${params.outdir}/pipeline_info/software_versions.yml")
                     ).match() },
-                { assert path("${outputDir}/VirusLifestyle/bacphlip/all_samples_anicluster_representatives.fna.bacphlip").readLines().size() == 4 },
-                { assert path("${outputDir}/VirusAbundance/coverm/contig/all_samples_alignment_results.tsv").readLines().size() == 4 },
-                { assert path("${params.outdir}/VirusMicrodiversity/instrain/compare/all_samples.IS_compare/output/all_samples.IS_compare_pooled_SNV_data.tsv").readLines().size() == 15 },
+                { assert path("${outputDir}/VirusLifestyle/bacphlip/all_samples_anicluster_representatives.fna.bacphlip").readLines().size() == 3 },
+                { assert path("${outputDir}/VirusAbundance/coverm/contig/all_samples_alignment_results.tsv").readLines().size() == 3 },
+                { assert path("${params.outdir}/VirusMicrodiversity/instrain/compare/all_samples.IS_compare/output/all_samples.IS_compare_pooled_SNV_data.tsv").readLines().size() == 11 },
                 { assert new File("$outputDir/ReadQuality/fastqc/test1_1_fastqc.html").exists() },
                 { assert new File("$outputDir/ReadQuality/fastqc/test1_2_fastqc.html").exists() },
                 { assert new File("$outputDir/VirusAbundance/bowtie2/align/test1.bam").exists() },

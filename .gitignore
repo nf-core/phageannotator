@@ -8,3 +8,7 @@ testing*
 *.pyc
 .nf-test*
 test.xml
+nf-test-checklist.csv
+*parallel-nf-test.sh
+nf-test-parallel/
+

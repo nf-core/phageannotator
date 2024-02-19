@@ -1,2 +1,2 @@
-viromeqc/install:
+viromeqc_install:
   - modules/local/viromeqc/install/**

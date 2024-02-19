@@ -22,7 +22,7 @@ nextflow_workflow {
                     [ [ id:'test2' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['test2_1_fastq_gz'], checkIfExists:true), file(params.test_data['bacteroides_fragilis']['illumina']['test2_2_fastq_gz'], checkIfExists: true) ] ]
                 )
                 input[1] = Channel.of([ [ id:'test' ], [ file(params.test_data['bacteroides_fragilis']['genome']['genome_fna_gz'], checkIfExists:true) ] ], [ [ id:'test2' ], [ file(params.test_data['bacteroides_fragilis']['genome']['genome_fna_gz'], checkIfExists:true) ] ])
-                input[2] = Channel.of([ [ id:'reference_viruses' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['contigs_fa_gz'], checkIfExists:true) ] ])
+                input[2] = Channel.of([ [ id:'reference_viruses' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['test1_contigs_fa_gz'], checkIfExists:true) ] ])
                 input[3] = null
                 """
             }

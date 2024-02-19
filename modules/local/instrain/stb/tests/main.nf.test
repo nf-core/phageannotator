@@ -5,7 +5,7 @@ nextflow_process {
     process "INSTRAIN_STB"
     tag "modules"
     tag "modules_local"
-    tag "instrain/stb"
+    tag "instrain_stb"
 
 
     test("['homo_sapiens']['genome']['genome_fasta']") {

@@ -4,7 +4,6 @@
 
 include { CHECKV_DOWNLOADDATABASE   } from '../../../modules/nf-core/checkv/downloaddatabase/main'
 include { UNTAR                     } from '../../../modules/nf-core/untar/main'
-include { GUNZIP                    } from '../../../modules/nf-core/gunzip/main'
 include { CHECKV_ENDTOEND           } from '../../../modules/nf-core/checkv/endtoend/main'          // TODO: Update nf-core module to gzip output FASTA files
 
 workflow FASTA_VIRUS_QUALITY_CHECKV {
@@ -34,12 +33,6 @@ workflow FASTA_VIRUS_QUALITY_CHECKV {
             ch_versions = ch_versions.mix(UNTAR.out.versions)
         }
     }
-
-    //
-    // MODULE: Gunzip fasta for checkV
-    //
-    ch_viruses_fasta = GUNZIP ( virus_fasta_gz ).gunzip
-    ch_versions = ch_versions.mix(GUNZIP.out.versions.first())
 
     //
     // MODULE: Assess virus quality

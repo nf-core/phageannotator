@@ -5,9 +5,9 @@ nextflow_workflow {
     workflow "PHAGEANNOTATOR"
     tag "workflows"
     tag "phageannotator"
-    tag "phageannotator_skip_prodigalgv"
+    tag "phageannotator_skip_pharokka"
 
-    test("Parameters: skip_prodigalgv = true") {
+    test("Parameters: skip_pharokka = true") {
         when {
             workflow {
                 """
@@ -15,13 +15,13 @@ nextflow_workflow {
                             file(params.test_data['bacteroides_fragilis']['illumina']['test1_2_fastq_gz'], checkIfExists:true) ] ],
                             [ [ id:'test2' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['test1_1_fastq_gz'], checkIfExists: true),
                             file(params.test_data['bacteroides_fragilis']['illumina']['test1_2_fastq_gz'], checkIfExists:true) ] ] )
-                input[1] = Channel.of( [ [ id:'test' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['contigs_fa_gz'], checkIfExists:true) ] ],
-                            [ [ id:'test2' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['contigs_fa_gz'], checkIfExists:true) ] ])
+                input[1] = Channel.of( [ [ id:'test' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['test1_contigs_fa_gz'], checkIfExists:true) ] ],
+                            [ [ id:'test2' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['test1_contigs_fa_gz'], checkIfExists:true) ] ])
                 """
             }
             params {
                 outdir                  = "$outputDir"
-                skip_prodigalgv         = true
+                skip_pharokka           = true
                 mash_screen_min_score   = 0.5
                 genomad_min_score       = 0.01
                 genomad_max_fdr         = 1

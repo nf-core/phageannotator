@@ -296,15 +296,17 @@
                 }
             }
         },
-        "virus_gene_prediction": {
-            "title": "Virus gene prediction",
+        "virus_function_options": {
+            "title": "Virus function options",
             "type": "object",
-            "description": "Predict ORFs contained in viral sequences",
+            "description": "Functionally annotate viral genomes using a variety of approaches",
             "default": "",
             "properties": {
-                "skip_prodigalgv": {
-                    "type": "boolean",
-                    "description": "Skip running Prodigal-gv to predict ORFs in viral sequences"
+                "skip_pharokka": {
+                    "type": "boolean"
+                },
+                "pharokka_db": {
+                    "type": "string"
                 }
             }
         },
@@ -628,7 +630,7 @@
             "$ref": "#/definitions/virus_lifestyle_options"
         },
         {
-            "$ref": "#/definitions/virus_gene_prediction"
+            "$ref": "#/definitions/virus_function_options"
         },
         {
             "$ref": "#/definitions/virus_microdiversity_options"

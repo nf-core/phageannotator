@@ -1,2 +1,2 @@
-instrain/stb:
+instrain_stb:
   - modules/local/instrain/stb/**

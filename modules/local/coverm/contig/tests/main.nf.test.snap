@@ -1,5 +1,5 @@
 {
-    "['bacteroides_fragilis']['test1_bam'] & ['bacteroides_fragilis']['test2_bam']": {
+    "['bacteroides_fragilis']['illumina']['test1_paired_end_bam'] & ['bacteroides_fragilis']['illumina']['test2_paired_end_bam']": {
         "content": [
             {
                 "0": [
@@ -26,9 +26,9 @@
                 ]
             }
         ],
-        "timestamp": "2023-11-13T11:52:17.129290553"
+        "timestamp": "2024-01-30T12:13:24.433507451"
     },
-    "['bacteroides_fragilis']['test1_bam'] & ['bacteroides_fragilis']['test2_bam'] - stub": {
+    "['bacteroides_fragilis']['illumina']['test1_paired_end_bam'] & ['bacteroides_fragilis']['illumina']['test2_paired_end_bam'] - stub": {
         "content": [
             {
                 "0": [
@@ -55,6 +55,6 @@
                 ]
             }
         ],
-        "timestamp": "2024-01-17T22:32:27.21624823"
+        "timestamp": "2024-01-30T12:13:34.750720485"
     }
 }

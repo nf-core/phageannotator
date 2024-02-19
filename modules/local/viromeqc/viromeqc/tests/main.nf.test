@@ -5,8 +5,8 @@ nextflow_process {
     process "VIROMEQC_VIROMEQC"
     tag "modules"
     tag "modules_local"
-    tag "viromeqc/viromeqc"
-    tag "viromeqc/install"
+    tag "viromeqc_viromeqc"
+    tag "viromeqc_install"
 
     test("sarscov2 - illumina - test_1_fastq_gz") {
         setup {

@@ -1,5 +1,5 @@
 {
-    "['bacteroides_fragilis']['illumina']['contigs_fa_gz'] & ['modules_local']['ani_tsv']": {
+    "['bacteroides_fragilis']['illumina']['test1_contigs_fa_gz'] & ['modules_local']['ani_tsv']": {
         "content": [
             {
                 "0": [
@@ -26,9 +26,9 @@
                 ]
             }
         ],
-        "timestamp": "2024-01-17T22:30:47.969970392"
+        "timestamp": "2024-01-30T12:51:09.910625712"
     },
-    "['bacteroides_fragilis']['illumina']['contigs_fa_gz'] & ['modules_local']['ani_tsv'] - stub": {
+    "['bacteroides_fragilis']['illumina']['test1_contigs_fa_gz'] & ['modules_local']['ani_tsv'] - stub": {
         "content": [
             {
                 "0": [
@@ -55,6 +55,6 @@
                 ]
             }
         ],
-        "timestamp": "2024-01-17T22:31:00.034885189"
+        "timestamp": "2024-01-30T12:51:20.189626093"
     }
 }

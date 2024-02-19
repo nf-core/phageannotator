@@ -1,2 +1,2 @@
-viromeqc/viromeqc:
+viromeqc_viromeqc:
   - modules/local/viromeqc/viromeqc/**

@@ -12,8 +12,8 @@ process VIROMEQC_VIROMEQC {
     path(viromeqc_index)
 
     output:
-    path("${prefix}.viromeqc.tsv")  , emit: enrichment
-    path "versions.yml"             , emit: versions
+    tuple val(meta), path("${prefix}.viromeqc.tsv") , emit: enrichment
+    path "versions.yml"                             , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
