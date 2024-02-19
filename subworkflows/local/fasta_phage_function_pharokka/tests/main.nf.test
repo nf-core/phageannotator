@@ -9,12 +9,17 @@ nextflow_workflow {
     tag "PHAROKKA_INSTALLDATABASES"
     tag "PHAROKKA_PHAROKKA"
 
-    test("Parameters: default") {
+    test("fasta") {
 
         when {
             workflow {
                 """
-                input[0] = Channel.of([ [ id:'test' ], [ params.test_data['sarscov2']['genome']['genome_fasta'] ] ])
+                input[0] = Channel.of(
+                    [
+                        [ id:'test' ],
+                        file(params.modules_testdata_base_path + 'data/genomics/sarscov2/genome/genome.fasta', checkIfExists: true)
+                    ]
+                )
                 input[1] = null
                 """
             }

@@ -4,7 +4,7 @@ nextflow_process {
     script "../main.nf"
     process "COVERM_CONTIG"
 
-    test("['bacteroides_fragilis']['illumina']['test1_paired_end_bam'] & ['bacteroides_fragilis']['illumina']['test2_paired_end_bam']") {
+    test("test1_paired_end.bam & test_2paired_end.bam") {
 
         when {
             params {
@@ -12,7 +12,13 @@ nextflow_process {
             }
             process {
                 """
-                input[0] = [ [ id: 'all_samples' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['test1_paired_end_bam'], checkIfExists: true), file(params.test_data['bacteroides_fragilis']['illumina']['test2_paired_end_bam'], checkIfExists: true) ] ]
+                input[0] = [
+                    [ id: 'all_samples' ],
+                    [
+                        file(params.modules_testdata_base_path + 'data/genomics/prokaryotes/bacteroides_fragilis/illumina/bam/test1.bam', checkIfExists: true),
+                        file(params.modules_testdata_base_path + 'data/genomics/prokaryotes/bacteroides_fragilis/illumina/bam/test2.bam', checkIfExists: true)
+                    ]
+                ]
                 """
             }
         }
@@ -25,7 +31,7 @@ nextflow_process {
         }
     }
 
-    test("['bacteroides_fragilis']['illumina']['test1_paired_end_bam'] & ['bacteroides_fragilis']['illumina']['test2_paired_end_bam'] - stub") {
+    test("test1_paired_end.bam & test_2paired_end.bam - stub") {
 
         options "-stub"
 
@@ -35,7 +41,13 @@ nextflow_process {
             }
             process {
                 """
-                input[0] = [ [ id: 'all_samples' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['test1_paired_end_bam'], checkIfExists: true), file(params.test_data['bacteroides_fragilis']['illumina']['test2_paired_end_bam'], checkIfExists: true) ] ]
+                input[0] = [
+                    [ id: 'all_samples' ],
+                    [
+                        file(params.modules_testdata_base_path + 'data/genomics/prokaryotes/bacteroides_fragilis/illumina/bam/test1.bam', checkIfExists: true),
+                        file(params.modules_testdata_base_path + 'data/genomics/prokaryotes/bacteroides_fragilis/illumina/bam/test2.bam', checkIfExists: true)
+                    ]
+                ]
                 """
             }
         }

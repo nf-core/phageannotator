@@ -4,12 +4,15 @@ nextflow_process {
     script "../main.nf"
     process "INSTRAIN_STB"
 
-    test("['homo_sapiens']['genome']['genome_fasta']") {
+    test("genome.fasta") {
 
         when {
             process {
                 """
-                input[0] = [ [ id: 'reference_fasta' ], file(params.test_data['homo_sapiens']['genome']['genome_fasta'], checkIfExists: true) ]
+                input[0] = [
+                    [ id: 'reference_fasta' ],
+                    file(params.modules_testdata_base_path + 'data/genomics/homo_sapiens/genome/genome.fasta', checkIfExists: true)
+                ]
                 """
             }
         }
@@ -22,14 +25,17 @@ nextflow_process {
         }
     }
 
-    test("['homo_sapiens']['genome']['genome_fasta'] - stub") {
+    test("genome.fasta - stub") {
 
         options "-stub"
 
         when {
             process {
                 """
-                input[0] = [ [ id: 'reference_fasta' ], file(params.test_data['homo_sapiens']['genome']['genome_fasta'], checkIfExists: true) ]
+                input[0] = [
+                    [ id: 'reference_fasta' ],
+                    file(params.modules_testdata_base_path + 'data/genomics/homo_sapiens/genome/genome.fasta', checkIfExists: true)
+                ]
                 """
             }
         }

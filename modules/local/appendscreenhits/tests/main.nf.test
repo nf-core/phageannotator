@@ -4,7 +4,7 @@ nextflow_process {
     script "../main.nf"
     process "APPENDSCREENHITS"
 
-    test("['modules_local']['mash_screen_results_tsv'] & ['modules_local']['assembly_fasta_gz'] & ['modules_local']['reference_fasta_gz']") {
+    test("mash_screen.tsv & fasta.gz & reference_fasta.gz") {
 
         when {
             params {
@@ -12,9 +12,15 @@ nextflow_process {
             }
             process {
                 """
-                input[0] = [ [ id: 'test' ], [ file(params.test_data['modules_local']['mash_screen_results_tsv'], checkIfExists: true) ],
-                            [ file(params.test_data['modules_local']['assembly_fasta_gz'], checkIfExists: true) ] ]
-                input[1] = [ [ id: 'reference' ], [ file(params.test_data['modules_local']['reference_fasta_gz'], checkIfExists: true) ] ]
+                input[0] = [
+                    [ id: 'test' ],
+                    file(params.pipelines_testdata_base_path + 'modules/local/append_screen_hits/mash_screen_results.tsv', checkIfExists: true),
+                    file(params.pipelines_testdata_base_path + 'modules/local/seqkit/seq/assembly.fasta.gz', checkIfExists: true)
+                ]
+                input[1] = [
+                    [ id: 'reference' ],
+                    file(params.pipelines_testdata_base_pat + 'modules/local/append_screen_hits/reference.fasta.gz', checkIfExists: true)
+                ]
                 """
             }
         }
@@ -27,7 +33,7 @@ nextflow_process {
         }
     }
 
-    test("['modules_local']['mash_screen_results_tsv'] & ['modules_local']['assembly_fasta_gz'] & ['modules_local']['reference_fasta_gz'] - stub") {
+    test("mash_screen.tsv & fasta.gz & reference_fasta.gz - stub") {
 
         options "-stub"
 
@@ -37,9 +43,15 @@ nextflow_process {
             }
             process {
                 """
-                input[0] = [ [ id: 'test' ], [ file(params.test_data['modules_local']['mash_screen_results_tsv'], checkIfExists: true) ],
-                            [ file(params.test_data['modules_local']['assembly_fasta_gz'], checkIfExists: true) ] ]
-                input[1] = [ [ id: 'reference' ], [ file(params.test_data['modules_local']['reference_fasta_gz'], checkIfExists: true) ] ]
+                input[0] = [
+                    [ id: 'test' ],
+                    file(params.pipelines_testdata_base_path + 'modules/local/append_screen_hits/mash_screen_results.tsv', checkIfExists: true),
+                    file(params.pipelines_testdata_base_path + 'modules/local/seqkit/seq/assembly.fasta.gz', checkIfExists: true)
+                ]
+                input[1] = [
+                    [ id: 'reference' ],
+                    file(params.pipelines_testdata_base_pat + 'modules/local/append_screen_hits/reference.fasta.gz', checkIfExists: true)
+                ]
                 """
             }
         }

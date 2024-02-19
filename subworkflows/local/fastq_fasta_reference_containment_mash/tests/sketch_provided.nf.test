@@ -9,7 +9,7 @@ nextflow_workflow {
     tag "MASH_PASTE"
     tag "MASH_SCREEN"
 
-    test("Parameters: --reference_virus_sketch provided") {
+    test("fastq.gz & fasta.gz & sketch.msh") {
 
         when {
             params {
@@ -20,12 +20,43 @@ nextflow_workflow {
             workflow {
                 """
                 input[0] = Channel.of(
-                    [ [ id:'test' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['test1_1_fastq_gz'], checkIfExists:true), file(params.test_data['bacteroides_fragilis']['illumina']['test1_2_fastq_gz'], checkIfExists: true) ] ],
-                    [ [ id:'test2' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['test2_1_fastq_gz'], checkIfExists:true), file(params.test_data['bacteroides_fragilis']['illumina']['test2_2_fastq_gz'], checkIfExists: true) ] ]
+                    [
+                        [ id:'test' ],
+                        [
+                            file(params.modules_testdata_base_path + 'data/genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_1.fastq.gz', checkIfExists:true),
+                            file(params.modules_testdata_base_path + 'data/genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_2.fastq.gz', checkIfExists: true)
+                        ]
+                    ],
+                    [
+                        [ id:'test2' ],
+                        [
+                            file(params.modules_testdata_base_path + 'data/genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test2_1.fastq.gz', checkIfExists:true),
+                            file(params.modules_testdata_base_path + 'data/genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test2_2.fastq.gz', checkIfExists: true)
+                        ]
+                    ]
                 )
-                input[1] = Channel.of([ [ id:'test' ], [ file(params.test_data['bacteroides_fragilis']['genome']['genome_fna_gz'], checkIfExists:true) ] ], [ [ id:'test2' ], [ file(params.test_data['bacteroides_fragilis']['genome']['genome_fna_gz'], checkIfExists:true) ] ])
-                input[2] = Channel.of([ [ id:'reference_viruses' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['test1_contigs_fa_gz'], checkIfExists:true) ] ])
-                input[3] = Channel.of([ [ id:'reference_viruses' ], [ file(params.test_data['modules_local']['mash_sketch1_msh'], checkIfExists:true) ] ])
+                input[1] = Channel.of(
+                    [
+                        [ id:'test' ],
+                        file(params.modules_testdata_base_path + 'data/genomics/prokaryotes/bacteroides_fragilis/genome/genome.fna.gz', checkIfExists:true)\
+                    ],
+                    [
+                        [ id:'test2' ],
+                        file(params.modules_testdata_base_path + 'data/genomics/prokaryotes/bacteroides_fragilis/genome/genome.fna.gz', checkIfExists:true)
+                    ]
+                )
+                input[2] = Channel.of(
+                    [
+                        [ id:'reference_viruses' ],
+                        file(params.modules_testdata_base_path + 'data/genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists:true)
+                    ]
+                )
+                input[3] = Channel.of(
+                    [
+                        [ id:'reference_viruses' ],
+                        file(params.pipelines_testdata_base_path + 'modules/local/mash/paste/bacteroides_fragilis_contigs1.msh', checkIfExists:true)
+                    ]
+                )
                 """
             }
 

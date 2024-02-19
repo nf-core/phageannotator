@@ -9,7 +9,7 @@ nextflow_workflow {
     tag "UNTAR"
     tag "IPHOP_PREDICT"
 
-    test("Parameters: default") {
+    test("fasta") {
 
         when {
             params {
@@ -19,7 +19,12 @@ nextflow_workflow {
             }
             workflow {
                 """
-                input[0] = Channel.of([ [ id:'test' ], [ file(params.test_data['sarscov2']['genome']['genome_fasta'], checkIfExists: true) ] ])
+                input[0] = Channel.of(
+                    [
+                        [ id:'test' ],
+                        file(params.modules_testdata_base_path + 'data/genomics/sarscov2/genome/genome.fasta', checkIfExists: true)
+                    ]
+                )
                 input[1] = null
                 """
             }

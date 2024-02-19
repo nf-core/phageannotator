@@ -8,7 +8,7 @@ nextflow_workflow {
     tag "GENOMAD_DOWNLOAD"
     tag "GENOMAD_ENDTOEND"
 
-    test("Parameters: default") {
+    test("fasta") {
 
         when {
             params {
@@ -17,8 +17,14 @@ nextflow_workflow {
             workflow {
                 """
                 input[0] = Channel.of(
-                    [ [ id:'test' ], [ file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/genome/genome.fna.gz', checkIfExists: true) ] ],
-                    [ [ id:'test2' ], [ file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/genome/genome.fna.gz', checkIfExists: true) ] ]
+                    [
+                        [ id:'test' ],
+                        file(params.modules_testdata_base_path + 'data/genomics/prokaryotes/bacteroides_fragilis/genome/genome.fna.gz', checkIfExists: true)
+                    ],
+                    [
+                        [ id:'test2' ],
+                        file(params.test_data + 'data/genomics/prokaryotes/bacteroides_fragilis/genome/genome.fna.gz', checkIfExists: true)
+                    ]
                 )
                 input[1] = null
                 """
