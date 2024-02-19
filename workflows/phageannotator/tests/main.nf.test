@@ -3,9 +3,11 @@ nextflow_workflow {
     name "Test workflow: PHAGEANNOTATOR"
     script "workflows/phageannotator/main.nf"
     workflow "PHAGEANNOTATOR"
-    tag "workflows"
-    tag "phageannotator"
-    tag "phageannotator_default"
+    tag "PHAGEANNOTATOR_DEFAULT"
+
+    // Dependencies
+    tag "ANICLUSTER_ANICALC"
+    tag "ANICLUSTER_ANICLUST"
 
     test("Parameters: default") {
         when {

@@ -1,0 +1,31 @@
+Changes in module 'nf-core/mash/screen'
+--- /dev/null
++++ modules/nf-core/mash/screen/nextflow.config
+@@ -0,0 +1,13 @@
++process {
++    withName: MASH_SCREEN {
++        ext.args   = [
++            params.mash_screen_min_score ? "-i ${params.mash_screen_min_score}" : "",
++            params.mash_screen_winner_take_all ? "-w" : "",
++        ].join(' ').trim()
++        publishDir = [
++                path: { "${params.outdir}/ReferenceContainment/mash/screen" },
++                mode: params.publish_dir_mode,
++                pattern: '*.screen',
++        ]
++    }
++}
+--- modules/nf-core/mash/screen/main.nf
++++ modules/nf-core/mash/screen/main.nf
+@@ -8,8 +8,7 @@
+         'biocontainers/mash:2.3--he348c14_1' }"
+ 
+     input:
+-    tuple val(meta) , path(query)
+-    tuple val(meta2), path(sequences_sketch)
++    tuple val(meta) , path(query), path(sequences_sketch)
+ 
+     output:
+     tuple val(meta), path("*.screen"), emit: screen
+
+************************************************************

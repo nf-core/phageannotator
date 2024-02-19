@@ -3,10 +3,6 @@ nextflow_process {
     name "Test Process: COVERM_CONTIG"
     script "../main.nf"
     process "COVERM_CONTIG"
-    tag "modules"
-    tag "modules_local"
-    tag "coverm_contig"
-
 
     test("['bacteroides_fragilis']['illumina']['test1_paired_end_bam'] & ['bacteroides_fragilis']['illumina']['test2_paired_end_bam']") {
 

@@ -3,10 +3,6 @@ nextflow_process {
     name "Test Process: VIROMEQC_INSTALL"
     script "../main.nf"
     process "VIROMEQC_INSTALL"
-    tag "modules"
-    tag "modules_local"
-    tag "viromeqc_install"
-
 
     test("No input required") {
         then {

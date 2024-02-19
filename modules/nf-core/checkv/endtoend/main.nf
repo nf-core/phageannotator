@@ -57,6 +57,8 @@ process CHECKV_ENDTOEND {
     touch ${prefix}/proviruses.fna
     touch ${prefix}/viruses.fna
 
+    gzip ${prefix}/*viruses.fna
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         checkv: \$(checkv -h 2>&1  | sed -n 's/^.*CheckV v//; s/: assessing.*//; 1p')

@@ -1,2 +1,0 @@
-fasta_microdiversity_instrain:
-  - subworkflows/local/fasta_microdiversity_instrain/**

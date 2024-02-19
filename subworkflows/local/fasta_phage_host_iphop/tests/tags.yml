@@ -1,2 +1,0 @@
-fasta_phage_host_iphop_default:
-  - subworkflows/local/fasta_phage_host_iphop/**

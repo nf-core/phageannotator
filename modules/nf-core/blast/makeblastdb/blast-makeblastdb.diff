@@ -1,0 +1,45 @@
+Changes in module 'nf-core/blast/makeblastdb'
+--- /dev/null
++++ modules/nf-core/blast/makeblastdb/nextflow.config
+@@ -0,0 +1,9 @@
++process {
++    withName: BLAST_MAKEBLASTDB {
++        ext.args = "-dbtype nucl"
++        ext.prefix = 'blastdb'
++        publishDir = [
++            enabled: false
++        ]
++    }
++}
+--- modules/nf-core/blast/makeblastdb/main.nf
++++ modules/nf-core/blast/makeblastdb/main.nf
+@@ -11,15 +11,15 @@
+     tuple val(meta), path(fasta)
+ 
+     output:
+-    tuple val(meta), path("${meta.id}"), emit: db
+-    path "versions.yml"                , emit: versions
++    tuple val(meta), path("${prefix}")  , emit: db
++    path "versions.yml"                 , emit: versions
+ 
+     when:
+     task.ext.when == null || task.ext.when
+ 
+     script:
+     def args = task.ext.args ?: ''
+-    def prefix = task.ext.prefix ?: "${meta.id}"
++    prefix = task.ext.prefix ?: "${meta.id}"
+     def is_compressed = fasta.getExtension() == "gz" ? true : false
+     def fasta_name = is_compressed ? fasta.getBaseName() : fasta
+     """
+@@ -41,7 +41,7 @@
+ 
+     stub:
+     def args = task.ext.args ?: ''
+-    def prefix = task.ext.prefix ?: "${meta.id}"
++    prefix = task.ext.prefix ?: "${meta.id}"
+     def is_compressed = fasta.getExtension() == "gz" ? true : false
+     def fasta_name = is_compressed ? fasta.getBaseName() : fasta
+     """
+
+************************************************************

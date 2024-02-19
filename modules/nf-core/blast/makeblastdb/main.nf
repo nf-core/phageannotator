@@ -11,15 +11,15 @@ process BLAST_MAKEBLASTDB {
     tuple val(meta), path(fasta)
 
     output:
-    tuple val(meta), path("${meta.id}"), emit: db
-    path "versions.yml"                , emit: versions
+    tuple val(meta), path("${prefix}")  , emit: db
+    path "versions.yml"                 , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
 
     script:
     def args = task.ext.args ?: ''
-    def prefix = task.ext.prefix ?: "${meta.id}"
+    prefix = task.ext.prefix ?: "${meta.id}"
     def is_compressed = fasta.getExtension() == "gz" ? true : false
     def fasta_name = is_compressed ? fasta.getBaseName() : fasta
     """
@@ -41,7 +41,7 @@ process BLAST_MAKEBLASTDB {
 
     stub:
     def args = task.ext.args ?: ''
-    def prefix = task.ext.prefix ?: "${meta.id}"
+    prefix = task.ext.prefix ?: "${meta.id}"
     def is_compressed = fasta.getExtension() == "gz" ? true : false
     def fasta_name = is_compressed ? fasta.getBaseName() : fasta
     """

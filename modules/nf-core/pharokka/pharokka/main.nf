@@ -38,7 +38,7 @@ process PHAROKKA_PHAROKKA {
         --prefix ${prefix} \\
         $args 
 
-    gzip ${prefix}_pharokka/*.ffn ${prefix}_pharokka/*.faa ${prefix}_pharokka/*.gff ${prefix}_pharokka/*.gbk
+    ${prefix}_pharokka/*.gbk
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
@@ -60,9 +60,10 @@ process PHAROKKA_PHAROKKA {
     touch ${prefix}_pharokka/${prefix}_top_hits_card.tsv
     touch ${prefix}_pharokka/top_hits_vfdb.tsv
     touch ${prefix}_pharokka/${prefix}_top_hits_inphared
-    touch ${prefix}_pharokka/${prefix}
+    touch ${prefix}_pharokka/${prefix}_cds_final_merged_output.tsv
+    touch ${prefix}_pharokka/${prefix}_length_gc_cds_density.tsv
 
-    gzip ${prefix}_pharokka/*.ffn ${prefix}_pharokka/*.faa ${prefix}_pharokka/*.gff ${prefix}_pharokka/*.gbk
+    gzip ${prefix}_pharokka/*.gbk
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

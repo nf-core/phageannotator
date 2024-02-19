@@ -3,10 +3,6 @@ nextflow_process {
     name "Test Process: INSTRAIN_STB"
     script "../main.nf"
     process "INSTRAIN_STB"
-    tag "modules"
-    tag "modules_local"
-    tag "instrain_stb"
-
 
     test("['homo_sapiens']['genome']['genome_fasta']") {
 

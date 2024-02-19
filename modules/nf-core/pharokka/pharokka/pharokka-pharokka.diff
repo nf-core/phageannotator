@@ -47,11 +47,11 @@ Changes in module 'nf-core/pharokka/pharokka'
 -        $args
 +        $args 
 +
-+    gzip ${prefix}_pharokka/*.ffn ${prefix}_pharokka/*.faa ${prefix}_pharokka/*.gff ${prefix}_pharokka/*.gbk
++    ${prefix}_pharokka/*.gbk
  
      cat <<-END_VERSIONS > versions.yml
      "${task.process}":
-@@ -49,6 +52,8 @@
+@@ -49,13 +52,18 @@
  
      """
      mkdir -p ${prefix}_pharokka
@@ -60,14 +60,16 @@ Changes in module 'nf-core/pharokka/pharokka'
      touch ${prefix}_pharokka/${prefix}.gbk
      touch ${prefix}_pharokka/${prefix}.log
      touch ${prefix}_pharokka/${prefix}_cds_functions.tsv
-@@ -57,6 +62,8 @@
+     touch ${prefix}_pharokka/${prefix}_top_hits_card.tsv
+     touch ${prefix}_pharokka/top_hits_vfdb.tsv
      touch ${prefix}_pharokka/${prefix}_top_hits_inphared
-     touch ${prefix}_pharokka/${prefix}
- 
-+    gzip ${prefix}_pharokka/*.ffn ${prefix}_pharokka/*.faa ${prefix}_pharokka/*.gff ${prefix}_pharokka/*.gbk
+-    touch ${prefix}_pharokka/${prefix}
++    touch ${prefix}_pharokka/${prefix}_cds_final_merged_output.tsv
++    touch ${prefix}_pharokka/${prefix}_length_gc_cds_density.tsv
 +
++    gzip ${prefix}_pharokka/*.gbk
+ 
      cat <<-END_VERSIONS > versions.yml
      "${task.process}":
-         pharokka: \$(pharokka.py --version)
 
 ************************************************************

@@ -3,11 +3,7 @@ nextflow_workflow {
     name "Test Subworkflow: FASTA_PHAGE_FUNCTION_PHAROKKA"
     script "../main.nf"
     workflow "FASTA_PHAGE_FUNCTION_PHAROKKA"
-    tag "subworkflows"
-    tag "subworkflows_local"
-    tag "fasta_phage_function_pharokka"
-    tag "fasta_phage_function_pharokka_db_provided"
-
+    tag "LOCAL_ONLY_TESTS"
 
     test("Parameters: --pharokka_db provided") {
 

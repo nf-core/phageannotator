@@ -3,11 +3,6 @@ nextflow_process {
     name "Test process: ANICLUSTER_EXTRACTREPS"
     script "../main.nf"
     process "ANICLUSTER_EXTRACTREPS"
-    tag "modules"
-    tag "modules_local"
-    tag "anicluster"
-    tag "anicluster_extractreps"
-
 
     test("['bacteroides_fragilis']['illumina']['test1_contigs_fa_gz'] & ['modules_local']['clusters_tsv']") {
 

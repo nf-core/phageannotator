@@ -3,11 +3,7 @@ nextflow_workflow {
     name "Test Subworkflow: FASTA_VIRUS_CLASSIFICATION_GENOMAD"
     script "subworkflows/local/fasta_virus_classification_genomad/main.nf"
     workflow "FASTA_VIRUS_CLASSIFICATION_GENOMAD"
-    tag "subworkflows"
-    tag "subworkflows_local"
-    tag "fasta_virus_classification_genomad"
-    tag "fasta_virus_classification_genomad_default"
-
+    tag "FASTA_VIRUS_CLASSIFICATION_GENOMAD"
 
     test("Parameters: default") {
 

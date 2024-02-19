@@ -2,9 +2,7 @@ nextflow_pipeline {
 
     name "Test pipeline: NFCORE_PHAGEANNOTATOR"
     script "main.nf"
-    tag "pipeline"
-    tag "nfcore_phageannotator"
-    tag "nfcore_phageannotator_default"
+    tag "NFCORE_PHAGEANNOTATOR"
 
     test("Parameters: default") {
         when {

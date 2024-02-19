@@ -3,10 +3,6 @@ nextflow_process {
     name "Test Process: VIROMEQC_VIROMEQC"
     script "../main.nf"
     process "VIROMEQC_VIROMEQC"
-    tag "modules"
-    tag "modules_local"
-    tag "viromeqc_viromeqc"
-    tag "viromeqc_install"
 
     test("sarscov2 - illumina - test_1_fastq_gz") {
         setup {
