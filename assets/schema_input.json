@@ -11,7 +11,6 @@
                 "type": "string",
                 "pattern": "^\\S+$",
                 "errorMessage": "Sample name must be provided and cannot contain spaces",
-                "meta": ["id"],
                 "meta": ["id"]
             },
             "group": {
@@ -22,8 +21,6 @@
             },
             "fastq_1": {
                 "type": "string",
-                "format": "file-path",
-                "exists": true,
                 "format": "file-path",
                 "exists": true,
                 "pattern": "^\\S+\\.f(ast)?q\\.gz$",
