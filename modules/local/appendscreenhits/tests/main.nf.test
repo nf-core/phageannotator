@@ -19,7 +19,7 @@ nextflow_process {
                 ]
                 input[1] = [
                     [ id: 'reference' ],
-                    file(params.pipelines_testdata_base_pat + 'modules/local/append_screen_hits/reference.fasta.gz', checkIfExists: true)
+                    file(params.pipelines_testdata_base_path + 'modules/local/append_screen_hits/reference.fasta.gz', checkIfExists: true)
                 ]
                 """
             }
@@ -50,7 +50,7 @@ nextflow_process {
                 ]
                 input[1] = [
                     [ id: 'reference' ],
-                    file(params.pipelines_testdata_base_pat + 'modules/local/append_screen_hits/reference.fasta.gz', checkIfExists: true)
+                    file(params.pipelines_testdata_base_path + 'modules/local/append_screen_hits/reference.fasta.gz', checkIfExists: true)
                 ]
                 """
             }

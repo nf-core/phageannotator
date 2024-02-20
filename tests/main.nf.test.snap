@@ -52,10 +52,12 @@
                     [
                         [
                             "proviruses.fna.gz:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "quality_summary.tsv:md5,c131888534e7b03933c2a512b3390283",
                             "viruses.fna.gz:md5,fe58e669bc4af14ecbcb2182f5c7b7d2"
                         ],
                         [
                             "proviruses.fna.gz:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "quality_summary.tsv:md5,d2c70dd88db77ee12ce20d3325361732",
                             "viruses.fna.gz:md5,9b076877cee18dcfabf6ac5e513a198f"
                         ]
                     ]
@@ -71,8 +73,7 @@
                     "all_samples_ani.tsv:md5,0e621266188df0cb908fcc6ad1486080"
                 ],
                 [
-                    "all_samples_clusters.tsv:md5,eae06cf7ffafd72478bd943fbc5f516c",
-                    "versions.yml:md5,68070b01cdc8bf2e8ea2eb4b97d2cdad"
+                    "all_samples_clusters.tsv:md5,eae06cf7ffafd72478bd943fbc5f516c"
                 ]
             ],
             "test1.bowtie2.log:md5,f161a0eae2eec7fcbfee0d7675d6ef0d",
@@ -91,12 +92,12 @@
             ],
             "test1.IS_gene_info.tsv:md5,fa3090246663a1b4268f03f70fd04d72",
             "test2.IS_gene_info.tsv:md5,fa3090246663a1b4268f03f70fd04d72",
-            "software_versions.yml:md5,3d2ea4a6e456777a0a77bd88676f1994"
+            "software_versions.yml:md5,5bdf43def06fa441d061e54b8963fc9b"
         ],
         "meta": {
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-02-16T12:46:20.921346103"
+        "timestamp": "2024-02-20T11:53:00.761727554"
     }
 }

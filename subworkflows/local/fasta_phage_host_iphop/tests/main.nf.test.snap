@@ -1,0 +1,39 @@
+{
+    "fasta": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "Host_prediction_to_genus_m90.csv:md5,528dcefb6a6c743b43f0dbc40bec3692"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,41c2135a3578a7a52a23fd3243c22e80",
+                    "versions.yml:md5,6d962b190899f9580909b28917ffa748",
+                    "versions.yml:md5,c8e1743aa09ef3013ef7ddb1edc8c43e"
+                ],
+                "host_predictions_tsv": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "Host_prediction_to_genus_m90.csv:md5,528dcefb6a6c743b43f0dbc40bec3692"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,41c2135a3578a7a52a23fd3243c22e80",
+                    "versions.yml:md5,6d962b190899f9580909b28917ffa748",
+                    "versions.yml:md5,c8e1743aa09ef3013ef7ddb1edc8c43e"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-02-19T17:08:56.56407858"
+    }
+}

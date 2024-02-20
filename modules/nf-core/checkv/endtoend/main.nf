@@ -9,7 +9,7 @@ process CHECKV_ENDTOEND {
 
     input:
     tuple val(meta), path(fasta)
-    tuple val(meta2), path(db)
+    path db
 
     output:
     tuple val(meta), path ("${prefix}/quality_summary.tsv") , emit: quality_summary
@@ -36,7 +36,7 @@ process CHECKV_ENDTOEND {
         $fasta \\
         $prefix
 
-    gzip ${prefix}/*viruses.fna
+    gzip -f ${prefix}/*viruses.fna
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
@@ -57,7 +57,7 @@ process CHECKV_ENDTOEND {
     touch ${prefix}/proviruses.fna
     touch ${prefix}/viruses.fna
 
-    gzip ${prefix}/*viruses.fna
+    gzip -f ${prefix}/*viruses.fna
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

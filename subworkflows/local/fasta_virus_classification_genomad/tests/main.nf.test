@@ -23,7 +23,7 @@ nextflow_workflow {
                     ],
                     [
                         [ id:'test2' ],
-                        file(params.test_data + 'data/genomics/prokaryotes/bacteroides_fragilis/genome/genome.fna.gz', checkIfExists: true)
+                        file(params.modules_testdata_base_path + 'data/genomics/prokaryotes/bacteroides_fragilis/genome/genome.fna.gz', checkIfExists: true)
                     ]
                 )
                 input[1] = null

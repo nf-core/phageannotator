@@ -347,8 +347,28 @@ workflow PHAGEANNOTATOR {
         ch_pharokka_gbk_gz = FASTA_PHAGE_FUNCTION_PHAROKKA ( ch_anicluster_reps_fasta, ch_pharokka_db ).pharokka_gbk_gz
         ch_pharokka_output_tsv = FASTA_PHAGE_FUNCTION_PHAROKKA.out.pharokka_final_output_tsv
         ch_versions = ch_versions.mix( FASTA_PHAGE_FUNCTION_PHAROKKA.out.versions )
+
+        // gunzip proteins for input into instrain
+        ch_pharokka_gbk = GUNZIP_VIRUS_PROTEINS ( ch_pharokka_gbk_gz ).gunzip
+        ch_versions = ch_versions.mix( GUNZIP_VIRUS_PROTEINS.out.versions )
+
+        // add gene identifier to gbk for inStrain
+        ch_pharokka_gbk_mod = ch_pharokka_gbk
+        .map { meta, gbk ->
+            def gbk_mod = file("${workDir}/${meta.id}_mod.gbk")
+
+            gbk.withReader { source ->
+                gbk_mod.withWriter { target ->
+                    String line
+                    while( line=source.readLine() ) {
+                        target << line.replaceAll('/ID=','/gene=') << '\n'
+                    }
+                }
+            }
+            return [ meta, gbk_mod]
+        }
     } else {
-        ch_pharokka_gbk_gz = Channel.empty()
+        ch_pharokka_gbk_mod = []
         ch_pharokka_output_tsv = Channel.empty()
     }
 
@@ -356,27 +376,6 @@ workflow PHAGEANNOTATOR {
     /*----------------------------------------------------------------------------
         Analyze phage microdiversity
     ------------------------------------------------------------------------------*/
-    // gunzip proteins for input into instrain
-    ch_pharokka_gbk = GUNZIP_VIRUS_PROTEINS ( ch_pharokka_gbk_gz ).gunzip
-    ch_versions = ch_versions.mix( GUNZIP_VIRUS_PROTEINS.out.versions )
-
-    // add gene identifier to gbk for inStrain
-    ch_pharokka_gbk_mod = ch_pharokka_gbk
-    .map { meta, gbk ->
-        def gbk_mod = file("${workDir}/${meta.id}_mod.gbk")
-
-        gbk.withReader { source ->
-            gbk_mod.withWriter { target ->
-                String line
-                while( line=source.readLine() ) {
-                    target << line.replaceAll('/ID=','/gene=') << '\n'
-                }
-            }
-        }
-
-        return [ meta, gbk_mod]
-    }
-
     if ( !params.skip_instrain ) {
         //
         // MODULE: Generate instrain scaffold to bin file

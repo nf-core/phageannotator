@@ -1,0 +1,68 @@
+{
+    "genome.fasta": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "reference_fasta"
+                        },
+                        "reference_fasta.stb:md5,8f9e23730f7fda6be33ce21216fb7f2d"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,7df22a05d168d97527754f453fe59894"
+                ],
+                "stb": [
+                    [
+                        {
+                            "id": "reference_fasta"
+                        },
+                        "reference_fasta.stb:md5,8f9e23730f7fda6be33ce21216fb7f2d"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,7df22a05d168d97527754f453fe59894"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-02-19T17:10:31.746010063"
+    },
+    "genome.fasta - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "reference_fasta"
+                        },
+                        "reference_fasta.stb:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,7df22a05d168d97527754f453fe59894"
+                ],
+                "stb": [
+                    [
+                        {
+                            "id": "reference_fasta"
+                        },
+                        "reference_fasta.stb:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,7df22a05d168d97527754f453fe59894"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-02-19T17:10:42.221200638"
+    }
+}

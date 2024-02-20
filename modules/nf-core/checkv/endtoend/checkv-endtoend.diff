@@ -1,34 +1,7 @@
 Changes in module 'nf-core/checkv/endtoend'
---- /dev/null
-+++ modules/nf-core/checkv/endtoend/nextflow.config
-@@ -0,0 +1,16 @@
-+process {
-+    withName: CHECKV_ENDTOEND {
-+        publishDir = [
-+            [
-+                path: { "${params.outdir}/VirusQuality/checkv/endtoend" },
-+                mode: params.publish_dir_mode,
-+                pattern: '**/*quality_summary.tsv'
-+            ],
-+            [
-+                path: { "${params.outdir}/VirusQuality/checkv/endtoend" },
-+                mode: params.publish_dir_mode,
-+                pattern: '**/*viruses.fna.gz'
-+            ]
-+        ]
-+    }
-+}
 --- modules/nf-core/checkv/endtoend/main.nf
 +++ modules/nf-core/checkv/endtoend/main.nf
-@@ -9,15 +9,15 @@
- 
-     input:
-     tuple val(meta), path(fasta)
--    path db
-+    tuple val(meta2), path(db)
- 
-     output:
-     tuple val(meta), path ("${prefix}/quality_summary.tsv") , emit: quality_summary
+@@ -16,8 +16,8 @@
      tuple val(meta), path ("${prefix}/completeness.tsv")    , emit: completeness
      tuple val(meta), path ("${prefix}/contamination.tsv")   , emit: contamination
      tuple val(meta), path ("${prefix}/complete_genomes.tsv"), emit: complete_genomes
@@ -44,7 +17,7 @@ Changes in module 'nf-core/checkv/endtoend'
          $fasta \\
          $prefix
 +
-+    gzip ${prefix}/*viruses.fna
++    gzip -f ${prefix}/*viruses.fna
  
      cat <<-END_VERSIONS > versions.yml
      "${task.process}":
@@ -52,7 +25,7 @@ Changes in module 'nf-core/checkv/endtoend'
      touch ${prefix}/proviruses.fna
      touch ${prefix}/viruses.fna
  
-+    gzip ${prefix}/*viruses.fna
++    gzip -f ${prefix}/*viruses.fna
 +
      cat <<-END_VERSIONS > versions.yml
      "${task.process}":

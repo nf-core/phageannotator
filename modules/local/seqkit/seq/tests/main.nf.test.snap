@@ -1,0 +1,68 @@
+{
+    "fasta.gz - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.fasta.gz:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,de038a980ca1e484c0e34f4af3f05c2a"
+                ],
+                "fastx": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.fasta.gz:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,de038a980ca1e484c0e34f4af3f05c2a"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-02-19T17:03:57.945355863"
+    },
+    "fasta.gz": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.fasta.gz:md5,5c3970a6403ad9383b04e0e71ed69ac7"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,de038a980ca1e484c0e34f4af3f05c2a"
+                ],
+                "fastx": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.fasta.gz:md5,5c3970a6403ad9383b04e0e71ed69ac7"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,de038a980ca1e484c0e34f4af3f05c2a"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-02-19T17:03:51.240957232"
+    }
+}

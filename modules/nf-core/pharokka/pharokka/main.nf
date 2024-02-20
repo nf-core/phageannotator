@@ -38,7 +38,7 @@ process PHAROKKA_PHAROKKA {
         --prefix ${prefix} \\
         $args 
 
-    ${prefix}_pharokka/*.gbk
+    gzip ${prefix}_pharokka/*.gbk
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

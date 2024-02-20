@@ -19,7 +19,7 @@ nextflow_workflow {
                 input[0] = Channel.of(
                     [
                         [ id:'test' ],
-                        file(modules_testdata_base_path + 'data/genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists: true)
+                        file(params.modules_testdata_base_path + 'data/genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists: true)
                     ]
                 )
                 """
