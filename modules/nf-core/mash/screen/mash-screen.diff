@@ -1,0 +1,14 @@
+Changes in module 'nf-core/mash/screen'
+--- modules/nf-core/mash/screen/main.nf
++++ modules/nf-core/mash/screen/main.nf
+@@ -9,7 +9,7 @@
+ 
+     input:
+     tuple val(meta), path(query)
+-    path sequences_sketch
++    tuple val(meta), path(sequences_sketch)
+ 
+     output:
+     tuple val(meta), path("*.screen"), emit: screen
+
+************************************************************

@@ -1,0 +1,25 @@
+{
+    "Parameters: default": {
+        "content": [
+            {
+                "0": [
+                    
+                ],
+                "1": [
+                    "versions.yml:md5,816a6bc0dc4c7fe8dee2a3cd012b38e2",
+                    "versions.yml:md5,ca6a3c4a779d53a24bd7303d2f0736da",
+                    "versions.yml:md5,ca6a3c4a779d53a24bd7303d2f0736da"
+                ],
+                "gene_info_tsv": [
+                    
+                ],
+                "versions": [
+                    "versions.yml:md5,816a6bc0dc4c7fe8dee2a3cd012b38e2",
+                    "versions.yml:md5,ca6a3c4a779d53a24bd7303d2f0736da",
+                    "versions.yml:md5,ca6a3c4a779d53a24bd7303d2f0736da"
+                ]
+            }
+        ],
+        "timestamp": "2024-01-31T08:59:05.93091557"
+    }
+}

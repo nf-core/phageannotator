@@ -1,0 +1,46 @@
+nextflow_workflow {
+
+    name "Test workflow: PHAGEANNOTATOR"
+    script "workflows/phageannotator/main.nf"
+    workflow "PHAGEANNOTATOR"
+    tag "workflows"
+    tag "phageannotator"
+    tag "phageannotator_skip_genomad"
+
+    test("Parameters: skip_genomad = true") {
+        when {
+            workflow {
+                """
+                input[0] = Channel.of( [ [ id:'test' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['test1_1_fastq_gz'], checkIfExists: true),
+                            file(params.test_data['bacteroides_fragilis']['illumina']['test1_2_fastq_gz'], checkIfExists:true) ] ],
+                            [ [ id:'test2' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['test1_1_fastq_gz'], checkIfExists: true),
+                            file(params.test_data['bacteroides_fragilis']['illumina']['test1_2_fastq_gz'], checkIfExists:true) ] ] )
+                input[1] = Channel.of( [ [ id:'test' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['test1_contigs_fa_gz'], checkIfExists:true) ] ],
+                            [ [ id:'test2' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['test1_contigs_fa_gz'], checkIfExists:true) ] ])
+                """
+            }
+            params {
+                outdir                      = "$outputDir"
+                skip_genomad                = true
+                mash_screen_min_score       = 1
+                mash_screen_winner_take_all = true
+                genomad_min_score           = 0.01
+                genomad_max_fdr             = 1
+                genomad_disable_nn          = true
+                genomad_sensitivity         = 0.1
+                checkv_minimal_db           = true
+                checkv_min_length           = 25000
+                iphop_partial_test          = true
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() },
+                { assert path("${outputDir}/VirusLifestyle/bacphlip/all_samples_anicluster_representatives.fna.bacphlip").readLines().size() == 9 },
+                { assert path("${outputDir}/VirusAbundance/coverm/contig/all_samples_alignment_results.tsv").readLines().size() == 9 }
+            )
+        }
+    }
+}

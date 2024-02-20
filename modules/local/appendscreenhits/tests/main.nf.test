@@ -1,0 +1,58 @@
+nextflow_process {
+
+    name "Test process: APPENDSCREENHITS"
+    script "../main.nf"
+    process "APPENDSCREENHITS"
+    tag "modules"
+    tag "modules_local"
+    tag "appendscreenhits"
+
+
+    test("['modules_local']['mash_screen_results_tsv'] & ['modules_local']['assembly_fasta_gz'] & ['modules_local']['reference_fasta_gz']") {
+
+        when {
+            params {
+                outdir   = "$outputDir"
+            }
+            process {
+                """
+                input[0] = [ [ id: 'test' ], [ file(params.test_data['modules_local']['mash_screen_results_tsv'], checkIfExists: true) ],
+                            [ file(params.test_data['modules_local']['assembly_fasta_gz'], checkIfExists: true) ] ]
+                input[1] = [ [ id: 'reference' ], [ file(params.test_data['modules_local']['reference_fasta_gz'], checkIfExists: true) ] ]
+                """
+            }
+        }
+
+        then {
+            assertAll (
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+
+    test("['modules_local']['mash_screen_results_tsv'] & ['modules_local']['assembly_fasta_gz'] & ['modules_local']['reference_fasta_gz'] - stub") {
+
+        options "-stub"
+
+        when {
+            params {
+                outdir   = "$outputDir"
+            }
+            process {
+                """
+                input[0] = [ [ id: 'test' ], [ file(params.test_data['modules_local']['mash_screen_results_tsv'], checkIfExists: true) ],
+                            [ file(params.test_data['modules_local']['assembly_fasta_gz'], checkIfExists: true) ] ]
+                input[1] = [ [ id: 'reference' ], [ file(params.test_data['modules_local']['reference_fasta_gz'], checkIfExists: true) ] ]
+                """
+            }
+        }
+
+        then {
+            assertAll (
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+}
