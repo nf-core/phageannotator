@@ -13,45 +13,34 @@ nextflow.enable.dsl = 2
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    VALIDATE & PRINT PARAMETER SUMMARY
+    IMPORT FUNCTIONS / MODULES / SUBWORKFLOWS / WORKFLOWS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { paramsSummaryMap; fromSamplesheet } from 'plugin/nf-validation'
+//
+// PLUGIN: Installed from nextflow plugins
+//
+include { paramsSummaryMap                      } from 'plugin/nf-validation'
 
-// Check if --input file is empty
-ch_input = file(params.input, checkIfExists: true)
-if (ch_input.isEmpty()) { error("File provided with --input is empty: ${ch_input.getName()}!") }
+//
+// MODULE
+//
+include { MULTIQC                               } from '../../modules/nf-core/multiqc/main'
+include { FASTQC                                } from '../../modules/nf-core/fastqc/main'
 
-// read in samplesheet from --input file
-Channel
-    .fromSamplesheet("input")
-    .multiMap { meta, fastq_1, fastq_2, fasta ->
-        fastq_gz: [ meta, [ fastq_1, fastq_2 ] ]
-        fasta_gz: [ meta, fasta ]
-    }
-    .set { ch_input }
+//
+// SUBWORKFLOW
+//
+include { PIPELINE_INITIALISATION       } from './subworkflows/local/utils_nfcore_phageannotator_pipeline'
+include { paramsSummaryMultiqc          } from '../../subworkflows/nf-core/utils_nfcore_pipeline'
+include { softwareVersionsToYAML        } from '../../subworkflows/nf-core/utils_nfcore_pipeline'
+include { methodsDescriptionText        } from '../../subworkflows/local/utils_nfcore_phageannotator_pipeline'
+include { PIPELINE_COMPLETION        } from './subworkflows/local/utils_nfcore_phageannotator_pipeline'
 
-
-/*
-========================================================================================
-    IMPORT MODULES/SUBWORKFLOWS
-========================================================================================
-*/
-
-include { INITIALISE                    } from './subworkflows/nf-core/initialise/main' // TODO: Update subworkflow
-include { FASTQC                        } from './modules/nf-core/fastqc/main'
-include { CUSTOM_DUMPSOFTWAREVERSIONS   } from './modules/nf-core/custom/dumpsoftwareversions/main'
-include { MULTIQC                       } from './modules/nf-core/multiqc/main'
-
-
-/*
-========================================================================================
-    IMPORT WORKFLOWS
-========================================================================================
-*/
-
-include { PHAGEANNOTATOR } from './workflows/phageannotator/main'
+//
+// WORKFLOW
+//
+include { PHAGEANNOTATOR            } from './workflows/phageannotator/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -59,103 +48,108 @@ include { PHAGEANNOTATOR } from './workflows/phageannotator/main'
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-def summary_params = paramsSummaryMap(workflow)
-
 //
-// WORKFLOW: Run main nf-core/phageannotator analysis pipeline
+// WORKFLOW: Run main analysis pipeline depending on type of input
 //
 workflow NFCORE_PHAGEANNOTATOR {
 
-    INITIALISE ( params.version, params.help, params.validate_params, params.logo )
+    take:
+    samplesheet // channel: samplesheet read in from --input
 
-    ch_versions = Channel.empty()
+    main:
 
     //
-    // MODULE: Analyze read quality
+    // WORKFLOW: Run pipeline
     //
-    FASTQC ( ch_input.fastq_gz )
+    PHAGEANNOTATOR (
+        samplesheet
+    )
+
+    emit:
+    multiqc_report = PHAGEANNOTATOR.out.multiqc_report // channel: /path/to/multiqc_report.html
+
+}
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    RUN MAIN WORKFLOW
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+
+workflow {
+
+    main:
+
+    //
+    // SUBWORKFLOW: Run initialisation tasks
+    //
+    PIPELINE_INITIALISATION (
+        params.version,
+        params.help,
+        params.validate_params,
+        params.monochrome_logs,
+        args,
+        params.outdir,
+        params.input
+    )
+
+    //
+    // MODULE: Run FastQC
+    //
+    FASTQC (
+        PIPELINE_INITIALISATION.out.samplesheet.map { meta, fastq, fasta -> return [ meta, fastq ] }
+    )
+    ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]})
     ch_versions = ch_versions.mix(FASTQC.out.versions.first())
 
     //
-    // WORKFLOW: Classify and annotate phage sequences in assemblies
+    // WORKFLOW: Run main workflow
     //
-    PHAGEANNOTATOR ( ch_input.fastq_gz, ch_input.fasta_gz )
-    ch_versions = ch_versions.mix(PHAGEANNOTATOR.out.versions)
+    NFCORE_PHAGEANNOTATOR (
+        PIPELINE_INITIALISATION.out.samplesheet
+    )
 
     //
-    // MODULE: Dump software versions for all tools used in the workflow
+    // Collate and save software versions
     //
-    CUSTOM_DUMPSOFTWAREVERSIONS (ch_versions.unique().collectFile(name: 'collated_versions.yml'))
-
-    // obtain MultiQC configs
-    ch_multiqc_config          = Channel.fromPath("$projectDir/assets/multiqc_config.yml", checkIfExists: true)
-    ch_multiqc_custom_config   = params.multiqc_config ? Channel.fromPath( params.multiqc_config, checkIfExists: true ) : Channel.empty()
-    ch_multiqc_logo            = params.multiqc_logo   ? Channel.fromPath( params.multiqc_logo, checkIfExists: true ) : Channel.empty()
-    ch_multiqc_custom_methods_description = params.multiqc_methods_description ? file(params.multiqc_methods_description, checkIfExists: true) : file("$projectDir/assets/methods_description_template.yml", checkIfExists: true)
-
-    // create workflow summary
-    workflow_summary    = WorkflowPhageannotator.paramsSummaryMultiqc(workflow, summary_params)
-    ch_workflow_summary = Channel.value(workflow_summary)
-
-    // create methods description channel
-    methods_description    = WorkflowPhageannotator.methodsDescriptionText(workflow, ch_multiqc_custom_methods_description, params)
-    ch_methods_description = Channel.value(methods_description)
-
-    // prepare MultiQC input
-    ch_multiqc_files = Channel.empty()
-    ch_multiqc_files = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
-    ch_multiqc_files = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml'))
-    ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
-    ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
+    softwareVersionsToYAML(NFCORE_PHAGEANNOTATOR.out.versions)
+        .collectFile(storeDir: "${params.outdir}/pipeline_info", name: 'nf_core_pipeline_software_mqc_versions.yml', sort: true, newLine: true)
+        .set { ch_collated_versions }
 
     //
     // MODULE: MultiQC
     //
+    ch_multiqc_config                     = Channel.fromPath("$projectDir/assets/multiqc_config.yml", checkIfExists: true)
+    ch_multiqc_custom_config              = params.multiqc_config ? Channel.fromPath(params.multiqc_config, checkIfExists: true) : Channel.empty()
+    ch_multiqc_logo                       = params.multiqc_logo ? Channel.fromPath(params.multiqc_logo, checkIfExists: true) : Channel.empty()
+    summary_params                        = paramsSummaryMap(workflow, parameters_schema: "nextflow_schema.json")
+    ch_workflow_summary                   = Channel.value(paramsSummaryMultiqc(summary_params))
+    ch_multiqc_custom_methods_description = params.multiqc_methods_description ? file(params.multiqc_methods_description, checkIfExists: true) : file("$projectDir/assets/methods_description_template.yml", checkIfExists: true)
+    ch_methods_description                = Channel.value(methodsDescriptionText(ch_multiqc_custom_methods_description))
+    ch_multiqc_files                      = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
+    ch_multiqc_files                      = ch_multiqc_files.mix(ch_collated_versions)
+    ch_multiqc_files                      = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml', sort: false))
+
     MULTIQC (
         ch_multiqc_files.collect(),
         ch_multiqc_config.toList(),
         ch_multiqc_custom_config.toList(),
         ch_multiqc_logo.toList()
     )
-    multiqc_report = MULTIQC.out.report.toList()
-}
 
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    RUN ALL WORKFLOWS
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
+    ch_multiqc_report  = MULTIQC.out.report.toList() // channel: /path/to/multiqc_report.html
 
-//
-// WORKFLOW: Execute a single named workflow for the pipeline
-// See: https://github.com/nf-core/rnaseq/issues/619
-//
-workflow {
-    NFCORE_PHAGEANNOTATOR ()
-}
-
-
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    COMPLETION EMAIL AND SUMMARY
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
-
-workflow.onComplete {
-    if (params.email || params.email_on_fail) {
-        NfcoreTemplate.email(workflow, params, summary_params, projectDir, log, multiqc_report)
-    }
-    NfcoreTemplate.summary(workflow, params, log)
-    if (params.hook_url) {
-        NfcoreTemplate.IM_notification(workflow, params, summary_params, projectDir, log)
-    }
-}
-
-workflow.onError {
-    if (workflow.errorReport.contains("Process requirement exceeds available memory")) {
-        println("🛑 Default resources exceed availability 🛑 ")
-        println("💡 See here on how to configure pipeline: https://nf-co.re/docs/usage/configuration#tuning-workflow-resources 💡")
-    }
+    //
+    // SUBWORKFLOW: Run completion tasks
+    //
+    PIPELINE_COMPLETION (
+        params.email,
+        params.email_on_fail,
+        params.plaintext_email,
+        params.outdir,
+        params.monochrome_logs,
+        params.hook_url,
+        ch_multiqc_report
+    )
 }
 
 /*

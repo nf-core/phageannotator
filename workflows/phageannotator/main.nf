@@ -59,9 +59,6 @@ include { FASTQ_ALIGN_BOWTIE2           } from '../../subworkflows/nf-core/fastq
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-// Info required for completion email and summary
-def multiqc_report = []
-
 workflow PHAGEANNOTATOR {
 
     take:
@@ -69,7 +66,7 @@ workflow PHAGEANNOTATOR {
     fasta_gz    // [ [ meta ], assembly.fasta.gz ]  , assemblies/genomes (mandatory)
 
     main:
-    ch_versions                         = Channel.empty()
+    ch_versions         = Channel.empty()
 
 
     /*----------------------------------------------------------------------------
@@ -408,7 +405,6 @@ workflow PHAGEANNOTATOR {
     instrain_gene_info          = ch_gene_info_tsv
     versions                    = ch_versions
 }
-
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
