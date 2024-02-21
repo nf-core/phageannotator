@@ -31,11 +31,11 @@ include { FASTQC                                } from '../../modules/nf-core/fa
 //
 // SUBWORKFLOW
 //
-include { PIPELINE_INITIALISATION   } from './subworkflows/local/utils_nfcore_phageannotator_pipeline'
+include { PIPELINE_INITIALISATION       } from './subworkflows/local/utils_nfcore_phageannotator_pipeline'
 include { paramsSummaryMultiqc          } from '../../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML        } from '../../subworkflows/nf-core/utils_nfcore_pipeline'
 include { methodsDescriptionText        } from '../../subworkflows/local/utils_nfcore_phageannotator_pipeline'
-include { PIPELINE_COMPLETION       } from './subworkflows/local/utils_nfcore_phageannotator_pipeline'
+include { PIPELINE_COMPLETION        } from './subworkflows/local/utils_nfcore_phageannotator_pipeline'
 
 //
 // WORKFLOW
