@@ -1,0 +1,68 @@
+{
+    "test1.msh & test2.msh - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test1"
+                        },
+                        "test1-test2.msh:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,ae26f75a540c8b80b0e4172b54f0e89d"
+                ],
+                "msh": [
+                    [
+                        {
+                            "id": "test1"
+                        },
+                        "test1-test2.msh:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,ae26f75a540c8b80b0e4172b54f0e89d"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-02-21T12:59:43.149503984"
+    },
+    "test1.msh & test2.msh": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test1"
+                        },
+                        "test1-test2.msh:md5,37a3fadd36ab7a39f099465da3e17430"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,ae26f75a540c8b80b0e4172b54f0e89d"
+                ],
+                "msh": [
+                    [
+                        {
+                            "id": "test1"
+                        },
+                        "test1-test2.msh:md5,37a3fadd36ab7a39f099465da3e17430"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,ae26f75a540c8b80b0e4172b54f0e89d"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-02-21T12:59:34.949677201"
+    }
+}

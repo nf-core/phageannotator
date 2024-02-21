@@ -1,0 +1,68 @@
+{
+    "reads_1.fastq.gz & reads_2.fastq.gz & viromeqc_db": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.viromeqc.tsv:md5,6acbffc97f75774cf9fcc953b98913ed"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,1d793f1196d60e1c94969fb0a103e353"
+                ],
+                "enrichment": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.viromeqc.tsv:md5,6acbffc97f75774cf9fcc953b98913ed"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,1d793f1196d60e1c94969fb0a103e353"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-02-21T13:03:00.013402413"
+    },
+    "reads_1.fastq.gz & reads_2.fastq.gz & viromeqc_db - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.viromeqc.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,2877c7f2bffbd5cd7c2cccc730b9f093"
+                ],
+                "enrichment": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.viromeqc.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,2877c7f2bffbd5cd7c2cccc730b9f093"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-02-21T13:03:23.878748215"
+    }
+}

@@ -14,7 +14,7 @@ nextflow_process {
                 """
                 input[0] = [
                     [ id: 'test' ],
-                    file(params.modules_testdata_base_path + 'data/genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists: true ),
+                    file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists: true ),
                     file(params.pipelines_testdata_base_path + '/modules/local/anicluster/extractreps/clusters.tsv', checkIfExists: true )
                 ]
                 """
@@ -41,7 +41,7 @@ nextflow_process {
                 """
                 input[0] = [
                     [ id: 'test' ],
-                    file(params.modules_testdata_base_path + 'data/genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists: true ),
+                    file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists: true ),
                     file(params.pipelines_testdata_base_path + '/modules/local/anicluster/extractreps/clusters.tsv', checkIfExists: true )
                 ]
                 """

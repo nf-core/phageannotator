@@ -17,8 +17,8 @@ nextflow_process {
                 input[0] = [
                     [ id:'test' ], // meta map
                     [
-                        file(params.modules_testdata_base_path + 'data/genomics/sarscov2/illumina/fastq/test_1.fastq.gz', checkifExists: true),
-                        file(params.modules_testdata_base_path + 'data/genomics/sarscov2/illumina/fastq/test_2.fastq.gz', checkifExists: true),
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/fastq/test_1.fastq.gz', checkifExists: true),
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/fastq/test_2.fastq.gz', checkifExists: true),
                     ]
                 ]
                 input[1] = VIROMEQC_INSTALL.out.viromeqc_index
@@ -50,8 +50,8 @@ nextflow_process {
                 input[0] = [
                     [ id:'test' ], // meta map
                     [
-                        file(params.modules_testdata_base_path + 'data/genomics/sarscov2/illumina/fastq/test_1.fastq.gz', checkifExists: true),
-                        file(params.modules_testdata_base_path + 'data/genomics/sarscov2/illumina/fastq/test_2.fastq.gz', checkifExists: true),
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/fastq/test_1.fastq.gz', checkifExists: true),
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/fastq/test_2.fastq.gz', checkifExists: true),
                     ]
                 ]
                 input[1] = VIROMEQC_INSTALL.out.viromeqc_index

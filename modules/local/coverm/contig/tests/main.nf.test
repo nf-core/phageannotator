@@ -15,8 +15,8 @@ nextflow_process {
                 input[0] = [
                     [ id: 'all_samples' ],
                     [
-                        file(params.modules_testdata_base_path + 'data/genomics/prokaryotes/bacteroides_fragilis/illumina/bam/test1.bam', checkIfExists: true),
-                        file(params.modules_testdata_base_path + 'data/genomics/prokaryotes/bacteroides_fragilis/illumina/bam/test2.bam', checkIfExists: true)
+                        file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/bam/test1.bam', checkIfExists: true),
+                        file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/bam/test2.bam', checkIfExists: true)
                     ]
                 ]
                 """
@@ -44,8 +44,8 @@ nextflow_process {
                 input[0] = [
                     [ id: 'all_samples' ],
                     [
-                        file(params.modules_testdata_base_path + 'data/genomics/prokaryotes/bacteroides_fragilis/illumina/bam/test1.bam', checkIfExists: true),
-                        file(params.modules_testdata_base_path + 'data/genomics/prokaryotes/bacteroides_fragilis/illumina/bam/test2.bam', checkIfExists: true)
+                        file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/bam/test1.bam', checkIfExists: true),
+                        file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/bam/test2.bam', checkIfExists: true)
                     ]
                 ]
                 """
