@@ -19,16 +19,16 @@ nextflow_workflow {
                 input[0] = Channel.of(
                     [
                         [ id:'test' ],
-                        file(params.modules_testdata_base_path + 'data/genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam', checkIfExists: true)
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam', checkIfExists: true)
                     ],
                     [
                         [ id:'test2' ],
-                        file(params.modules_testdata_base_path + 'data/genomics/homo_sapiens/illumina/bam/test2.paired_end.sorted.bam', checkIfExists: true)
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/bam/test2.paired_end.sorted.bam', checkIfExists: true)
                     ]
                 )
                 input[1] = Channel.of([
                     [ id: 'reference_fasta' ],
-                    file(params.modules_testdata_base_path + 'data/genomics/homo_sapiens/genome/genome.fasta', checkIfExists: true)
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/genome.fasta', checkIfExists: true)
                     ]
                 )
                 input[2] = null

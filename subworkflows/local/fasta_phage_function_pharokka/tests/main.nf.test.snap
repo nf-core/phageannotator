@@ -11,7 +11,7 @@
                         {
                             "id": "test"
                         },
-                        "test.gbk.gz:md5,9464a5010ccbc83ec7de376fe377fbc4"
+                        "test.gbk.gz:md5,a9052ce63b97f3530b0253f6dbec77ce"
                     ]
                 ],
                 "2": [
@@ -35,7 +35,7 @@
                         {
                             "id": "test"
                         },
-                        "test.gbk.gz:md5,9464a5010ccbc83ec7de376fe377fbc4"
+                        "test.gbk.gz:md5,a9052ce63b97f3530b0253f6dbec77ce"
                     ]
                 ],
                 "versions": [
@@ -48,6 +48,6 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-02-20T09:55:52.619672915"
+        "timestamp": "2024-02-21T13:34:22.578005355"
     }
 }

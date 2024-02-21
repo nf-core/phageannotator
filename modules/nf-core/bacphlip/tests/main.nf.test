@@ -7,6 +7,7 @@ nextflow_process {
     tag "modules"
     tag "modules_nfcore"
     tag "bacphlip"
+    config "./nextflow.config"
 
     test("candidatus_portiera_aleyrodidarum - genome - fasta") {
 

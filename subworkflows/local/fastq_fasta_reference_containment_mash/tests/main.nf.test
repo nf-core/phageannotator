@@ -22,32 +22,32 @@ nextflow_workflow {
                     [
                         [ id:'test' ],
                         [
-                            file(params.modules_testdata_base_path + 'data/genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_1.fastq.gz', checkIfExists:true),
-                            file(params.modules_testdata_base_path + 'data/genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_2.fastq.gz', checkIfExists: true)
+                            file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_1.fastq.gz', checkIfExists:true),
+                            file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_2.fastq.gz', checkIfExists: true)
                         ]
                     ],
                     [
                         [ id:'test2' ],
                         [
-                            file(params.modules_testdata_base_path + 'data/genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test2_1.fastq.gz', checkIfExists:true),
-                            file(params.modules_testdata_base_path + 'data/genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test2_2.fastq.gz', checkIfExists: true)
+                            file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test2_1.fastq.gz', checkIfExists:true),
+                            file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test2_2.fastq.gz', checkIfExists: true)
                         ]
                     ]
                 )
                 input[1] = Channel.of(
                     [
                         [ id:'test' ],
-                        file(params.modules_testdata_base_path + 'data/genomics/prokaryotes/bacteroides_fragilis/genome/genome.fna.gz', checkIfExists:true)\
+                        file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/genome/genome.fna.gz', checkIfExists:true)\
                     ],
                     [
                         [ id:'test2' ],
-                        file(params.modules_testdata_base_path + 'data/genomics/prokaryotes/bacteroides_fragilis/genome/genome.fna.gz', checkIfExists:true)
+                        file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/genome/genome.fna.gz', checkIfExists:true)
                     ]
                 )
                 input[2] = Channel.of(
                     [
                         [ id:'reference_viruses' ],
-                        file(params.modules_testdata_base_path + 'data/genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists:true)
+                        file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists:true)
                     ]
                 )
                 input[3] = null

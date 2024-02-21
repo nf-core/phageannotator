@@ -39,7 +39,8 @@
                     "checkv/downloaddatabase": {
                         "branch": "master",
                         "git_sha": "56cf5a89c2646ad50195635cf18df4028a6928ce",
-                        "installed_by": ["modules"]
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/checkv/downloaddatabase/checkv-downloaddatabase.diff"
                     },
                     "checkv/endtoend": {
                         "branch": "master",
@@ -60,12 +61,14 @@
                     "genomad/endtoend": {
                         "branch": "master",
                         "git_sha": "9b68cbd01a704aaf2c34f6d6bc7c25e9b4670147",
-                        "installed_by": ["modules"]
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/genomad/endtoend/genomad-endtoend.diff"
                     },
                     "gunzip": {
                         "branch": "master",
                         "git_sha": "8663c9d215573d4bd0417c93dbc310aa9e6720a4",
-                        "installed_by": ["modules"]
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/gunzip/gunzip.diff"
                     },
                     "instrain/compare": {
                         "branch": "master",

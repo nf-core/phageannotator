@@ -67,12 +67,7 @@
                     ]
                 ],
                 "5": [
-                    [
-                        {
-                            "id": "all_samples"
-                        },
-                        "Host_prediction_to_genus_m90.csv:md5,528dcefb6a6c743b43f0dbc40bec3692"
-                    ]
+                    
                 ],
                 "6": [
                     [
@@ -91,55 +86,28 @@
                     ]
                 ],
                 "8": [
-                    [
-                        {
-                            "id": "test2"
-                        },
-                        "test2.IS_gene_info.tsv:md5,30955831e41455af9e653516ae6a9a6b"
-                    ],
-                    [
-                        {
-                            "id": "test"
-                        },
-                        "test.IS_gene_info.tsv:md5,30955831e41455af9e653516ae6a9a6b"
-                    ]
+                    
                 ],
                 "9": [
-                    "versions.yml:md5,005aa3fca95c916b586f09b1c12aae6f",
-                    "versions.yml:md5,005aa3fca95c916b586f09b1c12aae6f",
                     "versions.yml:md5,04bf25e5231ce1f8077581bb7a2c07f4",
                     "versions.yml:md5,0c310e8a973612ff99e0df847fb656ea",
-                    "versions.yml:md5,0e57d76cb0b6149bbb32aded3595de9b",
-                    "versions.yml:md5,0e57d76cb0b6149bbb32aded3595de9b",
                     "versions.yml:md5,1097ac7d62d13e9e74916d9dc1fabb7b",
                     "versions.yml:md5,1439e948f383899aaccbf49506923b04",
-                    "versions.yml:md5,1d0c30d6933e25e18f2cc3094490b2c5",
                     "versions.yml:md5,2b068b9678f63d6bb06a2a3652e92ba9",
-                    "versions.yml:md5,374c63bf7c31c6c34acbf8d74e6c7dcc",
                     "versions.yml:md5,3c8b8ac5a86d6d7fba86fc61f4d5fca9",
-                    "versions.yml:md5,42ce3c1803e6f3030b60d1d4610b629d",
-                    "versions.yml:md5,478c8fdcebf1357f40c26d7991d85eb4",
                     "versions.yml:md5,5074b29ede738ba6d39ef056e1cde929",
                     "versions.yml:md5,5bf636608598d8b495d8b38fcee37dd0",
                     "versions.yml:md5,6323b255a9c1b9ed3e1a41aea5bfa2bb",
-                    "versions.yml:md5,716410d7e9dc048a64ada71202cbc23e",
-                    "versions.yml:md5,74b2068d24b17a2f4a097a3063da3dae",
                     "versions.yml:md5,769114e3bb009aceb4763a1a0fa80d5a",
                     "versions.yml:md5,7cb8c67c6ff9cf01f799d6730d5ebd15",
                     "versions.yml:md5,7e54b5f822df67b99faf67629e81963f",
                     "versions.yml:md5,7e54b5f822df67b99faf67629e81963f",
                     "versions.yml:md5,8aebba726df29aad131772449019ee78",
-                    "versions.yml:md5,987d2e54a85311b917599dc41c90418c",
                     "versions.yml:md5,a856eefde99260259440d942c1d56ff4",
                     "versions.yml:md5,afc743a69ab04322fbc732b24e18d208",
-                    "versions.yml:md5,b6a0d868f5f2be1093be05fc0638008d",
-                    "versions.yml:md5,bcf62c8c784b9f46c8372e86654cae6b",
-                    "versions.yml:md5,bcf62c8c784b9f46c8372e86654cae6b",
                     "versions.yml:md5,c0598196e761dbcdc90ff95a2f623b9c",
                     "versions.yml:md5,d1e2a23440cc3dbeedc1c628bf792072",
                     "versions.yml:md5,d1e2a23440cc3dbeedc1c628bf792072",
-                    "versions.yml:md5,dc43c8404f9f95b46c1a9c8d51687032",
-                    "versions.yml:md5,dc43c8404f9f95b46c1a9c8d51687032",
                     "versions.yml:md5,de688faac0a9124c4f2db74ce1b2c795",
                     "versions.yml:md5,dfa7110695181c4e8daa47d384563588",
                     "versions.yml:md5,f0fb33bafe201277b708dd626f243f8a"
@@ -167,26 +135,10 @@
                     ]
                 ],
                 "host_predictions_tsv": [
-                    [
-                        {
-                            "id": "all_samples"
-                        },
-                        "Host_prediction_to_genus_m90.csv:md5,528dcefb6a6c743b43f0dbc40bec3692"
-                    ]
+                    
                 ],
                 "instrain_gene_info": [
-                    [
-                        {
-                            "id": "test2"
-                        },
-                        "test2.IS_gene_info.tsv:md5,30955831e41455af9e653516ae6a9a6b"
-                    ],
-                    [
-                        {
-                            "id": "test"
-                        },
-                        "test.IS_gene_info.tsv:md5,30955831e41455af9e653516ae6a9a6b"
-                    ]
+                    
                 ],
                 "marker_taxonomy_tsv": [
                     [
@@ -205,41 +157,25 @@
                     ]
                 ],
                 "versions": [
-                    "versions.yml:md5,005aa3fca95c916b586f09b1c12aae6f",
-                    "versions.yml:md5,005aa3fca95c916b586f09b1c12aae6f",
                     "versions.yml:md5,04bf25e5231ce1f8077581bb7a2c07f4",
                     "versions.yml:md5,0c310e8a973612ff99e0df847fb656ea",
-                    "versions.yml:md5,0e57d76cb0b6149bbb32aded3595de9b",
-                    "versions.yml:md5,0e57d76cb0b6149bbb32aded3595de9b",
                     "versions.yml:md5,1097ac7d62d13e9e74916d9dc1fabb7b",
                     "versions.yml:md5,1439e948f383899aaccbf49506923b04",
-                    "versions.yml:md5,1d0c30d6933e25e18f2cc3094490b2c5",
                     "versions.yml:md5,2b068b9678f63d6bb06a2a3652e92ba9",
-                    "versions.yml:md5,374c63bf7c31c6c34acbf8d74e6c7dcc",
                     "versions.yml:md5,3c8b8ac5a86d6d7fba86fc61f4d5fca9",
-                    "versions.yml:md5,42ce3c1803e6f3030b60d1d4610b629d",
-                    "versions.yml:md5,478c8fdcebf1357f40c26d7991d85eb4",
                     "versions.yml:md5,5074b29ede738ba6d39ef056e1cde929",
                     "versions.yml:md5,5bf636608598d8b495d8b38fcee37dd0",
                     "versions.yml:md5,6323b255a9c1b9ed3e1a41aea5bfa2bb",
-                    "versions.yml:md5,716410d7e9dc048a64ada71202cbc23e",
-                    "versions.yml:md5,74b2068d24b17a2f4a097a3063da3dae",
                     "versions.yml:md5,769114e3bb009aceb4763a1a0fa80d5a",
                     "versions.yml:md5,7cb8c67c6ff9cf01f799d6730d5ebd15",
                     "versions.yml:md5,7e54b5f822df67b99faf67629e81963f",
                     "versions.yml:md5,7e54b5f822df67b99faf67629e81963f",
                     "versions.yml:md5,8aebba726df29aad131772449019ee78",
-                    "versions.yml:md5,987d2e54a85311b917599dc41c90418c",
                     "versions.yml:md5,a856eefde99260259440d942c1d56ff4",
                     "versions.yml:md5,afc743a69ab04322fbc732b24e18d208",
-                    "versions.yml:md5,b6a0d868f5f2be1093be05fc0638008d",
-                    "versions.yml:md5,bcf62c8c784b9f46c8372e86654cae6b",
-                    "versions.yml:md5,bcf62c8c784b9f46c8372e86654cae6b",
                     "versions.yml:md5,c0598196e761dbcdc90ff95a2f623b9c",
                     "versions.yml:md5,d1e2a23440cc3dbeedc1c628bf792072",
                     "versions.yml:md5,d1e2a23440cc3dbeedc1c628bf792072",
-                    "versions.yml:md5,dc43c8404f9f95b46c1a9c8d51687032",
-                    "versions.yml:md5,dc43c8404f9f95b46c1a9c8d51687032",
                     "versions.yml:md5,de688faac0a9124c4f2db74ce1b2c795",
                     "versions.yml:md5,dfa7110695181c4e8daa47d384563588",
                     "versions.yml:md5,f0fb33bafe201277b708dd626f243f8a"
@@ -292,6 +228,6 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-02-20T11:33:16.398471596"
+        "timestamp": "2024-02-21T14:26:30.839093248"
     }
 }
