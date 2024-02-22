@@ -48,7 +48,6 @@ jobs:
           # Mostly, we define additional 'pipeline' or 'all' tests here
           files_yaml: |
             ".":
-              - .github/workflows/**
               - nf-test.config
               - nextflow.config
             tests:
