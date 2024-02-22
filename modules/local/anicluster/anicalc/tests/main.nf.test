@@ -3,13 +3,8 @@ nextflow_process {
     name "Test process: ANICLUSTER_ANICALC"
     script "../main.nf"
     process "ANICLUSTER_ANICALC"
-    tag "modules"
-    tag "modules_local"
-    tag "anicluster"
-    tag "anicluster_anicalc"
 
-
-    test("['modules_local']['blast_txt']") {
+    test("blast.txt") {
 
         when {
             params {
@@ -17,7 +12,10 @@ nextflow_process {
             }
             process {
                 """
-                input[0] = [ [ id: 'test' ], [ file(params.test_data['modules_local']['blast_txt'], checkIfExists: true) ] ]
+                input[0] = [
+                    [ id: 'test' ]
+                    file(params.pipelines_testdata_base_path + 'modules/local/anicluster/anicalc/blast.txt', checkIfExists: true)
+                ]
                 """
             }
         }
@@ -30,7 +28,7 @@ nextflow_process {
         }
     }
 
-    test("['modules_local']['blast_txt'] - stub") {
+    test("blast.txt - stub") {
 
         options "-stub"
 
@@ -40,7 +38,10 @@ nextflow_process {
             }
             process {
                 """
-                input[0] = [ [ id: 'test' ], [ file(params.test_data['modules_local']['blast_txt'], checkIfExists: true) ] ]
+                input[0] = [
+                    [ id: 'test' ]
+                    file(params.pipelines_testdata_base_path + 'modules/local/anicluster/anicalc/blast.txt', checkIfExists: true)
+                ]
                 """
             }
         }
