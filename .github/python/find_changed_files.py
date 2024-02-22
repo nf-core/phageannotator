@@ -63,11 +63,11 @@ def find_files(paths: list[str]) -> list[Path]:
         path_obj = Path(path)
         # If Path is the exact nf-test file add to list:
         if path_obj.match("*.nf.test"):
-            result.append(path_obj)
+            result.append(str(path_obj))
         # Else recursively search for nf-test files:
         else:
             for file in path_obj.rglob("*.nf.test"):
-                result.append(file)
+                result.append(str(file))
     return result
 
 
@@ -161,7 +161,7 @@ def find_changed_dependencies(paths: list[str], tags: list[str]) -> list[Path]:
                             if len(words) == 2 and re.match(r'^".*"$', words[1]):
                                 name = words[1].strip("'\"")  # Strip both single and double quotes
                                 if name in tags:
-                                    result.append(nf_test_file)
+                                    result.append(str(nf_test_file))
 
     return list(set(result))
 
