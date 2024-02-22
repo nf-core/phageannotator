@@ -168,7 +168,7 @@ def find_changed_dependencies(paths: list[str], tags: list[str]) -> list[Path]:
 if __name__ == "__main__":
 
     # Utility stuff
-    # args = parse_args()
+    args = parse_args()
     logging.basicConfig(level=args.log_level)
 
     # Parse nf-test files for target test tags
