@@ -169,17 +169,17 @@ if __name__ == "__main__":
 
     # Utility stuff
     # args = parse_args()
-    logging.basicConfig(level="INFO")
+    logging.basicConfig(level=args.log_level)
 
     # Parse nf-test files for target test tags
-    files = find_files(".")
+    files = find_files(args.paths)
     lines = process_files(files)
     result = generate(lines)
 
     # Get only relevant results (specified by -t)
     # Unique using a set
     target_results = list(
-        {item for sublist in map(result.get, ["function", "process", "workflow", "pipeline"]) for item in sublist}
+        {item for sublist in map(result.get, args.types) for item in sublist}
     )
 
     # Parse files to identify nf-tests with changed dependencies
