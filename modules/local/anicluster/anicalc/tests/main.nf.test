@@ -13,8 +13,8 @@ nextflow_process {
             process {
                 """
                 input[0] = [
-                    [ id: 'test' ]
-                    file(params.pipelines_testdata_base_path + 'modules/local/anicluster/anicalc/blast.txt', checkIfExists: true)
+                    [ id: 'test' ],
+                    file(params.test_data['modules_local']['blast_txt'], checkIfExists: true)
                 ]
                 """
             }
@@ -39,8 +39,8 @@ nextflow_process {
             process {
                 """
                 input[0] = [
-                    [ id: 'test' ]
-                    file(params.pipelines_testdata_base_path + 'modules/local/anicluster/anicalc/blast.txt', checkIfExists: true)
+                    [ id: 'test' ],
+                    file(params.test_data['modules_local']['blast_txt'], checkIfExists: true)
                 ]
                 """
             }
