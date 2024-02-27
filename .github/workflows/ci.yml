@@ -27,7 +27,6 @@ jobs:
     name: Check for changes
     runs-on: ubuntu-latest
     outputs:
-      changes: ${{ steps.changed_files.outputs.any_modified }}
       nf_test_files: ${{ steps.list.outputs.nf_test_files }}
     steps:
       - uses: actions/setup-python@v4
@@ -39,49 +38,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: tj-actions/changed-files@v42
-        id: changed_files
-        with:
-          dir_names: "true"
-          output_renamed_files_as_deleted_and_added: "true"
-          # Define list of additional rules for testing paths
-          # Mostly, we define additional 'pipeline' or 'all' tests here
-          files_yaml: |
-            ".":
-              - nf-test.config
-              - nextflow.config
-            tests:
-              - assets/*
-              - bin/*
-              - conf/*
-              - main.nf
-              - nextflow_schema.json
-
-          files_ignore: |
-            .git*
-            .gitpod.yml
-            .prettierignore
-            .prettierrc.yml
-            **.md
-            **.png
-            modules.json
-            pyproject.toml
-            tower.yml
-
-      - name: debug
-        run: |
-          echo ${{ steps.changed_files.outputs.any_modified }}
-          echo ${{ steps.changed_files.outputs.all_changed_files }}
-          echo ${{ steps.changed_files.outputs.changed_keys }}
-
       - name: nf-test list nf_test_files
         id: list
-        if: ${{ steps.changed_files.outputs.any_modified }}
         run: |
           echo nf_test_files=$(python \
             .github/python/find_changed_files.py \
             -t pipeline workflow process \
-            -p ${{ steps.changed_files.outputs.all_changed_files }} ${{ steps.changed_files.outputs.changed_keys }} \
+            --head_ref ${{ github.head_ref }} \
+            --base_ref ${{ github.base_ref }} \
           ) >> $GITHUB_OUTPUT
 
       - name: debug2

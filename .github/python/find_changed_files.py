@@ -10,6 +10,7 @@ import re
 
 from itertools import chain
 from pathlib import Path
+from git import Repo
 
 
 def parse_args() -> argparse.Namespace:
@@ -23,11 +24,31 @@ def parse_args() -> argparse.Namespace:
         description="Scan *.nf.test files for function/process/workflow name and return as a JSON list"
     )
     parser.add_argument(
-        "-p",
-        "--paths",
+        "-r",
+        "--head_ref",
+        required=True,
+        help="Head reference branch (Source branch for a PR).",
+    )
+    parser.add_argument(
+        "-b",
+        "--base_ref",
+        required=True,
+        help="Base reference branch (Target branch for a PR).",
+    )
+    parser.add_argument(
+        "-i",
+        "--ignored_files",
         nargs="+",
-        default=["."],
-        help="List of directories or files to scan",
+        default=[".git",
+        ".gitpod.yml",
+        ".prettierignore",
+        ".prettierrc.yml",
+        ".md",
+        ".png",
+        "modules.json",
+        "pyproject.toml",
+        "tower.yml"],
+        help="List of files or file substrings to ignore.",
     )
     parser.add_argument(
         "-l",
@@ -47,19 +68,39 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def find_files(paths: list[str]) -> list[Path]:
+def find_files(branch1: str, branch2: str, ignore: list[str]) -> list[Path]:
     """
-    Find all files matching pattern *.nf.test recursively from a list of paths.
+    Find all *.nf.tests that are associated with files that have been changed between two specified branches.
 
     Args:
-        paths (list): List of directories or files to scan.
+        branch1 (str)   : The first branch being compared
+        branch2 (str)   : The second branch being compared
+        ignore  (list)  : List of files or file substrings to ignore.
 
     Returns:
         list: List of files matching the pattern *.nf.test.
     """
+    # create repo
+    repo = Repo(".")
+    # identify commit on branch1
+    branch1_commit = repo.commit(branch1)
+    # identify commit on branch2
+    branch2_commit = repo.commit(branch2)
+    # compare two branches
+    diff_index = branch1_commit.diff(branch2_commit)
+    # collect changed files
+    changed_files = []
+    for file in diff_index:
+        changed_files.append(file.a_path)
+    # remove ignored files
+    for file in changed_files:
+        for ignored_substring in ignore:
+            if ignored_substring in file:
+                changed_files.remove(file)
+
     # this is a bit clunky
     result = []
-    for path in paths:
+    for path in changed_files:
         path_obj = Path(path)
         # If Path is the exact nf-test file add to list:
         if path_obj.match("*.nf.test"):
@@ -172,7 +213,7 @@ if __name__ == "__main__":
     logging.basicConfig(level=args.log_level)
 
     # Parse nf-test files for target test tags
-    files = find_files(args.paths)
+    files = find_files(args.head_ref, args.base_ref, args.ignored_files)
     lines = process_files(files)
     result = generate(lines)
 
