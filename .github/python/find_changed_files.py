@@ -150,18 +150,18 @@ def find_changed_dependencies(paths: list[str], tags: list[str]) -> list[Path]:
         nf_test_files = []
         for file in path_obj.rglob("*.nf.test"):
             nf_test_files.append(file)
-            # find nf-test files with changed dependencies
-            for nf_test_file in nf_test_files:
-                with open(nf_test_file, "r") as f:
-                    lines = f.readlines()
-                    for line in lines:
-                        line = line.strip()
-                        if line.startswith("tag"):
-                            words = line.split()
-                            if len(words) == 2 and re.match(r'^".*"$', words[1]):
-                                name = words[1].strip("'\"")  # Strip both single and double quotes
-                                if name in tags:
-                                    result.append(str(nf_test_file))
+        # find nf-test files with changed dependencies
+        for nf_test_file in nf_test_files:
+            with open(nf_test_file, "r") as f:
+                lines = f.readlines()
+                for line in lines:
+                    line = line.strip()
+                    if line.startswith("tag"):
+                        words = line.split()
+                        if len(words) == 2 and re.match(r'^".*"$', words[1]):
+                            name = words[1].strip("'\"")  # Strip both single and double quotes
+                            if name in tags:
+                                result.append(str(nf_test_file))
 
     return list(set(result))
 
