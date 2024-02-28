@@ -53,14 +53,14 @@ jobs:
             --base_ref origin/${{ github.base_ref }} \
           ) >> $GITHUB_OUTPUT
 
-      - name: debug2
+      - name: debug
         run: |
           echo ${{ steps.list.outputs.nf_test_files }}
 
   test:
     name: ${{ matrix.nf_test_files }} ${{ matrix.profile }} NF-${{ matrix.NXF_VER }}
     needs: [changes]
-    if: needs.changes.outputs.changes
+    if: needs.changes.outputs.nf_test_files != '[]'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
