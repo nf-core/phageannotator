@@ -49,7 +49,7 @@ jobs:
           echo nf_test_files=$(python \
             .github/python/find_changed_files.py \
             -t pipeline workflow process \
-            --head_ref ${{ github.ref }} \
+            --head_ref ${{ github.sha }} \
             --base_ref ${{ github.base_ref }} \
           ) >> $GITHUB_OUTPUT
 
