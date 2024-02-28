@@ -3,6 +3,11 @@ nextflow_process {
     name "Test Process: VIROMEQC_VIROMEQC"
     script "../main.nf"
     process "VIROMEQC_VIROMEQC"
+    tag "modules"
+    tag "modules_local"
+    tag "viromeqc_viromeqc"
+    tag "viromeqc_install"
+
 
     test("reads_1.fastq.gz & reads_2.fastq.gz & viromeqc_db") {
         setup {

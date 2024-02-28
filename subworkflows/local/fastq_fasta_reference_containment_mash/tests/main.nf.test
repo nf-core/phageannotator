@@ -3,11 +3,10 @@ nextflow_workflow {
     name "Test subworkflow: FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH"
     script "subworkflows/local/fastq_fasta_reference_containment_mash/main.nf"
     workflow "FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH"
-
-    // Depencies
-    tag "MASH_SKETCH"
-    tag "MASH_PASTE"
-    tag "MASH_SCREEN"
+    tag "subworkflows"
+    tag "subworkflows_local"
+    tag "fastq_fasta_reference_containment_mash"
+    tag "fastq_fasta_reference_containment_mash_default"
 
 
     test("fastq.gz & fasta.gz") {

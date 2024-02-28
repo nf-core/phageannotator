@@ -3,6 +3,10 @@ nextflow_process {
     name "Test Process: SEQKIT_SEQ"
     script "../main.nf"
     process "SEQKIT_SEQ"
+    tag "modules"
+    tag "modules_local"
+    tag "seqkit_seq"
+
 
     test("fasta.gz") {
 

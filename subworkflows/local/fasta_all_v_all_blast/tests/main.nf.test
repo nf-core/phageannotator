@@ -3,10 +3,11 @@ nextflow_workflow {
     name "Test Subworkflow: FASTA_ALL_V_ALL_BLAST"
     script "subworkflows/local/fasta_all_v_all_blast/main.nf"
     workflow "FASTA_ALL_V_ALL_BLAST"
+    tag "subworkflows"
+    tag "subworkflows_local"
+    tag "fasta_all_v_all_blast"
+    tag "fasta_all_v_all_blast_default"
 
-    // Dependencies
-    tag "BLAST_MAKEBLASTDB"
-    tag "BLAST_BLASTN"
 
     test("fasta.gz") {
 

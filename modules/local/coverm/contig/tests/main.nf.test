@@ -3,6 +3,10 @@ nextflow_process {
     name "Test Process: COVERM_CONTIG"
     script "../main.nf"
     process "COVERM_CONTIG"
+    tag "modules"
+    tag "modules_local"
+    tag "coverm_contig"
+
 
     test("test1_paired_end.bam & test_2paired_end.bam") {
 

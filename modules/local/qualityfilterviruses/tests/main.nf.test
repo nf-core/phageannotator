@@ -3,6 +3,10 @@ nextflow_process {
     name "Test process: QUALITYFILTERVIRUSES"
     script "../main.nf"
     process "QUALITYFILTERVIRUSES"
+    tag "modules"
+    tag "modules_local"
+    tag "qualityfilterviruses"
+
 
     test("virus_fasta.gz & provirus_fasta.gz & quality_summary.tsv") {
 

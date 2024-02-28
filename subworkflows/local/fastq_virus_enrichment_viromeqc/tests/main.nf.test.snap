@@ -1,0 +1,37 @@
+{
+    "fastq.gz": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.viromeqc.tsv:md5,6acbffc97f75774cf9fcc953b98913ed"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,c26288b67351c3bdaad635c87a0249e7",
+                    "versions.yml:md5,f771871e8cbe81944f6d5fbbc56cc7a5"
+                ],
+                "enrichment_tsv": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.viromeqc.tsv:md5,6acbffc97f75774cf9fcc953b98913ed"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,c26288b67351c3bdaad635c87a0249e7",
+                    "versions.yml:md5,f771871e8cbe81944f6d5fbbc56cc7a5"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-02-28T17:22:41.423720896"
+    }
+}
