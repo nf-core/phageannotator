@@ -12,6 +12,7 @@
 
 include { SEQKIT_SEQ                                } from '../../modules/local/seqkit/seq/main'                                    // TODO: Add to nf-core
 include { APPENDSCREENHITS                          } from '../../modules/local/appendscreenhits/main'
+include { EXTRACTVIRALASSEMBLIES                    } from '../../modules/local/extractviralassemblies/main'
 include { QUALITYFILTERVIRUSES                      } from '../../modules/local/qualityfilterviruses/main'
 include { ANICLUSTER_ANICALC                        } from '../../modules/local/anicluster/anicalc/main'
 include { ANICLUSTER_ANICLUST                       } from '../../modules/local/anicluster/aniclust/main'
@@ -162,6 +163,26 @@ workflow PHAGEANNOTATOR {
 
 
     /*----------------------------------------------------------------------------
+        Extend contig ends
+    ------------------------------------------------------------------------------*/
+    if ( !params.skip_cobra ) {
+        //
+        // MODULE: Create a TSV file containing viral contig names (from assemblies)
+        //
+        ch_viral_assemblies_tsv = EXTRACTVIRALASSEMBLIES ( ch_viruses_fna_gz ).viral_assemblies_tsv
+        ch_versions = ch_versions.mix(EXTRACTVIRALASSEMBLIES.out.versions)
+
+        //
+        // SUBWORKFLOW: Extend contig ends using COBRA
+        //
+        ch_extended_fasta_gz = FASTQ_FASTA_CONTIG_EXTENSION_COBRA ( fastq_gz, ch_filtered_input_fasta_gz, ch_viral_assemblies_tsv ).extended_assemblies_fna_gz
+        ch_versions = ch_versions.mix(FASTQ_FASTA_CONTIG_EXTENSION_COBRA.out.versions)
+    } else {
+        ch_extended_fasta_gz = ch_viruses_fna_gz
+    }
+
+
+    /*----------------------------------------------------------------------------
         Assess virus quality and filter
     ------------------------------------------------------------------------------*/
     // Run virus quality assessment and filtering
@@ -176,7 +197,7 @@ workflow PHAGEANNOTATOR {
         //
         // SUBWORKFLOW: Assess virus quality
         //
-        ch_quality_summary_tsv = FASTA_VIRUS_QUALITY_CHECKV ( ch_viruses_fna_gz, ch_checkv_db ).quality_summary_tsv
+        ch_quality_summary_tsv = FASTA_VIRUS_QUALITY_CHECKV ( ch_extended_fasta_gz, ch_checkv_db ).quality_summary_tsv
         ch_versions = ch_versions.mix(FASTA_VIRUS_QUALITY_CHECKV.out.versions.first())
 
         // create channel for input into QUALITY_FILTER_VIRUSES
@@ -189,7 +210,7 @@ workflow PHAGEANNOTATOR {
         ch_filtered_viruses_fna_gz = QUALITYFILTERVIRUSES ( ch_quality_filter_viruses_input2 ).filtered_viruses
         ch_versions = ch_versions.mix(QUALITYFILTERVIRUSES.out.versions.first())
     } else {
-        ch_filtered_viruses_fna_gz = ch_viruses_fna_gz
+        ch_filtered_viruses_fna_gz = ch_extended_fasta_gz
         ch_quality_summary_tsv = Channel.empty()
     }
 

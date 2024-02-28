@@ -1,0 +1,100 @@
+{
+    "contigs.fasta.gz & coverage.tsv & viral_contigs & bam": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "COBRA_extended.fasta.gz:md5,0b52beff348887e1552c9c956ba53020"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "COBRA_joining_summary.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "2": [
+                    "versions.yml:md5,3412a0d78ed4f7a64e348cc63b3a86a3"
+                ],
+                "extended_assemblies": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "COBRA_extended.fasta.gz:md5,0b52beff348887e1552c9c956ba53020"
+                    ]
+                ],
+                "joining_summary": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "COBRA_joining_summary.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,3412a0d78ed4f7a64e348cc63b3a86a3"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-02-28T11:54:47.803389179"
+    },
+    "contigs.fasta.gz & coverage.tsv & viral_contigs & bam - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "COBRA_extended.fasta.gz:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "COBRA_joining_summary.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "2": [
+                    "versions.yml:md5,3412a0d78ed4f7a64e348cc63b3a86a3"
+                ],
+                "extended_assemblies": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "COBRA_extended.fasta.gz:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "joining_summary": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "COBRA_joining_summary.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,3412a0d78ed4f7a64e348cc63b3a86a3"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-02-28T11:54:57.388744544"
+    }
+}

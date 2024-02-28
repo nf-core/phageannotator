@@ -1,15 +1,14 @@
 #!/usr/bin/env python
 
 import argparse
-import pandas as pd
 from Bio import SeqIO
 import sys
 import gzip
 
 
 def parse_args(args=None):
-    Description = "Extract genomes identified as contained via mash screen, and append to the sample's FASTA assembly."
-    Epilog = "Example usage: python append_screen_hits.py <FILES_IN> <FILE_OUT>"
+    Description = "Extract viral assembly names from an virus fasta input."
+    Epilog = "Example usage: python extract_viral_assemblies.py <FILES_IN> <FILE_OUT>"
 
     parser = argparse.ArgumentParser(description=Description, epilog=Epilog)
     parser.add_argument(
