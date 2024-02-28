@@ -83,7 +83,7 @@ def find_files(branch1: str, branch2: str, ignore: list[str]) -> list[Path]:
     # create repo
     repo = Repo(".")
     # identify commit on branch1
-    branch1_commit = repo.commit(branch1)
+    branch1_commit = repo.commit(repo.head.ref)
     # identify commit on branch2
     branch2_commit = repo.commit(branch2)
     # compare two branches
