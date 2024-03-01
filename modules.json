@@ -39,8 +39,7 @@
                     "checkv/downloaddatabase": {
                         "branch": "master",
                         "git_sha": "56cf5a89c2646ad50195635cf18df4028a6928ce",
-                        "installed_by": ["modules"],
-                        "patch": "modules/nf-core/checkv/downloaddatabase/checkv-downloaddatabase.diff"
+                        "installed_by": ["modules"]
                     },
                     "checkv/endtoend": {
                         "branch": "master",
