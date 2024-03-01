@@ -6,6 +6,8 @@ nextflow_workflow {
     tag "workflows"
     tag "phageannotator"
     tag "phageannotator_default"
+    config "../../../tests/nextflow.config"
+
 
     test("Parameters: default") {
         when {
@@ -41,13 +43,14 @@ nextflow_workflow {
             }
             params {
                 outdir                  = "$outputDir"
-                mash_screen_min_score   = 0.5
+                // parameters to decrease sensitivity for test data
+                mash_screen_min_score   = 0.01
                 genomad_min_score       = 0.01
                 genomad_max_fdr         = 1
+                // speed up options since tools are fully tested in subworkflows
                 genomad_disable_nn      = true
                 genomad_sensitivity     = 0.1
                 checkv_minimal_db       = true
-                iphop_partial_test      = true
             }
         }
 
@@ -55,7 +58,6 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(workflow.out).match() },
-                { assert path("${outputDir}/VirusLifestyle/bacphlip/all_samples_anicluster_representatives.fna.bacphlip").readLines().size() == 4 },
                 { assert path("${outputDir}/VirusAbundance/coverm/contig/all_samples_alignment_results.tsv").readLines().size() == 4 }
             )
         }

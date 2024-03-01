@@ -8,7 +8,8 @@ process MASH_SCREEN {
         'biocontainers/mash:2.3--he348c14_1' }"
 
     input:
-    tuple val(meta) , path(query), path(sequences_sketch)
+    tuple val(meta) , path(query)
+    tuple val(meta2) , path(sequences_sketch)
 
     output:
     tuple val(meta), path("*.screen"), emit: screen

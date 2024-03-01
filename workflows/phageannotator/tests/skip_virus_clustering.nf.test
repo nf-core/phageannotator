@@ -43,14 +43,14 @@ nextflow_workflow {
             params {
                 outdir                  = "$outputDir"
                 skip_virus_clustering   = true
-                skip_instrain           = true
-                mash_screen_min_score   = 0.5
+                // parameters to decrease sensitivity for test data
+                mash_screen_min_score   = 0.01
                 genomad_min_score       = 0.01
                 genomad_max_fdr         = 1
+                // speed up options since tools are fully tested in subworkflows
                 genomad_disable_nn      = true
                 genomad_sensitivity     = 0.1
                 checkv_minimal_db       = true
-                iphop_partial_test      = true
             }
         }
 
@@ -58,8 +58,7 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(workflow.out).match() },
-                { assert path("${outputDir}/VirusLifestyle/bacphlip/test.filtered.fna.bacphlip").readLines().size() == 7 },
-                { assert path("${outputDir}/VirusAbundance/coverm/contig/all_samples_alignment_results.tsv").readLines().size() == 7 }
+                { assert path("${outputDir}/VirusAbundance/coverm/contig/all_samples_alignment_results.tsv").readLines().size() == 4 }
             )
         }
     }

@@ -1,14 +1,14 @@
 nextflow_workflow {
 
-    name "Test workflow: PHAGEANNOTATOR"
+    name "Test Workflow PHAGEANNOTATOR"
     script "workflows/phageannotator/main.nf"
     workflow "PHAGEANNOTATOR"
     tag "workflows"
     tag "phageannotator"
-    tag "phageannotator_skip_pharokka"
+    tag "phageannotator_run_reference_no_reference"
 
 
-    test("Parameters: skip_pharokka = true") {
+    test("Parameters: --run_reference_containment = true && --reference_virus_fasta = null") {
         when {
             workflow {
                 """
@@ -41,24 +41,15 @@ nextflow_workflow {
                 """
             }
             params {
-                outdir                  = "$outputDir"
-                skip_pharokka           = true
-                mash_screen_min_score   = 0.5
-                genomad_min_score       = 0.01
-                genomad_max_fdr         = 1
-                genomad_disable_nn      = true
-                genomad_sensitivity     = 0.1
-                checkv_minimal_db       = true
-                iphop_partial_test      = true
+                outdir = "$outputDir"
+                run_reference_containment   = true
+                reference_virus_fasta       = null
             }
         }
-
         then {
             assertAll(
-                { assert workflow.success },
-                { assert snapshot(workflow.out).match() },
-                { assert path("${outputDir}/VirusLifestyle/bacphlip/all_samples_anicluster_representatives.fna.bacphlip").readLines().size() == 4 },
-                { assert path("${outputDir}/VirusAbundance/coverm/contig/all_samples_alignment_results.tsv").readLines().size() == 4 }
+                { assert workflow.trace.succeeded().size() == 0 },
+                { assert workflow.stdout.contains("[nf-core/phageannotator] ERROR: reference containment requested, but no --reference_virus_fasta provided") }
             )
         }
     }

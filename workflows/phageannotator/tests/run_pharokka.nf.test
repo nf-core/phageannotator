@@ -5,11 +5,10 @@ nextflow_workflow {
     workflow "PHAGEANNOTATOR"
     tag "workflows"
     tag "phageannotator"
-    tag "phageannotator_skip_reference_containment"
+    tag "phageannotator_run_pharokka"
 
 
-    test("Parameters: --skip-reference-containment") {
-
+    test("Parameters: run_pharokka = true") {
         when {
             workflow {
                 """
@@ -42,14 +41,14 @@ nextflow_workflow {
                 """
             }
             params {
-                skip_reference_containment  = true
                 outdir                      = "$outputDir"
-                genomad_min_score       = 0.01
-                genomad_max_fdr         = 1
-                genomad_disable_nn      = true
-                genomad_sensitivity     = 0.1
-                checkv_minimal_db       = true
-                iphop_partial_test      = true
+                run_pharokka                = true
+                // reduce hits, since reduction won't take place during genomad
+                mash_screen_min_score       = 1
+                mash_screen_winner_take_all = true
+                // speed up options since tools are fully tested in subworkflows
+                checkv_minimal_db           = true
+                checkv_min_length           = 25000
             }
         }
 

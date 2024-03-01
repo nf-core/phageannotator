@@ -5,10 +5,10 @@ nextflow_workflow {
     workflow "PHAGEANNOTATOR"
     tag "workflows"
     tag "phageannotator"
-    tag "phageannotator_skip_iphop"
+    tag "phageannotator_run_instrain"
 
 
-    test("Parameters: skip_iphop = true") {
+    test("Parameters: run_instrain = true") {
         when {
             workflow {
                 """
@@ -41,15 +41,26 @@ nextflow_workflow {
                 """
             }
             params {
-                outdir                  = "$outputDir"
-                skip_iphop              = true
-                mash_screen_min_score   = 0.5
+                outdir                      = "$outputDir"
+                run_instrain                = true
+                // parameters to decrease sensitivity for test data
+                mash_screen_min_score   = 0.01
                 genomad_min_score       = 0.01
                 genomad_max_fdr         = 1
-                genomad_disable_nn      = true
-                genomad_sensitivity     = 0.1
-                checkv_minimal_db       = true
-                iphop_partial_test      = true
+                // speed up options since tools are fully tested in subworkflows
+                genomad_disable_nn          = true
+                genomad_sensitivity         = 0.1
+                checkv_minimal_db           = true
+                // lower instrain sensitivity so tool runs on test data
+                instrain_min_ani            = 0.01
+                instrain_min_mapq           = 2
+                instrain_min_variant_cov    = 5
+                instrain_min_snp_freq       = 0.01
+                instrain_max_snp_fdr        = 1
+                instrain_min_genome_cov     = 0.5
+                instrain_popani_thresh      = 0.0
+                instrain_min_genome_comp    = 0.001
+                instrain_min_genome_breadth = 0.01
             }
         }
 
@@ -57,7 +68,6 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(workflow.out).match() },
-                { assert path("${outputDir}/VirusLifestyle/bacphlip/all_samples_anicluster_representatives.fna.bacphlip").readLines().size() == 4 },
                 { assert path("${outputDir}/VirusAbundance/coverm/contig/all_samples_alignment_results.tsv").readLines().size() == 4 }
             )
         }
