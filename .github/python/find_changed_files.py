@@ -7,6 +7,7 @@ import argparse
 import json
 import logging
 import re
+import yaml
 
 from itertools import chain
 from pathlib import Path
@@ -36,19 +37,28 @@ def parse_args() -> argparse.Namespace:
         help="Base reference branch (Target branch for a PR).",
     )
     parser.add_argument(
-        "-i",
+        "-x",
         "--ignored_files",
         nargs="+",
-        default=[".git",
-        ".gitpod.yml",
-        ".prettierignore",
-        ".prettierrc.yml",
-        ".md",
-        ".png",
-        "modules.json",
-        "pyproject.toml",
-        "tower.yml"],
+        default=[
+            ".git/*",
+            ".gitpod.yml",
+            ".prettierignore",
+            ".prettierrc.yml",
+            "*.md",
+            "*.png",
+            "modules.json",
+            "pyproject.toml",
+            "tower.yml",
+        ],
         help="List of files or file substrings to ignore.",
+    )
+    parser.add_argument(
+        "-i",
+        "--include",
+        type=Path,
+        default=".github/python/include.yaml",
+        help="Path to an include file containing a YAML of key value pairs to include in changed files. I.e., return the current directory if an important file is changed.",
     )
     parser.add_argument(
         "-l",
@@ -68,17 +78,38 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def find_files(branch1: str, branch2: str, ignore: list[str]) -> list[Path]:
+def read_yaml_inverted(file_path: str) -> dict:
+    """
+    Read a YAML file and return its contents as a dictionary but reversed, i.e. the values become the keys and the keys become the values.
+
+    Args:
+        file_path (str): The path to the YAML file.
+
+    Returns:
+        dict: The contents of the YAML file as a dictionary inverted.
+    """
+    with open(file_path, "r") as f:
+        data = yaml.safe_load(f)
+
+    # Invert dictionary of lists into contents of lists are keys, values are the original keys
+    # { "key": ["item1", "item2] } --> { "item1": "key", "item2": "key" }
+    return {value: key for key, values in data.items() for value in values}
+
+
+def find_changed_files(
+    branch1: str, branch2: str, ignore: list[str], include_files: dict[str, str]
+) -> list[Path]:
     """
     Find all *.nf.tests that are associated with files that have been changed between two specified branches.
 
     Args:
-        branch1 (str)   : The first branch being compared
-        branch2 (str)   : The second branch being compared
-        ignore  (list)  : List of files or file substrings to ignore.
+        branch1 (str)      : The first branch being compared
+        branch2 (str)      : The second branch being compared
+        ignore  (list)     : List of files or file substrings to ignore.
+        include_files (dict): Key value pairs to return if a certain file has changed, i.e. if a file in a directory has changed point to a different directory.
 
     Returns:
-        list: List of files matching the pattern *.nf.test.
+        list: List of files matching the pattern *.nf.test that have changed between branch2 and branch1.
     """
     # create repo
     repo = Repo(".")
@@ -91,24 +122,39 @@ def find_files(branch1: str, branch2: str, ignore: list[str]) -> list[Path]:
     # collect changed files
     changed_files = []
     for file in diff_index:
-        changed_files.append(file.a_path)
+        changed_files.append(Path(file.a_path))
     # remove ignored files
     for file in changed_files:
         for ignored_substring in ignore:
-            if ignored_substring in file:
+            if file.match(ignored_substring):
                 changed_files.remove(file)
+        for include_path, include_key in include_files.items():
+            if file.match(include_path):
+                changed_files.append(Path(include_key))
 
-    # this is a bit clunky
-    result = []
+    return changed_files
+
+
+def detect_nf_test_files(changed_files: list[Path]) -> list[Path]:
+    """
+    Detects and returns a list of nf-test files from the given list of changed files.
+
+    Args:
+        changed_files (list[Path]): A list of file paths.
+
+    Returns:
+        list[Path]: A list of nf-test file paths.
+    """
+    result: list[Path] = []
     for path in changed_files:
         path_obj = Path(path)
         # If Path is the exact nf-test file add to list:
         if path_obj.match("*.nf.test"):
-            result.append(str(path_obj))
+            result.append(path_obj)
         # Else recursively search for nf-test files:
         else:
             for file in path_obj.rglob("*.nf.test"):
-                result.append(str(file))
+                result.append(file)
     return result
 
 
@@ -172,13 +218,13 @@ def generate(
     return result
 
 
-def find_changed_dependencies(paths: list[str], tags: list[str]) -> list[Path]:
+def find_changed_dependencies(paths: list[Path], tags: list[str]) -> list[Path]:
     """
     Find all *.nf.test files with changed dependencies from a list of paths.
 
     Args:
         paths (list): List of directories or files to scan.
-        tags: List of tags identified as having changes.
+        tags (list): List of tags identified as having changes.
 
     Returns:
         list: List of *.nf.test files with changed dependencies.
@@ -186,10 +232,9 @@ def find_changed_dependencies(paths: list[str], tags: list[str]) -> list[Path]:
     # this is a bit clunky
     result = []
     for path in paths:
-        path_obj = Path(path)
         # find all *.nf-test files
         nf_test_files = []
-        for file in path_obj.rglob("*.nf.test"):
+        for file in path.rglob("*.nf.test"):
             nf_test_files.append(file)
         # find nf-test files with changed dependencies
         for nf_test_file in nf_test_files:
@@ -200,11 +245,14 @@ def find_changed_dependencies(paths: list[str], tags: list[str]) -> list[Path]:
                     if line.startswith("tag"):
                         words = line.split()
                         if len(words) == 2 and re.match(r'^".*"$', words[1]):
-                            name = words[1].strip("'\"")  # Strip both single and double quotes
+                            name = words[1].strip(
+                                "'\""
+                            )  # Strip both single and double quotes
                             if name in tags:
-                                result.append(str(nf_test_file))
+                                result.append(nf_test_file)
 
     return list(set(result))
+
 
 if __name__ == "__main__":
 
@@ -213,8 +261,13 @@ if __name__ == "__main__":
     logging.basicConfig(level=args.log_level)
 
     # Parse nf-test files for target test tags
-    files = find_files(args.head_ref, args.base_ref, args.ignored_files)
-    lines = process_files(files)
+    if args.include:
+        include_files = read_yaml_inverted(args.include)
+    changed_files = find_changed_files(
+        args.head_ref, args.base_ref, args.ignored_files, include_files
+    )
+    nf_test_files = detect_nf_test_files(changed_files)
+    lines = process_files(nf_test_files)
     result = generate(lines)
 
     # Get only relevant results (specified by -t)
@@ -224,10 +277,12 @@ if __name__ == "__main__":
     )
 
     # Parse files to identify nf-tests with changed dependencies
-    changed_dep_files = find_changed_dependencies(".", target_results)
+    changed_dep_files = find_changed_dependencies([Path(".")], target_results)
 
     # Combine target nf-test files and nf-test files with changed dependencies
-    all_nf_tests = list(set(changed_dep_files + files))
+    all_nf_tests = [
+        str(test_path) for test_path in set(changed_dep_files + nf_test_files)
+    ]
 
     # Print to stdout
     print(json.dumps(all_nf_tests))
