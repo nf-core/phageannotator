@@ -8,6 +8,7 @@ import json
 import logging
 import re
 import yaml
+import os.path
 
 from itertools import chain
 from pathlib import Path
@@ -170,21 +171,22 @@ def process_files(files: list[Path]) -> list[str]:
     """
     result = []
     for file in files:
-        with open(file, "r") as f:
-            is_pipeline_test = True
-            lines = f.readlines()
-            for line in lines:
-                line = line.strip()
-                if line.startswith(("workflow", "process", "function")):
-                    words = line.split()
-                    if len(words) == 2 and re.match(r'^".*"$', words[1]):
-                        result.append(line)
-                        is_pipeline_test = False
+        if os.path.exists(file):
+            with open(file, "r") as f:
+                is_pipeline_test = True
+                lines = f.readlines()
+                for line in lines:
+                    line = line.strip()
+                    if line.startswith(("workflow", "process", "function")):
+                        words = line.split()
+                        if len(words) == 2 and re.match(r'^".*"$', words[1]):
+                            result.append(line)
+                            is_pipeline_test = False
 
-            # If no results included workflow, process or function
-            # Add a dummy result to fill the 'pipeline' category
-            if is_pipeline_test:
-                result.append("pipeline 'PIPELINE'")
+                # If no results included workflow, process or function
+                # Add a dummy result to fill the 'pipeline' category
+                if is_pipeline_test:
+                    result.append("pipeline 'PIPELINE'")
 
     return result
 
