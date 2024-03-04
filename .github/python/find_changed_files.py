@@ -279,7 +279,6 @@ if __name__ == "__main__":
     target_results = list(
         {item for sublist in map(result.get, args.types) for item in sublist}
     )
-    print(target_results)
 
     # Parse files to identify nf-tests with changed dependencies
     changed_dep_files = find_changed_dependencies([Path(".")], target_results)
