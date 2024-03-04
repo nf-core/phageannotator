@@ -151,11 +151,13 @@ def detect_nf_test_files(changed_files: list[Path]) -> list[Path]:
         path_obj = Path(path)
         # If Path is the exact nf-test file add to list:
         if path_obj.match("*.nf.test"):
-            result.append(path_obj)
+            if os.path.exists(path_obj):
+                result.append(path_obj)
         # Else recursively search for nf-test files:
         else:
             for file in path_obj.rglob("*.nf.test"):
-                result.append(file)
+                if os.path.exists(file):
+                    result.append(file)
     return result
 
 
@@ -171,22 +173,21 @@ def process_files(files: list[Path]) -> list[str]:
     """
     result = []
     for file in files:
-        if os.path.exists(file):
-            with open(file, "r") as f:
-                is_pipeline_test = True
-                lines = f.readlines()
-                for line in lines:
-                    line = line.strip()
-                    if line.startswith(("workflow", "process", "function")):
-                        words = line.split()
-                        if len(words) == 2 and re.match(r'^".*"$', words[1]):
-                            result.append(line)
-                            is_pipeline_test = False
+        with open(file, "r") as f:
+            is_pipeline_test = True
+            lines = f.readlines()
+            for line in lines:
+                line = line.strip()
+                if line.startswith(("workflow", "process", "function")):
+                    words = line.split()
+                    if len(words) == 2 and re.match(r'^".*"$', words[1]):
+                        result.append(line)
+                        is_pipeline_test = False
 
-                # If no results included workflow, process or function
-                # Add a dummy result to fill the 'pipeline' category
-                if is_pipeline_test:
-                    result.append("pipeline 'PIPELINE'")
+            # If no results included workflow, process or function
+            # Add a dummy result to fill the 'pipeline' category
+            if is_pipeline_test:
+                result.append("pipeline 'PIPELINE'")
 
     return result
 
@@ -268,6 +269,7 @@ if __name__ == "__main__":
     changed_files = find_changed_files(
         args.head_ref, args.base_ref, args.ignored_files, include_files
     )
+    # find nf-test files
     nf_test_files = detect_nf_test_files(changed_files)
     lines = process_files(nf_test_files)
     result = generate(lines)
@@ -277,6 +279,7 @@ if __name__ == "__main__":
     target_results = list(
         {item for sublist in map(result.get, args.types) for item in sublist}
     )
+    print(target_results)
 
     # Parse files to identify nf-tests with changed dependencies
     changed_dep_files = find_changed_dependencies([Path(".")], target_results)

@@ -3,9 +3,6 @@ nextflow_process {
     name "Test Process: MASH_PASTE"
     script "../main.nf"
     process "MASH_PASTE"
-    tag "modules"
-    tag "modules_local"
-    tag "mash_paste"
 
 
     test("test1.msh & test2.msh") {

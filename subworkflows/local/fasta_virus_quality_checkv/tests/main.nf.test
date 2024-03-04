@@ -3,11 +3,11 @@ nextflow_workflow {
     name "Test Subworkflow: FASTA_VIRUS_QUALITY_CHECKV"
     script "subworkflows/local/fasta_virus_quality_checkv/main.nf"
     workflow "FASTA_VIRUS_QUALITY_CHECKV"
-    tag "subworkflows"
-    tag "subworkflows_local"
-    tag "fasta_virus_quality_checkv"
-    tag "fasta_virus_quality_checkv_default"
 
+    // Dependencies
+    tag "CHECKV_DOWNLOADDATABASE"
+    tag "UNTAR"
+    tag "CHECKV_ENDTOEND"
 
     test("fasta.gz") {
 

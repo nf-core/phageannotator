@@ -3,9 +3,6 @@ nextflow_process {
     name "Test process: APPENDSCREENHITS"
     script "../main.nf"
     process "APPENDSCREENHITS"
-    tag "modules"
-    tag "modules_local"
-    tag "appendscreenhits"
 
 
     test("mash_screen.tsv & fasta.gz & reference_fasta.gz") {

@@ -3,9 +3,30 @@ nextflow_workflow {
     name "Test workflow: PHAGEANNOTATOR"
     script "workflows/phageannotator/main.nf"
     workflow "PHAGEANNOTATOR"
-    tag "workflows"
-    tag "phageannotator"
-    tag "phageannotator_run_iphop"
+
+    // Dependencies
+    tag "SEQKIT_SEQ"
+    //tag"APPENDSCREENHITS"
+    tag "QUALITYFILTERVIRUSES"
+    tag "ANICLUSTER_ANICALC"
+    tag "ANICLUSTER_ANICLUST"
+    tag "ANICLUSTER_EXTRACTREPS"
+    tag "COVERM_CONTIG"
+    //tag "INSTRAIN_STB"
+    //tag "FASTQ_VIRUS_ENRICHMENT_VIROMEQC"
+    //tag "FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH"
+    tag "FASTA_VIRUS_CLASSIFICATION_GENOMAD"
+    tag "FASTA_VIRUS_QUALITY_CHECKV"
+    tag "FASTA_ALL_V_ALL_BLAST"
+    tag "FASTA_PHAGE_HOST_IPHOP"
+    //tag "FASTA_PHAGE_FUNCTION_PHAROKKA"
+    //tag "FASTA_MICRODIVERSITY_INSTRAIN"
+    tag "CAT_CAT"
+    tag "BOWTIE2_BUILD"
+    tag "GENOMAD_ENDTOEND"
+    tag "GUNZIP"
+    //tag "BACPHLIP"
+    tag "FASTQ_ALIGN_BOWTIE2"
 
 
     test("Parameters: run_iphop = true") {

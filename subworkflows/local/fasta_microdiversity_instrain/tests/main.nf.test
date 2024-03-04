@@ -3,13 +3,10 @@ nextflow_workflow {
     name "Test Subworkflow: FASTA_MICRODIVERSITY_INSTRAIN"
     script "../main.nf"
     workflow "FASTA_MICRODIVERSITY_INSTRAIN"
-    tag "subworkflows"
-    tag "subworkflows_local"
-    tag "fasta_microdiversity_instrain"
-    tag "fasta_microdiversity_instrain_default"
-    tag "instrain/compare"
-    tag "instrain/profile"
-    tag "gunzip"
+
+    // Dependencies
+    tag "INSTRAIN_PROFILE"
+    tag "INSTRAIN_COMPARE"
 
     test("bam & fasta & stb_file") {
 
