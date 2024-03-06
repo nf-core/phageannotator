@@ -3,7 +3,6 @@ nextflow_workflow {
     name "Test workflow: PHAGEANNOTATOR"
     script "workflows/phageannotator/main.nf"
     workflow "PHAGEANNOTATOR"
-    config "../../../tests/nextflow.config"
 
     // Dependencies
     tag "SEQKIT_SEQ"
@@ -13,24 +12,24 @@ nextflow_workflow {
     tag "ANICLUSTER_ANICLUST"
     tag "ANICLUSTER_EXTRACTREPS"
     tag "COVERM_CONTIG"
-    //tag "INSTRAIN_STB"
-    //tag "FASTQ_VIRUS_ENRICHMENT_VIROMEQC"
-    //tag "FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH"
+    tag "INSTRAIN_STB"
+    tag "FASTQ_VIRUS_ENRICHMENT_VIROMEQC"
+    tag "FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH"
     tag "FASTA_VIRUS_CLASSIFICATION_GENOMAD"
     tag "FASTA_VIRUS_QUALITY_CHECKV"
     tag "FASTA_ALL_V_ALL_BLAST"
-    //tag "FASTA_PHAGE_HOST_IPHOP"
-    //tag "FASTA_PHAGE_FUNCTION_PHAROKKA"
-    //tag "FASTA_MICRODIVERSITY_INSTRAIN"
+    tag "FASTA_PHAGE_HOST_IPHOP"
+    tag "FASTA_PHAGE_FUNCTION_PHAROKKA"
+    tag "FASTA_MICRODIVERSITY_INSTRAIN"
     tag "CAT_CAT"
     tag "BOWTIE2_BUILD"
     tag "GENOMAD_ENDTOEND"
     tag "GUNZIP"
-    //tag "BACPHLIP"
+    tag "BACPHLIP"
     tag "FASTQ_ALIGN_BOWTIE2"
 
 
-    test("Parameters: default") {
+    test("Parameters: Run all tools") {
         when {
             workflow {
                 """
@@ -63,15 +62,32 @@ nextflow_workflow {
                 """
             }
             params {
-                outdir                  = "$outputDir"
+                outdir                      = "$outputDir"
+                run_bacphlip                = true
+                run_genomad_taxonomy        = true
+                run_instrain                = true
+                run_iphop                   = true
+                run_reference_containment   = true
+                run_viromeqc                = true
                 // parameters to decrease sensitivity for test data
                 mash_screen_min_score   = 0.01
                 genomad_min_score       = 0.01
                 genomad_max_fdr         = 1
                 // speed up options since tools are fully tested in subworkflows
-                genomad_disable_nn      = true
-                genomad_sensitivity     = 0.1
-                checkv_minimal_db       = true
+                genomad_disable_nn          = true
+                genomad_sensitivity         = 0.1
+                checkv_minimal_db           = true
+                iphop_partial_test          = true
+                // lower instrain sensitivity so tool runs on test data
+                instrain_min_ani            = 0.01
+                instrain_min_mapq           = 2
+                instrain_min_variant_cov    = 5
+                instrain_min_snp_freq       = 0.01
+                instrain_max_snp_fdr        = 1
+                instrain_min_genome_cov     = 0.5
+                instrain_popani_thresh      = 0.0
+                instrain_min_genome_comp    = 0.001
+                instrain_min_genome_breadth = 0.01
             }
         }
 
@@ -79,6 +95,7 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(workflow.out).match() },
+                { assert !path("${outputDir}/VirusLifestyle/bacphlip/test.filtered.fna.bacphlip").exists() },
                 { assert path("${outputDir}/VirusAbundance/coverm/contig/all_samples_alignment_results.tsv").readLines().size() == 4 }
             )
         }

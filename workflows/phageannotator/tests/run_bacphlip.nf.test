@@ -3,7 +3,6 @@ nextflow_workflow {
     name "Test workflow: PHAGEANNOTATOR"
     script "workflows/phageannotator/main.nf"
     workflow "PHAGEANNOTATOR"
-    config "../../../tests/nextflow.config"
 
     // Dependencies
     tag "SEQKIT_SEQ"
@@ -26,11 +25,11 @@ nextflow_workflow {
     tag "BOWTIE2_BUILD"
     tag "GENOMAD_ENDTOEND"
     tag "GUNZIP"
-    //tag "BACPHLIP"
+    tag "BACPHLIP"
     tag "FASTQ_ALIGN_BOWTIE2"
 
 
-    test("Parameters: default") {
+    test("Parameters: run_bacphlip = true") {
         when {
             workflow {
                 """
@@ -64,6 +63,7 @@ nextflow_workflow {
             }
             params {
                 outdir                  = "$outputDir"
+                run_bacphlip            = true
                 // parameters to decrease sensitivity for test data
                 mash_screen_min_score   = 0.01
                 genomad_min_score       = 0.01
@@ -79,6 +79,7 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(workflow.out).match() },
+                { assert !path("${outputDir}/VirusLifestyle/bacphlip/test.filtered.fna.bacphlip").exists() },
                 { assert path("${outputDir}/VirusAbundance/coverm/contig/all_samples_alignment_results.tsv").readLines().size() == 4 }
             )
         }

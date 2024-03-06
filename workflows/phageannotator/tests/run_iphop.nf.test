@@ -3,7 +3,6 @@ nextflow_workflow {
     name "Test workflow: PHAGEANNOTATOR"
     script "workflows/phageannotator/main.nf"
     workflow "PHAGEANNOTATOR"
-    config "../../../tests/nextflow.config"
 
     // Dependencies
     tag "SEQKIT_SEQ"
@@ -19,7 +18,7 @@ nextflow_workflow {
     tag "FASTA_VIRUS_CLASSIFICATION_GENOMAD"
     tag "FASTA_VIRUS_QUALITY_CHECKV"
     tag "FASTA_ALL_V_ALL_BLAST"
-    //tag "FASTA_PHAGE_HOST_IPHOP"
+    tag "FASTA_PHAGE_HOST_IPHOP"
     //tag "FASTA_PHAGE_FUNCTION_PHAROKKA"
     //tag "FASTA_MICRODIVERSITY_INSTRAIN"
     tag "CAT_CAT"
@@ -30,7 +29,7 @@ nextflow_workflow {
     tag "FASTQ_ALIGN_BOWTIE2"
 
 
-    test("Parameters: default") {
+    test("Parameters: run_iphop = true") {
         when {
             workflow {
                 """
@@ -64,6 +63,7 @@ nextflow_workflow {
             }
             params {
                 outdir                  = "$outputDir"
+                run_iphop               = true
                 // parameters to decrease sensitivity for test data
                 mash_screen_min_score   = 0.01
                 genomad_min_score       = 0.01
@@ -72,6 +72,7 @@ nextflow_workflow {
                 genomad_disable_nn      = true
                 genomad_sensitivity     = 0.1
                 checkv_minimal_db       = true
+                iphop_partial_test      = true
             }
         }
 

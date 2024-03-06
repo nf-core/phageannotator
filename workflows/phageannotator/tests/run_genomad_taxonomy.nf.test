@@ -3,7 +3,6 @@ nextflow_workflow {
     name "Test workflow: PHAGEANNOTATOR"
     script "workflows/phageannotator/main.nf"
     workflow "PHAGEANNOTATOR"
-    config "../../../tests/nextflow.config"
 
     // Dependencies
     tag "SEQKIT_SEQ"
@@ -30,7 +29,7 @@ nextflow_workflow {
     tag "FASTQ_ALIGN_BOWTIE2"
 
 
-    test("Parameters: default") {
+    test("Parameters: run_genomad_taxonomy = true") {
         when {
             workflow {
                 """
@@ -63,15 +62,16 @@ nextflow_workflow {
                 """
             }
             params {
-                outdir                  = "$outputDir"
+                outdir                      = "$outputDir"
+                run_genomad_taxonomy        = true
                 // parameters to decrease sensitivity for test data
                 mash_screen_min_score   = 0.01
                 genomad_min_score       = 0.01
                 genomad_max_fdr         = 1
                 // speed up options since tools are fully tested in subworkflows
-                genomad_disable_nn      = true
-                genomad_sensitivity     = 0.1
-                checkv_minimal_db       = true
+                genomad_disable_nn          = true
+                genomad_sensitivity         = 0.1
+                checkv_minimal_db           = true
             }
         }
 
