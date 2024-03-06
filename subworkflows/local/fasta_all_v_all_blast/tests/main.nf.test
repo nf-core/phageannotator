@@ -3,13 +3,13 @@ nextflow_workflow {
     name "Test Subworkflow: FASTA_ALL_V_ALL_BLAST"
     script "subworkflows/local/fasta_all_v_all_blast/main.nf"
     workflow "FASTA_ALL_V_ALL_BLAST"
-    tag "subworkflows"
-    tag "subworkflows_local"
-    tag "fasta_all_v_all_blast"
-    tag "fasta_all_v_all_blast_default"
+
+    // Dependencies
+    tag "BLAST_MAKEBLASTDB"
+    tag "BLAST_BLASTN"
 
 
-    test("Parameters: default") {
+    test("fasta.gz") {
 
         when {
             params {
@@ -17,7 +17,12 @@ nextflow_workflow {
             }
             workflow {
                 """
-                input[0] = Channel.of([ [ id:'test' ], [ file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists: true) ] ])
+                input[0] = Channel.of(
+                    [
+                        [ id:'test' ],
+                        file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists: true)
+                    ]
+                )
                 """
             }
         }

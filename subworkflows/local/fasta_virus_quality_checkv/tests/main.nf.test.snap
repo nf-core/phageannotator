@@ -1,5 +1,5 @@
 {
-    "Parameters: default": {
+    "fasta.gz": {
         "content": [
             {
                 "0": [
@@ -35,13 +35,13 @@
                         {
                             "id": "test2"
                         },
-                        "test2_quality_summary.tsv:md5,04e827b7efefe52727a904cfd3af1639"
+                        "quality_summary.tsv:md5,04e827b7efefe52727a904cfd3af1639"
                     ],
                     [
                         {
                             "id": "test"
                         },
-                        "test_quality_summary.tsv:md5,04e827b7efefe52727a904cfd3af1639"
+                        "quality_summary.tsv:md5,04e827b7efefe52727a904cfd3af1639"
                     ]
                 ],
                 "3": [
@@ -67,13 +67,13 @@
                         {
                             "id": "test2"
                         },
-                        "test2_quality_summary.tsv:md5,04e827b7efefe52727a904cfd3af1639"
+                        "quality_summary.tsv:md5,04e827b7efefe52727a904cfd3af1639"
                     ],
                     [
                         {
                             "id": "test"
                         },
-                        "test_quality_summary.tsv:md5,04e827b7efefe52727a904cfd3af1639"
+                        "quality_summary.tsv:md5,04e827b7efefe52727a904cfd3af1639"
                     ]
                 ],
                 "versions": [
@@ -96,6 +96,10 @@
                 ]
             }
         ],
-        "timestamp": "2024-01-31T11:24:04.386626815"
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-02-28T16:47:23.174265397"
     }
 }

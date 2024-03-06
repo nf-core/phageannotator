@@ -1,5 +1,5 @@
 {
-    "Parameters: default": {
+    "fasta": {
         "content": [
             {
                 "0": [
@@ -49,13 +49,13 @@
                         {
                             "id": "test2"
                         },
-                        "genome_virus.fna.gz:md5,1b10bd0f19c8c41c426c0a75ea38efb9"
+                        "genome_virus.fna.gz:md5,4b38dc52b9e447512a3c6453f4e69cdc"
                     ],
                     [
                         {
                             "id": "test"
                         },
-                        "genome_virus.fna.gz:md5,1b10bd0f19c8c41c426c0a75ea38efb9"
+                        "genome_virus.fna.gz:md5,4b38dc52b9e447512a3c6453f4e69cdc"
                     ]
                 ],
                 "2": [
@@ -63,18 +63,18 @@
                         {
                             "id": "test2"
                         },
-                        "genome_virus_summary.tsv:md5,6899de91e735b5b930347d9d0fda8a7a"
+                        "genome_virus_summary.tsv:md5,8efd456949e538d395e0b198404d285a"
                     ],
                     [
                         {
                             "id": "test"
                         },
-                        "genome_virus_summary.tsv:md5,6899de91e735b5b930347d9d0fda8a7a"
+                        "genome_virus_summary.tsv:md5,8efd456949e538d395e0b198404d285a"
                     ]
                 ],
                 "3": [
-                    "versions.yml:md5,366d0d975c262aadb6a369f0bce340bf",
-                    "versions.yml:md5,6b3b022e67e97057826d98ef627a82fb"
+                    "versions.yml:md5,2a2d385c0b503d87083031b6d9811238",
+                    "versions.yml:md5,7f93656dd834e67704fab1ea258c123e"
                 ],
                 "genomad_db": [
                     [
@@ -119,21 +119,21 @@
                     ]
                 ],
                 "versions": [
-                    "versions.yml:md5,366d0d975c262aadb6a369f0bce340bf",
-                    "versions.yml:md5,6b3b022e67e97057826d98ef627a82fb"
+                    "versions.yml:md5,2a2d385c0b503d87083031b6d9811238",
+                    "versions.yml:md5,7f93656dd834e67704fab1ea258c123e"
                 ],
                 "virus_summaries_tsv": [
                     [
                         {
                             "id": "test2"
                         },
-                        "genome_virus_summary.tsv:md5,6899de91e735b5b930347d9d0fda8a7a"
+                        "genome_virus_summary.tsv:md5,8efd456949e538d395e0b198404d285a"
                     ],
                     [
                         {
                             "id": "test"
                         },
-                        "genome_virus_summary.tsv:md5,6899de91e735b5b930347d9d0fda8a7a"
+                        "genome_virus_summary.tsv:md5,8efd456949e538d395e0b198404d285a"
                     ]
                 ],
                 "viruses_fna_gz": [
@@ -141,17 +141,21 @@
                         {
                             "id": "test2"
                         },
-                        "genome_virus.fna.gz:md5,1b10bd0f19c8c41c426c0a75ea38efb9"
+                        "genome_virus.fna.gz:md5,4b38dc52b9e447512a3c6453f4e69cdc"
                     ],
                     [
                         {
                             "id": "test"
                         },
-                        "genome_virus.fna.gz:md5,1b10bd0f19c8c41c426c0a75ea38efb9"
+                        "genome_virus.fna.gz:md5,4b38dc52b9e447512a3c6453f4e69cdc"
                     ]
                 ]
             }
         ],
-        "timestamp": "2024-01-31T10:56:21.03653297"
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-02-20T09:05:55.397966376"
     }
 }

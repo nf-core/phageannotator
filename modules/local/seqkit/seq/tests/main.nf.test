@@ -3,12 +3,9 @@ nextflow_process {
     name "Test Process: SEQKIT_SEQ"
     script "../main.nf"
     process "SEQKIT_SEQ"
-    tag "modules"
-    tag "modules_local"
-    tag "seqkit_seq"
 
 
-    test("['modules_local']['assembly_fasta_gz']") {
+    test("fasta.gz") {
 
         when {
             params {
@@ -17,7 +14,10 @@ nextflow_process {
             }
             process {
                 """
-                input[0] = [ [id: 'test'], [file(params.test_data['modules_local']['assembly_fasta_gz'], checkIfExists: true)] ]
+                input[0] = [
+                    [id: 'test'],
+                    file(params.pipelines_testdata_base_path + 'modules/local/seqkit/seq/assembly.fasta.gz', checkIfExists: true)
+                ]
                 """
             }
         }
@@ -30,7 +30,7 @@ nextflow_process {
         }
     }
 
-    test("['modules_local']['assembly_fasta_gz'] - stub") {
+    test("fasta.gz - stub") {
 
         options "-stub"
 
@@ -41,7 +41,10 @@ nextflow_process {
             }
             process {
                 """
-                input[0] = [ [id: 'test'], [file(params.test_data['modules_local']['assembly_fasta_gz'], checkIfExists: true)] ]
+                input[0] = [
+                    [id: 'test'],
+                    file(params.pipelines_testdata_base_path + 'modules/local/seqkit/seq/assembly.fasta.gz', checkIfExists: true)
+                ]
                 """
             }
         }
