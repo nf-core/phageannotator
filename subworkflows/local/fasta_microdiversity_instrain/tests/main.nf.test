@@ -1,0 +1,40 @@
+nextflow_workflow {
+
+    name "Test Subworkflow: FASTA_MICRODIVERSITY_INSTRAIN"
+    script "../main.nf"
+    workflow "FASTA_MICRODIVERSITY_INSTRAIN"
+    tag "subworkflows"
+    tag "subworkflows_local"
+    tag "fasta_microdiversity_instrain"
+    tag "fasta_microdiversity_instrain_default"
+    tag "instrain/compare"
+    tag "instrain/profile"
+    tag "gunzip"
+
+    test("Parameters: default") {
+
+        when {
+            params {
+                outdir              = "$outputDir"
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    [ [ id:'test' ], file(params.test_data['homo_sapiens']['illumina']['test_paired_end_sorted_bam'], checkIfExists: true) ],
+                    [ [ id:'test2' ], file(params.test_data['homo_sapiens']['illumina']['test2_paired_end_sorted_bam'], checkIfExists: true) ]
+                )
+                input[1] = Channel.of([ [ id: 'reference_fasta' ], file(params.test_data['homo_sapiens']['genome']['genome_fasta'], checkIfExists: true) ])
+                input[2] = null
+                input[3] = Channel.of([ [ id: 'instrain_stb' ], file(params.test_data['modules_nfcore']['instrain_stb'], checkIfExists: true) ])
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+}

@@ -1,0 +1,2 @@
+fasta_virus_quality_checkv_default:
+  - subworkflows/local/fasta_virus_quality_checkv/**

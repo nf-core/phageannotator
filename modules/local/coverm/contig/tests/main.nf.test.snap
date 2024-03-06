@@ -1,0 +1,60 @@
+{
+    "['bacteroides_fragilis']['illumina']['test1_paired_end_bam'] & ['bacteroides_fragilis']['illumina']['test2_paired_end_bam']": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "all_samples"
+                        },
+                        "all_samples_alignment_results.tsv:md5,f7624089f001fd3079bc43e3c3372a7e"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,3f5dd63588c677b43b85a327268cd825"
+                ],
+                "alignment_results": [
+                    [
+                        {
+                            "id": "all_samples"
+                        },
+                        "all_samples_alignment_results.tsv:md5,f7624089f001fd3079bc43e3c3372a7e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,3f5dd63588c677b43b85a327268cd825"
+                ]
+            }
+        ],
+        "timestamp": "2024-01-30T12:13:24.433507451"
+    },
+    "['bacteroides_fragilis']['illumina']['test1_paired_end_bam'] & ['bacteroides_fragilis']['illumina']['test2_paired_end_bam'] - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "all_samples"
+                        },
+                        "all_samples_alignment_results.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,3f5dd63588c677b43b85a327268cd825"
+                ],
+                "alignment_results": [
+                    [
+                        {
+                            "id": "all_samples"
+                        },
+                        "all_samples_alignment_results.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,3f5dd63588c677b43b85a327268cd825"
+                ]
+            }
+        ],
+        "timestamp": "2024-01-30T12:13:34.750720485"
+    }
+}

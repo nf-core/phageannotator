@@ -1,0 +1,48 @@
+nextflow_process {
+
+    name "Test Process: INSTRAIN_STB"
+    script "../main.nf"
+    process "INSTRAIN_STB"
+    tag "modules"
+    tag "modules_local"
+    tag "instrain_stb"
+
+
+    test("['homo_sapiens']['genome']['genome_fasta']") {
+
+        when {
+            process {
+                """
+                input[0] = [ [ id: 'reference_fasta' ], file(params.test_data['homo_sapiens']['genome']['genome_fasta'], checkIfExists: true) ]
+                """
+            }
+        }
+
+        then {
+            assertAll (
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+
+    test("['homo_sapiens']['genome']['genome_fasta'] - stub") {
+
+        options "-stub"
+
+        when {
+            process {
+                """
+                input[0] = [ [ id: 'reference_fasta' ], file(params.test_data['homo_sapiens']['genome']['genome_fasta'], checkIfExists: true) ]
+                """
+            }
+        }
+
+        then {
+            assertAll (
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+}

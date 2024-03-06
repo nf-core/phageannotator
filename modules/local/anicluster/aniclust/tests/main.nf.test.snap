@@ -1,0 +1,60 @@
+{
+    "['bacteroides_fragilis']['illumina']['test1_contigs_fa_gz'] & ['modules_local']['ani_tsv']": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_clusters.tsv:md5,adcc2d4d4b096d6c9640180e94dd6c5f"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,774a3132a87e17391bf8b7ecf92c58d3"
+                ],
+                "clusters": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_clusters.tsv:md5,adcc2d4d4b096d6c9640180e94dd6c5f"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,774a3132a87e17391bf8b7ecf92c58d3"
+                ]
+            }
+        ],
+        "timestamp": "2024-01-30T12:51:09.910625712"
+    },
+    "['bacteroides_fragilis']['illumina']['test1_contigs_fa_gz'] & ['modules_local']['ani_tsv'] - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_clusters.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,774a3132a87e17391bf8b7ecf92c58d3"
+                ],
+                "clusters": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_clusters.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,774a3132a87e17391bf8b7ecf92c58d3"
+                ]
+            }
+        ],
+        "timestamp": "2024-01-30T12:51:20.189626093"
+    }
+}
