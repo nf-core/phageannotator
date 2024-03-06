@@ -1,0 +1,55 @@
+nextflow_workflow {
+
+    name "Test Subworkflow: FASTQ_FASTA_CONTIG_EXTENSION_COBRA"
+    script "subworkflows/local/fastq_fasta_contig_extension_cobra/main.nf"
+    workflow "FASTQ_FASTA_CONTIG_EXTENSION_COBRA"
+    tag "subworkflows"
+    tag "subworkflows_local"
+    tag "fastq_fasta_contig_extension_cobra"
+    tag "fastq_fasta_contig_extension_cobra_default"
+
+
+    test("Parameters: default") {
+
+        when {
+            params {
+                outdir              = "$outputDir"
+                cobra_assembler     = 'metaspades'
+                cobra_mink          = 21
+                cobra_maxk          = 127
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    [
+                        [ id: 'test' ],
+                        [
+                            file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/fastq/test_1.fastq.gz', checkifExists: true),
+                            file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/fastq/test_2.fastq.gz', checkifExists: true)
+                        ]
+                    ]
+                )
+                input[1] = Channel.of(
+                    [
+                        [ id: 'test' ],
+                        file("$projectDir/assets/test_data/subworkflows/fastq_fasta_contig_extension_cobra/sars_cov2_contigs.fasta.gz", checkifExists: true)
+                    ]
+                )
+                input[2] = Channel.of(
+                    [
+                        [ id: 'test' ],
+                        file("$projectDir/assets/test_data/subworkflows/fastq_fasta_contig_extension_cobra/viral_contigs.tsv", checkifExists: true)
+                    ]
+                )
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+}

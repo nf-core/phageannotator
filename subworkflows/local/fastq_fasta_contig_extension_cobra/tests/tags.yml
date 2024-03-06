@@ -1,0 +1,2 @@
+fastq_fasta_contig_extension_cobra_default:
+  - subworkflows/local/fastq_fasta_contig_extension_cobra/**

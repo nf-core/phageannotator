@@ -1,0 +1,62 @@
+nextflow_process {
+
+    name "Test process: EXTRACTVIRALASSEMBLIES"
+    script "../main.nf"
+    process "EXTRACTVIRALASSEMBLIES"
+    tag "modules"
+    tag "modules_local"
+    tag "extractviralassemblies"
+
+
+    test("fasta.gz & 'NODE_1_length_20973_cov_191.628754'") {
+
+        when {
+            params {
+                outdir   = "$outputDir"
+            }
+            process {
+                """
+                input[0] = [
+                    [ id: 'test' ],
+                        file(params.modules_testdata_base_path + "genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz", checkifExists: true),
+                ]
+                input[1] = "NODE_1_length_20973_cov_191.628754"
+                """
+            }
+        }
+
+        then {
+            assertAll (
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+
+    test("fasta.gz & 'NODE_1_length_20973_cov_191.628754' - stub") {
+
+        options "-stub"
+
+        when {
+            params {
+                outdir   = "$outputDir"
+            }
+            process {
+                """
+                input[0] = [
+                    [ id: 'test' ],
+                        file(params.modules_testdata_base_path + "genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz", checkifExists: true),
+                ]
+                input[1] = "NODE_1_"
+                """
+            }
+        }
+
+        then {
+            assertAll (
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+}
