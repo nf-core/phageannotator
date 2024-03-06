@@ -27,7 +27,7 @@
                         {
                             "id": "test"
                         },
-                        "test.fasta_w_screen_hits_virus_summary.tsv:md5,1fe3ee716511f1dbc2df721751bbbaff"
+                        "test.fasta_w_screen_hits_virus_summary.tsv:md5,f5b59da727b9793461f8b85cf7c818df"
                     ]
                 ],
                 "2": [
@@ -255,7 +255,7 @@
                         {
                             "id": "test"
                         },
-                        "test.fasta_w_screen_hits_virus_summary.tsv:md5,1fe3ee716511f1dbc2df721751bbbaff"
+                        "test.fasta_w_screen_hits_virus_summary.tsv:md5,f5b59da727b9793461f8b85cf7c818df"
                     ]
                 ],
                 "virus_enrichment_tsv": [
