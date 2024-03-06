@@ -3,6 +3,7 @@ nextflow_process {
     name "Test Process BACPHLIP"
     script "../main.nf"
     process "BACPHLIP"
+    config "./nextflow.config"
 
     tag "modules"
     tag "modules_nfcore"
