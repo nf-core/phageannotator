@@ -20,9 +20,18 @@ Changes in module 'nf-core/checkv/endtoend'
      path "versions.yml"                                     , emit: versions
  
      when:
-@@ -36,6 +36,8 @@
+@@ -35,6 +35,8 @@
+         -d $db \\
          $fasta \\
          $prefix
++
++    gzip ${prefix}/*viruses.fna
+ 
+     cat <<-END_VERSIONS > versions.yml
+     "${task.process}":
+@@ -55,6 +57,8 @@
+     touch ${prefix}/proviruses.fna
+     touch ${prefix}/viruses.fna
  
 +    gzip ${prefix}/*viruses.fna
 +
@@ -30,4 +39,23 @@ Changes in module 'nf-core/checkv/endtoend'
      "${task.process}":
          checkv: \$(checkv -h 2>&1  | sed -n 's/^.*CheckV v//; s/: assessing.*//; 1p')
 
+--- /dev/null
++++ modules/nf-core/checkv/endtoend/nextflow.config
+@@ -0,0 +1,16 @@
++process {
++    withName: CHECKV_ENDTOEND {
++        publishDir = [
++            [
++                path: { "${params.outdir}/VirusQuality/checkv/endtoend" },
++                mode: params.publish_dir_mode,
++                pattern: '**/quality_summary.tsv'
++            ],
++            [
++                path: { "${params.outdir}/VirusQuality/checkv/endtoend" },
++                mode: params.publish_dir_mode,
++                pattern: '**/*viruses.fna.gz'
++            ]
++        ]
++    }
++}
 ************************************************************

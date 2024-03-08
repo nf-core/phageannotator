@@ -25,17 +25,17 @@ include { paramsSummaryMap                      } from 'plugin/nf-validation'
 //
 // MODULE
 //
-include { MULTIQC                               } from '../../modules/nf-core/multiqc/main'
-include { FASTQC                                } from '../../modules/nf-core/fastqc/main'
+include { MULTIQC                               } from './modules/nf-core/multiqc/main'
+include { FASTQC                                } from './modules/nf-core/fastqc/main'
 
 //
 // SUBWORKFLOW
 //
 include { PIPELINE_INITIALISATION       } from './subworkflows/local/utils_nfcore_phageannotator_pipeline'
-include { paramsSummaryMultiqc          } from '../../subworkflows/nf-core/utils_nfcore_pipeline'
-include { softwareVersionsToYAML        } from '../../subworkflows/nf-core/utils_nfcore_pipeline'
-include { methodsDescriptionText        } from '../../subworkflows/local/utils_nfcore_phageannotator_pipeline'
-include { PIPELINE_COMPLETION        } from './subworkflows/local/utils_nfcore_phageannotator_pipeline'
+include { paramsSummaryMultiqc          } from './subworkflows/nf-core/utils_nfcore_pipeline'
+include { softwareVersionsToYAML        } from './subworkflows/nf-core/utils_nfcore_pipeline'
+include { methodsDescriptionText        } from './subworkflows/local/utils_nfcore_phageannotator_pipeline'
+include { PIPELINE_COMPLETION           } from './subworkflows/local/utils_nfcore_phageannotator_pipeline'
 
 //
 // WORKFLOW
@@ -58,15 +58,19 @@ workflow NFCORE_PHAGEANNOTATOR {
 
     main:
 
+    ch_fastq_gz = samplesheet.map { meta, fastq, fasta -> return [ meta, fastq ] }
+    ch_fasta_gz = samplesheet.map { meta, fastq, fasta -> return [ meta, fasta ] }
+
     //
     // WORKFLOW: Run pipeline
     //
     PHAGEANNOTATOR (
-        samplesheet
+        ch_fastq_gz,
+        ch_fasta_gz
     )
 
     emit:
-    multiqc_report = PHAGEANNOTATOR.out.multiqc_report // channel: /path/to/multiqc_report.html
+    versions = PHAGEANNOTATOR.out.versions
 
 }
 /*
@@ -78,6 +82,8 @@ workflow NFCORE_PHAGEANNOTATOR {
 workflow {
 
     main:
+    ch_versions         = Channel.empty()
+    ch_multiqc_files    = Channel.empty()
 
     //
     // SUBWORKFLOW: Run initialisation tasks
