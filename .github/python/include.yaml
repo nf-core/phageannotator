@@ -1,10 +1,10 @@
 ".":
   - .github/workflows/**
   - nf-test.config
-  - phageannotator/nextflow.config
+  - ./nextflow.config
 tests:
   - assets/*
   - bin/*
   - conf/*
-  - phageannotator/main.nf
+  - ./main.nf
   - nextflow_schema.json
