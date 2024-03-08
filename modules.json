@@ -96,11 +96,6 @@
                         "git_sha": "10f1f6526942539d5368cedb05afd1aa16eda5be",
                         "installed_by": ["modules"]
                     },
-                    "metaphlan/metaphlan": {
-                        "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
-                        "installed_by": ["modules"]
-                    },
                     "multiqc": {
                         "branch": "master",
                         "git_sha": "b7ebe95761cd389603f9cc0e0dc384c0f663815a",
@@ -154,7 +149,7 @@
                     "bam_sort_stats_samtools": {
                         "branch": "master",
                         "git_sha": "5caf7640a9ef1d18d765d55339be751bb0969dfa",
-                        "installed_by": ["fastq_align_bowtie2"]
+                        "installed_by": ["subworkflows"]
                     },
                     "bam_stats_samtools": {
                         "branch": "master",
