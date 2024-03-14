@@ -262,11 +262,19 @@ def find_changed_dependencies(paths: list[Path], tags: list[str]) -> list[Path]:
     for nf_test_file in nf_test_files:
         with open(nf_test_file, "r") as f:
             lines = f.readlines()
-            tags_in_nf_test_file = convert_nf_test_files_to_test_types(
-                lines, types=["tag"]
-            )
-            # Check if tag in nf-test file appears in a tag
-            if any(tag in tags_in_nf_test_file["tag"] for tag in tags):
+            # Get all tags from nf-test file
+            # Make case insensitive with .casefold()
+            tags_in_nf_test_file = [
+                tag.casefold().replace("/", "_")
+                for tag in convert_nf_test_files_to_test_types(lines, types=["tag"])[
+                    "tag"
+                ]
+            ]
+            # Check if tag in nf-test file appears in a tag.
+            # Use .casefold() to be case insensitive
+            if any(
+                tag.casefold().replace("/", "_") in tags_in_nf_test_file for tag in tags
+            ):
                 result.append(nf_test_file)
 
     return result
@@ -296,6 +304,7 @@ if __name__ == "__main__":
     target_results = list(
         {item for sublist in map(result.get, args.types) for item in sublist}
     )
+
     # Parse files to identify nf-tests with changed dependencies
     changed_dep_files = find_changed_dependencies([Path(".")], target_results)
 
