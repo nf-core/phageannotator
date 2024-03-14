@@ -11,9 +11,6 @@ nextflow_workflow {
     test("bam & fasta & stb_file") {
 
         when {
-            params {
-                outdir              = "$outputDir"
-            }
             workflow {
                 """
                 input[0] = Channel.of(

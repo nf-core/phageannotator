@@ -13,7 +13,6 @@ nextflow_workflow {
 
         when {
             params {
-                outdir              = "$outputDir"
                 iphop_test_db       = true
                 iphop_partial_test  = true
             }

@@ -8,9 +8,6 @@ nextflow_process {
     test("mash_screen.tsv & fasta.gz & reference_fasta.gz") {
 
         when {
-            params {
-                outdir   = "$outputDir"
-            }
             process {
                 """
                 input[0] = [
@@ -39,9 +36,6 @@ nextflow_process {
         options "-stub"
 
         when {
-            params {
-                outdir   = "$outputDir"
-            }
             process {
                 """
                 input[0] = [

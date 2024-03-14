@@ -9,7 +9,6 @@ nextflow_process {
 
         when {
             params {
-                outdir              = "$outputDir"
                 assembly_min_length = 5
             }
             process {
@@ -36,7 +35,6 @@ nextflow_process {
 
         when {
             params {
-                outdir              = "$outputDir"
                 assembly_min_length = 5
             }
             process {
