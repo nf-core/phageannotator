@@ -3,7 +3,7 @@
         "content": [
             {
                 "0": [
-
+                    
                 ],
                 "1": [
                     [
@@ -56,17 +56,17 @@
                     ]
                 ],
                 "5": [
-
+                    
                 ],
                 "6": [
-
+                    
                 ],
                 "7": [
                     [
                         {
                             "id": "all_samples"
                         },
-                        "all_samples_cds_final_merged_output.tsv:md5,8080e1ffca88bbda0401ec61bafb9d30"
+                        "all_samples_cds_final_merged_output.tsv:md5,db5070088d1bea637525687595c03edb"
                     ]
                 ],
                 "8": [
@@ -74,24 +74,16 @@
                         {
                             "id": "test2"
                         },
-                        "test2.IS_gene_info.tsv:md5,e20016bcf7dbe097ef5c3df924e4c3c8"
-                    ],
-                    [
-                        {
-                            "id": "test"
-                        },
-                        "test.IS_gene_info.tsv:md5,e20016bcf7dbe097ef5c3df924e4c3c8"
+                        "test2.IS_gene_info.tsv:md5,1d8ab275bc76669a149aa3802e67fc65"
                     ]
                 ],
                 "9": [
-                    "versions.yml:md5,005aa3fca95c916b586f09b1c12aae6f",
                     "versions.yml:md5,005aa3fca95c916b586f09b1c12aae6f",
                     "versions.yml:md5,04bf25e5231ce1f8077581bb7a2c07f4",
                     "versions.yml:md5,0c310e8a973612ff99e0df847fb656ea",
                     "versions.yml:md5,0e57d76cb0b6149bbb32aded3595de9b",
                     "versions.yml:md5,0e57d76cb0b6149bbb32aded3595de9b",
                     "versions.yml:md5,1439e948f383899aaccbf49506923b04",
-                    "versions.yml:md5,1d0c30d6933e25e18f2cc3094490b2c5",
                     "versions.yml:md5,374c63bf7c31c6c34acbf8d74e6c7dcc",
                     "versions.yml:md5,3c8b8ac5a86d6d7fba86fc61f4d5fca9",
                     "versions.yml:md5,5bf636608598d8b495d8b38fcee37dd0",
@@ -108,10 +100,8 @@
                     "versions.yml:md5,afc743a69ab04322fbc732b24e18d208",
                     "versions.yml:md5,b6a0d868f5f2be1093be05fc0638008d",
                     "versions.yml:md5,bcf62c8c784b9f46c8372e86654cae6b",
-                    "versions.yml:md5,bcf62c8c784b9f46c8372e86654cae6b",
                     "versions.yml:md5,d1e2a23440cc3dbeedc1c628bf792072",
                     "versions.yml:md5,d1e2a23440cc3dbeedc1c628bf792072",
-                    "versions.yml:md5,dc43c8404f9f95b46c1a9c8d51687032",
                     "versions.yml:md5,dc43c8404f9f95b46c1a9c8d51687032"
                 ],
                 "anicluster_reps_fna_gz": [
@@ -137,42 +127,34 @@
                     ]
                 ],
                 "host_predictions_tsv": [
-
+                    
                 ],
                 "instrain_gene_info": [
                     [
                         {
                             "id": "test2"
                         },
-                        "test2.IS_gene_info.tsv:md5,e20016bcf7dbe097ef5c3df924e4c3c8"
-                    ],
-                    [
-                        {
-                            "id": "test"
-                        },
-                        "test.IS_gene_info.tsv:md5,e20016bcf7dbe097ef5c3df924e4c3c8"
+                        "test2.IS_gene_info.tsv:md5,1d8ab275bc76669a149aa3802e67fc65"
                     ]
                 ],
                 "marker_taxonomy_tsv": [
-
+                    
                 ],
                 "pharokka_output_tsv": [
                     [
                         {
                             "id": "all_samples"
                         },
-                        "all_samples_cds_final_merged_output.tsv:md5,8080e1ffca88bbda0401ec61bafb9d30"
+                        "all_samples_cds_final_merged_output.tsv:md5,db5070088d1bea637525687595c03edb"
                     ]
                 ],
                 "versions": [
-                    "versions.yml:md5,005aa3fca95c916b586f09b1c12aae6f",
                     "versions.yml:md5,005aa3fca95c916b586f09b1c12aae6f",
                     "versions.yml:md5,04bf25e5231ce1f8077581bb7a2c07f4",
                     "versions.yml:md5,0c310e8a973612ff99e0df847fb656ea",
                     "versions.yml:md5,0e57d76cb0b6149bbb32aded3595de9b",
                     "versions.yml:md5,0e57d76cb0b6149bbb32aded3595de9b",
                     "versions.yml:md5,1439e948f383899aaccbf49506923b04",
-                    "versions.yml:md5,1d0c30d6933e25e18f2cc3094490b2c5",
                     "versions.yml:md5,374c63bf7c31c6c34acbf8d74e6c7dcc",
                     "versions.yml:md5,3c8b8ac5a86d6d7fba86fc61f4d5fca9",
                     "versions.yml:md5,5bf636608598d8b495d8b38fcee37dd0",
@@ -189,10 +171,8 @@
                     "versions.yml:md5,afc743a69ab04322fbc732b24e18d208",
                     "versions.yml:md5,b6a0d868f5f2be1093be05fc0638008d",
                     "versions.yml:md5,bcf62c8c784b9f46c8372e86654cae6b",
-                    "versions.yml:md5,bcf62c8c784b9f46c8372e86654cae6b",
                     "versions.yml:md5,d1e2a23440cc3dbeedc1c628bf792072",
                     "versions.yml:md5,d1e2a23440cc3dbeedc1c628bf792072",
-                    "versions.yml:md5,dc43c8404f9f95b46c1a9c8d51687032",
                     "versions.yml:md5,dc43c8404f9f95b46c1a9c8d51687032"
                 ],
                 "virus_classification_tsv": [
@@ -210,7 +190,7 @@
                     ]
                 ],
                 "virus_enrichment_tsv": [
-
+                    
                 ],
                 "virus_quality_tsv": [
                     [
@@ -232,6 +212,6 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-02-29T14:47:47.794251479"
+        "timestamp": "2024-03-15T14:12:05.455831595"
     }
 }

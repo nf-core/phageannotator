@@ -3,14 +3,14 @@
         "content": [
             {
                 "0": [
-
+                    
                 ],
                 "1": [
                     [
                         {
                             "id": "test2"
                         },
-                        "test2.fasta_w_screen_hits_virus_summary.tsv:md5,465f0bdc55e03f31be2c6d60366ba43f"
+                        "test2.fasta_w_screen_hits_virus_summary.tsv:md5,617215f2a883d4ec8d95aacd0b09d8a1"
                     ],
                     [
                         {
@@ -56,19 +56,18 @@
                     ]
                 ],
                 "5": [
-
+                    
                 ],
                 "6": [
-
+                    
                 ],
                 "7": [
-
+                    
                 ],
                 "8": [
-
+                    
                 ],
                 "9": [
-                    "versions.yml:md5,005aa3fca95c916b586f09b1c12aae6f",
                     "versions.yml:md5,005aa3fca95c916b586f09b1c12aae6f",
                     "versions.yml:md5,04bf25e5231ce1f8077581bb7a2c07f4",
                     "versions.yml:md5,0c310e8a973612ff99e0df847fb656ea",
@@ -87,7 +86,6 @@
                     "versions.yml:md5,987d2e54a85311b917599dc41c90418c",
                     "versions.yml:md5,a856eefde99260259440d942c1d56ff4",
                     "versions.yml:md5,b6a0d868f5f2be1093be05fc0638008d",
-                    "versions.yml:md5,bcf62c8c784b9f46c8372e86654cae6b",
                     "versions.yml:md5,bcf62c8c784b9f46c8372e86654cae6b",
                     "versions.yml:md5,c0598196e761dbcdc90ff95a2f623b9c",
                     "versions.yml:md5,d1e2a23440cc3dbeedc1c628bf792072",
@@ -116,19 +114,18 @@
                     ]
                 ],
                 "host_predictions_tsv": [
-
+                    
                 ],
                 "instrain_gene_info": [
-
+                    
                 ],
                 "marker_taxonomy_tsv": [
-
+                    
                 ],
                 "pharokka_output_tsv": [
-
+                    
                 ],
                 "versions": [
-                    "versions.yml:md5,005aa3fca95c916b586f09b1c12aae6f",
                     "versions.yml:md5,005aa3fca95c916b586f09b1c12aae6f",
                     "versions.yml:md5,04bf25e5231ce1f8077581bb7a2c07f4",
                     "versions.yml:md5,0c310e8a973612ff99e0df847fb656ea",
@@ -148,7 +145,6 @@
                     "versions.yml:md5,a856eefde99260259440d942c1d56ff4",
                     "versions.yml:md5,b6a0d868f5f2be1093be05fc0638008d",
                     "versions.yml:md5,bcf62c8c784b9f46c8372e86654cae6b",
-                    "versions.yml:md5,bcf62c8c784b9f46c8372e86654cae6b",
                     "versions.yml:md5,c0598196e761dbcdc90ff95a2f623b9c",
                     "versions.yml:md5,d1e2a23440cc3dbeedc1c628bf792072",
                     "versions.yml:md5,d1e2a23440cc3dbeedc1c628bf792072"
@@ -158,7 +154,7 @@
                         {
                             "id": "test2"
                         },
-                        "test2.fasta_w_screen_hits_virus_summary.tsv:md5,465f0bdc55e03f31be2c6d60366ba43f"
+                        "test2.fasta_w_screen_hits_virus_summary.tsv:md5,617215f2a883d4ec8d95aacd0b09d8a1"
                     ],
                     [
                         {
@@ -168,7 +164,7 @@
                     ]
                 ],
                 "virus_enrichment_tsv": [
-
+                    
                 ],
                 "virus_quality_tsv": [
                     [
@@ -190,6 +186,6 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-03-05T11:19:34.779904747"
+        "timestamp": "2024-03-15T13:48:00.173711431"
     }
 }
