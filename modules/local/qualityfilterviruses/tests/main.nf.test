@@ -3,23 +3,20 @@ nextflow_process {
     name "Test process: QUALITYFILTERVIRUSES"
     script "../main.nf"
     process "QUALITYFILTERVIRUSES"
-    tag "modules"
-    tag "modules_local"
-    tag "qualityfilterviruses"
 
 
-    test("['modules_local']['viruses_fna_gz'] & ['modules_local']['proviruses_fna_gz'] & ['modules_local']['quality_summary_tsv']") {
+    test("virus_fasta.gz & provirus_fasta.gz & quality_summary.tsv") {
 
         when {
-            params {
-                outdir   = "$outputDir"
-            }
 
             process {
                 """
-                input[0] = [ [ id: 'test' ], [ file(params.test_data['modules_local']['viruses_fna_gz'], checkIfExists: true) ],
-                            [ file(params.test_data['modules_local']['proviruses_fna_gz'], checkIfExists: true) ],
-                            [ file(params.test_data['modules_local']['quality_summary_tsv'], checkIfExists: true)] ]
+                input[0] = [
+                    [ id: 'test' ],
+                    file(params.pipelines_testdata_base_path + 'modules/local/quality_filter_viruses/viruses.fna.gz', checkIfExists: true),
+                    file(params.pipelines_testdata_base_path + 'modules/local/quality_filter_viruses/proviruses.fna.gz', checkIfExists: true),
+                    file(params.pipelines_testdata_base_path + 'modules/local/quality_filter_viruses/quality_summary.tsv', checkIfExists: true)
+                ]
                 """
             }
         }
@@ -32,20 +29,20 @@ nextflow_process {
         }
     }
 
-    test("['modules_local']['viruses_fna_gz'] & ['modules_local']['proviruses_fna_gz'] & ['modules_local']['quality_summary_tsv'] - stub") {
+    test("virus_fasta.gz & provirus_fasta.gz & quality_summary.tsv - stub") {
 
         options "-stub"
 
         when {
-            params {
-                outdir   = "$outputDir"
-            }
 
             process {
                 """
-                input[0] = [ [ id: 'test' ], [ file(params.test_data['modules_local']['viruses_fna_gz'], checkIfExists: true) ],
-                            [ file(params.test_data['modules_local']['proviruses_fna_gz'], checkIfExists: true) ],
-                            [ file(params.test_data['modules_local']['quality_summary_tsv'], checkIfExists: true)] ]
+                input[0] = [
+                    [ id: 'test' ],
+                    file(params.pipelines_testdata_base_path + 'modules/local/quality_filter_viruses/viruses.fna.gz', checkIfExists: true),
+                    file(params.pipelines_testdata_base_path + 'modules/local/quality_filter_viruses/proviruses.fna.gz', checkIfExists: true),
+                    file(params.pipelines_testdata_base_path + 'modules/local/quality_filter_viruses/quality_summary.tsv', checkIfExists: true)
+                ]
                 """
             }
         }
