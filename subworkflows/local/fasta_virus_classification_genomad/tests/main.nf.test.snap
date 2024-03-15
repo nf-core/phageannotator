@@ -1,5 +1,5 @@
 {
-    "Parameters: default": {
+    "fasta": {
         "content": [
             {
                 "0": [
@@ -73,7 +73,7 @@
                     ]
                 ],
                 "3": [
-                    "versions.yml:md5,366d0d975c262aadb6a369f0bce340bf",
+                    "versions.yml:md5,2a2d385c0b503d87083031b6d9811238",
                     "versions.yml:md5,6b3b022e67e97057826d98ef627a82fb"
                 ],
                 "genomad_db": [
@@ -119,7 +119,7 @@
                     ]
                 ],
                 "versions": [
-                    "versions.yml:md5,366d0d975c262aadb6a369f0bce340bf",
+                    "versions.yml:md5,2a2d385c0b503d87083031b6d9811238",
                     "versions.yml:md5,6b3b022e67e97057826d98ef627a82fb"
                 ],
                 "virus_summaries_tsv": [
@@ -152,6 +152,10 @@
                 ]
             }
         ],
-        "timestamp": "2024-01-31T10:56:21.03653297"
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-03-08T16:52:01.405682052"
     }
 }

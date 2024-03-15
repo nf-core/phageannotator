@@ -3,22 +3,18 @@ nextflow_process {
     name "Test process: ANICLUSTER_ANICLUST"
     script "../main.nf"
     process "ANICLUSTER_ANICLUST"
-    tag "modules"
-    tag "modules_local"
-    tag "anicluster"
-    tag "anicluster_aniclust"
 
 
-    test("['bacteroides_fragilis']['illumina']['test1_contigs_fa_gz'] & ['modules_local']['ani_tsv']") {
+    test("fasta.gz & ani.tsv") {
 
         when {
-            params {
-                outdir   = "$outputDir"
-            }
             process {
                 """
-                input[0] = [ [ id: 'test' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['test1_contigs_fa_gz'], checkIfExists: true ) ],
-                                                [ file(params.test_data['modules_local']['ani_tsv'], checkIfExists: true ) ] ]
+                input[0] = [
+                    [ id: 'test' ],
+                    file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists: true ),
+                    file(params.pipelines_testdata_base_path + 'modules/local/anicluster/aniclust/ani.tsv', checkIfExists: true )
+                ]
                 """
             }
         }
@@ -31,18 +27,18 @@ nextflow_process {
         }
     }
 
-    test("['bacteroides_fragilis']['illumina']['test1_contigs_fa_gz'] & ['modules_local']['ani_tsv'] - stub") {
+    test("fasta.gz & ani.tsv - stub") {
 
         options "-stub"
 
         when {
-            params {
-                outdir   = "$outputDir"
-            }
             process {
                 """
-                input[0] = [ [ id: 'test' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['test1_contigs_fa_gz'], checkIfExists: true ) ],
-                                                [ file(params.test_data['modules_local']['ani_tsv'], checkIfExists: true ) ] ]
+                input[0] = [
+                    [ id: 'test' ],
+                    file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists: true ),
+                    file(params.pipelines_testdata_base_path + 'modules/local/anicluster/aniclust/ani.tsv', checkIfExists: true )
+                ]
                 """
             }
         }

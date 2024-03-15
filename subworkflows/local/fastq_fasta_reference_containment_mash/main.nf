@@ -46,7 +46,7 @@ workflow FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH {
     //
     // MODULE: Identify contained genomes
     //
-    ch_mash_screen_tsv = MASH_SCREEN ( ch_mash_screen_input ).screen
+    ch_mash_screen_tsv = MASH_SCREEN ( ch_mash_screen_input.map { [ it[0], it[1] ] }, ch_mash_screen_input.map { [ it[0], it[2] ] } ).screen
     ch_versions = ch_versions.mix(MASH_SCREEN.out.versions.first())
 
     emit:

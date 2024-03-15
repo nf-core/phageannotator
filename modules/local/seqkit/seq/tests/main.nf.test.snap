@@ -1,5 +1,5 @@
 {
-    "['modules_local']['assembly_fasta_gz'] - stub": {
+    "fasta.gz - stub": {
         "content": [
             {
                 "0": [
@@ -26,9 +26,13 @@
                 ]
             }
         ],
-        "timestamp": "2024-01-17T22:52:51.168265662"
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-02-19T17:03:57.945355863"
     },
-    "['modules_local']['assembly_fasta_gz']": {
+    "fasta.gz": {
         "content": [
             {
                 "0": [
@@ -55,6 +59,10 @@
                 ]
             }
         ],
-        "timestamp": "2023-12-06T15:25:04.913990939"
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-02-19T17:03:51.240957232"
     }
 }
