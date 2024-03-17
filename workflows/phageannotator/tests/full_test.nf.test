@@ -84,9 +84,9 @@ nextflow_workflow {
                 instrain_min_variant_cov    = 5
                 instrain_min_snp_freq       = 0.01
                 instrain_max_snp_fdr        = 1
-                instrain_min_genome_cov     = 0.5
-                instrain_popani_thresh      = 0.0
-                instrain_min_genome_comp    = 0.001
+                instrain_min_genome_cov     = 0.01
+                instrain_popani_thresh      = 0.01
+                instrain_min_genome_comp    = 0.01
                 instrain_min_genome_breadth = 0.01
             }
         }

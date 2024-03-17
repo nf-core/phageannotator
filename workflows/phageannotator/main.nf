@@ -265,7 +265,7 @@ workflow PHAGEANNOTATOR {
         //
         // SUBWORKFLOW: Align reads to bowtie2 index
         //
-        ch_cluster_rep_alignment_bam = FASTQ_ALIGN_BOWTIE2 ( fastq_gz, ch_anicluster_reps_bt2, false, false, ch_anicluster_reps_fasta_gz ).bam
+        ch_cluster_rep_alignment_bam = FASTQ_ALIGN_BOWTIE2 ( fastq_gz, ch_anicluster_reps_bt2, false, false, ch_anicluster_reps_fasta_gz.first() ).bam
         ch_versions = ch_versions.mix( FASTQ_ALIGN_BOWTIE2.out.versions )
 
         //
