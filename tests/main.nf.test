@@ -35,7 +35,7 @@ nextflow_pipeline {
                     path("${params.outdir}/GenomeClustering"),
                     path("${params.outdir}/VirusAbundance/bowtie2/align/test1.bowtie2.log"),
                     path("${params.outdir}/VirusAbundance/bowtie2/build"),
-                    path("${params.outdir}/pipeline_info/nf_core_pipeline_software_mqc_versions.yml")
+                    file("${params.outdir}/pipeline_info/nf_core_pipeline_software_mqc_versions.yml").readLines()[0..41]
                     ).match() },
                 { assert path("${outputDir}/VirusAbundance/coverm/contig/all_samples_alignment_results.tsv").readLines().size() == 3 },
                 { assert new File("$outputDir/ReadQuality/fastqc/test1_1_fastqc.html").exists() },

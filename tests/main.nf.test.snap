@@ -63,12 +63,55 @@
                     "all_samples_anicluster_representatives.fna.rev.2.bt2:md5,3814fd4a34f1cf9f33bb684cd8fab198"
                 ]
             ],
-            "nf_core_pipeline_software_mqc_versions.yml:md5,948ef72400547dec29ccb10640bc4250"
+            [
+                "ANICLUSTER_ANICALC:",
+                "  python: 3.9.12",
+                "  biopython: 1.78",
+                "  numpy: 1.22.3",
+                "ANICLUSTER_ANICLUST:",
+                "  python: 3.9.12",
+                "ANICLUSTER_EXTRACTREPS:",
+                "  python: 3.9.12",
+                "  biopython: 1.78",
+                "BLAST_MAKEBLASTDB:",
+                "  blast: 2.15.0+",
+                "BOWTIE2_ALIGN:",
+                "  bowtie2: 2.5.2",
+                "  samtools: 1.18",
+                "  pigz: 2.6",
+                "BOWTIE2_BUILD:",
+                "  bowtie2: 2.5.2",
+                "COVERM_CONTIG:",
+                "  coverm: 0.6.1)",
+                "GENOMAD_DOWNLOAD:",
+                "  genomad: 1.7.4",
+                "GUNZIP_CLUSTER_REPS:",
+                "  gunzip: 1.1",
+                "QUALITYFILTERVIRUSES:",
+                "  python: 3.9.12",
+                "  biopython: 1.78",
+                "  pandas: 1.3.5",
+                "SAMTOOLS_FLAGSTAT:",
+                "  samtools: 1.19.2",
+                "SAMTOOLS_IDXSTATS:",
+                "  samtools: 1.19.2",
+                "SAMTOOLS_INDEX:",
+                "  samtools: 1.19.2",
+                "SAMTOOLS_SORT:",
+                "  samtools: 1.19.2",
+                "SAMTOOLS_STATS:",
+                "  samtools: 1.19.2",
+                "SEQKIT_SEQ:",
+                "  seqkit: 2.2.0",
+                "UNTAR:",
+                "  untar: 1.3",
+                "Workflow:"
+            ]
         ],
         "meta": {
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-03-16T20:26:25.821244955"
+        "timestamp": "2024-03-17T15:10:55.472746913"
     }
 }
