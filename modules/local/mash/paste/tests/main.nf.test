@@ -3,21 +3,21 @@ nextflow_process {
     name "Test Process: MASH_PASTE"
     script "../main.nf"
     process "MASH_PASTE"
-    tag "modules"
-    tag "modules_local"
-    tag "mash_paste"
 
 
-    test("['modules_local']['mash_sketch1_msh'] & ['modules_local']['mash_sketch2_msh']") {
+    test("test1.msh & test2.msh") {
 
         when {
-            params {
-                outdir              = "$outputDir"
-            }
             process {
                 """
-                input[0] = [ [id: 'test1'], [file(params.test_data['modules_local']['mash_sketch1_msh'], checkIfExists: true)] ]
-                input[1] = [ [id: 'test2'], [file(params.test_data['modules_local']['mash_sketch2_msh'], checkIfExists: true)] ]
+                input[0] = [
+                    [id: 'test1'],
+                    file(params.pipelines_testdata_base_path + 'modules/local/mash/paste/bacteroides_fragilis_contigs1.msh', checkIfExists: true)
+                ]
+                input[1] = [
+                    [id: 'test2'],
+                    file(params.pipelines_testdata_base_path + 'modules/local/mash/paste/bacteroides_fragilis_contigs2.msh', checkIfExists: true)
+                ]
                 """
             }
         }
@@ -30,18 +30,21 @@ nextflow_process {
         }
     }
 
-    test("['modules_local']['mash_sketch1_msh'] & ['modules_local']['mash_sketch2_msh'] - stub") {
+    test("test1.msh & test2.msh - stub") {
 
         options "-stub"
 
         when {
-            params {
-                outdir              = "$outputDir"
-            }
             process {
                 """
-                input[0] = [ [id: 'test1'], [file(params.test_data['modules_local']['mash_sketch1_msh'], checkIfExists: true)] ]
-                input[1] = [ [id: 'test2'], [file(params.test_data['modules_local']['mash_sketch2_msh'], checkIfExists: true)] ]
+                input[0] = [
+                    [id: 'test1'],
+                    file(params.pipelines_testdata_base_path + 'modules/local/mash/paste/bacteroides_fragilis_contigs1.msh', checkIfExists: true)
+                ]
+                input[1] = [
+                    [id: 'test2'],
+                    file(params.pipelines_testdata_base_path + 'modules/local/mash/paste/bacteroides_fragilis_contigs2.msh', checkIfExists: true)
+                ]
                 """
             }
         }
