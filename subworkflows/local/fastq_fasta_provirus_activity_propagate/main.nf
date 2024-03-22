@@ -2,8 +2,9 @@
 // Predict provirus activity with Propagate
 //
 include { PROPAGATE_EXTRACTPROVIRUSES                           } from '../../../modules/local/propagate/extractproviruses/main'
-include { CAT_CAT as CAT_FASTA                                  } from '../../modules/nf-core/cat/cat/main'
-include { CAT_CAT as CAT_COORDS                                 } from '../../modules/nf-core/cat/cat/main'
+include { CAT_CAT as CAT_FASTA                                  } from '../../../modules/nf-core/cat/cat/main'
+include { CAT_CAT as CAT_COORDS                                 } from '../../../modules/nf-core/cat/cat/main'
+include { GUNZIP                                                } from '../../../modules/nf-core/gunzip/main'
 include { FASTA_CLUSTER_BLAST as FASTA_GROUP_DEREPLICATE_BLAST  } from '../fasta_cluster_blast/main'
 include { PROPAGATE_DEREPCOORDINATES                            } from '../../../modules/local/propagate/derepcoordinates/main'
 include { PROPAGATE_PROPAGATE                                   } from '../../../modules/local/propagate/propagate/main'
@@ -29,20 +30,20 @@ workflow FASTQ_FASTA_PROVIRUS_ACTIVITY_PROPAGATE {
     ch_versions                     = ch_versions.mix(PROPAGATE_EXTRACTPROVIRUSES.out.versions)
 
     // organize proviral contigs by group
-    ch_grouped_proviruses_fasta_gz = fasta_gz
+    ch_grouped_proviruses_fasta_gz = ch_provirus_scaffolds_fasta_gz
         .map {
             meta, fasta ->
-                def group = meta.group
-
-                return [ group, fasta ]
+                def meta_new = [:]
+                meta_new.id = meta.group
+                return [ meta_new, fasta ]
         }
         .groupTuple( sort: 'deep' )
 
     //
     // MODULE: Concatenate all proviral contigs from the same group
     //
-    ch_combined_proviruses_fasta_gz = CAT_CAT ( ch_grouped_proviruses_fasta_gz ).file_out
-    ch_versions                     = ch_versions.mix(CAT_CAT.out.versions)
+    ch_combined_proviruses_fasta_gz = CAT_FASTA ( ch_grouped_proviruses_fasta_gz ).file_out
+    ch_versions                     = ch_versions.mix(CAT_FASTA.out.versions)
 
     //
     // SUBWORKFLOW: Cluster (Dereplicate) contigs containing integrated proviruses within groups
@@ -51,11 +52,19 @@ workflow FASTQ_FASTA_PROVIRUS_ACTIVITY_PROPAGATE {
     ch_derep_clusters_tsv       = FASTA_GROUP_DEREPLICATE_BLAST.out.clusters_tsv
     ch_versions                 = ch_versions.mix( FASTA_GROUP_DEREPLICATE_BLAST.out.versions )
 
+    //
+    // MODULE: Gunzip scaffolds
+    //
+    ch_derep_scaffolds_fasta    = GUNZIP ( ch_derep_scaffolds_fasta_gz ).gunzip
+    ch_versions                 = ch_versions.mix( GUNZIP.out.versions )
+
     // collect coords file by group into one coords file
     ch_grouped_coords_tsv = ch_provirus_coords_tsv
         .map {
             meta, coords ->
-                return [ meta.group, coords ]
+                def meta_new = [:]
+                meta_new.id = meta.group
+                return [ meta_new, coords ]
         }
         .groupTuple( sort:'deep')
 
@@ -63,45 +72,46 @@ workflow FASTQ_FASTA_PROVIRUS_ACTIVITY_PROPAGATE {
     // MODULE: Combine coords files within group into one coords file
     //
     ch_combined_coords_tsv  = CAT_COORDS ( ch_grouped_coords_tsv ).file_out
-    ch_versions             = ch_versions.mix(CAT_CAT.out.versions)
+    ch_versions             = ch_versions.mix(CAT_COORDS.out.versions)
 
     // combine coords and cluster files by group
-    ch_provirus_coords_input = ch_combined_coords_tsv.combine ( ch_derep_clusters_tsv )
+    ch_derep_coords_input = ch_combined_coords_tsv.join ( ch_derep_clusters_tsv )
 
     //
     // MODULE: Create a coordinates file for dereplicated proviruses
     //
-    ch_derep_provirus_coords_tsv    = PROPAGATE_DEREPCOORDINATES ( ch_provirus_coords_input.map { it[0], it[1] }, ch_provirus_coords_input.map { it[0], it[2] } ).coords
+    ch_derep_provirus_coords_tsv    = PROPAGATE_DEREPCOORDINATES ( ch_derep_coords_input.map { [ it[0], it[1] ] }, ch_derep_coords_input.map { [ it[0], it[2] ] } ).derep_coords
     ch_versions                     = ch_versions.mix(PROPAGATE_DEREPCOORDINATES.out.versions)
 
     // organize reads by group and combine with dereplicated contigs & dereplicated coords
     ch_propagate_input = fastq_gz
         .map {
             meta, fastq ->
-                def id      = meta.id
-                def group   = meta.group
+                def meta_new = [:]
 
-                return [ group, id, fastq ]
+                meta_new.id = meta.group
+
+                return [ meta_new, meta.id, fastq ]
         }
-        .combine ( ch_dereplicated_proviruses_fasta_gz, by:0 )
-        .combine ( ch_derep_provirus_coords_tsv, by: 0 )
+        .join ( ch_derep_scaffolds_fasta, by:0 )
+        .join ( ch_derep_provirus_coords_tsv, by: 0 )
         .map {
-            group, id, fastq, fasta, coords ->
-                def meta = [:]
+            meta, id, fastq, fasta, coords ->
+                def meta_new = [:]
 
-                meta.id     = id
-                meta.group  = group
+                meta_new.id     = id
+                meta_new.group  = meta.id
 
-                return [ meta, fastq, fasta, coords ]
+                return [ meta_new, fastq, fasta, coords ]
         }
 
     //
     // MODULE: Predict provirus activity
     //
     ch_propagate_results_tsv    = PROPAGATE_PROPAGATE (
-        ch_propagate_input.map { it[0], it[1] },
-        ch_propagate_input.map { it[0], it[2] },
-        ch_propagate_input.map { it[0], it[3] }
+        ch_propagate_input.map { [ it[0], it[1] ] },
+        ch_propagate_input.map { [ it[0], it[2] ] },
+        ch_propagate_input.map { [ it[0], it[3] ] }
         ).propagate_results
     ch_versions                 = ch_versions.mix(PROPAGATE_PROPAGATE.out.versions)
 

@@ -14,20 +14,23 @@ nextflow_workflow {
 
         when {
             params {
-                outdir              = "$outputDir"
+                outdir      = "$outputDir"
+                min_ani     = 99
+                min_qcov    = 0
+                min_tcov    = 50
             }
             workflow {
                 """
                 input[0] = Channel.of(
                     [
-                        [ id:'test' ],
+                        [ id:'test', group:'test_group' ],
                         [
                             file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_1.fastq.gz', checkIfExists: true),
                             file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_2.fastq.gz', checkIfExists: true),
                         ]
                     ],
                     [
-                        [ id:'test2' ],
+                        [ id:'test2', group:'test_group' ],
                         [
                             file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test2_1.fastq.gz', checkIfExists: true),
                             file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test2_2.fastq.gz', checkIfExists: true),
@@ -36,32 +39,32 @@ nextflow_workflow {
                 )
                 input[1] = Channel.of(
                     [
-                        [ id:'test' ],
+                        [ id:'test', group:'test_group'],
                         file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists: true)
                     ],
                     [
-                        [ id:'test2' ],
+                        [ id:'test2', group:'test_group' ],
                         file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists: true)
                     ]
                 )
                 input[2] = Channel.of(
                     [
-                        [ id:'test' ],
-                        file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists: true)
+                        [ id:'test', group:'test_group' ],
+                        file('/workspace/phageannotator/assets/test-datasets/b_fragilis_genomad_virus_summary.tsv', checkIfExists: true)
                     ],
                     [
-                        [ id:'test2' ],
-                        file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test2.contigs.fa.gz', checkIfExists: true)
+                        [ id:'test2', group:'test_group' ],
+                        file('/workspace/phageannotator/assets/test-datasets/b_fragilis_genomad_virus_summary.tsv', checkIfExists: true)
                     ]
                 )
                 input[3] = Channel.of(
                     [
-                        [ id:'test' ],
-                        file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists: true)
+                        [ id:'test', group:'test_group' ],
+                        file('/workspace/phageannotator/assets/test-datasets/b_fragilis_checkv_contamination.tsv', checkIfExists: true)
                     ],
                     [
-                        [ id:'test2' ],
-                        file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test2.contigs.fa.gz', checkIfExists: true)
+                        [ id:'test2', group:'test_group' ],
+                        file('/workspace/phageannotator/assets/test-datasets/b_fragilis_checkv_contamination.tsv', checkIfExists: true)
                     ]
                 )
                 input[4] = params.min_ani

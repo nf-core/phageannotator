@@ -5,7 +5,7 @@ process PROPAGATE_PROPAGATE {
     conda "conda-forge::python=3.8 bioconda::bowtie2 bioconda::samtools bioconda::pysam conda-forge::numpy conda-forge::numba"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/vrhyme:1.1.0--pyhdfd78af_1' :
-        'biocontainers//vrhyme:1.1.0--pyhdfd78af_1' }"
+        'biocontainers/vrhyme:1.1.0--pyhdfd78af_1' }"
 
     input:
     tuple val(meta) , path(reads)
@@ -22,8 +22,8 @@ process PROPAGATE_PROPAGATE {
 
     script:
     def args = task.ext.args ?: ''
-    def group = task.ext.prefix ?: "${meta.group}"
-    prefix = task.ext.prefix ?: "${meta.group}_${meta.id}"
+    def group = task.ext.prefix ?: "${meta.id}"
+    prefix = task.ext.prefix ?: "${meta.id}"
     """
     if [[ -f ${provirus_coords} ]]
     then

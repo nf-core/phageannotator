@@ -1,6 +1,5 @@
-seq_name	length	topology	coordinates	n_genes	genetic_code	virus_score	fdr	n_hallmarks	marker_enrichment	taxonomy	seq_source	identity	shared-hashes	median-multiplicity	p-value	query-comment	assembly	vls_id
-k141_0	2926	No terminal repeats		8	11	0.9827		7	13.5434	Viruses;Duplodnaviria;Heunggongvirae;Uroviricota;Caudoviricetes	NODE_3083_length_4102_cov_2.274524						N101_N101S0	N101_N101S0|NODE_3083_length_4102_cov_2.274524
-provirus_genomad_and_checkv|provirus_4_10	6	Provirus	4-10	17	11	0.9827		7	22.9	Viruses;Duplodnaviria;Heunggongvirae;Uroviricota;Caudoviricetes	NODE_462_length_16389_cov_4.953288						N101_N101S0	N101_N101S0|NODE_462_length_16389_cov_4.953288
-provirus_genomad_and_double_checkv|provirus_3_8	5	Provirus	3-8	17	11	0.9827		7	22.9	Viruses;Duplodnaviria;Heunggongvirae;Uroviricota;Caudoviricetes	NODE_462_length_16389_cov_4.953288						N101_N101S0	N101_N101S0|NODE_462_length_16389_cov_4.953288
-genomad_provirus_only|provirus_5_7	3	Provirus	5-7	17	11	0.9827		7	22.9	Viruses;Duplodnaviria;Heunggongvirae;Uroviricota;Caudoviricetes	NODE_462_length_16389_cov_4.953288						N101_N101S0	N101_N101S0|NODE_462_length_16389_cov_4.953288
-checkv_provirus_only	10	No terminal repeats		8	11	0.9827		3	13.5434	Viruses;Duplodnaviria;Heunggongvirae;Uroviricota;Caudoviricetes	NODE_3083_length_4102_cov_2.274524						N101_N101S0	N101_N101S0|NODE_3083_length_4102_cov_2.274524
+seq_name	length	topology	coordinates	n_genes	genetic_code	virus_score	fdr	n_hallmarks	marker_enrichment	taxonomy
+k141_126	3970	Provirus	1-3500	6	11	0.8408	0.0833	0	1.5749	Unclassified
+k141_248	3153	Provirus	1000-2000	3	11	0.7912	0.1337	0	1.7183	Viruses;Duplodnaviria;Heunggongvirae;Uroviricota;Caudoviricetes
+k141_50	3219	Provirus	1-1000	6	11	0.6643	0.1798	2	2.7775	Viruses;Duplodnaviria;Heunggongvirae;Uroviricota;Caudoviricetes
+k141_203	843	No terminal repeats	NA	2	11	0.9925	0.0075	1	3.0763	Viruses;Duplodnaviria;Heunggongvirae;Uroviricota;Caudoviricetes

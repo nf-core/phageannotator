@@ -34,7 +34,7 @@ def derep_coordinates(coords_tsv, clusters_tsv, output):
     # open coordinates file
     coords = pd.read_csv(coords_tsv, sep='\t')
     # open cluster results
-    clusters = pd.read_csv(clusters_tsv, sep='\t', header=False)
+    clusters = pd.read_csv(clusters_tsv, sep='\t', header=None)
     # identify coords contained in derep clusters
     derep_coords = coords[coords['scaffold'].isin(set(clusters[0]))]
 

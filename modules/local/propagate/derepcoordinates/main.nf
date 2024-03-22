@@ -12,8 +12,8 @@ process PROPAGATE_DEREPCOORDINATES {
     tuple val(meta2), path(clusters)
 
     output:
-    tuple val(meta), path("${prefix}_derep_provirus_coords.tsv")  , emit: provirus_coords
-    path "versions.yml"                                     , emit: versions
+    tuple val(meta), path("${prefix}_derep_provirus_coords.tsv")    , emit: derep_coords
+    path "versions.yml"                                             , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -23,7 +23,7 @@ process PROPAGATE_DEREPCOORDINATES {
     prefix = task.ext.prefix ?: "${meta.id}"
     """
     derep_coordinates.py \\
-        --coordinates ${fasta} \\
+        --coordinates ${coordinates} \\
         --clusters ${clusters} \\
         --output ${prefix}_derep_provirus_coords.tsv \\
         ${args}

@@ -478,7 +478,7 @@ try:
     import datetime
     import logging
     import os
-    import modules
+
 except Exception as e:
     sys.stderr.write("\nError: please verify dependancy imports are installed and up to date:\n\n")
     sys.stderr.write(str(e) + "\n\n")

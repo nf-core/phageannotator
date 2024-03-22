@@ -20,21 +20,15 @@ workflow FASTA_CLUSTER_BLAST {
     ch_versions = Channel.empty()
 
     //
-    // MODULE: Gunzip sequences
-    //
-    fasta = GUNZIP ( fasta_gz ).gunzip
-    ch_versions = ch_versions.mix( GUNZIP.out.versions )
-
-    //
     // MODULE: Make BLASTN database
     //
-    ch_blast_db = BLAST_MAKEBLASTDB ( fasta.map{ it[1] } ).db
+    ch_blast_db = BLAST_MAKEBLASTDB ( fasta_gz ).db
     ch_versions = ch_versions.mix( BLAST_MAKEBLASTDB.out.versions )
 
     //
     // MODULE: Perform BLAST
     //
-    ch_blast_txt = BLAST_BLASTN ( fasta , ch_blast_db ).txt
+    ch_blast_txt = BLAST_BLASTN ( fasta_gz , ch_blast_db ).txt
     ch_versions = ch_versions = ch_versions.mix( BLAST_MAKEBLASTDB.out.versions )
 
     //
@@ -44,16 +38,16 @@ workflow FASTA_CLUSTER_BLAST {
     ch_versions = ch_versions.mix( ANICLUSTER_ANICALC.out.versions )
 
     // create input for ANICLUSTER_ANICALC
-    ch_aniclust_input = ch_filtered_viruses_combined_fna_gz.join( ch_ani_tsv )
+    ch_aniclust_input = fasta_gz.join( ch_ani_tsv )
 
     //
     // MODULE: Cluster virus sequences based on ANI and AF
     //
-    ch_clusters_tsv = ANICLUSTER_ANICLUST ( ch_aniclust_input, min_ani, min_qcov, min_tcov ).clusters
+    ch_clusters_tsv = ANICLUSTER_ANICLUST ( ch_aniclust_input.map { [ it[0], it[1] ] }, ch_aniclust_input.map { [ it[0], it[2] ] }, min_ani, min_qcov, min_tcov ).clusters
     ch_versions = ch_versions.mix( ANICLUSTER_ANICLUST.out.versions )
 
     // create input for extracting cluster representatives
-    ch_extractreps_input = ch_filtered_viruses_combined_fna_gz.join( ch_clusters_tsv )
+    ch_extractreps_input = fasta_gz.join( ch_clusters_tsv )
 
     //
     // MODULE: Extract cluster representatives

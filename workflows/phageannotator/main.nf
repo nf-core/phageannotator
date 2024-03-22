@@ -210,7 +210,7 @@ workflow PHAGEANNOTATOR {
         //
         // SUBWORKFLOW: Perform BLAST-based clustering
         //
-        ch_anicluster_reps_fasta_gz = FASTA_CLUSTER_BLAST ( ch_filtered_viruses_combined_fna_gz ).cluster_reps_fasta_gz
+        ch_anicluster_reps_fasta_gz = FASTA_CLUSTER_BLAST ( ch_filtered_viruses_combined_fna_gz, params.anicluster_min_ani, params.anicluster_min_qcov, params.anicluster_min_tcov ).cluster_reps_fasta_gz
         ch_clusters_tsv = FASTA_CLUSTER_BLAST.out.clusters_tsv
         ch_versions = ch_versions.mix( FASTA_CLUSTER_BLAST.out.versions )
 

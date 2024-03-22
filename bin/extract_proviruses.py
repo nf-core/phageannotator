@@ -116,6 +116,7 @@ def extract_proviruses(fasta, genomad, checkv, out_fasta, out_tsv):
     fasta_gunzipped = gzip.open(fasta, "rt")
     for record in SeqIO.parse(fasta_gunzipped, "fasta"):
         if record.id in provirus_scaffolds:
+            record.description = record.id
             exracted_scaffolds.append(record)
     # save all extracted provirus scaffolds to specified file
     SeqIO.write(exracted_scaffolds, out_fasta, "fasta")
