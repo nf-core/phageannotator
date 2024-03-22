@@ -1,0 +1,100 @@
+{
+    "contigs.fasta + genomad_virus_summary + check_contamination_summary": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_provirus_scaffolds.fasta.gz:md5,c1a0d36a379ae8e3add474a0c29bf576"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_provirus_coords.tsv:md5,6d11ad4bd9903f3c2d0fa719c1b6abbf"
+                    ]
+                ],
+                "2": [
+                    "versions.yml:md5,f5e250dfe50e8080455f7b76e1dab523"
+                ],
+                "integrated_proviruses": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_provirus_scaffolds.fasta.gz:md5,c1a0d36a379ae8e3add474a0c29bf576"
+                    ]
+                ],
+                "provirus_metadata": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_provirus_coords.tsv:md5,6d11ad4bd9903f3c2d0fa719c1b6abbf"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,f5e250dfe50e8080455f7b76e1dab523"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-03-22T20:40:22.222162399"
+    },
+    "contigs.fasta + genomad_virus_summary + check_contamination_summary - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_provirus_scaffolds.fasta.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_provirus_coords.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "2": [
+                    "versions.yml:md5,f5e250dfe50e8080455f7b76e1dab523"
+                ],
+                "integrated_proviruses": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_provirus_scaffolds.fasta.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                    ]
+                ],
+                "provirus_metadata": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_provirus_coords.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,f5e250dfe50e8080455f7b76e1dab523"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-03-22T20:35:00.246188755"
+    }
+}

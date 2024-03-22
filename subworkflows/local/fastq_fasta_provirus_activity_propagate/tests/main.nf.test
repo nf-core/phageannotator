@@ -1,0 +1,81 @@
+nextflow_workflow {
+
+    name "Test Subworkflow: FASTQ_FASTA_PROVIRUS_ACTIVITY_PROPAGATE"
+    script "subworkflows/local/fastq_fasta_provirus_activity_propagate/main.nf"
+    workflow "FASTQ_FASTA_PROVIRUS_ACTIVITY_PROPAGATE"
+
+    tag "subworkflows"
+    tag "subworkflows_local"
+    tag "fastq_fasta_provirus_activity_propagate"
+    tag "fastq_fasta_provirus_activity_propagate_default"
+
+
+    test("Parameters: default") {
+
+        when {
+            params {
+                outdir              = "$outputDir"
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    [
+                        [ id:'test' ],
+                        [
+                            file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_1.fastq.gz', checkIfExists: true),
+                            file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_2.fastq.gz', checkIfExists: true),
+                        ]
+                    ],
+                    [
+                        [ id:'test2' ],
+                        [
+                            file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test2_1.fastq.gz', checkIfExists: true),
+                            file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test2_2.fastq.gz', checkIfExists: true),
+                        ]
+                    ]
+                )
+                input[1] = Channel.of(
+                    [
+                        [ id:'test' ],
+                        file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists: true)
+                    ],
+                    [
+                        [ id:'test2' ],
+                        file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists: true)
+                    ]
+                )
+                input[2] = Channel.of(
+                    [
+                        [ id:'test' ],
+                        file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists: true)
+                    ],
+                    [
+                        [ id:'test2' ],
+                        file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test2.contigs.fa.gz', checkIfExists: true)
+                    ]
+                )
+                input[3] = Channel.of(
+                    [
+                        [ id:'test' ],
+                        file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists: true)
+                    ],
+                    [
+                        [ id:'test2' ],
+                        file('https://github.com/nf-core/test-datasets/raw/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test2.contigs.fa.gz', checkIfExists: true)
+                    ]
+                )
+                input[4] = params.min_ani
+                input[5] = params.min_qcov
+                input[6] = params.min_tcov
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+}

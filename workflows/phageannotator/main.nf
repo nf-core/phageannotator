@@ -13,9 +13,6 @@
 include { SEQKIT_SEQ                                } from '../../modules/local/seqkit/seq/main'                                    // TODO: Add to nf-core
 include { APPENDSCREENHITS                          } from '../../modules/local/appendscreenhits/main'
 include { QUALITYFILTERVIRUSES                      } from '../../modules/local/qualityfilterviruses/main'
-include { ANICLUSTER_ANICALC                        } from '../../modules/local/anicluster/anicalc/main'
-include { ANICLUSTER_ANICLUST                       } from '../../modules/local/anicluster/aniclust/main'
-include { ANICLUSTER_EXTRACTREPS                    } from '../../modules/local/anicluster/extractreps/main'
 include { COVERM_CONTIG                             } from '../../modules/local/coverm/contig/main'                                 // TODO: Add to nf-core
 include { INSTRAIN_STB                              } from '../../modules/local/instrain/stb/main'
 
@@ -26,11 +23,11 @@ include { FASTQ_VIRUS_ENRICHMENT_VIROMEQC           } from '../../subworkflows/l
 include { FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH    } from '../../subworkflows/local/fastq_fasta_reference_containment_mash/main'   // TODO: Add to nf-core; Add nf-tests to nf-core modules
 include { FASTA_VIRUS_CLASSIFICATION_GENOMAD        } from '../../subworkflows/local/fasta_virus_classification_genomad/main'       // TODO: Add to nf-core; Add nf-tests to nf-core modules
 include { FASTA_VIRUS_QUALITY_CHECKV                } from '../../subworkflows/local/fasta_virus_quality_checkv/main'               // TODO: Add to nf-core; Add nf-tests to nf-core modules
-include { FASTA_ALL_V_ALL_BLAST                     } from '../../subworkflows/local/fasta_all_v_all_blast/main'
+include { FASTA_CLUSTER_BLAST                       } from '../../subworkflows/local/fasta_cluster_blast/main'
 include { FASTA_PHAGE_HOST_IPHOP                    } from '../../subworkflows/local/fasta_phage_host_iphop/main'                   // TODO: Add to nf-core; Add nf-tests to nf-core modules
 include { FASTA_PHAGE_FUNCTION_PHAROKKA             } from '../../subworkflows/local/fasta_phage_function_pharokka/main'
 include { FASTA_MICRODIVERSITY_INSTRAIN             } from '../../subworkflows/local/fasta_microdiversity_instrain/main'            // TODO: Add to nf-core; Add nf-tests to nf-core modules
-
+include { FASTQ_FASTA_PROVIRUS_ACTIVITY_PROPAGATE   } from '../../subworkflows/local/fastq_fasta_provirus_activity_propagate/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -197,6 +194,7 @@ workflow PHAGEANNOTATOR {
     /*----------------------------------------------------------------------------
         Cluster viruses using all-v-all BLAST approach
     ------------------------------------------------------------------------------*/
+    // TODO: Add option to cluster within groups rather than across all samples
     // Run virus clustering
     if ( !params.skip_virus_clustering  ) {
         // create a channel for combining filtered viruses (sorted so output is the same for tests)
@@ -210,34 +208,12 @@ workflow PHAGEANNOTATOR {
         ch_filtered_viruses_combined_fna_gz = CAT_VIRUSES ( ch_cat_viruses_input ).file_out
 
         //
-        // SUBWORKFLOW: Perform all-v-all BLAST
+        // SUBWORKFLOW: Perform BLAST-based clustering
         //
-        ch_blast_txt = FASTA_ALL_V_ALL_BLAST ( ch_filtered_viruses_combined_fna_gz ).blast_txt
-        ch_versions = ch_versions.mix( FASTA_ALL_V_ALL_BLAST.out.versions )
+        ch_anicluster_reps_fasta_gz = FASTA_CLUSTER_BLAST ( ch_filtered_viruses_combined_fna_gz ).cluster_reps_fasta_gz
+        ch_clusters_tsv = FASTA_CLUSTER_BLAST.out.clusters_tsv
+        ch_versions = ch_versions.mix( FASTA_CLUSTER_BLAST.out.versions )
 
-        //
-        // MODULE: Calculate average nucleotide identity (ANI) and alignment fraction (AF) based on BLAST
-        //
-        ch_ani_tsv = ANICLUSTER_ANICALC ( ch_blast_txt ).ani
-        ch_versions = ch_versions.mix( ANICLUSTER_ANICALC.out.versions )
-
-        // create input for ANICLUSTER_ANICALC
-        ch_aniclust_input = ch_filtered_viruses_combined_fna_gz.join( ch_ani_tsv )
-
-        //
-        // MODULE: Cluster virus sequences based on ANI and AF
-        //
-        ch_clusters_tsv = ANICLUSTER_ANICLUST ( ch_aniclust_input ).clusters
-        ch_versions = ch_versions.mix( ANICLUSTER_ANICLUST.out.versions )
-
-        // create input for extracting cluster representatives
-        ch_extractreps_input = ch_filtered_viruses_combined_fna_gz.join( ch_clusters_tsv )
-
-        //
-        // MODULE: Extract cluster representatives
-        //
-        ch_anicluster_reps_fasta_gz = ANICLUSTER_EXTRACTREPS ( ch_extractreps_input ).representatives
-        ch_versions = ch_versions.mix( ANICLUSTER_EXTRACTREPS.out.versions )
     } else {
         ch_anicluster_reps_fasta_gz = ch_filtered_viruses_fna_gz
         ch_clusters_tsv = Channel.empty()
@@ -353,10 +329,12 @@ workflow PHAGEANNOTATOR {
     /*----------------------------------------------------------------------------
         Analyze phage microdiversity
     ------------------------------------------------------------------------------*/
+    // TODO: Likely move instrain out of this workflow since it is so analysis specific
     // gunzip proteins for input into instrain
     ch_pharokka_gbk = GUNZIP_VIRUS_PROTEINS ( ch_pharokka_gbk_gz ).gunzip
     ch_versions = ch_versions.mix( GUNZIP_VIRUS_PROTEINS.out.versions )
 
+    // TODO: switch back to prodigal-gv and move pharokka to nf-core/funcscan
     // add gene identifier to gbk for inStrain
     ch_pharokka_gbk_mod = ch_pharokka_gbk
     .map { meta, gbk ->
@@ -375,6 +353,7 @@ workflow PHAGEANNOTATOR {
     }
 
     if ( !params.skip_instrain ) {
+        // TODO: Add option to run instrain/compare within groups rather than across all samples
         //
         // MODULE: Generate instrain scaffold to bin file
         //
@@ -389,6 +368,16 @@ workflow PHAGEANNOTATOR {
     } else {
         ch_gene_info_tsv = Channel.empty()
     }
+
+    /*----------------------------------------------------------------------------
+        Predict if proviruses are active
+    ------------------------------------------------------------------------------*/
+    // if run_propagate == true; run subworkflow
+    if ( params.run_propagate ){
+        ch_provirus_activity_tsv = FASTQ_FASTA_PROVIRUS_ACTIVITY_PROPAGATE ( fastq_gz, fasta_gz, ch_virus_summaries_tsv, ch_quality_summary_tsv, ch_clusters_tsv )
+        // TODO: Add error if assembly is not included and run_propagate = true
+    }
+
 
 
     emit:
