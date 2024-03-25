@@ -1,5 +1,5 @@
 {
-    "['homo_sapiens']['genome']['genome_fasta']": {
+    "genome.fasta": {
         "content": [
             {
                 "0": [
@@ -26,9 +26,13 @@
                 ]
             }
         ],
-        "timestamp": "2023-12-04T16:35:57.01447565"
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-02-19T17:10:31.746010063"
     },
-    "['homo_sapiens']['genome']['genome_fasta'] - stub": {
+    "genome.fasta - stub": {
         "content": [
             {
                 "0": [
@@ -55,6 +59,10 @@
                 ]
             }
         ],
-        "timestamp": "2024-01-17T22:32:54.38815316"
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-02-19T17:10:42.221200638"
     }
 }

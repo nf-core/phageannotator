@@ -3,12 +3,12 @@ nextflow_process {
     name "Test Process: VIROMEQC_VIROMEQC"
     script "../main.nf"
     process "VIROMEQC_VIROMEQC"
-    tag "modules"
-    tag "modules_local"
-    tag "viromeqc_viromeqc"
-    tag "viromeqc_install"
 
-    test("sarscov2 - illumina - test_1_fastq_gz") {
+    // Dependencies
+    tag "VIROMEQC_INSTALL"
+
+
+    test("reads_1.fastq.gz & reads_2.fastq.gz & viromeqc_db") {
         setup {
             run("VIROMEQC_INSTALL") {
                 script "../../install/main.nf"
@@ -21,8 +21,8 @@ nextflow_process {
                 input[0] = [
                     [ id:'test' ], // meta map
                     [
-                        file(params.test_data['sarscov2']['illumina']['test_1_fastq_gz'], checkifExists: true),
-                        file(params.test_data['sarscov2']['illumina']['test_2_fastq_gz'], checkifExists: true),
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/fastq/test_1.fastq.gz', checkifExists: true),
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/fastq/test_2.fastq.gz', checkifExists: true),
                     ]
                 ]
                 input[1] = VIROMEQC_INSTALL.out.viromeqc_index
@@ -38,7 +38,7 @@ nextflow_process {
         }
     }
 
-    test("sarscov2 - illumina - test_1_fastq_gz - stub") {
+    test("reads_1.fastq.gz & reads_2.fastq.gz & viromeqc_db - stub") {
 
         options "-stub"
 
@@ -54,8 +54,8 @@ nextflow_process {
                 input[0] = [
                     [ id:'test' ], // meta map
                     [
-                        file(params.test_data['sarscov2']['illumina']['test_1_fastq_gz'], checkifExists: true),
-                        file(params.test_data['sarscov2']['illumina']['test_2_fastq_gz'], checkifExists: true),
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/fastq/test_1.fastq.gz', checkifExists: true),
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/fastq/test_2.fastq.gz', checkifExists: true),
                     ]
                 ]
                 input[1] = VIROMEQC_INSTALL.out.viromeqc_index

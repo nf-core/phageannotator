@@ -1,5 +1,5 @@
 {
-    "Parameters: default": {
+    "fasta": {
         "content": [
             {
                 "0": [
@@ -11,7 +11,7 @@
                         {
                             "id": "test"
                         },
-                        "test.gbk.gz:md5,8191d545d62d47bc90c73ba11f00f42d"
+                        "test.gbk.gz:md5,b8acbfc459d826c1c70cf2134ee66128"
                     ]
                 ],
                 "2": [
@@ -35,7 +35,7 @@
                         {
                             "id": "test"
                         },
-                        "test.gbk.gz:md5,8191d545d62d47bc90c73ba11f00f42d"
+                        "test.gbk.gz:md5,b8acbfc459d826c1c70cf2134ee66128"
                     ]
                 ],
                 "versions": [
@@ -48,6 +48,6 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-02-15T12:17:44.339900336"
+        "timestamp": "2024-03-08T17:22:14.876048654"
     }
 }

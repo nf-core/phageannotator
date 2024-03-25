@@ -1,5 +1,5 @@
 {
-    "['modules_local']['mash_screen_results_tsv'] & ['modules_local']['assembly_fasta_gz'] & ['modules_local']['reference_fasta_gz'] - stub": {
+    "mash_screen.tsv & fasta.gz & reference_fasta.gz - stub": {
         "content": [
             {
                 "0": [
@@ -26,9 +26,13 @@
                 ]
             }
         ],
-        "timestamp": "2024-01-17T22:50:26.825206996"
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-02-20T09:48:08.671698195"
     },
-    "['modules_local']['mash_screen_results_tsv'] & ['modules_local']['assembly_fasta_gz'] & ['modules_local']['reference_fasta_gz']": {
+    "mash_screen.tsv & fasta.gz & reference_fasta.gz": {
         "content": [
             {
                 "0": [
@@ -55,6 +59,10 @@
                 ]
             }
         ],
-        "timestamp": "2023-12-06T15:23:52.515798496"
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-02-20T10:32:14.343643855"
     }
 }

@@ -8,7 +8,11 @@ process ANICLUSTER_ANICLUST {
         'biocontainers/mulled-v2-80c23cbcd32e2891421c54d1899665046feb07ef:77a31e289d22068839533bf21f8c4248ad274b60-0' }"
 
     input:
-    tuple val(meta), path(fasta), path(ani)
+    tuple val(meta) , path(fasta)
+    tuple val(meta2), path(ani)
+    val min_ani
+    val min_qcov
+    val min_tcov
 
     output:
     tuple val(meta), path("*_clusters.tsv") , emit: clusters
@@ -22,10 +26,13 @@ process ANICLUSTER_ANICLUST {
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
     aniclust.py \\
-        --fna $fasta \\
-        --ani $ani \\
+        --fna ${fasta} \\
+        --ani ${ani} \\
         --out ${prefix}_clusters.tsv \\
-        $args
+        --min_ani ${min_ani} \\
+        --min_qcov ${min_qcov} \\
+        --min_tcov ${min_tcov} \\
+        ${args}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

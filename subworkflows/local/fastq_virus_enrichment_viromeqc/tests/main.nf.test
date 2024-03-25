@@ -3,13 +3,13 @@ nextflow_workflow {
     name "Test subworkflow: FASTQ_VIRUS_ENRICHMENT_VIROMEQC"
     script "subworkflows/local/fastq_virus_enrichment_viromeqc/main.nf"
     workflow "FASTQ_VIRUS_ENRICHMENT_VIROMEQC"
-    tag "subworkflows"
-    tag "subworkflows_local"
-    tag "fastq_virus_enrichment_viromeqc"
-    tag "fastq_virus_enrichment_viromeqc_default"
+
+    // Dependencies
+    tag "VIROMEQC_INSTALL"
+    tag "VIROMEQC_VIROMEQC"
 
 
-    test("Parameters: default") {
+    test("fastq.gz") {
 
         when {
             workflow {
@@ -17,8 +17,8 @@ nextflow_workflow {
                 input[0] = [
                     [ id:'test' ], // meta map
                     [
-                        file(params.test_data['sarscov2']['illumina']['test_1_fastq_gz'], checkifExists: true),
-                        file(params.test_data['sarscov2']['illumina']['test_2_fastq_gz'], checkifExists: true),
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/fastq/test_1.fastq.gz', checkifExists: true),
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/fastq/test_2.fastq.gz', checkifExists: true),
                     ]
                 ]
                 """

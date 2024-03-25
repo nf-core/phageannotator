@@ -1,5 +1,5 @@
 {
-    "['modules_local']['viruses_fna_gz'] & ['modules_local']['proviruses_fna_gz'] & ['modules_local']['quality_summary_tsv']": {
+    "virus_fasta.gz & provirus_fasta.gz & quality_summary.tsv - stub": {
         "content": [
             {
                 "0": [
@@ -7,7 +7,7 @@
                         {
                             "id": "test"
                         },
-                        "test.filtered.fna.gz:md5,e807764af50f14c5ca5828c51869c113"
+                        "test.filtered.fna.gz:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "1": [
@@ -18,7 +18,7 @@
                         {
                             "id": "test"
                         },
-                        "test.filtered.fna.gz:md5,e807764af50f14c5ca5828c51869c113"
+                        "test.filtered.fna.gz:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "versions": [
@@ -26,9 +26,13 @@
                 ]
             }
         ],
-        "timestamp": "2023-12-06T15:23:36.70796592"
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-02-19T17:04:08.487686508"
     },
-    "['modules_local']['viruses_fna_gz'] & ['modules_local']['proviruses_fna_gz'] & ['modules_local']['quality_summary_tsv'] - stub": {
+    "virus_fasta.gz & provirus_fasta.gz & quality_summary.tsv": {
         "content": [
             {
                 "0": [
@@ -36,7 +40,7 @@
                         {
                             "id": "test"
                         },
-                        "test.filtered.fna.gz:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.filtered.fna.gz:md5,e807764af50f14c5ca5828c51869c113"
                     ]
                 ],
                 "1": [
@@ -47,7 +51,7 @@
                         {
                             "id": "test"
                         },
-                        "test.filtered.fna.gz:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.filtered.fna.gz:md5,e807764af50f14c5ca5828c51869c113"
                     ]
                 ],
                 "versions": [
@@ -55,6 +59,10 @@
                 ]
             }
         ],
-        "timestamp": "2024-01-17T22:52:26.571665084"
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-02-19T17:03:57.878250244"
     }
 }

@@ -1,5 +1,5 @@
 {
-    "['bacteroides_fragilis']['illumina']['test1_contigs_fa_gz'] & ['modules_local']['clusters_tsv']": {
+    "fasta.gz & clusters.tsv - stub": {
         "content": [
             {
                 "0": [
@@ -7,7 +7,7 @@
                         {
                             "id": "test"
                         },
-                        "test_anicluster_representatives.fna.gz:md5,b4ae3ed3aa26b50c3e3d3277e94ac940"
+                        "test_anicluster_representatives.fna.gz:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "1": [
@@ -18,7 +18,7 @@
                         {
                             "id": "test"
                         },
-                        "test_anicluster_representatives.fna.gz:md5,b4ae3ed3aa26b50c3e3d3277e94ac940"
+                        "test_anicluster_representatives.fna.gz:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "versions": [
@@ -26,9 +26,13 @@
                 ]
             }
         ],
-        "timestamp": "2024-01-30T12:16:45.282976267"
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-02-19T17:03:20.478160213"
     },
-    "['bacteroides_fragilis']['illumina']['test1_contigs_fa_gz'] & ['modules_local']['clusters_tsv'] - stub": {
+    "fasta.gz & clusters.tsv": {
         "content": [
             {
                 "0": [
@@ -36,7 +40,7 @@
                         {
                             "id": "test"
                         },
-                        "test_anicluster_representatives.fna.gz:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test_anicluster_representatives.fna.gz:md5,b4ae3ed3aa26b50c3e3d3277e94ac940"
                     ]
                 ],
                 "1": [
@@ -47,7 +51,7 @@
                         {
                             "id": "test"
                         },
-                        "test_anicluster_representatives.fna.gz:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test_anicluster_representatives.fna.gz:md5,b4ae3ed3aa26b50c3e3d3277e94ac940"
                     ]
                 ],
                 "versions": [
@@ -55,6 +59,10 @@
                 ]
             }
         ],
-        "timestamp": "2024-01-30T12:16:56.117800064"
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-02-19T17:03:11.703715193"
     }
 }

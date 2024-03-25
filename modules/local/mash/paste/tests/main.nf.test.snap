@@ -1,5 +1,5 @@
 {
-    "['modules_local']['mash_sketch1_msh'] & ['modules_local']['mash_sketch2_msh']": {
+    "test1.msh & test2.msh - stub": {
         "content": [
             {
                 "0": [
@@ -7,7 +7,7 @@
                         {
                             "id": "test1"
                         },
-                        "test1-test2.msh:md5,37a3fadd36ab7a39f099465da3e17430"
+                        "test1-test2.msh:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "1": [
@@ -18,7 +18,7 @@
                         {
                             "id": "test1"
                         },
-                        "test1-test2.msh:md5,37a3fadd36ab7a39f099465da3e17430"
+                        "test1-test2.msh:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "versions": [
@@ -26,9 +26,13 @@
                 ]
             }
         ],
-        "timestamp": "2023-11-13T11:52:25.887887449"
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-02-21T12:59:43.149503984"
     },
-    "['modules_local']['mash_sketch1_msh'] & ['modules_local']['mash_sketch2_msh'] - stub": {
+    "test1.msh & test2.msh": {
         "content": [
             {
                 "0": [
@@ -36,7 +40,7 @@
                         {
                             "id": "test1"
                         },
-                        "test1-test2.msh:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test1-test2.msh:md5,37a3fadd36ab7a39f099465da3e17430"
                     ]
                 ],
                 "1": [
@@ -47,7 +51,7 @@
                         {
                             "id": "test1"
                         },
-                        "test1-test2.msh:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test1-test2.msh:md5,37a3fadd36ab7a39f099465da3e17430"
                     ]
                 ],
                 "versions": [
@@ -55,6 +59,10 @@
                 ]
             }
         ],
-        "timestamp": "2024-01-17T22:33:24.750945115"
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-02-21T12:59:34.949677201"
     }
 }

@@ -322,47 +322,38 @@
                 },
                 "instrain_min_ani": {
                     "type": "number",
-                    "default": 0.01,
                     "description": "Minimum identity for read alignment to be considered"
                 },
                 "instrain_min_mapq": {
                     "type": "integer",
-                    "default": 2,
                     "description": "Minimum MAPQ for a read to be considered"
                 },
                 "instrain_min_variant_cov": {
                     "type": "integer",
-                    "default": 5,
                     "description": "Minimum coverage for a variant to be considered"
                 },
                 "instrain_min_snp_freq": {
                     "type": "number",
-                    "default": 0.01,
                     "description": "Minimum allele frequency for an SNP to be considered"
                 },
                 "instrain_max_snp_fdr": {
                     "type": "integer",
-                    "default": 1,
                     "description": "Maximum FDR for a SNP to be considered"
                 },
                 "instrain_min_genome_cov": {
                     "type": "number",
-                    "default": 0.5,
                     "description": "Minimum number of reads mapping to a genome to consider profiling"
                 },
                 "instrain_popani_thresh": {
                     "type": "number",
-                    "default": 0,
                     "description": "Minimum identity for genomes to be considered in the same strain"
                 },
                 "instrain_min_genome_comp": {
                     "type": "number",
-                    "default": 0.001,
                     "description": "Minimum percent of genomes compared for comparison to be considered"
                 },
                 "instrain_min_genome_breadth": {
                     "type": "number",
-                    "default": 0.01,
                     "description": "Minimum breadth of coverage for a genome to be considered present"
                 }
             }

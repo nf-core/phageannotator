@@ -1,5 +1,5 @@
 {
-    "['modules_local']['blast_txt']": {
+    "blast.txt - stub": {
         "content": [
             {
                 "0": [
@@ -7,7 +7,7 @@
                         {
                             "id": "test"
                         },
-                        "test_ani.tsv:md5,1934eb09849f6df88083ad25aa47923d"
+                        "test_ani.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "1": [
@@ -18,7 +18,7 @@
                         {
                             "id": "test"
                         },
-                        "test_ani.tsv:md5,1934eb09849f6df88083ad25aa47923d"
+                        "test_ani.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "versions": [
@@ -26,9 +26,13 @@
                 ]
             }
         ],
-        "timestamp": "2024-01-17T22:30:23.52522149"
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-02-19T16:28:59.168124925"
     },
-    "['modules_local']['blast_txt'] - stub": {
+    "blast.txt": {
         "content": [
             {
                 "0": [
@@ -36,7 +40,7 @@
                         {
                             "id": "test"
                         },
-                        "test_ani.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test_ani.tsv:md5,1934eb09849f6df88083ad25aa47923d"
                     ]
                 ],
                 "1": [
@@ -47,7 +51,7 @@
                         {
                             "id": "test"
                         },
-                        "test_ani.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test_ani.tsv:md5,1934eb09849f6df88083ad25aa47923d"
                     ]
                 ],
                 "versions": [
@@ -55,6 +59,10 @@
                 ]
             }
         ],
-        "timestamp": "2024-01-17T22:30:36.176793213"
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-02-19T16:28:47.920248772"
     }
 }
