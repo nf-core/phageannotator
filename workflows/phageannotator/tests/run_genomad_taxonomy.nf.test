@@ -11,15 +11,17 @@ nextflow_workflow {
     tag "ANICLUSTER_ANICLUST"
     tag "ANICLUSTER_EXTRACTREPS"
     tag "COVERM_CONTIG"
+    tag "FASTA_VIRUS_CLASSIFICATION_GENOMAD"
     tag "FASTA_VIRUS_QUALITY_CHECKV"
     tag "FASTA_ALL_V_ALL_BLAST"
     tag "CAT_CAT"
     tag "BOWTIE2_BUILD"
+    tag "GENOMAD_ENDTOEND"
     tag "GUNZIP"
     tag "FASTQ_ALIGN_BOWTIE2"
 
 
-    test("Parameters: skip_genomad = true") {
+    test("Parameters: run_genomad_taxonomy = true") {
         when {
             workflow {
                 """
@@ -53,13 +55,15 @@ nextflow_workflow {
             }
             params {
                 outdir                      = "$outputDir"
-                skip_genomad                = true
-                // reduce hits, since reduction won't take place during genomad
-                mash_screen_min_score       = 1
-                mash_screen_winner_take_all = true
+                run_genomad_taxonomy        = true
+                // parameters to decrease sensitivity for test data
+                mash_screen_min_score   = 0.01
+                genomad_min_score       = 0.01
+                genomad_max_fdr         = 1
                 // speed up options since tools are fully tested in subworkflows
+                genomad_disable_nn          = true
+                genomad_sensitivity         = 0.1
                 checkv_minimal_db           = true
-                checkv_min_length           = 25000
             }
         }
 
@@ -67,7 +71,7 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(workflow.out).match() },
-                { assert path("${outputDir}/VirusAbundance/coverm/contig/all_samples_alignment_results.tsv").readLines().size() == 9 }
+                { assert path("${outputDir}/VirusAbundance/coverm/contig/all_samples_alignment_results.tsv").readLines().size() == 4 }
             )
         }
     }

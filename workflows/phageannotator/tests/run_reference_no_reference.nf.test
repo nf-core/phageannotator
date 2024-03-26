@@ -1,25 +1,29 @@
 nextflow_workflow {
 
-    name "Test workflow: PHAGEANNOTATOR"
+    name "Test Workflow PHAGEANNOTATOR"
     script "workflows/phageannotator/main.nf"
     workflow "PHAGEANNOTATOR"
 
     // Dependencies
     tag "SEQKIT_SEQ"
+    tag"APPENDSCREENHITS"
     tag "QUALITYFILTERVIRUSES"
     tag "ANICLUSTER_ANICALC"
     tag "ANICLUSTER_ANICLUST"
     tag "ANICLUSTER_EXTRACTREPS"
     tag "COVERM_CONTIG"
+    tag "FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH"
+    tag "FASTA_VIRUS_CLASSIFICATION_GENOMAD"
     tag "FASTA_VIRUS_QUALITY_CHECKV"
     tag "FASTA_ALL_V_ALL_BLAST"
     tag "CAT_CAT"
     tag "BOWTIE2_BUILD"
+    tag "GENOMAD_ENDTOEND"
     tag "GUNZIP"
     tag "FASTQ_ALIGN_BOWTIE2"
 
 
-    test("Parameters: skip_genomad = true") {
+    test("Parameters: --run_reference_containment = true && --reference_virus_fasta = null") {
         when {
             workflow {
                 """
@@ -52,22 +56,15 @@ nextflow_workflow {
                 """
             }
             params {
-                outdir                      = "$outputDir"
-                skip_genomad                = true
-                // reduce hits, since reduction won't take place during genomad
-                mash_screen_min_score       = 1
-                mash_screen_winner_take_all = true
-                // speed up options since tools are fully tested in subworkflows
-                checkv_minimal_db           = true
-                checkv_min_length           = 25000
+                outdir = "$outputDir"
+                run_reference_containment   = true
+                reference_virus_fasta       = null
             }
         }
-
         then {
             assertAll(
-                { assert workflow.success },
-                { assert snapshot(workflow.out).match() },
-                { assert path("${outputDir}/VirusAbundance/coverm/contig/all_samples_alignment_results.tsv").readLines().size() == 9 }
+                { assert workflow.trace.succeeded().size() == 0 },
+                { assert workflow.stdout.contains("[nf-core/phageannotator] ERROR: reference containment requested, but no --reference_virus_fasta provided") }
             )
         }
     }

@@ -3,33 +3,62 @@ nextflow_workflow {
     name "Test workflow: PHAGEANNOTATOR"
     script "workflows/phageannotator/main.nf"
     workflow "PHAGEANNOTATOR"
-    tag "workflows"
-    tag "phageannotator"
-    tag "phageannotator_skip_virus_clustering"
+
+    // Dependencies
+    tag "SEQKIT_SEQ"
+    tag "COVERM_CONTIG"
+    tag "FASTA_VIRUS_CLASSIFICATION_GENOMAD"
+    tag "FASTA_VIRUS_QUALITY_CHECKV"
+    tag "CAT_CAT"
+    tag "BOWTIE2_BUILD"
+    tag "GENOMAD_ENDTOEND"
+    tag "GUNZIP"
+    tag "FASTQ_ALIGN_BOWTIE2"
+
 
     test("Parameters: skip_virus_clustering = true") {
         when {
             workflow {
                 """
-                input[0] = Channel.of( [ [ id:'test' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['test1_1_fastq_gz'], checkIfExists: true),
-                            file(params.test_data['bacteroides_fragilis']['illumina']['test1_2_fastq_gz'], checkIfExists:true) ] ],
-                            [ [ id:'test2' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['test1_1_fastq_gz'], checkIfExists: true),
-                            file(params.test_data['bacteroides_fragilis']['illumina']['test1_2_fastq_gz'], checkIfExists:true) ] ] )
-                input[1] = Channel.of( [ [ id:'test' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['test1_contigs_fa_gz'], checkIfExists:true) ] ],
-                            [ [ id:'test2' ], [ file(params.test_data['bacteroides_fragilis']['illumina']['test1_contigs_fa_gz'], checkIfExists:true) ] ])
+                input[0] = Channel.of(
+                    [
+                        [ id:'test' ],
+                        [
+                            file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_1.fastq.gz', checkIfExists:true),
+                            file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_2.fastq.gz', checkIfExists: true)
+                        ]
+                    ],
+                    [
+                        [ id:'test2' ],
+                        [
+                            file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_1.fastq.gz', checkIfExists:true),
+                            file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_2.fastq.gz', checkIfExists: true)
+                        ]
+                    ]
+                )
+                input[1] = Channel.of(
+                    [
+                        [ id:'test' ],
+                        file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists:true)
+                    ],
+                    [
+                        [ id:'test2' ],
+                        file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists:true)
+                    ]
+                )
                 """
             }
             params {
                 outdir                  = "$outputDir"
                 skip_virus_clustering   = true
-                skip_instrain           = true
-                mash_screen_min_score   = 0.5
+                // parameters to decrease sensitivity for test data
+                mash_screen_min_score   = 0.01
                 genomad_min_score       = 0.01
                 genomad_max_fdr         = 1
+                // speed up options since tools are fully tested in subworkflows
                 genomad_disable_nn      = true
                 genomad_sensitivity     = 0.1
                 checkv_minimal_db       = true
-                iphop_partial_test      = true
             }
         }
 
@@ -37,8 +66,7 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(workflow.out).match() },
-                { assert path("${outputDir}/VirusLifestyle/bacphlip/test.filtered.fna.bacphlip").readLines().size() == 7 },
-                { assert path("${outputDir}/VirusAbundance/coverm/contig/all_samples_alignment_results.tsv").readLines().size() == 7 }
+                { assert path("${outputDir}/VirusAbundance/coverm/contig/all_samples_alignment_results.tsv").readLines().size() == 4 }
             )
         }
     }

@@ -43,18 +43,6 @@
                 }
             }
         },
-        "virus_enrichment_options": {
-            "title": "Virus enrichment options",
-            "type": "object",
-            "description": "Estimate level of viral enrichment in reads",
-            "default": "",
-            "properties": {
-                "skip_viromeqc": {
-                    "type": "boolean",
-                    "description": "Skip running ViromeQC to estimate viral enrichment"
-                }
-            }
-        },
         "assembly_filtering_options": {
             "title": "Assembly filtering options",
             "type": "object",
@@ -68,15 +56,27 @@
                 }
             }
         },
+        "virus_enrichment_options": {
+            "title": "Virus enrichment options",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "run_viromeqc": {
+                    "type": "boolean",
+                    "description": "Run ViromeQC to estimate viral enrichment"
+                }
+            }
+        },
         "reference_virus_containment_options": {
             "title": "Reference virus containment options",
             "type": "object",
             "description": "Identify reference viruses contained in reads",
             "default": "",
             "properties": {
-                "skip_reference_containment": {
+                "run_reference_containment": {
                     "type": "boolean",
-                    "description": "Skip screening for contained reference viruses in reads"
+                    "description": "Run MASH screen to identify external viruses contained in reads"
                 },
                 "reference_virus_fasta": {
                     "type": "string",
@@ -135,7 +135,7 @@
                 },
                 "genomad_splits": {
                     "type": "integer",
-                    "default": 1,
+                    "default": 5,
                     "description": "Number of splits for running geNomad (more splits lowers memory requirements)"
                 }
             }
@@ -250,12 +250,11 @@
         "virus_taxonomy_options": {
             "title": "Virus taxonomy options",
             "type": "object",
-            "description": "Assign ICTV taxonomy to virus sequences",
+            "description": "Assign taxonomy to virus sequences",
             "default": "",
             "properties": {
-                "skip_genomad_taxonomy": {
-                    "type": "boolean",
-                    "description": "Skip geNomad's marker-gene based classification"
+                "run_genomad_taxonomy": {
+                    "type": "boolean"
                 }
             }
         },
@@ -265,9 +264,9 @@
             "description": "Predict host genus for phage sequences",
             "default": "",
             "properties": {
-                "skip_iphop": {
+                "run_iphop": {
                     "type": "boolean",
-                    "description": "Skip phage host prediction using iPHoP"
+                    "description": "Run iPHoP to predict phage hosts"
                 },
                 "iphop_db": {
                     "type": "string",
@@ -287,12 +286,12 @@
         "virus_lifestyle_options": {
             "title": "Virus lifestyle options",
             "type": "object",
-            "description": "Predict virus lifestlyes",
+            "description": "Predict the lifestyle of viral sequences",
             "default": "",
             "properties": {
-                "skip_bacphlip": {
+                "run_bacphlip": {
                     "type": "boolean",
-                    "description": "Skip running BACPHLIP to predict phage lifestyles"
+                    "description": "Run BACPHLIP to predict virus lifestyle"
                 }
             }
         },
@@ -302,11 +301,13 @@
             "description": "Functionally annotate viral genomes using a variety of approaches",
             "default": "",
             "properties": {
-                "skip_pharokka": {
-                    "type": "boolean"
+                "run_pharokka": {
+                    "type": "boolean",
+                    "description": "Run pharokka to predict and annotate phage ORFs"
                 },
                 "pharokka_db": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Path to predownloaded pharokka db"
                 }
             }
         },
@@ -591,10 +592,10 @@
             "$ref": "#/definitions/input_output_options"
         },
         {
-            "$ref": "#/definitions/virus_enrichment_options"
+            "$ref": "#/definitions/assembly_filtering_options"
         },
         {
-            "$ref": "#/definitions/assembly_filtering_options"
+            "$ref": "#/definitions/virus_enrichment_options"
         },
         {
             "$ref": "#/definitions/reference_virus_containment_options"
