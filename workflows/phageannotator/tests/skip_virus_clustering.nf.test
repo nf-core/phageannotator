@@ -8,7 +8,7 @@ nextflow_workflow {
     tag "SEQKIT_SEQ"
     tag "COVERM_CONTIG"
     tag "FASTA_VIRUS_CLASSIFICATION_GENOMAD"
-    tag "FASTA_VIRUS_QUALITY_CHECKV""
+    tag "FASTA_VIRUS_QUALITY_CHECKV"
     tag "CAT_CAT"
     tag "BOWTIE2_BUILD"
     tag "GENOMAD_ENDTOEND"

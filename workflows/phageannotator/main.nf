@@ -419,10 +419,10 @@ workflow PHAGEANNOTATOR {
     virus_quality_tsv           = ch_quality_summary_tsv
     filtered_viruses_fna_gz     = ch_filtered_viruses_fna_gz
     anicluster_reps_fna_gz      = ch_anicluster_reps_fasta_gz
-    // alignment_results_tsv       = ch_alignment_results_tsv // Inconsistent hash
+    // alignment_results_tsv       = ch_alignment_results_tsv   // Inconsistent hash
     host_predictions_tsv        = ch_host_predictions_tsv
     marker_taxonomy_tsv         = ch_marker_taxonomy_tsv
-    // bacphlip_lifestyle_tsv      = ch_bacphlip_lifestyle_tsv // Inconsistent hash
+    // bacphlip_lifestyle_tsv      = ch_bacphlip_lifestyle_tsv  // Inconsistent hash
     pharokka_output_tsv         = ch_pharokka_output_tsv
     instrain_gene_info          = ch_gene_info_tsv
     versions                    = ch_versions
