@@ -1,0 +1,60 @@
+{
+    "fasta.gz - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_viral_assemblies.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,8a8d145ac2dc055ca6f09a8aed8c0010"
+                ],
+                "versions": [
+                    "versions.yml:md5,8a8d145ac2dc055ca6f09a8aed8c0010"
+                ],
+                "viral_assemblies": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_viral_assemblies.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2024-04-03T20:03:31.598684897"
+    },
+    "fasta.gz": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_viral_assemblies.tsv:md5,d98e022dc9c925d607bbbce2a5e62055"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,8a8d145ac2dc055ca6f09a8aed8c0010"
+                ],
+                "versions": [
+                    "versions.yml:md5,8a8d145ac2dc055ca6f09a8aed8c0010"
+                ],
+                "viral_assemblies": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_viral_assemblies.tsv:md5,d98e022dc9c925d607bbbce2a5e62055"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2024-04-03T20:03:15.882889502"
+    }
+}

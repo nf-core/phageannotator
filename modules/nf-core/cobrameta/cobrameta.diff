@@ -1,0 +1,20 @@
+Changes in module 'nf-core/cobrameta'
+--- modules/nf-core/cobrameta/main.nf
++++ modules/nf-core/cobrameta/main.nf
+@@ -46,8 +46,12 @@
+         --output ${prefix} \\
+         $args
+ 
+-    gzip ${prefix}/*.fasta
+-    cat ${prefix}/*fasta.gz > ${prefix}/COBRA_all_assemblies.fasta.gz
++    if [ -f ${prefix}/*.fasta ]; then
++        gzip ${prefix}/*.fasta
++        cat ${prefix}/*fasta.gz > ${prefix}/COBRA_all_assemblies.fasta.gz
++    else
++        mv ${fasta} ${prefix}/COBRA_all_assemblies.fasta.gz
++    fi
+ 
+     cat <<-END_VERSIONS > versions.yml
+     "${task.process}":
+
+************************************************************

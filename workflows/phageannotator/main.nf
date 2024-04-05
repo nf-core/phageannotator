@@ -12,6 +12,7 @@
 
 include { SEQKIT_SEQ                                } from '../../modules/local/seqkit/seq/main'                                    // TODO: Add to nf-core
 include { APPENDSCREENHITS                          } from '../../modules/local/appendscreenhits/main'
+include { EXTRACTVIRALASSEMBLIES                    } from '../../modules/local/extractviralassemblies/main'
 include { QUALITYFILTERVIRUSES                      } from '../../modules/local/qualityfilterviruses/main'
 include { ANICLUSTER_ANICALC                        } from '../../modules/local/anicluster/anicalc/main'
 include { ANICLUSTER_ANICLUST                       } from '../../modules/local/anicluster/aniclust/main'
@@ -25,6 +26,7 @@ include { INSTRAIN_STB                              } from '../../modules/local/
 include { FASTQ_VIRUS_ENRICHMENT_VIROMEQC           } from '../../subworkflows/local/fastq_virus_enrichment_viromeqc/main'
 include { FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH    } from '../../subworkflows/local/fastq_fasta_reference_containment_mash/main'   // TODO: Add to nf-core; Add nf-tests to nf-core modules
 include { FASTA_VIRUS_CLASSIFICATION_GENOMAD        } from '../../subworkflows/local/fasta_virus_classification_genomad/main'       // TODO: Add to nf-core; Add nf-tests to nf-core modules
+include { FASTQ_FASTA_CONTIG_EXTENSION_COBRA        } from '../../subworkflows/local/fastq_fasta_contig_extension_cobra/main'       // TODO: Add to nf-core; Add nf-tests to nf-core modules
 include { FASTA_VIRUS_QUALITY_CHECKV                } from '../../subworkflows/local/fasta_virus_quality_checkv/main'               // TODO: Add to nf-core; Add nf-tests to nf-core modules
 include { FASTA_ALL_V_ALL_BLAST                     } from '../../subworkflows/local/fasta_all_v_all_blast/main'
 include { FASTA_PHAGE_HOST_IPHOP                    } from '../../subworkflows/local/fasta_phage_host_iphop/main'                   // TODO: Add to nf-core; Add nf-tests to nf-core modules
@@ -163,6 +165,34 @@ workflow PHAGEANNOTATOR {
         // if skip_genomad == true use assemblies with references
         ch_viruses_fna_gz = ch_assembly_w_references_fasta_gz
         ch_virus_summaries_tsv = Channel.empty()
+    }
+
+
+    /*----------------------------------------------------------------------------
+        Extend viral contigs
+    ------------------------------------------------------------------------------*/
+    // if run_cobra == true, run subworkflow
+    if ( params.run_cobra ) {
+        //
+        // MODULE: Create a TSC file containing viral contig names (from assemblies)
+        //
+        ch_viral_assemblies_tsv = EXTRACTVIRALASSEMBLIES ( ch_viruses_fna_gz ).viral_assemblies
+        ch_versions = ch_versions.mix(EXTRACTVIRALASSEMBLIES.out.versions)
+
+        //
+        // SUBWORKFLOW: Extend assembled contigs
+        //
+        ch_extended_viruses_fasta_gz = FASTQ_FASTA_CONTIG_EXTENSION_COBRA (
+            fastq_gz,
+            fasta_gz,
+            ch_viral_assemblies_tsv,
+            params.cobra_assembler,
+            params.cobra_mink,
+            params.cobra_maxk
+        ).extended_fasta
+        ch_versions = ch_versions.mix( FASTQ_FASTA_CONTIG_EXTENSION_COBRA.out.versions )
+    } else {
+        ch_extended_viruses_fasta_gz = ch_viruses_fna_gz
     }
 
 

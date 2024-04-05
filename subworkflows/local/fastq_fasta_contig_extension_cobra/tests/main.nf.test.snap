@@ -1,0 +1,19 @@
+{
+    "fastq - fasta - viruses_tsv - metaspades - k=22 - k=127": {
+        "content": [
+            [
+                "versions.yml:md5,2ae6371f345c3ed00f9a2abcdde4cd7c",
+                "versions.yml:md5,3e74574fbfe0a90e2862245914d738e4",
+                "versions.yml:md5,45ab424acfec849d28d8f8ab4a3af8f1",
+                "versions.yml:md5,466c764b0ff156331507ba238e111bf2",
+                "versions.yml:md5,64da2eecb8de1b06695a1d90486247b0",
+                "versions.yml:md5,78a67cf0bf546994c775283ac774760a",
+                "versions.yml:md5,7f61c2e84c088e886fef2f98710466b1",
+                "versions.yml:md5,90c4e1c1c332a92141708a0be8ab2066",
+                "versions.yml:md5,d464199cdf99a00939311c178e24c614",
+                "versions.yml:md5,fc102771b3196a7b96fec4a6f1281a37"
+            ]
+        ],
+        "timestamp": "2024-04-03T19:51:47.578170738"
+    }
+}
