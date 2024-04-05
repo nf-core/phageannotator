@@ -185,7 +185,7 @@ def detect_nf_test_files(changed_files: list[Path]) -> list[Path]:
     return result
 
 
-def process_files(files: list[Path]) -> list[str]:
+def process_nf_test_files(files: list[Path]) -> list[str]:
     """
     Process the files and return lines that begin with 'workflow', 'process', or 'function' and have a single string afterwards.
 
@@ -239,6 +239,13 @@ def convert_nf_test_files_to_test_types(
             name = words[1].strip("'\"")  # Strip both single and double quotes
             if keyword in types:
                 result[keyword].append(name)
+        elif "run" in line:
+            run_words = words[0].strip(')').split('(')
+            if len(run_words) == 2 and re.match(r'^".*"$', run_words[1]):
+                keyword = run_words[0]
+                name = run_words[1].strip("'\"")  # Strip both single and double quotes
+                if keyword in types:
+                    result[keyword].append(name)
     return result
 
 
@@ -266,8 +273,8 @@ def find_changed_dependencies(paths: list[Path], tags: list[str]) -> list[Path]:
             # Make case insensitive with .casefold()
             tags_in_nf_test_file = [
                 tag.casefold().replace("/", "_")
-                for tag in convert_nf_test_files_to_test_types(lines, types=["tag"])[
-                    "tag"
+                for tag in convert_nf_test_files_to_test_types(lines, types=["run"])[
+                    "run"
                 ]
             ]
             # Check if tag in nf-test file appears in a tag.
@@ -296,7 +303,7 @@ if __name__ == "__main__":
             changed_files, include_files
         )
     nf_test_files = detect_nf_test_files(changed_files)
-    lines = process_files(nf_test_files)
+    lines = process_nf_test_files(nf_test_files)
     result = convert_nf_test_files_to_test_types(lines)
 
     # Get only relevant results (specified by -t)
