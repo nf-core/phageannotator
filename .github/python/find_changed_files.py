@@ -158,12 +158,13 @@ def detect_include_files(
     return new_changed_files
 
 
-def detect_nf_test_files(changed_files: list[Path]) -> list[Path]:
+def detect_files(changed_files: list[Path], suffix: str) -> list[Path]:
     """
     Detects and returns a list of nf-test files from the given list of changed files.
 
     Args:
         changed_files (list[Path]): A list of file paths.
+        suffix (str): File suffix to detect
 
     Returns:
         list[Path]: A list of nf-test file paths.
@@ -171,7 +172,7 @@ def detect_nf_test_files(changed_files: list[Path]) -> list[Path]:
     result: list[Path] = []
     for path in changed_files:
         # If Path is the exact nf-test file add to list:
-        if path.match("*.nf.test") and path.exists():
+        if path.match(suffix) and path.exists():
             result.append(path)
         # Else recursively search for nf-test files:
         else:
@@ -180,7 +181,7 @@ def detect_nf_test_files(changed_files: list[Path]) -> list[Path]:
             # dir/
             # ├─ main.nf
             # ├─ main.nf.test
-            for file in path.parent.rglob("*.nf.test"):
+            for file in path.parent.rglob(suffix):
                 result.append(file)
     return result
 
@@ -246,12 +247,19 @@ def convert_nf_test_files_to_test_types(
                 name = run_words[1].strip("'\"")  # Strip both single and double quotes
                 if keyword in types:
                     result[keyword].append(name)
+        elif "include {" in line and "include" in types:
+            keyword = words[0]
+            name = words[2].strip("'\"")  # Strip both single and double quotes
+            if keyword in types:
+                result[keyword].append(name)
+
     return result
 
 
-def find_changed_dependencies(paths: list[Path], tags: list[str]) -> list[Path]:
+def find_nf_tests_with_changed_dependencies(paths: list[Path], tags: list[str]) -> list[Path]:
     """
-    Find all *.nf.test files with changed dependencies from a list of paths.
+    Find all *.nf.test files with changed dependencies
+    (identified as modules loaded in the via setup { run("<tool>") } from a list of paths.
 
     Args:
         paths (list): List of directories or files to scan.
@@ -263,7 +271,7 @@ def find_changed_dependencies(paths: list[Path], tags: list[str]) -> list[Path]:
 
     result: list[Path] = []
 
-    nf_test_files = detect_nf_test_files(paths)
+    nf_test_files = detect_files(paths, "*.nf.test")
 
     # find nf-test files with changed dependencies
     for nf_test_file in nf_test_files:
@@ -287,6 +295,48 @@ def find_changed_dependencies(paths: list[Path], tags: list[str]) -> list[Path]:
     return result
 
 
+def find_nf_files_with_changed_dependencies(paths: list[Path], tags: list[str]) -> list[Path]:
+    """
+    Find all *.nf.test files with where the *.nf file uses changed dependencies
+    (identified via include { <tool> }) in *.nf files from a list of paths.
+
+    Args:
+        paths (list): List of directories or files to scan.
+        tags (list): List of tags identified as having changes.
+
+    Returns:
+        list: List of *.nf.test files from *.nf files with changed dependencies.
+    """
+
+    nf_files_w_changed_dependencies: list[Path] = []
+
+    nf_files = detect_files(paths, "*.nf")
+
+    # find nf files with changed dependencies
+    for nf_file in nf_files:
+        with open(nf_file, "r") as f:
+            lines = f.readlines()
+            # Get all include statements from nf file
+            # Make case insensitive with .casefold()
+            includes_in_nf_file = [
+                tag.casefold().replace("/", "_")
+                for tag in convert_nf_test_files_to_test_types(lines, types=["include"])[
+                    "include"
+                ]
+            ]
+            # Check if include in nf file appears in a tag.
+            # Use .casefold() to be case insensitive
+            if any(
+                tag.casefold().replace("/", "_") in includes_in_nf_file for tag in tags
+            ):
+                nf_files_w_changed_dependencies.append(nf_file)
+
+    # find nf-test for nf files with changed dependencies
+    nf_test_files_for_changed_dependencies = detect_files(nf_files_w_changed_dependencies, "*.nf.test")
+
+    return nf_test_files_for_changed_dependencies
+
+
 if __name__ == "__main__":
 
     # Utility stuff
@@ -302,7 +352,7 @@ if __name__ == "__main__":
         changed_files = changed_files + detect_include_files(
             changed_files, include_files
         )
-    nf_test_files = detect_nf_test_files(changed_files)
+    nf_test_files = detect_files(changed_files, "*.nf.test")
     lines = process_nf_test_files(nf_test_files)
     result = convert_nf_test_files_to_test_types(lines)
 
@@ -312,12 +362,15 @@ if __name__ == "__main__":
         {item for sublist in map(result.get, args.types) for item in sublist}
     )
 
-    # Parse files to identify nf-tests with changed dependencies
-    changed_dep_files = find_changed_dependencies([Path(".")], target_results)
+    # Parse nf-test files to identify nf-tests containing "setup" with changed module/subworkflow/workflow
+    nf_test_changed_setup = find_nf_tests_with_changed_dependencies([Path(".")], target_results)
+
+    # Parse *.nf files to identify nf-files containing include with changed module/subworkflow/workflow
+    nf_files_changed_include = find_nf_files_with_changed_dependencies([Path(".")], target_results)
 
     # Combine target nf-test files and nf-test files with changed dependencies
     all_nf_tests = [
-        str(test_path) for test_path in set(changed_dep_files + nf_test_files)
+        str(test_path) for test_path in set(nf_test_files + nf_test_changed_setup + nf_files_changed_include)
     ]
 
     # Print to stdout
