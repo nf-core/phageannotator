@@ -22,7 +22,7 @@
                     },
                     "bowtie2/align": {
                         "branch": "master",
-                        "git_sha": "3c77ca9aac783e76c3614a06db3bfe4fef619bde",
+                        "git_sha": "0fe30831abbc2ed115e46e92330edf38f56edc3d",
                         "installed_by": ["fastq_align_bowtie2"]
                     },
                     "bowtie2/build": {
