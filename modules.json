@@ -164,7 +164,7 @@
                     },
                     "fastq_align_bowtie2": {
                         "branch": "master",
-                        "git_sha": "0fe30831abbc2ed115e46e92330edf38f56edc3d",
+                        "git_sha": "55e7bb6d5279ec21f254bbab0943117cb3d2fc35",
                         "installed_by": ["subworkflows"]
                     },
                     "initialise": {
