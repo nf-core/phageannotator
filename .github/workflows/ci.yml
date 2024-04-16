@@ -21,7 +21,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  changes:
+  nf-test-changes:
     name: nf-test-changes
     runs-on: ubuntu-latest
     outputs:
@@ -53,8 +53,8 @@ jobs:
           echo ${{ steps.outputs.outputs.modules }}
           echo ${{ steps.outputs.outputs.subworkflows }}
 
-  test:
-    name: ${{ matrix.nf_test_files }} ${{ matrix.profile }} NF-${{ matrix.NXF_VER }}
+  nf-test:
+    name: nf-test
     needs: [nf-test-changes]
     if: ( needs.nf-test-changes.outputs.paths != '[]' )
     runs-on: ubuntu-latest
@@ -102,7 +102,11 @@ jobs:
 
       - name: Run nf-test
         run: |
-          nf-test test ${{ matrix.nf_test_files }} --verbose --profile "+${{ matrix.profile }}" --junitxml=test.xml --tap=test.tap
+          nf-test test ${{ matrix.nf_test_files }} \
+          --verbose \
+          --profile "+${{ matrix.profile }}" -\
+          -junitxml=test.xml \
+          --tap=test.tap
       - uses: pcolby/tap-summary@v1
         with:
           path: >-
@@ -120,9 +124,7 @@ jobs:
 
   confirm-pass:
     runs-on: ubuntu-latest
-    needs:
-      - changes
-      - test
+    needs: [nf-test-changes, nf-test]
     if: always()
     steps:
       - name: All tests ok
