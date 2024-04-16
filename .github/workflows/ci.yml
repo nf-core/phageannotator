@@ -59,25 +59,21 @@ jobs:
 
   nf-test:
     name: ${{ matrix.nf_test_files }} ${{ matrix.profile }} NF-${{ matrix.NXF_VER }}
+    runs-on: ubuntu-latest
     needs: [nf-test-changes]
     if: ( needs.nf-test-changes.outputs.paths != '[]' )
-    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        NXF_VER:
-          - "latest-everything"
-          - "23.04"
-        nf_test_files: ["${{ fromJson(needs.changes.outputs.nf_test_files) }}"]
-        profile:
-          - "docker"
+        path: ["${{ fromJson(needs.nf-test-changes.outputs.paths) }}"]
+        profile: [docker]
 
     steps:
       - name: Check out pipeline code
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
 
       - name: Install Nextflow
-        uses: nf-core/setup-nextflow@v1
+        uses: nf-core/setup-nextflow@v2
         with:
           version: "${{ matrix.NXF_VER }}"
 
@@ -114,13 +110,6 @@ jobs:
           NFT_DIFF: "pdiff"
           NFT_DIFF_ARGS: "--line-numbers --width 120 --expand-tabs=2"
         run: |
-          # use "docker_self_hosted" if it runs on self-hosted runner and matrix.profile=docker
-          if [ "${{ matrix.profile }}" == "docker" ]; then
-            PROFILE="docker_self_hosted"
-          else
-            PROFILE=${{ matrix.profile }}
-          fi
-
           NFT_WORKDIR=~ \
           nf-test test \
             --profile=${{ matrix.profile }} \
