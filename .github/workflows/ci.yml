@@ -61,10 +61,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        path: ["${{ fromJson(needs.nf-test-changes.outputs.paths) }}"]
         NXF_VER:
           - "latest-everything"
           - "23.04"
-        nf_test_files: ["${{ fromJson(needs.changes.outputs.nf_test_files) }}"]
         profile:
           - "docker"
 
@@ -101,12 +101,16 @@ jobs:
         uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be # v1.3.1
 
       - name: Run nf-test
+        env:
+          NFT_DIFF: "pdiff"
+          NFT_DIFF_ARGS: "--line-numbers --width 120 --expand-tabs=2"
         run: |
-          nf-test test ${{ matrix.nf_test_files }} \
-          --verbose \
-          --profile "+${{ matrix.profile }}" -\
-          -junitxml=test.xml \
-          --tap=test.tap
+          NFT_WORKDIR=~ \
+          nf-test test \
+            --profile=${{ matrix.profile }} \
+            --tap=test.tap \
+            --verbose \
+            ${{ matrix.path }}
       - uses: pcolby/tap-summary@v1
         with:
           path: >-
