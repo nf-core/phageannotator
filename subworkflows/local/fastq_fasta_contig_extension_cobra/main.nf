@@ -68,21 +68,30 @@ workflow FASTQ_FASTA_CONTIG_EXTENSION_COBRA {
         .join(ch_coverage_mod)
         .join(viral_contigs_tsv)
         .join(ch_fasta_alignment_bam)
+        .multiMap { it ->
+            fasta: [ it[0], it[1] ]
+            coverage: [ it[0], it[2] ]
+            query: [ it[0], it[3] ]
+            bam: [ it[0], it[4] ]
+        }
 
 
     //
     // MODULE: Extend contigs using COBRA
     //
     ch_extended_fasta_gz = COBRAMETA (
-        ch_cobra_input.map { [ it[0], it[1] ] },
-        ch_cobra_input.map { [ it[0], it[2] ] },
-        ch_cobra_input.map { [ it[0], it[3] ] },
-        ch_cobra_input.map { [ it[0], it[4] ] },
-        cobra_assembler, mink, maxk
+        ch_cobra_input.fasta,
+        ch_cobra_input.coverage,
+        ch_cobra_input.query,
+        ch_cobra_input.bam,
+        cobra_assembler,
+        mink,
+        maxk
     ).all_cobra_assemblies
     ch_versions = ch_versions.mix( COBRAMETA.out.versions )
 
     emit:
     extended_fasta      = ch_extended_fasta_gz  // [ [ meta ], extended_contigs.fna.gz ]    , FASTA file containing extended contigs
+    cobra_summary_tsv   = COBRAMETA.out.joining_summary
     versions            = ch_versions.unique()  // [ versions.yml ]
 }

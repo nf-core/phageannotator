@@ -171,7 +171,6 @@ workflow PHAGEANNOTATOR {
     /*----------------------------------------------------------------------------
         Extend viral contigs
     ------------------------------------------------------------------------------*/
-    // if run_cobra == true, run subworkflow
     if ( params.run_cobra ) {
         //
         // MODULE: Create a TSV file containing viral contig names (from assemblies)
@@ -190,9 +189,11 @@ workflow PHAGEANNOTATOR {
             params.cobra_mink,
             params.cobra_maxk
         ).extended_fasta
+        ch_virus_extension_summary_tsv = FASTQ_FASTA_CONTIG_EXTENSION_COBRA.out.cobra_summary_tsv
         ch_versions = ch_versions.mix( FASTQ_FASTA_CONTIG_EXTENSION_COBRA.out.versions )
     } else {
         ch_extended_viruses_fasta_gz = ch_viruses_fna_gz
+        ch_virus_extension_summary_tsv = Channel.empty()
     }
 
 
@@ -446,6 +447,7 @@ workflow PHAGEANNOTATOR {
     emit:
     virus_enrichment_tsv        = ch_virus_enrichment_tsv
     virus_classification_tsv    = ch_virus_summaries_tsv
+    // virus_extension_tsv         = ch_virus_extension_summary_tsv // Don't want to update all other workflow snapshots
     virus_quality_tsv           = ch_quality_summary_tsv
     filtered_viruses_fna_gz     = ch_filtered_viruses_fna_gz
     anicluster_reps_fna_gz      = ch_anicluster_reps_fasta_gz

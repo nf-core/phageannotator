@@ -76,7 +76,11 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert snapshot(workflow.out).match() },
+                { assert snapshot(
+                    workflow.out,
+                    path("${outputDir}/VirusExtension/cobrameta/test/COBRA_joining_summary.txt")
+                    ).match()
+                },
                 { assert !path("${outputDir}/VirusLifestyle/bacphlip/test.filtered.fna.bacphlip").exists() },
                 { assert path("${outputDir}/VirusAbundance/coverm/contig/all_samples_alignment_results.tsv").readLines().size() == 4 }
             )

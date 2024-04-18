@@ -222,8 +222,13 @@
                         "quality_summary.tsv:md5,5f1b0ace5264c11b2f5e8b0decbf2f9e"
                     ]
                 ]
-            }
+            },
+            "COBRA_joining_summary.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
         ],
-        "timestamp": "2024-04-04T23:42:33.116734135"
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-04-18T16:48:03.595326882"
     }
 }
