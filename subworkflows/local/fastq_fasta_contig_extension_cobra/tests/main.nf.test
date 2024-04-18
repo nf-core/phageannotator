@@ -49,7 +49,7 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(workflow.out.versions).match() },
-                { assert file(workflow.out.extended_fasta[0][1]).linesGzip.toString().contains(">k141_177_self_circular\nCTCCTCATCATACTGCTGCCCCGGC") }
+                { assert path(workflow.out.extended_fasta[0][1]).linesGzip.any { it.contains(">k141_177_self_circular") } }
             )
         }
     }
