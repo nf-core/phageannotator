@@ -140,6 +140,30 @@
                 }
             }
         },
+        "viral_contig_extension": {
+            "title": "Viral contig extension",
+            "type": "object",
+            "description": "Extend viral contigs",
+            "default": "",
+            "properties": {
+                "run_cobra": {
+                    "type": "boolean",
+                    "description": "Run COBRA to extend viral contigs"
+                },
+                "cobra_assembler": {
+                    "type": "string",
+                    "description": "The assembler that was used to assemble viral contigs"
+                },
+                "cobra_mink": {
+                    "type": "string",
+                    "description": "Minimum kmer value used during assembly"
+                },
+                "cobra_maxk": {
+                    "type": "string",
+                    "description": "Maximum kmer value used during assembly"
+                }
+            }
+        },
         "virus_quality_options": {
             "title": "Virus quality options",
             "type": "object",
@@ -602,6 +626,9 @@
         },
         {
             "$ref": "#/definitions/virus_classification_options"
+        },
+        {
+            "$ref": "#/definitions/viral_contig_extension"
         },
         {
             "$ref": "#/definitions/virus_quality_options"

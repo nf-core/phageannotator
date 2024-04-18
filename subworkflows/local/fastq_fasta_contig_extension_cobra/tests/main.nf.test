@@ -1,0 +1,56 @@
+nextflow_workflow {
+
+    name "Test Subworkflow: FASTQ_FASTA_CONTIG_EXTENSION_COBRA"
+    script "subworkflows/local/fastq_fasta_contig_extension_cobra/main.nf"
+    workflow "FASTQ_FASTA_CONTIG_EXTENSION_COBRA"
+
+    // Dependencies
+    tag "BOWTIE2_BUILD"
+    tag "FASTQ_ALIGN_BOWTIE2"
+    tag "GUNZIP"
+    tag "COVERM_CONTIG"
+    tag "COBRAMETA"
+
+
+    test("fastq - fasta - viruses_tsv - metaspades - k=22 - k=127") {
+
+        when {
+            workflow {
+                """
+                input[0] = Channel.of(
+                    [
+                        [ id: 'test' ],
+                        [
+                            file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_1.fastq.gz', checkifExists: true),
+                            file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_2.fastq.gz', checkifExists: true)
+                        ]
+                    ]
+                )
+                input[1] = Channel.of(
+                    [
+                        [ id: 'test' ],
+                        file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkifExists: true)
+                    ]
+                )
+                input[2] = Channel.of(
+                    [
+                        [ id: 'test' ],
+                        file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/tsv/test1_contigs_ids.tsv', checkifExists: true)
+                    ]
+                )
+                input[3] = Channel.value( 'metaspades' )
+                input[4] = Channel.value( 27 )
+                input[5] = Channel.value( 127 )
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out.versions).match() },
+                { assert path(workflow.out.extended_fasta[0][1]).linesGzip.any { it.contains(">k141_177_self_circular") } }
+            )
+        }
+    }
+}
