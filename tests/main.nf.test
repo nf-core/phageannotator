@@ -29,22 +29,15 @@ nextflow_pipeline {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    path("${params.outdir}/VirusEnrichment"),
                     path("${params.outdir}/AssemblyFilter"),
-                    path("${params.outdir}/ReferenceContainment"),
                     path("${params.outdir}/VirusClassification"),
                     path("${params.outdir}/VirusQuality"),
                     path("${params.outdir}/GenomeClustering"),
                     path("${params.outdir}/VirusAbundance/bowtie2/align/test1.bowtie2.log"),
                     path("${params.outdir}/VirusAbundance/bowtie2/build"),
-                    path("${params.outdir}/PhageHost/iphop"),
-                    path("${params.outdir}/VirusMicrodiversity/instrain/profile/test1.IS/output/test1.IS_gene_info.tsv"),
-                    path("${params.outdir}/VirusMicrodiversity/instrain/profile/test2.IS/output/test2.IS_gene_info.tsv"),
-                    path("${params.outdir}/pipeline_info/software_versions.yml")
+                    file("${params.outdir}/pipeline_info/nf_core_pipeline_software_mqc_versions.yml").readLines()[0..41]
                     ).match() },
-                { assert path("${outputDir}/VirusLifestyle/bacphlip/all_samples_anicluster_representatives.fna.bacphlip").readLines().size() == 3 },
                 { assert path("${outputDir}/VirusAbundance/coverm/contig/all_samples_alignment_results.tsv").readLines().size() == 3 },
-                { assert path("${params.outdir}/VirusMicrodiversity/instrain/compare/all_samples.IS_compare/output/all_samples.IS_compare_pooled_SNV_data.tsv").readLines().size() == 11 },
                 { assert new File("$outputDir/ReadQuality/fastqc/test1_1_fastqc.html").exists() },
                 { assert new File("$outputDir/ReadQuality/fastqc/test1_2_fastqc.html").exists() },
                 { assert new File("$outputDir/VirusAbundance/bowtie2/align/test1.bam").exists() },

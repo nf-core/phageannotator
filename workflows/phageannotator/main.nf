@@ -12,6 +12,7 @@
 
 include { SEQKIT_SEQ                                } from '../../modules/local/seqkit/seq/main'                                    // TODO: Add to nf-core
 include { APPENDSCREENHITS                          } from '../../modules/local/appendscreenhits/main'
+include { EXTRACTVIRALASSEMBLIES                    } from '../../modules/local/extractviralassemblies/main'
 include { QUALITYFILTERVIRUSES                      } from '../../modules/local/qualityfilterviruses/main'
 include { COVERM_CONTIG                             } from '../../modules/local/coverm/contig/main'                                 // TODO: Add to nf-core
 include { INSTRAIN_STB                              } from '../../modules/local/instrain/stb/main'
@@ -22,6 +23,7 @@ include { INSTRAIN_STB                              } from '../../modules/local/
 include { FASTQ_VIRUS_ENRICHMENT_VIROMEQC           } from '../../subworkflows/local/fastq_virus_enrichment_viromeqc/main'
 include { FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH    } from '../../subworkflows/local/fastq_fasta_reference_containment_mash/main'   // TODO: Add to nf-core; Add nf-tests to nf-core modules
 include { FASTA_VIRUS_CLASSIFICATION_GENOMAD        } from '../../subworkflows/local/fasta_virus_classification_genomad/main'       // TODO: Add to nf-core; Add nf-tests to nf-core modules
+include { FASTQ_FASTA_CONTIG_EXTENSION_COBRA        } from '../../subworkflows/local/fastq_fasta_contig_extension_cobra/main'       // TODO: Add to nf-core; Add nf-tests to nf-core modules
 include { FASTA_VIRUS_QUALITY_CHECKV                } from '../../subworkflows/local/fasta_virus_quality_checkv/main'               // TODO: Add to nf-core; Add nf-tests to nf-core modules
 include { FASTA_CLUSTER_BLAST                       } from '../../subworkflows/local/fasta_cluster_blast/main'
 include { FASTA_PHAGE_HOST_IPHOP                    } from '../../subworkflows/local/fasta_phage_host_iphop/main'                   // TODO: Add to nf-core; Add nf-tests to nf-core modules
@@ -69,10 +71,12 @@ workflow PHAGEANNOTATOR {
     /*----------------------------------------------------------------------------
         Estimate viral enrichment in reads
     ------------------------------------------------------------------------------*/
-    if ( !params.skip_viromeqc ) {
+    // if run_viromeqc == true, run subworkflow
+    if ( params.run_viromeqc ) {
         ch_virus_enrichment_tsv = FASTQ_VIRUS_ENRICHMENT_VIROMEQC ( fastq_gz ).enrichment_tsv
         ch_versions = ch_versions.mix(FASTQ_VIRUS_ENRICHMENT_VIROMEQC.out.versions)
     } else {
+        // if run_viromeqc == false, skip subworkflow
         ch_virus_enrichment_tsv = Channel.empty()
     }
 
@@ -87,8 +91,8 @@ workflow PHAGEANNOTATOR {
     /*----------------------------------------------------------------------------
         Reference virus identification
     ------------------------------------------------------------------------------*/
-    // if skip_reference_containment == false, run subworkflow
-    if ( !params.skip_reference_containment ) {
+    // if run_reference_containment == true, run subworkflow
+    if ( params.run_reference_containment ) {
         // if reference based identification requested, a reference FASTA file must be included
         if ( !params.reference_virus_fasta ) {
             error "[nf-core/phageannotator] ERROR: reference containment requested, but no --reference_virus_fasta provided"
@@ -119,7 +123,7 @@ workflow PHAGEANNOTATOR {
         ch_assembly_w_references_fasta_gz = APPENDSCREENHITS ( ch_append_screen_hits_input, ch_reference_virus_fasta_gz.first() ).assembly_w_screen_hits
         ch_versions = ch_versions.mix(APPENDSCREENHITS.out.versions.first())
     } else {
-        // if skip_reference_containment == true, skip subworkflow and use input assemblies
+        // if run_reference_containment == false, skip subworkflow and use input assemblies
         ch_assembly_w_references_fasta_gz = ch_filtered_input_fasta_gz
     }
 
@@ -127,7 +131,8 @@ workflow PHAGEANNOTATOR {
     /*----------------------------------------------------------------------------
         De novo virus classification
     ------------------------------------------------------------------------------*/
-    if ( !params.skip_genomad || !params.skip_genomad_taxonomy ) {
+    // if skip_genomad == false OR run_genomad_taxonomy == true, prepare genomad db
+    if ( !params.skip_genomad || params.run_genomad_taxonomy ) {
         //
         // De-novo virus classification using assemblies
         //
@@ -138,6 +143,7 @@ workflow PHAGEANNOTATOR {
             ch_genomad_db = Channel.value( file( params.genomad_db, checkIfExists:true ) )
         }
 
+        // if skip_genomad == false run genomad subworkflow
         //
         // SUBWORKFLOW: Classify and annotate sequences
         //
@@ -153,15 +159,45 @@ workflow PHAGEANNOTATOR {
             ch_virus_summaries_tsv = Channel.empty()
         }
     } else {
+        // if skip_genomad == true use assemblies with references
         ch_viruses_fna_gz = ch_assembly_w_references_fasta_gz
         ch_virus_summaries_tsv = Channel.empty()
     }
 
 
     /*----------------------------------------------------------------------------
+        Extend viral contigs
+    ------------------------------------------------------------------------------*/
+    if ( params.run_cobra ) {
+        //
+        // MODULE: Create a TSV file containing viral contig names (from assemblies)
+        //
+        ch_viral_assemblies_tsv = EXTRACTVIRALASSEMBLIES ( ch_viruses_fna_gz ).viral_assemblies
+        ch_versions = ch_versions.mix(EXTRACTVIRALASSEMBLIES.out.versions)
+
+        //
+        // SUBWORKFLOW: Extend assembled contigs
+        //
+        ch_extended_viruses_fasta_gz = FASTQ_FASTA_CONTIG_EXTENSION_COBRA (
+            fastq_gz,
+            fasta_gz,
+            ch_viral_assemblies_tsv,
+            params.cobra_assembler,
+            params.cobra_mink,
+            params.cobra_maxk
+        ).extended_fasta
+        ch_virus_extension_summary_tsv = FASTQ_FASTA_CONTIG_EXTENSION_COBRA.out.cobra_summary_tsv
+        ch_versions = ch_versions.mix( FASTQ_FASTA_CONTIG_EXTENSION_COBRA.out.versions )
+    } else {
+        ch_extended_viruses_fasta_gz = ch_viruses_fna_gz
+        ch_virus_extension_summary_tsv = Channel.empty()
+    }
+
+
+    /*----------------------------------------------------------------------------
         Assess virus quality and filter
     ------------------------------------------------------------------------------*/
-    // Run virus quality assessment and filtering
+    // if skip_checkv == false, run subworkflow
     if ( !params.skip_checkv ) {
         // create channel from params.checkv_db
         if ( !params.checkv_db ){
@@ -186,6 +222,7 @@ workflow PHAGEANNOTATOR {
         ch_filtered_viruses_fna_gz = QUALITYFILTERVIRUSES ( ch_quality_filter_viruses_input2 ).filtered_viruses
         ch_versions = ch_versions.mix(QUALITYFILTERVIRUSES.out.versions.first())
     } else {
+        // if skip_checkv == false, use non-quality filtered viruses
         ch_filtered_viruses_fna_gz = ch_viruses_fna_gz
         ch_quality_summary_tsv = Channel.empty()
     }
@@ -195,7 +232,7 @@ workflow PHAGEANNOTATOR {
         Cluster viruses using all-v-all BLAST approach
     ------------------------------------------------------------------------------*/
     // TODO: Add option to cluster within groups rather than across all samples
-    // Run virus clustering
+    // if skip_virus_clustering == false, run subworkflow
     if ( !params.skip_virus_clustering  ) {
         // create a channel for combining filtered viruses (sorted so output is the same for tests)
         ch_cat_viruses_input = ch_filtered_viruses_fna_gz
@@ -215,6 +252,7 @@ workflow PHAGEANNOTATOR {
         ch_versions = ch_versions.mix( FASTA_CLUSTER_BLAST.out.versions )
 
     } else {
+        // if skip_virus_clustering == true, use unclustered viruses
         ch_anicluster_reps_fasta_gz = ch_filtered_viruses_fna_gz
         ch_clusters_tsv = Channel.empty()
     }
@@ -223,7 +261,8 @@ workflow PHAGEANNOTATOR {
     /*----------------------------------------------------------------------------
         Align reads to viruses
     ------------------------------------------------------------------------------*/
-    if ( !params.skip_read_alignment ) {
+    // if skip_read_alignment == false OR run_instrain == true, run subworkflow
+    if ( !params.skip_read_alignment || params.run_instrain ) {
         //
         // MODULE: Make bowtie2 index
         //
@@ -233,7 +272,7 @@ workflow PHAGEANNOTATOR {
         //
         // SUBWORKFLOW: Align reads to bowtie2 index
         //
-        ch_cluster_rep_alignment_bam = FASTQ_ALIGN_BOWTIE2 ( fastq_gz, ch_anicluster_reps_bt2, false, false, ch_anicluster_reps_fasta_gz ).bam
+        ch_cluster_rep_alignment_bam = FASTQ_ALIGN_BOWTIE2 ( fastq_gz, ch_anicluster_reps_bt2, false, false, ch_anicluster_reps_fasta_gz.first() ).bam
         ch_versions = ch_versions.mix( FASTQ_ALIGN_BOWTIE2.out.versions )
 
         //
@@ -243,6 +282,7 @@ workflow PHAGEANNOTATOR {
         ch_alignment_results_tsv = COVERM_CONTIG ( ch_combined_bams ).alignment_results
         ch_versions = ch_versions.mix( COVERM_CONTIG.out.versions )
     } else {
+        // if skip_read_alignment == true AND run_instrain == false, skip subworkflow
         ch_alignment_results_tsv = Channel.empty()
         if ( !params.skip_instrain ) {
             error "[nf-core/phageannotator] ERROR: skip_read_alignment = true but skip_instrain = false; read alignment must take place for inStrain to run"
@@ -253,13 +293,15 @@ workflow PHAGEANNOTATOR {
     /*----------------------------------------------------------------------------
         Assign viral taxonomy
     ------------------------------------------------------------------------------*/
-    if ( !params.skip_genomad_taxonomy ) {
+    // if run_genomad_taxonomy == true run subworkflow
+    if ( params.run_genomad_taxonomy ) {
         //
         // SUBWORKFLOW: Assign taxonomy using ICTV taxa specific marker genes
         //
         ch_marker_taxonomy_tsv = GENOMAD_TAXONOMY ( ch_anicluster_reps_fasta_gz, ch_genomad_db_dir ).taxonomy
         ch_versions = ch_versions.mix( GENOMAD_TAXONOMY.out.versions )
     } else {
+        // if run_genomad_taxonomy == false, skip subworkflow
         ch_marker_taxonomy_tsv = Channel.empty()
     }
 
@@ -271,7 +313,8 @@ workflow PHAGEANNOTATOR {
     ch_anicluster_reps_fasta = GUNZIP_CLUSTER_REPS ( ch_anicluster_reps_fasta_gz ).gunzip
     ch_versions = ch_versions.mix( GUNZIP_CLUSTER_REPS.out.versions )
 
-    if ( !params.skip_iphop ){
+    // if run_iphop == true, run subworkflow
+    if ( params.run_iphop ){
         // create channel from params.checkv_db
         if ( !params.iphop_db ){
             ch_iphop_db = null
@@ -279,12 +322,13 @@ workflow PHAGEANNOTATOR {
             ch_iphop_db = file( params.iphop_db, checkIfExists:true )
         }
 
-    //
-    // SUBWORKFLOW: Download database and predict phage hosts
-    //
-    ch_host_predictions_tsv = FASTA_PHAGE_HOST_IPHOP ( ch_anicluster_reps_fasta, ch_iphop_db ).host_predictions_tsv
-    ch_versions = ch_versions.mix( FASTA_PHAGE_HOST_IPHOP.out.versions )
+        //
+        // SUBWORKFLOW: Download database and predict phage hosts
+        //
+        ch_host_predictions_tsv = FASTA_PHAGE_HOST_IPHOP ( ch_anicluster_reps_fasta, ch_iphop_db ).host_predictions_tsv
+        ch_versions = ch_versions.mix( FASTA_PHAGE_HOST_IPHOP.out.versions )
     } else {
+        // if run_iphop == false, skip subworkflow
         ch_host_predictions_tsv = Channel.empty()
     }
 
@@ -292,13 +336,17 @@ workflow PHAGEANNOTATOR {
     /*----------------------------------------------------------------------------
         Predict virus lifestyle
     ------------------------------------------------------------------------------*/
-    if ( !params.skip_bacphlip ) {
+    // if run_bacphlip == true, run subworkflow
+    if ( params.run_bacphlip ) {
         //
         // MODULE: Predict phage lifestyle using lysogeny specific genes
         //
         ch_bacphlip_lifestyle_tsv = BACPHLIP ( ch_anicluster_reps_fasta ).bacphlip_results
         ch_versions = ch_versions.mix( BACPHLIP.out.versions )
+
+        // TODO: Add ability to automatically add -meta flag to pharokka when multiple sequences are in input fasta
     } else {
+        // if run_bacphlip == false, skip subworkflow
         ch_bacphlip_lifestyle_tsv = Channel.empty()
     }
 
@@ -306,7 +354,8 @@ workflow PHAGEANNOTATOR {
     /*----------------------------------------------------------------------------
         Phage functional annotation
     ------------------------------------------------------------------------------*/
-    if ( !params.skip_pharokka ) {
+    // if run_pharokka == true OR run_instrain == true, run subworkflow
+    if ( params.run_pharokka || params.run_instrain ) {
         // create channel from params.pharokka_db
         if ( !params.pharokka_db ){
             ch_pharokka_db = null
@@ -320,8 +369,31 @@ workflow PHAGEANNOTATOR {
         ch_pharokka_gbk_gz = FASTA_PHAGE_FUNCTION_PHAROKKA ( ch_anicluster_reps_fasta, ch_pharokka_db ).pharokka_gbk_gz
         ch_pharokka_output_tsv = FASTA_PHAGE_FUNCTION_PHAROKKA.out.pharokka_final_output_tsv
         ch_versions = ch_versions.mix( FASTA_PHAGE_FUNCTION_PHAROKKA.out.versions )
+
+        // TODO: Add ability to automatically add -meta flag to pharokka when multiple sequences are in input fasta
+
+        // gunzip proteins for input into instrain
+        ch_pharokka_gbk = GUNZIP_VIRUS_PROTEINS ( ch_pharokka_gbk_gz ).gunzip
+        ch_versions = ch_versions.mix( GUNZIP_VIRUS_PROTEINS.out.versions )
+
+        // add gene identifier to gbk for inStrain
+        ch_pharokka_gbk_mod = ch_pharokka_gbk
+        .map { meta, gbk ->
+            def gbk_mod = file("${workDir}/${meta.id}_mod.gbk")
+
+            gbk.withReader { source ->
+                gbk_mod.withWriter { target ->
+                    String line
+                    while( line=source.readLine() ) {
+                        target << line.replaceAll('/ID=','/gene=') << '\n'
+                    }
+                }
+            }
+            return [ meta, gbk_mod]
+        }
     } else {
-        ch_pharokka_gbk_gz = Channel.empty()
+        // if run_pharokka == false AND run_instrain == false, skip subworkflow
+        ch_pharokka_gbk_mod = []
         ch_pharokka_output_tsv = Channel.empty()
     }
 
@@ -329,31 +401,10 @@ workflow PHAGEANNOTATOR {
     /*----------------------------------------------------------------------------
         Analyze phage microdiversity
     ------------------------------------------------------------------------------*/
-    // TODO: Likely move instrain out of this workflow since it is so analysis specific
-    // gunzip proteins for input into instrain
-    ch_pharokka_gbk = GUNZIP_VIRUS_PROTEINS ( ch_pharokka_gbk_gz ).gunzip
-    ch_versions = ch_versions.mix( GUNZIP_VIRUS_PROTEINS.out.versions )
-
-    // TODO: switch back to prodigal-gv and move pharokka to nf-core/funcscan
-    // add gene identifier to gbk for inStrain
-    ch_pharokka_gbk_mod = ch_pharokka_gbk
-    .map { meta, gbk ->
-        def gbk_mod = file("${workDir}/${meta.id}_mod.gbk")
-
-        gbk.withReader { source ->
-            gbk_mod.withWriter { target ->
-                String line
-                while( line=source.readLine() ) {
-                    target << line.replaceAll('/ID=','/gene=') << '\n'
-                }
-            }
-        }
-
-        return [ meta, gbk_mod]
-    }
-
     if ( !params.skip_instrain ) {
-        // TODO: Add option to run instrain/compare within groups rather than across all samples
+    // TODO: Add option to run instrain/compare within groups rather than across all samples
+    // if run_instrain == true, run subworkflow
+    if ( params.run_instrain ) {
         //
         // MODULE: Generate instrain scaffold to bin file
         //
@@ -366,6 +417,7 @@ workflow PHAGEANNOTATOR {
         ch_gene_info_tsv = FASTA_MICRODIVERSITY_INSTRAIN ( ch_cluster_rep_alignment_bam, ch_anicluster_reps_fasta, ch_pharokka_gbk_mod, ch_stb_file_tsv ).gene_info_tsv
         ch_versions = ch_versions = ch_versions.mix(FASTA_MICRODIVERSITY_INSTRAIN.out.versions)
     } else {
+        // if run_instrain == false, skip subworkflow
         ch_gene_info_tsv = Channel.empty()
     }
 
@@ -383,13 +435,14 @@ workflow PHAGEANNOTATOR {
     emit:
     virus_enrichment_tsv        = ch_virus_enrichment_tsv
     virus_classification_tsv    = ch_virus_summaries_tsv
+    // virus_extension_tsv         = ch_virus_extension_summary_tsv // Don't want to update all other workflow snapshots
     virus_quality_tsv           = ch_quality_summary_tsv
     filtered_viruses_fna_gz     = ch_filtered_viruses_fna_gz
     anicluster_reps_fna_gz      = ch_anicluster_reps_fasta_gz
-    // alignment_results_tsv       = ch_alignment_results_tsv // Inconsistent hash
+    // alignment_results_tsv       = ch_alignment_results_tsv   // Inconsistent hash
     host_predictions_tsv        = ch_host_predictions_tsv
     marker_taxonomy_tsv         = ch_marker_taxonomy_tsv
-    // bacphlip_lifestyle_tsv      = ch_bacphlip_lifestyle_tsv // Inconsistent hash
+    // bacphlip_lifestyle_tsv      = ch_bacphlip_lifestyle_tsv  // Inconsistent hash
     pharokka_output_tsv         = ch_pharokka_output_tsv
     instrain_gene_info          = ch_gene_info_tsv
     versions                    = ch_versions

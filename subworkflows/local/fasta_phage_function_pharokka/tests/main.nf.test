@@ -29,7 +29,12 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert snapshot(workflow.out).match() }
+                { assert snapshot(
+                    workflow.out.versions,
+                    workflow.out.pharokka_final_output_tsv,
+                    path(workflow.out.pharokka_gbk_gz[0][1]).linesGzip[1..50]
+                    ).match()
+                }
             )
         }
     }

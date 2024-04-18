@@ -1,0 +1,71 @@
+nextflow_workflow {
+
+    name "Test Workflow PHAGEANNOTATOR"
+    script "workflows/phageannotator/main.nf"
+    workflow "PHAGEANNOTATOR"
+
+    // Dependencies
+    tag "SEQKIT_SEQ"
+    tag"APPENDSCREENHITS"
+    tag "QUALITYFILTERVIRUSES"
+    tag "ANICLUSTER_ANICALC"
+    tag "ANICLUSTER_ANICLUST"
+    tag "ANICLUSTER_EXTRACTREPS"
+    tag "COVERM_CONTIG"
+    tag "FASTQ_FASTA_REFERENCE_CONTAINMENT_MASH"
+    tag "FASTA_VIRUS_CLASSIFICATION_GENOMAD"
+    tag "FASTA_VIRUS_QUALITY_CHECKV"
+    tag "FASTA_ALL_V_ALL_BLAST"
+    tag "CAT_CAT"
+    tag "BOWTIE2_BUILD"
+    tag "GENOMAD_ENDTOEND"
+    tag "GUNZIP"
+    tag "FASTQ_ALIGN_BOWTIE2"
+
+
+    test("Parameters: --run_reference_containment = true && --reference_virus_fasta = null") {
+        when {
+            workflow {
+                """
+                input[0] = Channel.of(
+                    [
+                        [ id:'test' ],
+                        [
+                            file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_1.fastq.gz', checkIfExists:true),
+                            file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_2.fastq.gz', checkIfExists: true)
+                        ]
+                    ],
+                    [
+                        [ id:'test2' ],
+                        [
+                            file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_1.fastq.gz', checkIfExists:true),
+                            file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_2.fastq.gz', checkIfExists: true)
+                        ]
+                    ]
+                )
+                input[1] = Channel.of(
+                    [
+                        [ id:'test' ],
+                        file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists:true)
+                    ],
+                    [
+                        [ id:'test2' ],
+                        file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists:true)
+                    ]
+                )
+                """
+            }
+            params {
+                outdir = "$outputDir"
+                run_reference_containment   = true
+                reference_virus_fasta       = null
+            }
+        }
+        then {
+            assertAll(
+                { assert workflow.trace.succeeded().size() == 0 },
+                { assert workflow.stdout.contains("[nf-core/phageannotator] ERROR: reference containment requested, but no --reference_virus_fasta provided") }
+            )
+        }
+    }
+}
