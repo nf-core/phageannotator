@@ -174,7 +174,7 @@ workflow PHAGEANNOTATOR {
     // if run_cobra == true, run subworkflow
     if ( params.run_cobra ) {
         //
-        // MODULE: Create a TSC file containing viral contig names (from assemblies)
+        // MODULE: Create a TSV file containing viral contig names (from assemblies)
         //
         ch_viral_assemblies_tsv = EXTRACTVIRALASSEMBLIES ( ch_viruses_fna_gz ).viral_assemblies
         ch_versions = ch_versions.mix(EXTRACTVIRALASSEMBLIES.out.versions)

@@ -54,7 +54,7 @@ workflow FASTQ_FASTA_CONTIG_EXTENSION_COBRA {
             }
         }
 
-        return [ meta, tsv_mod]
+        return [ meta, tsv_mod ]
     }
 
     //
