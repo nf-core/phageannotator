@@ -55,13 +55,13 @@ workflow FASTQ_FASTA_PROVIRUS_ACTIVITY_PROPAGATE {
         min_tcov
     ).cluster_reps_fasta_gz
     ch_derep_clusters_tsv       = FASTA_GROUP_DEREPLICATE_BLAST.out.clusters_tsv
-    ch_versions                 = ch_versions.mix( FASTA_GROUP_DEREPLICATE_BLAST.out.versions )
+    ch_versions                 = ch_versions.mix ( FASTA_GROUP_DEREPLICATE_BLAST.out.versions )
 
     //
     // MODULE: Gunzip assemblies for input into propagate
     //
     ch_derep_scaffolds_fasta    = GUNZIP ( ch_derep_scaffolds_fasta_gz ).gunzip
-    ch_versions                 = ch_versions.mix( GUNZIP.out.versions )
+    ch_versions                 = ch_versions.mix ( GUNZIP.out.versions )
 
     // Combine coords files within groups
     ch_grouped_coords_tsv = ch_provirus_coords_tsv
@@ -77,16 +77,21 @@ workflow FASTQ_FASTA_PROVIRUS_ACTIVITY_PROPAGATE {
     // MODULE: Combine coords files within group into one coords file
     //
     ch_combined_coords_tsv  = CAT_COORDS ( ch_grouped_coords_tsv ).file_out
-    ch_versions             = ch_versions.mix(CAT_COORDS.out.versions)
+    ch_versions             = ch_versions.mix ( CAT_COORDS.out.versions )
 
     // combine coords and cluster files by group
     ch_derep_coords_input = ch_combined_coords_tsv.join ( ch_derep_clusters_tsv )
+        .multiMap {
+            meta, coords, clusters ->
+                coords: [ meta, coords ]
+                clusters: [ meta, clusters ]
+        }
 
     //
     // MODULE: Identify provirus coordinates in dereplicated assemblies
     //
-    ch_derep_provirus_coords_tsv    = PROPAGATE_DEREPCOORDINATES ( ch_derep_coords_input.map { [ it[0], it[1] ] }, ch_derep_coords_input.map { [ it[0], it[2] ] } ).derep_coords
-    ch_versions                     = ch_versions.mix(PROPAGATE_DEREPCOORDINATES.out.versions)
+    ch_derep_provirus_coords_tsv    = PROPAGATE_DEREPCOORDINATES ( ch_derep_coords_input.coords, ch_derep_coords_input.clusters ).derep_coords
+    ch_versions                     = ch_versions.mix ( PROPAGATE_DEREPCOORDINATES.out.versions )
 
     // join reads with assemblies and provirus coords by group
     ch_propagate_input = fastq_gz
@@ -100,26 +105,26 @@ workflow FASTQ_FASTA_PROVIRUS_ACTIVITY_PROPAGATE {
         }
         .join ( ch_derep_scaffolds_fasta, by:0 )
         .join ( ch_derep_provirus_coords_tsv, by: 0 )
-        .multimap {
+        .multiMap {
             meta, id, fastq, fasta, coords ->
                 def meta_new = [:]
 
                 meta_new.id     = id
                 meta_new.group  = meta.id
 
-                reads: meta_new, fastq
-                assemblies: meta_new, fasta
-                coords: meta_new, coords
+                reads: [ meta_new, fastq ]
+                assemblies: [ meta_new, fasta ]
+                coords: [ meta_new, coords ]
         }
 
     //
     // MODULE: Predict provirus activity
     //
     ch_propagate_results_tsv    = PROPAGATE_PROPAGATE (
-        ch_propagate_input.map { ch_propagate_input.reads },
-        ch_propagate_input.map { ch_propagate_input.assemblies },
-        ch_propagate_input.map { ch_propagate_input.coords }
-        ).propagate_results
+        ch_propagate_input.reads,
+        ch_propagate_input.assemblies,
+        ch_propagate_input.coords
+        ).results
     ch_versions                 = ch_versions.mix(PROPAGATE_PROPAGATE.out.versions)
 
     emit:

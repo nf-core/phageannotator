@@ -3,16 +3,50 @@
         "content": [
             {
                 "0": [
-                    
+                    [
+                        {
+                            "id": "test",
+                            "group": "test_group"
+                        },
+                        "test_propagate.tsv:md5,c4aea1fd8b52b7c948032898441487db"
+                    ]
                 ],
                 "1": [
-                    
+                    "versions.yml:md5,24ea9a1d779e345e2b0bfb1c98ba988f",
+                    "versions.yml:md5,24ea9a1d779e345e2b0bfb1c98ba988f",
+                    "versions.yml:md5,2c4ef24adda9d78886356f0c141eb520",
+                    "versions.yml:md5,5091066e83e141629b28a757e640dccd",
+                    "versions.yml:md5,5091066e83e141629b28a757e640dccd",
+                    "versions.yml:md5,54ef0ec38df0a174aa7d4dc38d290aaa",
+                    "versions.yml:md5,57550d14b8b1f00db2739d291a5efadc",
+                    "versions.yml:md5,6200306290395b2494f07332c64a29b5",
+                    "versions.yml:md5,86d513a8ab4f4ad42f4ab7b3a069da00",
+                    "versions.yml:md5,9660592e07edcc398250af390c262b8c",
+                    "versions.yml:md5,a6a07089c62d3bd613ba2c35069bed2c",
+                    "versions.yml:md5,b108265366213ef9c79813d788e14d5b"
                 ],
                 "propagate_results_tsv": [
-                    
+                    [
+                        {
+                            "id": "test",
+                            "group": "test_group"
+                        },
+                        "test_propagate.tsv:md5,c4aea1fd8b52b7c948032898441487db"
+                    ]
                 ],
                 "versions": [
-                    
+                    "versions.yml:md5,24ea9a1d779e345e2b0bfb1c98ba988f",
+                    "versions.yml:md5,24ea9a1d779e345e2b0bfb1c98ba988f",
+                    "versions.yml:md5,2c4ef24adda9d78886356f0c141eb520",
+                    "versions.yml:md5,5091066e83e141629b28a757e640dccd",
+                    "versions.yml:md5,5091066e83e141629b28a757e640dccd",
+                    "versions.yml:md5,54ef0ec38df0a174aa7d4dc38d290aaa",
+                    "versions.yml:md5,57550d14b8b1f00db2739d291a5efadc",
+                    "versions.yml:md5,6200306290395b2494f07332c64a29b5",
+                    "versions.yml:md5,86d513a8ab4f4ad42f4ab7b3a069da00",
+                    "versions.yml:md5,9660592e07edcc398250af390c262b8c",
+                    "versions.yml:md5,a6a07089c62d3bd613ba2c35069bed2c",
+                    "versions.yml:md5,b108265366213ef9c79813d788e14d5b"
                 ]
             }
         ],
@@ -20,6 +54,6 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-03-22T22:35:49.275741184"
+        "timestamp": "2024-04-22T10:18:05.086006574"
     }
 }
