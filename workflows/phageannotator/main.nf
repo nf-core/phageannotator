@@ -402,8 +402,18 @@ workflow PHAGEANNOTATOR {
     ------------------------------------------------------------------------------*/
     // if run_propagate == true; run subworkflow
     if ( params.run_propagate ){
-        ch_provirus_activity_tsv = FASTQ_FASTA_PROVIRUS_ACTIVITY_PROPAGATE ( fastq_gz, fasta_gz, ch_virus_summaries_tsv, ch_quality_summary_tsv, ch_clusters_tsv )
-        // TODO: Add error if assembly is not included and run_propagate = true
+        ch_provirus_activity_tsv = FASTQ_FASTA_PROVIRUS_ACTIVITY_PROPAGATE (
+            fastq_gz,
+            fasta_gz,
+            ch_virus_summaries_tsv,
+            ch_quality_summary_tsv,
+            ch_clusters_tsv,
+            params.propagate_min_ani,
+            params.propagate_min_qcov,
+            params.propagate_min_tcov ).propagate_results_tsv
+        ch_versions = ch_versions.mix ( FASTQ_FASTA_PROVIRUS_ACTIVITY_PROPAGATE.out.versions )
+    } else {
+        ch_provirus_activity_tsv = Channel.empty()
     }
 
 
@@ -421,6 +431,7 @@ workflow PHAGEANNOTATOR {
     // bacphlip_lifestyle_tsv      = ch_bacphlip_lifestyle_tsv  // Inconsistent hash
     pharokka_output_tsv         = ch_pharokka_output_tsv
     instrain_gene_info          = ch_gene_info_tsv
+    propagate_results_tsv       = ch_provirus_activity_tsv
     versions                    = ch_versions
 }
 
