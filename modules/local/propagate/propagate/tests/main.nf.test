@@ -39,7 +39,7 @@ nextflow_process {
                 { assert process.success },
                 { assert snapshot(
                     process.out.results,
-                    path(process.out.log[0][1]).readLines()[6..32],
+                    path(process.out.log[0][1]).readLines()[17..32],
                     process.out.versions
                     ).match()
                 }
