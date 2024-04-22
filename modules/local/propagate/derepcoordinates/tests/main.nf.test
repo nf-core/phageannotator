@@ -1,31 +1,48 @@
 nextflow_process {
 
-    name "Test Process: PROPAGATE_EXTRACTPROVIRUSES"
+    name "Test Process: PROPAGATE_DEREPCOORDINATES"
     script "../main.nf"
-    process "PROPAGATE_EXTRACTPROVIRUSES"
+    process "PROPAGATE_DEREPCOORDINATES"
+
+    setup {
+        run("PROPAGATE_EXTRACTPROVIRUSES") {
+            script "../../extractproviruses/main.nf"
+            process {
+                """
+                input[0] = Channel.of(
+                        [
+                            [ id: 'test' ],
+                            file("$projectDir/assets/test-datasets/b_fragilis_contigs.fasta.gz", checkIfExists: true)
+                        ]
+                    )
+                    input[1] = Channel.of(
+                        [
+                            [ id: 'test' ],
+                            file("$projectDir/assets/test-datasets/b_fragilis_genomad_virus_summary.tsv", checkIfExists: true)
+                        ]
+                    )
+                    input[2] = Channel.of(
+                        [
+                            [ id: 'test' ],
+                            file("$projectDir/assets/test-datasets/b_fragilis_checkv_contamination.tsv", checkIfExists: true)
+                        ]
+                    )
+                """
+            }
+        }
+    }
 
 
-    test("contigs.fasta + genomad_virus_summary + checkv_contamination_summary") {
+    test("coords.tsv + clusters.tsv") {
 
         when {
             process {
                 """
-                input[0] = Channel.of(
-                    [
-                        [ id: 'test' ],
-                        file("$projectDir/assets/test-datasets/b_fragilis_contigs.fasta.gz", checkIfExists: true)
-                    ]
-                )
+                input[0] = PROPAGATE_EXTRACTPROVIRUSES.out.provirus_coords
                 input[1] = Channel.of(
                     [
                         [ id: 'test' ],
-                        file("$projectDir/assets/test-datasets/b_fragilis_genomad_virus_summary.tsv", checkIfExists: true)
-                    ]
-                )
-                input[2] = Channel.of(
-                    [
-                        [ id: 'test' ],
-                        file("$projectDir/assets/test-datasets/b_fragilis_checkv_contamination.tsv", checkIfExists: true)
+                        file("$projectDir/assets/test-datasets/b_fragilis_clusters.tsv", checkIfExists: true)
                     ]
                 )
                 """
@@ -40,29 +57,18 @@ nextflow_process {
         }
     }
 
-    test("contigs.fasta + genomad_virus_summary + checkv_contamination_summary - stub") {
+    test("coords.tsv + clusters.tsv - stub") {
 
         options "-stub"
 
         when {
             process {
                 """
-                input[0] = Channel.of(
-                    [
-                        [ id: 'test' ],
-                        file("$projectDir/assets/test-datasets/b_fragilis_contigs.fasta.gz", checkIfExists: true)
-                    ]
-                )
+                input[0] = PROPAGATE_EXTRACTPROVIRUSES.out.provirus_coords
                 input[1] = Channel.of(
                     [
                         [ id: 'test' ],
-                        file("$projectDir/assets/test-datasets/b_fragilis_genomad_virus_summary.tsv", checkIfExists: true)
-                    ]
-                )
-                input[2] = Channel.of(
-                    [
-                        [ id: 'test' ],
-                        file("$projectDir/assets/test-datasets/b_fragilis_checkv_contamination.tsv", checkIfExists: true)
+                        file("$projectDir/assets/test-datasets/b_fragilis_clusters.tsv", checkIfExists: true)
                     ]
                 )
                 """

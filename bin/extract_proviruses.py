@@ -16,7 +16,7 @@ def parse_args(args=None):
     parser.add_argument(
         "-f",
         "--fasta",
-        help="Path to FASTA file (gzipped) that contains contigs.",
+        help="Path to FASTA file (gzipped) that contains assemblies.",
     )
     parser.add_argument(
         "-g",
@@ -31,7 +31,7 @@ def parse_args(args=None):
     parser.add_argument(
         "-o",
         "--output",
-        help="Output FASTA file containing provirus scaffolds.",
+        help="Output FASTA file with assemblies containing proviruses.",
     )
     parser.add_argument(
         "-t",
@@ -71,7 +71,7 @@ def extract_proviruses(fasta, genomad, checkv, out_fasta, out_tsv):
     # merge genomad and checkv
     genomad_checkv = genomad_proviruses.merge(checkv_coords, on='seq_name', how='outer')
 
-    # if checkv provirus exists, add it to df and skip associated genomad provirus. Else, use geNomad provirus
+    # if checkv provirus exists, add it to df and skip associated genomad provirus. If not, use geNomad provirus information
     provirus_combined_coords = pd.DataFrame()
     already_added = {}
     for index, row in genomad_checkv.iterrows():
@@ -99,7 +99,7 @@ def extract_proviruses(fasta, genomad, checkv, out_fasta, out_tsv):
                 provirus_coords['fragment'] = row['seq_name'].split('|provirus_')[0] + '|provirus_' + str(provirus_coords['start'][0]) + '_' + str(provirus_coords['stop'][0])
             else:
                 provirus_coords['fragment'] = row['seq_name'] + '|provirus_' + str(provirus_coords['start'][0]) + '_' + str(provirus_coords['stop'][0])
-            # combine coordinates with previous row coordinates
+            # concatenate all provirus coordinates
             provirus_combined_coords = pd.concat([provirus_combined_coords, provirus_coords], axis=0)
 
     # reorder columns to match propagate input
@@ -109,12 +109,13 @@ def extract_proviruses(fasta, genomad, checkv, out_fasta, out_tsv):
     # identify scaffolds to extract
     provirus_scaffolds = set(provirus_combined_coords_reorg['scaffold'])
 
-    # extract provirus scaffolds from fasta
+    # extract provirus scaffolds (full length) from fasta
     exracted_scaffolds = []
     fasta_gunzipped = gzip.open(fasta, "rt")
     for record in SeqIO.parse(fasta_gunzipped, "fasta"):
         if record.id in provirus_scaffolds:
-            record.description = record.id
+            record.description = ''
+            record.name = ''
             exracted_scaffolds.append(record)
     # save all extracted provirus scaffolds to specified file
     SeqIO.write(exracted_scaffolds, out_fasta, "fasta")

@@ -661,6 +661,8 @@ if vibe_header == 'no prophages':
     logging.info("Results file:      %s" % outfile.replace(outpath,''))
     logging.info("Active prophages:   0")
     logging.info("")
+    os.mkdir(outpath)
+    open(outpath + "/" + outpath + ".tsv").close()
 
 # check for spaces in fasta
 spaces = False

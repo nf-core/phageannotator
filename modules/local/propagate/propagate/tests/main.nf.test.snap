@@ -1,0 +1,100 @@
+{
+    "fastq.gz + fasta + provirus_coords.tsv": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "test"
+                    },
+                    "test_propagate.tsv:md5,f5dc748967a1840bff9c504804d4b6d4"
+                ]
+            ],
+            [
+                "Time (min) |  Log                                                   ",
+                "--------------------------------------------------------------------",
+                "0.0         Reads input identified, using 2 threads to run Bowtie2.",
+                "0.0         Checking if BAM file needs to be sorted",
+                "0.0         Generating a list of all prophage regions",
+                "0.0         Number of prophage regions identified: 4",
+                "0.0         Number of unique host regions identified: 3",
+                "0.0         Extracting coverage and performing statistical analyses",
+                "0.1         Analysis finished",
+                "",
+                "",
+                "Results file:      test_propagate.tsv",
+                "Active prophages:  0",
+                "",
+                "                                                               ##",
+                "                                                             ##  ##",
+                "                                                           ##      ##",
+                "######   ##  ##     ##     #######   ######    #####       ##      ##",
+                "##  ##   ##  ##   ##  ##   ##        ##       ##             ##  ##",
+                "######   ######   ######   ##  ###   ######    ###             ##",
+                "##       ##  ##   ##  ##   ##   ##   ##           ##           ##",
+                "##       ##  ##   ##  ##   #######   ######   #####            ##",
+                "                                                            #  ##  #",
+                "                                                           # # ## # #",
+                "                                                          #   #  #   #",
+                "                                                         #            #",
+                ""
+            ],
+            [
+                "versions.yml:md5,dfe5c94afe825f0011160109ed5f8bb1"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-04-22T09:52:54.460659476"
+    },
+    "fastq.gz + fasta + provirus_coords.tsv - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_propagate.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_propagate.log:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "2": [
+                    "versions.yml:md5,dfe5c94afe825f0011160109ed5f8bb1"
+                ],
+                "log": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_propagate.log:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "results": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_propagate.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,dfe5c94afe825f0011160109ed5f8bb1"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-04-22T09:53:07.554244343"
+    }
+}

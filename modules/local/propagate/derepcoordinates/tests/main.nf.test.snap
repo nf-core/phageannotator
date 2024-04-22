@@ -1,5 +1,5 @@
 {
-    "contigs.fasta + genomad_virus_summary + check_contamination_summary": {
+    "coords.tsv + clusters.tsv - stub": {
         "content": [
             {
                 "0": [
@@ -7,38 +7,22 @@
                         {
                             "id": "test"
                         },
-                        "test_provirus_scaffolds.fasta.gz:md5,c1a0d36a379ae8e3add474a0c29bf576"
+                        "test_derep_provirus_coords.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "1": [
+                    "versions.yml:md5,244bc446383cbd763a9b5a5d58208fb9"
+                ],
+                "derep_coords": [
                     [
                         {
                             "id": "test"
                         },
-                        "test_provirus_coords.tsv:md5,6d11ad4bd9903f3c2d0fa719c1b6abbf"
-                    ]
-                ],
-                "2": [
-                    "versions.yml:md5,f5e250dfe50e8080455f7b76e1dab523"
-                ],
-                "integrated_proviruses": [
-                    [
-                        {
-                            "id": "test"
-                        },
-                        "test_provirus_scaffolds.fasta.gz:md5,c1a0d36a379ae8e3add474a0c29bf576"
-                    ]
-                ],
-                "provirus_metadata": [
-                    [
-                        {
-                            "id": "test"
-                        },
-                        "test_provirus_coords.tsv:md5,6d11ad4bd9903f3c2d0fa719c1b6abbf"
+                        "test_derep_provirus_coords.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "versions": [
-                    "versions.yml:md5,f5e250dfe50e8080455f7b76e1dab523"
+                    "versions.yml:md5,244bc446383cbd763a9b5a5d58208fb9"
                 ]
             }
         ],
@@ -46,9 +30,9 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-03-22T20:40:22.222162399"
+        "timestamp": "2024-04-22T08:42:07.920114246"
     },
-    "contigs.fasta + genomad_virus_summary + check_contamination_summary - stub": {
+    "coords.tsv + clusters.tsv": {
         "content": [
             {
                 "0": [
@@ -56,38 +40,22 @@
                         {
                             "id": "test"
                         },
-                        "test_provirus_scaffolds.fasta.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                        "test_derep_provirus_coords.tsv:md5,8c7a6441698648dfd73085524ce6a9cf"
                     ]
                 ],
                 "1": [
+                    "versions.yml:md5,244bc446383cbd763a9b5a5d58208fb9"
+                ],
+                "derep_coords": [
                     [
                         {
                             "id": "test"
                         },
-                        "test_provirus_coords.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
-                    ]
-                ],
-                "2": [
-                    "versions.yml:md5,f5e250dfe50e8080455f7b76e1dab523"
-                ],
-                "integrated_proviruses": [
-                    [
-                        {
-                            "id": "test"
-                        },
-                        "test_provirus_scaffolds.fasta.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
-                    ]
-                ],
-                "provirus_metadata": [
-                    [
-                        {
-                            "id": "test"
-                        },
-                        "test_provirus_coords.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test_derep_provirus_coords.tsv:md5,8c7a6441698648dfd73085524ce6a9cf"
                     ]
                 ],
                 "versions": [
-                    "versions.yml:md5,f5e250dfe50e8080455f7b76e1dab523"
+                    "versions.yml:md5,244bc446383cbd763a9b5a5d58208fb9"
                 ]
             }
         ],
@@ -95,6 +63,6 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-03-22T20:35:00.246188755"
+        "timestamp": "2024-04-22T08:41:57.465382143"
     }
 }

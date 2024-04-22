@@ -24,7 +24,7 @@ process PROPAGATE_EXTRACTPROVIRUSES {
     def args = task.ext.args ?: ''
     prefix = task.ext.prefix ?: "${meta.id}"
     """
-    extractproviruses.py \\
+    extract_proviruses.py \\
         --fasta ${fasta} \\
         --genomad ${virus_summary} \\
         --checkv ${contamination_summary} \\

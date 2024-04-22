@@ -29,7 +29,7 @@ workflow FASTQ_FASTA_PROVIRUS_ACTIVITY_PROPAGATE {
     ch_provirus_coords_tsv          = PROPAGATE_EXTRACTPROVIRUSES.out.provirus_coords
     ch_versions                     = ch_versions.mix(PROPAGATE_EXTRACTPROVIRUSES.out.versions)
 
-    // organize provirus assemblies by group
+    // combine provirus assemblies by group
     ch_grouped_proviruses_fasta_gz = ch_provirus_scaffolds_fasta_gz
         .map {
             meta, fasta ->
@@ -63,7 +63,7 @@ workflow FASTQ_FASTA_PROVIRUS_ACTIVITY_PROPAGATE {
     ch_derep_scaffolds_fasta    = GUNZIP ( ch_derep_scaffolds_fasta_gz ).gunzip
     ch_versions                 = ch_versions.mix( GUNZIP.out.versions )
 
-    // Merge coords files within groups
+    // Combine coords files within groups
     ch_grouped_coords_tsv = ch_provirus_coords_tsv
         .map {
             meta, coords ->
@@ -100,23 +100,25 @@ workflow FASTQ_FASTA_PROVIRUS_ACTIVITY_PROPAGATE {
         }
         .join ( ch_derep_scaffolds_fasta, by:0 )
         .join ( ch_derep_provirus_coords_tsv, by: 0 )
-        .map {
+        .multimap {
             meta, id, fastq, fasta, coords ->
                 def meta_new = [:]
 
                 meta_new.id     = id
                 meta_new.group  = meta.id
 
-                return [ meta_new, fastq, fasta, coords ]
+                reads: meta_new, fastq
+                assemblies: meta_new, fasta
+                coords: meta_new, coords
         }
 
     //
     // MODULE: Predict provirus activity
     //
     ch_propagate_results_tsv    = PROPAGATE_PROPAGATE (
-        ch_propagate_input.map { [ it[0], it[1] ] },
-        ch_propagate_input.map { [ it[0], it[2] ] },
-        ch_propagate_input.map { [ it[0], it[3] ] }
+        ch_propagate_input.map { ch_propagate_input.reads },
+        ch_propagate_input.map { ch_propagate_input.assemblies },
+        ch_propagate_input.map { ch_propagate_input.coords }
         ).propagate_results
     ch_versions                 = ch_versions.mix(PROPAGATE_PROPAGATE.out.versions)
 

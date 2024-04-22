@@ -4,32 +4,30 @@ nextflow_process {
     script "../main.nf"
     process "PROPAGATE_PROPAGATE"
 
-    tag "modules"
-    tag "modules_local"
-    tag "propagate_propagate"
-
 
     test("fastq.gz + fasta + provirus_coords.tsv") {
-
         when {
             process {
                 """
                 input[0] = Channel.of(
                     [
                         [ id: 'test' ],
-                        file("$projectDir/assets/test-datasets/contigs.fasta.gz", checkIfExists: true)
+                        [
+                            file(params.modules_testdata_base_path + "genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_1.fastq.gz", checkIfExists: true),
+                            file(params.modules_testdata_base_path + "genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_2.fastq.gz", checkIfExists: true)
+                        ]
                     ]
                 )
                 input[1] = Channel.of(
                     [
                         [ id: 'test' ],
-                        file("$projectDir/assets/test-datasets/genomad_summary.tsv", checkIfExists: true)
+                        file("$projectDir/assets/test-datasets/b_fragilis_propagate_contigs.fa", checkIfExists: true)
                     ]
                 )
                 input[2] = Channel.of(
                     [
                         [ id: 'test' ],
-                        file("$projectDir/assets/test-datasets/checkv_contamination.tsv", checkIfExists: true)
+                        file("$projectDir/assets/test-datasets/b_fragilis_provirus_coords.tsv", checkIfExists: true)
                     ]
                 )
                 """
@@ -39,12 +37,17 @@ nextflow_process {
         then {
             assertAll (
                 { assert process.success },
-                { assert snapshot(process.out).match() }
+                { assert snapshot(
+                    process.out.results,
+                    path(process.out.log[0][1]).readLines()[6..32],
+                    process.out.versions
+                    ).match()
+                }
             )
         }
     }
 
-    test("contigs.fasta + genomad_virus_summary + check_contamination_summary - stub") {
+    test("fastq.gz + fasta + provirus_coords.tsv - stub") {
 
         options "-stub"
 
@@ -54,19 +57,22 @@ nextflow_process {
                 input[0] = Channel.of(
                     [
                         [ id: 'test' ],
-                        file("$projectDir/assets/test-datasets/contigs.fasta.gz", checkIfExists: true)
+                        [
+                            file(params.modules_testdata_base_path + "genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_1.fastq.gz", checkIfExists: true),
+                            file(params.modules_testdata_base_path + "genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_2.fastq.gz", checkIfExists: true)
+                        ]
                     ]
                 )
                 input[1] = Channel.of(
                     [
                         [ id: 'test' ],
-                        file("$projectDir/assets/test-datasets/genomad_summary.tsv", checkIfExists: true)
+                        file("$projectDir/assets/test-datasets/b_fragilis_propagate_contigs.fa", checkIfExists: true)
                     ]
                 )
                 input[2] = Channel.of(
                     [
                         [ id: 'test' ],
-                        file("$projectDir/assets/test-datasets/checkv_contamination.tsv", checkIfExists: true)
+                        file("$projectDir/assets/test-datasets/b_fragilis_provirus_coords.tsv", checkIfExists: true)
                     ]
                 )
                 """

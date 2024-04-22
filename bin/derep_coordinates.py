@@ -10,7 +10,7 @@ import math
 
 def parse_args(args=None):
     Description = "Dereplicate provirus coordinates to match dereplicated provirus assemblies"
-    Epilog = "Example usage: python derep_coordinates.py --coordinates <FASTA> --clusters <CLUSTERS_TSV> --output <DEREP_COORDS_TSV>"
+    Epilog = "Example usage: python derep_coordinates.py --coordinates <COORDS_TSV> --clusters <CLUSTERS_TSV> --output <DEREP_COORDS_TSV>"
 
     parser = argparse.ArgumentParser(description=Description, epilog=Epilog)
     parser.add_argument(
