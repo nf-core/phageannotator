@@ -9,8 +9,8 @@ import math
 
 
 def parse_args(args=None):
-    Description = "Extract proviruses present in assemblies based on geNomad and CheckV."
-    Epilog = "Example usage: python extractproviruses.py --fasta <FASTA> --genomad <virus_summary> --checkv <quality_summary> --output_fasta <proviruses.fasta.gz> --output_meta <provirus_metadata.tsv>"
+    Description = "Extract proviruses present in assemblies based on geNomad and CheckV outputs."
+    Epilog = "Example usage: python extractproviruses.py --fasta <FASTA> --genomad <virus_summary> --checkv <quality_summary> --output <proviruses.fasta.gz> --tsv <provirus_coordinates.tsv>"
 
     parser = argparse.ArgumentParser(description=Description, epilog=Epilog)
     parser.add_argument(
@@ -43,13 +43,11 @@ def parse_args(args=None):
 def extract_proviruses(fasta, genomad, checkv, out_fasta, out_tsv):
     # open genomad results
     genomad = pd.read_csv(genomad, sep='\t')
-
-    # identify genomad proviruses and their coordinates
+    # identify genomad proviruses
     genomad_proviruses = genomad[genomad['topology'] == 'Provirus']
 
     # open checkv results
     checkv = pd.read_csv(checkv, sep='\t')
-
     # filter to checkv proviruses
     checkv_proviruses = checkv[checkv['provirus'] == 'Yes']
 

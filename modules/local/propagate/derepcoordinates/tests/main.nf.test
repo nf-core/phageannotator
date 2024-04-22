@@ -4,12 +4,8 @@ nextflow_process {
     script "../main.nf"
     process "PROPAGATE_EXTRACTPROVIRUSES"
 
-    tag "modules"
-    tag "modules_local"
-    tag "propagate_extractproviruses"
 
-
-    test("contigs.fasta + genomad_virus_summary + check_contamination_summary") {
+    test("contigs.fasta + genomad_virus_summary + checkv_contamination_summary") {
 
         when {
             process {
@@ -17,19 +13,19 @@ nextflow_process {
                 input[0] = Channel.of(
                     [
                         [ id: 'test' ],
-                        file("/workspace/phageannotator/assets/test-datasets/contigs.fasta.gz", checkIfExists: true)
+                        file("$projectDir/assets/test-datasets/b_fragilis_contigs.fasta.gz", checkIfExists: true)
                     ]
                 )
                 input[1] = Channel.of(
                     [
                         [ id: 'test' ],
-                        file("/workspace/phageannotator/assets/test-datasets/genomad_summary.tsv", checkIfExists: true)
+                        file("$projectDir/assets/test-datasets/b_fragilis_genomad_virus_summary.tsv", checkIfExists: true)
                     ]
                 )
                 input[2] = Channel.of(
                     [
                         [ id: 'test' ],
-                        file("/workspace/phageannotator/assets/test-datasets/checkv_contamination.tsv", checkIfExists: true)
+                        file("$projectDir/assets/test-datasets/b_fragilis_checkv_contamination.tsv", checkIfExists: true)
                     ]
                 )
                 """
@@ -44,7 +40,7 @@ nextflow_process {
         }
     }
 
-    test("contigs.fasta + genomad_virus_summary + check_contamination_summary - stub") {
+    test("contigs.fasta + genomad_virus_summary + checkv_contamination_summary - stub") {
 
         options "-stub"
 
@@ -54,19 +50,19 @@ nextflow_process {
                 input[0] = Channel.of(
                     [
                         [ id: 'test' ],
-                        file("/workspace/phageannotator/assets/test-datasets/contigs.fasta.gz", checkIfExists: true)
+                        file("$projectDir/assets/test-datasets/b_fragilis_contigs.fasta.gz", checkIfExists: true)
                     ]
                 )
                 input[1] = Channel.of(
                     [
                         [ id: 'test' ],
-                        file("/workspace/phageannotator/assets/test-datasets/genomad_summary.tsv", checkIfExists: true)
+                        file("$projectDir/assets/test-datasets/b_fragilis_genomad_virus_summary.tsv", checkIfExists: true)
                     ]
                 )
                 input[2] = Channel.of(
                     [
                         [ id: 'test' ],
-                        file("/workspace/phageannotator/assets/test-datasets/checkv_contamination.tsv", checkIfExists: true)
+                        file("$projectDir/assets/test-datasets/b_fragilis_checkv_contamination.tsv", checkIfExists: true)
                     ]
                 )
                 """

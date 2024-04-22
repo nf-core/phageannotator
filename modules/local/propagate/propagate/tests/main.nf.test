@@ -1,11 +1,15 @@
 nextflow_process {
 
-    name "Test Process: PROPAGATE_EXTRACTPROVIRUSES"
+    name "Test Process: PROPAGATE_PROPAGATE"
     script "../main.nf"
-    process "PROPAGATE_EXTRACTPROVIRUSES"
+    process "PROPAGATE_PROPAGATE"
+
+    tag "modules"
+    tag "modules_local"
+    tag "propagate_propagate"
 
 
-    test("contigs.fasta + genomad_virus_summary + check_contamination_summary") {
+    test("fastq.gz + fasta + provirus_coords.tsv") {
 
         when {
             process {
@@ -13,19 +17,19 @@ nextflow_process {
                 input[0] = Channel.of(
                     [
                         [ id: 'test' ],
-                        file("$projectDir/assets/test-datasets/b_fragilis_contigs.fasta.gz", checkIfExists: true)
+                        file("$projectDir/assets/test-datasets/contigs.fasta.gz", checkIfExists: true)
                     ]
                 )
                 input[1] = Channel.of(
                     [
                         [ id: 'test' ],
-                        file("$projectDir/assets/test-datasets/b_fragilis_genomad_virus_summary.tsv", checkIfExists: true)
+                        file("$projectDir/assets/test-datasets/genomad_summary.tsv", checkIfExists: true)
                     ]
                 )
                 input[2] = Channel.of(
                     [
                         [ id: 'test' ],
-                        file("$projectDir/assets/test-datasets/b_fragilis_checkv_contamination.tsv", checkIfExists: true)
+                        file("$projectDir/assets/test-datasets/checkv_contamination.tsv", checkIfExists: true)
                     ]
                 )
                 """
@@ -50,19 +54,19 @@ nextflow_process {
                 input[0] = Channel.of(
                     [
                         [ id: 'test' ],
-                        file("$projectDir/assets/test-datasets/b_fragilis_contigs.fasta.gz", checkIfExists: true)
+                        file("$projectDir/assets/test-datasets/contigs.fasta.gz", checkIfExists: true)
                     ]
                 )
                 input[1] = Channel.of(
                     [
                         [ id: 'test' ],
-                        file("$projectDir/assets/test-datasets/b_fragilis_genomad_virus_summary.tsv", checkIfExists: true)
+                        file("$projectDir/assets/test-datasets/genomad_summary.tsv", checkIfExists: true)
                     ]
                 )
                 input[2] = Channel.of(
                     [
                         [ id: 'test' ],
-                        file("$projectDir/assets/test-datasets/b_fragilis_checkv_contamination.tsv", checkIfExists: true)
+                        file("$projectDir/assets/test-datasets/checkv_contamination.tsv", checkIfExists: true)
                     ]
                 )
                 """
