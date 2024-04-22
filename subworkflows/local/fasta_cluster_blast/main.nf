@@ -39,11 +39,21 @@ workflow FASTA_CLUSTER_BLAST {
 
     // create input for ANICLUSTER_ANICALC
     ch_aniclust_input = fasta_gz.join( ch_ani_tsv )
+        .multiMap { meta, fasta_gz, ani_tsv ->
+            fasta: [ meta, fasta_gz ]
+            ani: [ meta, ani_tsv ]
+        }
 
     //
     // MODULE: Cluster virus sequences based on ANI and AF
     //
-    ch_clusters_tsv = ANICLUSTER_ANICLUST ( ch_aniclust_input.map { [ it[0], it[1] ] }, ch_aniclust_input.map { [ it[0], it[2] ] }, min_ani, min_qcov, min_tcov ).clusters
+    ch_clusters_tsv = ANICLUSTER_ANICLUST (
+        ch_aniclust_input.fasta,
+        ch_aniclust_input.ani,
+        min_ani,
+        min_qcov,
+        min_tcov
+        ).clusters
     ch_versions = ch_versions.mix( ANICLUSTER_ANICLUST.out.versions )
 
     // create input for extracting cluster representatives
