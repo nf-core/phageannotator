@@ -1,0 +1,57 @@
+Changes in module 'nf-core/genomad/endtoend'
+--- modules/nf-core/genomad/endtoend/main.nf
++++ modules/nf-core/genomad/endtoend/main.nf
+@@ -2,14 +2,14 @@
+     tag "$meta.id"
+     label 'process_high'
+ 
+-    conda "${moduleDir}/environment.yml"
++    conda "bioconda::genomad=1.5.2"
+     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+-        'https://depot.galaxyproject.org/singularity/genomad:1.7.4--pyhdfd78af_0':
+-        'biocontainers/genomad:1.7.4--pyhdfd78af_0' }"
++        'https://depot.galaxyproject.org/singularity/genomad:1.5.2--pyhdfd78af_0':
++        'biocontainers/genomad:1.5.2--pyhdfd78af_0' }"
+ 
+     input:
+-    tuple val(meta) , path(fasta)
+-    path  genomad_db
++    tuple val(meta), path(fasta)
++    tuple path(genomad_db)
+ 
+     output:
+     tuple val(meta), path("*_aggregated_classification/*_aggregated_classification.tsv")    , emit: aggregated_classification   , optional: true
+@@ -82,4 +82,4 @@
+         genomad: \$(echo \$(genomad --version 2>&1) | sed 's/^.*geNomad, version //; s/ .*\$//')
+     END_VERSIONS
+     """
+-}
++}
+--- /dev/null
++++ modules/nf-core/genomad/endtoend/nextflow.config
+@@ -0,0 +1,23 @@
++process {
++    withName: GENOMAD_ENDTOEND {
++        ext.args   = [
++            params.genomad_min_score ? "--min-score ${params.genomad_min_score}" : "",
++            params.genomad_max_fdr ? "--enable-score-calibration --max-fdr ${params.genomad_max_fdr}" : "",
++            params.genomad_splits ? "--splits ${params.genomad_splits}" : "",
++            params.genomad_disable_nn ? "--disable-nn-classification" : "",
++            params.genomad_sensitivity ? "--sensitivity ${params.genomad_sensitivity}" : ""
++        ].join(' ').trim()
++        publishDir = [
++            [
++                path: { "${params.outdir}/VirusClassification/genomad/endtoend" },
++                mode: params.publish_dir_mode,
++                pattern: '*_summary/*_virus.fna.gz'
++            ],
++            [
++                path: { "${params.outdir}/VirusClassification/genomad/endtoend" },
++                mode: params.publish_dir_mode,
++                pattern: '*_summary/*_virus_summary.tsv'
++            ]
++        ]
++    }
++}
+
+************************************************************

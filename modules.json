@@ -59,7 +59,8 @@
                     "genomad/endtoend": {
                         "branch": "master",
                         "git_sha": "9b68cbd01a704aaf2c34f6d6bc7c25e9b4670147",
-                        "installed_by": ["modules"]
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/genomad/endtoend/genomad-endtoend.diff"
                     },
                     "gunzip": {
                         "branch": "master",
