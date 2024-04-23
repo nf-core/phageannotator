@@ -1,7 +1,6 @@
 process VIROMEQC_INSTALL {
     label 'process_low'
 
-
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/mulled-v2-b28a1a551d380ce8d57f9d83894ccb9559b44404:08a4cf815fcef0080ede5b3633202cbda8edf59b-0':

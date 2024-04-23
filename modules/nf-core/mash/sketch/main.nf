@@ -6,7 +6,6 @@ process MASH_SKETCH {
         'https://depot.galaxyproject.org/singularity/mash:2.3--he348c14_1' :
         'biocontainers/mash:2.3--he348c14_1' }"
 
-
     input:
     tuple val(meta), path(reads)
 
