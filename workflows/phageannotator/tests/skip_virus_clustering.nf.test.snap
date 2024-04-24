@@ -3,7 +3,7 @@
         "content": [
             {
                 "0": [
-
+                    
                 ],
                 "1": [
                     [
@@ -18,6 +18,28 @@
                         },
                         "test_virus_summary.tsv:md5,ae6d66b39f6ea43628db461e42012027"
                     ]
+                ],
+                "10": [
+                    "versions.yml:md5,005aa3fca95c916b586f09b1c12aae6f",
+                    "versions.yml:md5,005aa3fca95c916b586f09b1c12aae6f",
+                    "versions.yml:md5,0c310e8a973612ff99e0df847fb656ea",
+                    "versions.yml:md5,0c310e8a973612ff99e0df847fb656ea",
+                    "versions.yml:md5,0e57d76cb0b6149bbb32aded3595de9b",
+                    "versions.yml:md5,0e57d76cb0b6149bbb32aded3595de9b",
+                    "versions.yml:md5,1439e948f383899aaccbf49506923b04",
+                    "versions.yml:md5,374c63bf7c31c6c34acbf8d74e6c7dcc",
+                    "versions.yml:md5,6323b255a9c1b9ed3e1a41aea5bfa2bb",
+                    "versions.yml:md5,74b2068d24b17a2f4a097a3063da3dae",
+                    "versions.yml:md5,7cb8c67c6ff9cf01f799d6730d5ebd15",
+                    "versions.yml:md5,7cb8c67c6ff9cf01f799d6730d5ebd15",
+                    "versions.yml:md5,7e54b5f822df67b99faf67629e81963f",
+                    "versions.yml:md5,7e54b5f822df67b99faf67629e81963f",
+                    "versions.yml:md5,987d2e54a85311b917599dc41c90418c",
+                    "versions.yml:md5,a856eefde99260259440d942c1d56ff4",
+                    "versions.yml:md5,b6a0d868f5f2be1093be05fc0638008d",
+                    "versions.yml:md5,b6a0d868f5f2be1093be05fc0638008d",
+                    "versions.yml:md5,bcf62c8c784b9f46c8372e86654cae6b",
+                    "versions.yml:md5,bcf62c8c784b9f46c8372e86654cae6b"
                 ],
                 "2": [
                     [
@@ -62,38 +84,19 @@
                     ]
                 ],
                 "5": [
-
+                    
                 ],
                 "6": [
-
+                    
                 ],
                 "7": [
-
+                    
                 ],
                 "8": [
-
+                    
                 ],
                 "9": [
-                    "versions.yml:md5,005aa3fca95c916b586f09b1c12aae6f",
-                    "versions.yml:md5,005aa3fca95c916b586f09b1c12aae6f",
-                    "versions.yml:md5,0c310e8a973612ff99e0df847fb656ea",
-                    "versions.yml:md5,0c310e8a973612ff99e0df847fb656ea",
-                    "versions.yml:md5,0e57d76cb0b6149bbb32aded3595de9b",
-                    "versions.yml:md5,0e57d76cb0b6149bbb32aded3595de9b",
-                    "versions.yml:md5,1439e948f383899aaccbf49506923b04",
-                    "versions.yml:md5,374c63bf7c31c6c34acbf8d74e6c7dcc",
-                    "versions.yml:md5,6323b255a9c1b9ed3e1a41aea5bfa2bb",
-                    "versions.yml:md5,74b2068d24b17a2f4a097a3063da3dae",
-                    "versions.yml:md5,7cb8c67c6ff9cf01f799d6730d5ebd15",
-                    "versions.yml:md5,7cb8c67c6ff9cf01f799d6730d5ebd15",
-                    "versions.yml:md5,7e54b5f822df67b99faf67629e81963f",
-                    "versions.yml:md5,7e54b5f822df67b99faf67629e81963f",
-                    "versions.yml:md5,987d2e54a85311b917599dc41c90418c",
-                    "versions.yml:md5,a856eefde99260259440d942c1d56ff4",
-                    "versions.yml:md5,b6a0d868f5f2be1093be05fc0638008d",
-                    "versions.yml:md5,b6a0d868f5f2be1093be05fc0638008d",
-                    "versions.yml:md5,bcf62c8c784b9f46c8372e86654cae6b",
-                    "versions.yml:md5,bcf62c8c784b9f46c8372e86654cae6b"
+                    
                 ],
                 "anicluster_reps_fna_gz": [
                     [
@@ -124,16 +127,19 @@
                     ]
                 ],
                 "host_predictions_tsv": [
-
+                    
                 ],
                 "instrain_gene_info": [
-
+                    
                 ],
                 "marker_taxonomy_tsv": [
-
+                    
                 ],
                 "pharokka_output_tsv": [
-
+                    
+                ],
+                "propagate_results_tsv": [
+                    
                 ],
                 "versions": [
                     "versions.yml:md5,005aa3fca95c916b586f09b1c12aae6f",
@@ -172,7 +178,7 @@
                     ]
                 ],
                 "virus_enrichment_tsv": [
-
+                    
                 ],
                 "virus_quality_tsv": [
                     [
@@ -194,6 +200,6 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-02-29T14:58:48.608848512"
+        "timestamp": "2024-04-22T13:54:21.718782526"
     }
 }

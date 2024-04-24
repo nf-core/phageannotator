@@ -1,0 +1,89 @@
+{
+    "fastq.gz + fasta + provirus_coords.tsv": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "test"
+                    },
+                    "test_propagate.tsv:md5,f5dc748967a1840bff9c504804d4b6d4"
+                ]
+            ],
+            [
+                "Results file:      test_propagate.tsv",
+                "Active prophages:  0",
+                "",
+                "                                                               ##",
+                "                                                             ##  ##",
+                "                                                           ##      ##",
+                "######   ##  ##     ##     #######   ######    #####       ##      ##",
+                "##  ##   ##  ##   ##  ##   ##        ##       ##             ##  ##",
+                "######   ######   ######   ##  ###   ######    ###             ##",
+                "##       ##  ##   ##  ##   ##   ##   ##           ##           ##",
+                "##       ##  ##   ##  ##   #######   ######   #####            ##",
+                "                                                            #  ##  #",
+                "                                                           # # ## # #",
+                "                                                          #   #  #   #",
+                "                                                         #            #",
+                ""
+            ],
+            [
+                "versions.yml:md5,dfe5c94afe825f0011160109ed5f8bb1"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-04-22T15:12:59.933317207"
+    },
+    "fastq.gz + fasta + provirus_coords.tsv - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_propagate.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_propagate.log:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "2": [
+                    "versions.yml:md5,dfe5c94afe825f0011160109ed5f8bb1"
+                ],
+                "log": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_propagate.log:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "results": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_propagate.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,dfe5c94afe825f0011160109ed5f8bb1"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-04-22T15:13:10.985670747"
+    }
+}

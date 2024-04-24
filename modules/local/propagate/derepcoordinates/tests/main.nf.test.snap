@@ -1,0 +1,68 @@
+{
+    "coords.tsv + clusters.tsv - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_derep_provirus_coords.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,244bc446383cbd763a9b5a5d58208fb9"
+                ],
+                "derep_coords": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_derep_provirus_coords.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,244bc446383cbd763a9b5a5d58208fb9"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-04-22T08:42:07.920114246"
+    },
+    "coords.tsv + clusters.tsv": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_derep_provirus_coords.tsv:md5,8c7a6441698648dfd73085524ce6a9cf"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,244bc446383cbd763a9b5a5d58208fb9"
+                ],
+                "derep_coords": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_derep_provirus_coords.tsv:md5,8c7a6441698648dfd73085524ce6a9cf"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,244bc446383cbd763a9b5a5d58208fb9"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-04-22T08:41:57.465382143"
+    }
+}
