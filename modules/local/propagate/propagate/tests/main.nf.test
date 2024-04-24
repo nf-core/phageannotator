@@ -21,13 +21,13 @@ nextflow_process {
                 input[1] = Channel.of(
                     [
                         [ id: 'test' ],
-                        file("$projectDir/assets/test-datasets/b_fragilis_propagate_contigs.fa", checkIfExists: true)
+                        file(params.pipelines_testdata_base_path + "modules/local/propagate/b_fragilis_propagate_contigs.fasta", checkIfExists: true)
                     ]
                 )
                 input[2] = Channel.of(
                     [
                         [ id: 'test' ],
-                        file("$projectDir/assets/test-datasets/b_fragilis_provirus_coords.tsv", checkIfExists: true)
+                        file(params.pipelines_testdata_base_path + "modules/local/propagate/b_fragilis_provirus_coords.tsv", checkIfExists: true)
                     ]
                 )
                 """
@@ -66,13 +66,13 @@ nextflow_process {
                 input[1] = Channel.of(
                     [
                         [ id: 'test' ],
-                        file("$projectDir/assets/test-datasets/b_fragilis_propagate_contigs.fa", checkIfExists: true)
+                        file(params.pipelines_testdata_base_path + "modules/local/propagate/b_fragilis_propagate_contigs.fasta", checkIfExists: true)
                     ]
                 )
                 input[2] = Channel.of(
                     [
                         [ id: 'test' ],
-                        file("$projectDir/assets/test-datasets/b_fragilis_provirus_coords.tsv", checkIfExists: true)
+                        file(params.pipelines_testdata_base_path + "modules/local/propagate/b_fragilis_provirus_coords.tsv", checkIfExists: true)
                     ]
                 )
                 """

@@ -49,21 +49,21 @@ nextflow_workflow {
                 input[2] = Channel.of(
                     [
                         [ id:'test', group:'test_group' ],
-                        file("$projectDir/assets/test-datasets/b_fragilis_genomad_virus_summary.tsv", checkIfExists: true)
+                        file(params.pipelines_testdata_base_path + "modules/local/propagate/b_fragilis_genomad_virus_summary.tsv", checkIfExists: true)
                     ],
                     [
                         [ id:'test2', group:'test_group' ],
-                        file("$projectDir/assets/test-datasets/b_fragilis_genomad_virus_summary.tsv", checkIfExists: true)
+                        file(params.pipelines_testdata_base_path + "modules/local/propagate/b_fragilis_genomad_virus_summary.tsv", checkIfExists: true)
                     ]
                 )
                 input[3] = Channel.of(
                     [
                         [ id:'test', group:'test_group' ],
-                        file("$projectDir/assets/test-datasets/b_fragilis_checkv_contamination.tsv", checkIfExists: true)
+                        file(params.pipelines_testdata_base_path + "modules/local/propagate/b_fragilis_checkv_contamination.tsv", checkIfExists: true)
                     ],
                     [
                         [ id:'test2', group:'test_group' ],
-                        file("$projectDir/assets/test-datasets/b_fragilis_checkv_contamination.tsv", checkIfExists: true)
+                        file(params.pipelines_testdata_base_path + "modules/local/propagate/b_fragilis_checkv_contamination.tsv", checkIfExists: true)
                     ]
                 )
                 input[4] = params.min_ani

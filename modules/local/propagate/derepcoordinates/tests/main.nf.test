@@ -12,19 +12,19 @@ nextflow_process {
                 input[0] = Channel.of(
                         [
                             [ id: 'test' ],
-                            file("$projectDir/assets/test-datasets/b_fragilis_contigs.fasta.gz", checkIfExists: true)
+                            file(params.pipelines_testdata_base_path + "modules/local/propagate/propagate_test_contigs.fasta.gz", checkIfExists: true)
                         ]
                     )
                     input[1] = Channel.of(
                         [
                             [ id: 'test' ],
-                            file("$projectDir/assets/test-datasets/b_fragilis_genomad_virus_summary.tsv", checkIfExists: true)
+                            file(params.pipelines_testdata_base_path + "modules/local/propagate/b_fragilis_genomad_virus_summary.tsv", checkIfExists: true)
                         ]
                     )
                     input[2] = Channel.of(
                         [
                             [ id: 'test' ],
-                            file("$projectDir/assets/test-datasets/b_fragilis_checkv_contamination.tsv", checkIfExists: true)
+                            file(params.pipelines_testdata_base_path + "modules/local/propagate/b_fragilis_checkv_contamination.tsv", checkIfExists: true)
                         ]
                     )
                 """
@@ -42,7 +42,7 @@ nextflow_process {
                 input[1] = Channel.of(
                     [
                         [ id: 'test' ],
-                        file("$projectDir/assets/test-datasets/b_fragilis_clusters.tsv", checkIfExists: true)
+                        file(params.pipelines_testdata_base_path + "modules/local/propagate/b_fragilis_clusters.tsv", checkIfExists: true)
                     ]
                 )
                 """
@@ -68,7 +68,7 @@ nextflow_process {
                 input[1] = Channel.of(
                     [
                         [ id: 'test' ],
-                        file("$projectDir/assets/test-datasets/b_fragilis_clusters.tsv", checkIfExists: true)
+                        file(params.pipelines_testdata_base_path + "modules/local/propagate/b_fragilis_clusters.tsv", checkIfExists: true)
                     ]
                 )
                 """
