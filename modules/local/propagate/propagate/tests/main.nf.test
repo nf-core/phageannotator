@@ -27,7 +27,7 @@ nextflow_process {
                 input[2] = Channel.of(
                     [
                         [ id: 'test' ],
-                        file(params.pipelines_testdata_base_path + "modules/local/propagate/b_fragilis_provirus_coords.tsv", checkIfExists: true)
+                        file(params.pipelines_testdata_base_path + "modules/local/propagate/b_fragilist_provirus_coords.tsv", checkIfExists: true)
                     ]
                 )
                 """
@@ -72,7 +72,7 @@ nextflow_process {
                 input[2] = Channel.of(
                     [
                         [ id: 'test' ],
-                        file(params.pipelines_testdata_base_path + "modules/local/propagate/b_fragilis_provirus_coords.tsv", checkIfExists: true)
+                        file(params.pipelines_testdata_base_path + "modules/local/propagate/b_fragilist_provirus_coords.tsv", checkIfExists: true)
                     ]
                 )
                 """
