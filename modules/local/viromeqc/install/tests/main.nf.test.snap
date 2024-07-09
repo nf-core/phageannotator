@@ -1,0 +1,108 @@
+{
+    "No input required": {
+        "content": [
+            {
+                "0": [
+                    [
+                        "SILVA_132_LSURef_tax_silva.clean.1.bt2:md5,c125f0dd338c049df0c6f3a23b93947b",
+                        "SILVA_132_LSURef_tax_silva.clean.2.bt2:md5,4ceda8501a2c8652a7fe18b3367c5268",
+                        "SILVA_132_LSURef_tax_silva.clean.3.bt2:md5,8a99411da3111a7ed68ffab5838a8d19",
+                        "SILVA_132_LSURef_tax_silva.clean.4.bt2:md5,585f66a0eb9223716d759e1f67c47ff2",
+                        "SILVA_132_LSURef_tax_silva.clean.rev.1.bt2:md5,2e34f45d326fe81a99b0764c1792732a",
+                        "SILVA_132_LSURef_tax_silva.clean.rev.2.bt2:md5,9a4dfd0f63e6ad874d64aa218225ad7a",
+                        "SILVA_132_SSURef_Nr99_tax_silva.clean.1.bt2:md5,b9aa098575b0bf2de3907ccb9326f3f3",
+                        "SILVA_132_SSURef_Nr99_tax_silva.clean.2.bt2:md5,4832a022ffb43a20ced82a7902cc313e",
+                        "SILVA_132_SSURef_Nr99_tax_silva.clean.3.bt2:md5,a2024419722a96056ca3774b8405567d",
+                        "SILVA_132_SSURef_Nr99_tax_silva.clean.4.bt2:md5,59911dc532215f8320ece7f64b8e32ed",
+                        "SILVA_132_SSURef_Nr99_tax_silva.clean.rev.1.bt2:md5,6204db0004c5b2302c7e90c65b5ee902",
+                        "SILVA_132_SSURef_Nr99_tax_silva.clean.rev.2.bt2:md5,94b967bbeee3a5fb277217fd26c838d1",
+                        "amphora_bacteria.dmnd:md5,eda6391a0026045bb70c3f2758775baf",
+                        "amphora_bacteria_294.dmnd:md5,fe18f81444543940fca08c8642149b7d"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,62af8c4ed30786021d8be4d24c27cc92"
+                ],
+                "versions": [
+                    "versions.yml:md5,62af8c4ed30786021d8be4d24c27cc92"
+                ],
+                "viromeqc_index": [
+                    [
+                        "SILVA_132_LSURef_tax_silva.clean.1.bt2:md5,c125f0dd338c049df0c6f3a23b93947b",
+                        "SILVA_132_LSURef_tax_silva.clean.2.bt2:md5,4ceda8501a2c8652a7fe18b3367c5268",
+                        "SILVA_132_LSURef_tax_silva.clean.3.bt2:md5,8a99411da3111a7ed68ffab5838a8d19",
+                        "SILVA_132_LSURef_tax_silva.clean.4.bt2:md5,585f66a0eb9223716d759e1f67c47ff2",
+                        "SILVA_132_LSURef_tax_silva.clean.rev.1.bt2:md5,2e34f45d326fe81a99b0764c1792732a",
+                        "SILVA_132_LSURef_tax_silva.clean.rev.2.bt2:md5,9a4dfd0f63e6ad874d64aa218225ad7a",
+                        "SILVA_132_SSURef_Nr99_tax_silva.clean.1.bt2:md5,b9aa098575b0bf2de3907ccb9326f3f3",
+                        "SILVA_132_SSURef_Nr99_tax_silva.clean.2.bt2:md5,4832a022ffb43a20ced82a7902cc313e",
+                        "SILVA_132_SSURef_Nr99_tax_silva.clean.3.bt2:md5,a2024419722a96056ca3774b8405567d",
+                        "SILVA_132_SSURef_Nr99_tax_silva.clean.4.bt2:md5,59911dc532215f8320ece7f64b8e32ed",
+                        "SILVA_132_SSURef_Nr99_tax_silva.clean.rev.1.bt2:md5,6204db0004c5b2302c7e90c65b5ee902",
+                        "SILVA_132_SSURef_Nr99_tax_silva.clean.rev.2.bt2:md5,94b967bbeee3a5fb277217fd26c838d1",
+                        "amphora_bacteria.dmnd:md5,eda6391a0026045bb70c3f2758775baf",
+                        "amphora_bacteria_294.dmnd:md5,fe18f81444543940fca08c8642149b7d"
+                    ]
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-02-19T17:06:23.877411726"
+    },
+    "No input required - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        "SILVA_132_LSURef_tax_silva.clean.1.bt2:md5,c125f0dd338c049df0c6f3a23b93947b",
+                        "SILVA_132_LSURef_tax_silva.clean.2.bt2:md5,4ceda8501a2c8652a7fe18b3367c5268",
+                        "SILVA_132_LSURef_tax_silva.clean.3.bt2:md5,8a99411da3111a7ed68ffab5838a8d19",
+                        "SILVA_132_LSURef_tax_silva.clean.4.bt2:md5,585f66a0eb9223716d759e1f67c47ff2",
+                        "SILVA_132_LSURef_tax_silva.clean.rev.1.bt2:md5,2e34f45d326fe81a99b0764c1792732a",
+                        "SILVA_132_LSURef_tax_silva.clean.rev.2.bt2:md5,9a4dfd0f63e6ad874d64aa218225ad7a",
+                        "SILVA_132_SSURef_Nr99_tax_silva.clean.1.bt2:md5,b9aa098575b0bf2de3907ccb9326f3f3",
+                        "SILVA_132_SSURef_Nr99_tax_silva.clean.2.bt2:md5,4832a022ffb43a20ced82a7902cc313e",
+                        "SILVA_132_SSURef_Nr99_tax_silva.clean.3.bt2:md5,a2024419722a96056ca3774b8405567d",
+                        "SILVA_132_SSURef_Nr99_tax_silva.clean.4.bt2:md5,59911dc532215f8320ece7f64b8e32ed",
+                        "SILVA_132_SSURef_Nr99_tax_silva.clean.rev.1.bt2:md5,6204db0004c5b2302c7e90c65b5ee902",
+                        "SILVA_132_SSURef_Nr99_tax_silva.clean.rev.2.bt2:md5,94b967bbeee3a5fb277217fd26c838d1",
+                        "amphora_bacteria.dmnd:md5,eda6391a0026045bb70c3f2758775baf",
+                        "amphora_bacteria_294.dmnd:md5,fe18f81444543940fca08c8642149b7d"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,62af8c4ed30786021d8be4d24c27cc92"
+                ],
+                "versions": [
+                    "versions.yml:md5,62af8c4ed30786021d8be4d24c27cc92"
+                ],
+                "viromeqc_index": [
+                    [
+                        "SILVA_132_LSURef_tax_silva.clean.1.bt2:md5,c125f0dd338c049df0c6f3a23b93947b",
+                        "SILVA_132_LSURef_tax_silva.clean.2.bt2:md5,4ceda8501a2c8652a7fe18b3367c5268",
+                        "SILVA_132_LSURef_tax_silva.clean.3.bt2:md5,8a99411da3111a7ed68ffab5838a8d19",
+                        "SILVA_132_LSURef_tax_silva.clean.4.bt2:md5,585f66a0eb9223716d759e1f67c47ff2",
+                        "SILVA_132_LSURef_tax_silva.clean.rev.1.bt2:md5,2e34f45d326fe81a99b0764c1792732a",
+                        "SILVA_132_LSURef_tax_silva.clean.rev.2.bt2:md5,9a4dfd0f63e6ad874d64aa218225ad7a",
+                        "SILVA_132_SSURef_Nr99_tax_silva.clean.1.bt2:md5,b9aa098575b0bf2de3907ccb9326f3f3",
+                        "SILVA_132_SSURef_Nr99_tax_silva.clean.2.bt2:md5,4832a022ffb43a20ced82a7902cc313e",
+                        "SILVA_132_SSURef_Nr99_tax_silva.clean.3.bt2:md5,a2024419722a96056ca3774b8405567d",
+                        "SILVA_132_SSURef_Nr99_tax_silva.clean.4.bt2:md5,59911dc532215f8320ece7f64b8e32ed",
+                        "SILVA_132_SSURef_Nr99_tax_silva.clean.rev.1.bt2:md5,6204db0004c5b2302c7e90c65b5ee902",
+                        "SILVA_132_SSURef_Nr99_tax_silva.clean.rev.2.bt2:md5,94b967bbeee3a5fb277217fd26c838d1",
+                        "amphora_bacteria.dmnd:md5,eda6391a0026045bb70c3f2758775baf",
+                        "amphora_bacteria_294.dmnd:md5,fe18f81444543940fca08c8642149b7d"
+                    ]
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-02-19T17:09:07.248281569"
+    }
+}

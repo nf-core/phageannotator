@@ -1,0 +1,61 @@
+nextflow_process {
+
+    name "Test process: APPENDSCREENHITS"
+    script "../main.nf"
+    process "APPENDSCREENHITS"
+
+
+    test("mash_screen.tsv & fasta.gz & reference_fasta.gz") {
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [ id: 'test' ],
+                    file(params.pipelines_testdata_base_path + 'modules/local/append_screen_hits/mash_screen_results.tsv', checkIfExists: true),
+                    file(params.pipelines_testdata_base_path + 'modules/local/seqkit/seq/assembly.fasta.gz', checkIfExists: true)
+                ]
+                input[1] = [
+                    [ id: 'reference' ],
+                    file(params.pipelines_testdata_base_path + 'modules/local/append_screen_hits/reference.fasta.gz', checkIfExists: true)
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll (
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+
+    test("mash_screen.tsv & fasta.gz & reference_fasta.gz - stub") {
+
+        options "-stub"
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [ id: 'test' ],
+                    file(params.pipelines_testdata_base_path + 'modules/local/append_screen_hits/mash_screen_results.tsv', checkIfExists: true),
+                    file(params.pipelines_testdata_base_path + 'modules/local/seqkit/seq/assembly.fasta.gz', checkIfExists: true)
+                ]
+                input[1] = [
+                    [ id: 'reference' ],
+                    file(params.pipelines_testdata_base_path + 'modules/local/append_screen_hits/reference.fasta.gz', checkIfExists: true)
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll (
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+}

@@ -1,0 +1,75 @@
+{
+    "fasta": {
+        "content": [
+            [
+                "versions.yml:md5,7715e330cd5621f95141e256b567ec19",
+                "versions.yml:md5,b225eb2829469045a5bda2c5d7a69009"
+            ],
+            [
+                [
+                    {
+                        "id": "test"
+                    },
+                    "test_cds_final_merged_output.tsv:md5,1242b6ffe6e53ef5bce0a9a2cac3cd45"
+                ]
+            ],
+            [
+                "DEFINITION  MT192765.1 Severe acute respiratory syndrome coronavirus 2 isolate",
+                "            SARS-CoV-2/human/USA/PC00101P/2020, complete genome.",
+                "ACCESSION   MT192765",
+                "VERSION     MT192765.1",
+                "KEYWORDS    .",
+                "SOURCE      .",
+                "  ORGANISM  .",
+                "            .",
+                "FEATURES             Location/Qualifiers",
+                "     CDS             1..129",
+                "                     /ID=\"TEST_CDS_0001\"",
+                "                     /transl_table=11",
+                "                     /phrog=\"No_PHROG\"",
+                "                     /top_hit=\"No_PHROG\"",
+                "                     /locus_tag=\"TEST_CDS_0001\"",
+                "                     /function=\"unknown function\"",
+                "                     /product=\"hypothetical protein\"",
+                "                     /source=\"PHANOTATE_1.5.1\"",
+                "                     /score=\"-3.2955849959257986\"",
+                "                     /phase=\"0\"",
+                "                     /translation=\"VYTFPGNKPTNFRSLVDLFSKRTLKSVWLSLGCMLSALTQYN\"",
+                "     CDS             259..13476",
+                "                     /ID=\"TEST_CDS_0002\"",
+                "                     /transl_table=11",
+                "                     /phrog=\"No_PHROG\"",
+                "                     /top_hit=\"No_PHROG\"",
+                "                     /locus_tag=\"TEST_CDS_0002\"",
+                "                     /function=\"unknown function\"",
+                "                     /product=\"hypothetical protein\"",
+                "                     /source=\"PHANOTATE_1.5.1\"",
+                "                     /score=\"-9.626540230974856e+92\"",
+                "                     /phase=\"0\"",
+                "                     /translation=\"MESLVPGFNEKTHVQLSLPVLQVRDVLVRGFGDSVEEVLSEARQH",
+                "                     LKDGTCGLVEVEKGVLPQLEQPYVFIKRSDARTAPHGHVMVELVAELEGIQYGRSGETL",
+                "                     GVLVPHVGEIPVAYRKVLLRKNGNKGAGGHSYGADLKSFDLGDELGTDPYEDFQENWNT",
+                "                     KHSSGVTRELMRELNGGAYTRYVDNNFCGPDGYPLECIKDLLARAGKASCTLSEQLDFI",
+                "                     DTKRGVYCCREHEHEIAWYTERSEKSYELQTPFEIKLAKKFDTFNGECPNFVFPLNSII",
+                "                     KTIQPRVEKKKLDGFMGRIRSVYPVASPNECNQMCLSTLMKCDHCGETSWQTGDFVKAT",
+                "                     CEFCGTENLTKEGATTCGYLPQNAVVKIYCPACHNSEVGPEHSLAEYHNESGLKTILRK",
+                "                     GGRTIAFGGCVFSYVGCHNKCAYWVPRASANIGCNHTGVVGEGSEGLNDNLLEILQKEK",
+                "                     VNINIVGDFKLNEEIAIILASFSASTSAFVETVKGLDYKAFKQIVESCGNFKVTKGKAK",
+                "                     KGAWNIGEQKSILSPLYAFASEAARVVRSIFSRTLETAQNSVRVLQKAAITILDGISQY",
+                "                     SLRLIDAMMFTSDLATNNLVVMAYITGGVVQLTSQWLTNIFGTVYEKLKPVLDWLEEKF",
+                "                     KEGVEFLRDGWEIVKFISTCACEIVGGQIVTCAKEIKESVQTFFKLVNKFLALCADSII",
+                "                     IGGAKLKALNLGETFVTHSKGLYRKCVKSREETGLLMPLKAPKEIIFLEGETLPTEVLT",
+                "                     EEVVLKTGDLQPLEQPTSEAVEAPLVGTPVCINGLMLLEIKDTEKYCALAPNMMVTNNT",
+                "                     FTLKGGAPTKVTFGDDTVIEVQGYKSVNITFELDERIDKVLNEKCSAYTVELGTEVNEF",
+                "                     ACVVADAVIKTLQPVSELLTPLGIDLDEWSMATYYLFDESGEFKLASHMYCSFYPPDED",
+                "                     EEEGDCEEEEFEPSTQYEYGTEDDYQGKPLEFGATSAALQPEEEQEEDWLDDDSQQTVG",
+                "                     QQDGSEDNQTTTIQTIVEVQPQLEMELTPVVQTIEVNSFSGYLKLTDNVYIKNADIVEE"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-03-26T04:53:13.97160193"
+    }
+}

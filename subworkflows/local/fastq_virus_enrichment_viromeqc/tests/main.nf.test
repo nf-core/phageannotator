@@ -1,0 +1,35 @@
+nextflow_workflow {
+
+    name "Test subworkflow: FASTQ_VIRUS_ENRICHMENT_VIROMEQC"
+    script "subworkflows/local/fastq_virus_enrichment_viromeqc/main.nf"
+    workflow "FASTQ_VIRUS_ENRICHMENT_VIROMEQC"
+
+    // Dependencies
+    tag "VIROMEQC_INSTALL"
+    tag "VIROMEQC_VIROMEQC"
+
+
+    test("fastq.gz") {
+
+        when {
+            workflow {
+                """
+                input[0] = [
+                    [ id:'test' ], // meta map
+                    [
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/fastq/test_1.fastq.gz', checkifExists: true),
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/fastq/test_2.fastq.gz', checkifExists: true),
+                    ]
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+}

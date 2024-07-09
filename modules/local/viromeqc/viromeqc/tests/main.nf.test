@@ -1,0 +1,73 @@
+nextflow_process {
+
+    name "Test Process: VIROMEQC_VIROMEQC"
+    script "../main.nf"
+    process "VIROMEQC_VIROMEQC"
+
+    // Dependencies
+    tag "VIROMEQC_INSTALL"
+
+
+    test("reads_1.fastq.gz & reads_2.fastq.gz & viromeqc_db") {
+        setup {
+            run("VIROMEQC_INSTALL") {
+                script "../../install/main.nf"
+            }
+        }
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [ id:'test' ], // meta map
+                    [
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/fastq/test_1.fastq.gz', checkifExists: true),
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/fastq/test_2.fastq.gz', checkifExists: true),
+                    ]
+                ]
+                input[1] = VIROMEQC_INSTALL.out.viromeqc_index
+                """
+            }
+        }
+
+        then {
+            assertAll (
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+
+    test("reads_1.fastq.gz & reads_2.fastq.gz & viromeqc_db - stub") {
+
+        options "-stub"
+
+        setup {
+            run("VIROMEQC_INSTALL") {
+                script "../../install/main.nf"
+            }
+        }
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [ id:'test' ], // meta map
+                    [
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/fastq/test_1.fastq.gz', checkifExists: true),
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/fastq/test_2.fastq.gz', checkifExists: true),
+                    ]
+                ]
+                input[1] = VIROMEQC_INSTALL.out.viromeqc_index
+                """
+            }
+        }
+
+        then {
+            assertAll (
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+}

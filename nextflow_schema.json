@@ -16,9 +16,9 @@
                     "type": "string",
                     "format": "file-path",
                     "exists": true,
-                    "schema": "assets/schema_input.json",
                     "mimetype": "text/csv",
                     "pattern": "^\\S+\\.csv$",
+                    "schema": "assets/schema_input.json",
                     "description": "Path to comma-separated file containing information about the samples in the experiment.",
                     "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row. See [usage docs](https://nf-co.re/phageannotator/usage#samplesheet-input).",
                     "fa_icon": "fas fa-file-csv"
@@ -43,34 +43,371 @@
                 }
             }
         },
-        "reference_genome_options": {
-            "title": "Reference genome options",
+        "assembly_filtering_options": {
+            "title": "Assembly filtering options",
             "type": "object",
-            "fa_icon": "fas fa-dna",
-            "description": "Reference genome related files and options required for the workflow.",
+            "description": "Filter assemblies at the beginning of the workflow",
+            "default": "",
             "properties": {
-                "genome": {
-                    "type": "string",
-                    "description": "Name of iGenomes reference.",
-                    "fa_icon": "fas fa-book",
-                    "help_text": "If using a reference genome configured in the pipeline using iGenomes, use this parameter to give the ID for the reference. This is then used to build the full paths for all required reference genome files e.g. `--genome GRCh38`. \n\nSee the [nf-core website docs](https://nf-co.re/usage/reference_genomes) for more details."
-                },
-                "fasta": {
-                    "type": "string",
-                    "format": "file-path",
-                    "exists": true,
-                    "mimetype": "text/plain",
-                    "pattern": "^\\S+\\.fn?a(sta)?(\\.gz)?$",
-                    "description": "Path to FASTA genome file.",
-                    "help_text": "This parameter is *mandatory* if `--genome` is not specified. If you don't have a BWA index available this will be generated for you automatically. Combine with `--save_reference` to save BWA index for future runs.",
-                    "fa_icon": "far fa-file-code"
-                },
-                "igenomes_ignore": {
+                "assembly_min_length": {
+                    "type": "integer",
+                    "default": 1000,
+                    "description": "Minimum assembly length"
+                }
+            }
+        },
+        "virus_enrichment_options": {
+            "title": "Virus enrichment options",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "run_viromeqc": {
                     "type": "boolean",
-                    "description": "Do not load the iGenomes reference config.",
-                    "fa_icon": "fas fa-ban",
-                    "hidden": true,
-                    "help_text": "Do not load `igenomes.config` when running the pipeline. You may choose this option if you observe clashes between custom parameters and those supplied in `igenomes.config`."
+                    "description": "Run ViromeQC to estimate viral enrichment"
+                }
+            }
+        },
+        "reference_virus_containment_options": {
+            "title": "Reference virus containment options",
+            "type": "object",
+            "description": "Identify reference viruses contained in reads",
+            "default": "",
+            "properties": {
+                "run_reference_containment": {
+                    "type": "boolean",
+                    "description": "Run MASH screen to identify external viruses contained in reads"
+                },
+                "reference_virus_fasta": {
+                    "type": "string",
+                    "description": "Path to FASTA file containing reference virus sequences",
+                    "format": "file-path"
+                },
+                "reference_virus_sketch": {
+                    "type": "string",
+                    "description": "Path to mash sketch file for reference virus sequences",
+                    "format": "file-path"
+                },
+                "save_reference_virus_sketch": {
+                    "type": "boolean",
+                    "description": "Save reference virus sketch, if it was created."
+                },
+                "mash_screen_min_score": {
+                    "type": "number",
+                    "default": 0.95,
+                    "description": "Minimum mash screen score to consider a genome contained"
+                },
+                "mash_screen_winner_take_all": {
+                    "type": "boolean",
+                    "description": "Hashes present in multiple references are assigned only to top sequence"
+                }
+            },
+            "fa_icon": "fas fa-search"
+        },
+        "virus_classification_options": {
+            "title": "Virus classification options",
+            "type": "object",
+            "description": "Classify viral sequences using geNomad",
+            "default": "",
+            "properties": {
+                "skip_genomad": {
+                    "type": "boolean",
+                    "description": "Skip running geNomad to classify viral/non-viral sequences"
+                },
+                "genomad_db": {
+                    "type": "string",
+                    "description": "Path to directory containing geNomad's database",
+                    "format": "directory-path"
+                },
+                "save_genomad_db": {
+                    "type": "boolean",
+                    "description": "Save geNomad's database, if it was downloaded."
+                },
+                "genomad_min_score": {
+                    "type": "number",
+                    "default": 0.7,
+                    "description": "Minimum virus score for a sequence to be considered viral"
+                },
+                "genomad_max_fdr": {
+                    "type": "number",
+                    "default": 0.1,
+                    "description": "Maximum FDR for a sequence to be considered viral (will include --enable-score-calibration)"
+                },
+                "genomad_splits": {
+                    "type": "integer",
+                    "default": 5,
+                    "description": "Number of splits for running geNomad (more splits lowers memory requirements)"
+                }
+            }
+        },
+        "viral_contig_extension": {
+            "title": "Viral contig extension",
+            "type": "object",
+            "description": "Extend viral contigs",
+            "default": "",
+            "properties": {
+                "run_cobra": {
+                    "type": "boolean",
+                    "description": "Run COBRA to extend viral contigs"
+                },
+                "cobra_assembler": {
+                    "type": "string",
+                    "description": "The assembler that was used to assemble viral contigs"
+                },
+                "cobra_mink": {
+                    "type": "string",
+                    "description": "Minimum kmer value used during assembly"
+                },
+                "cobra_maxk": {
+                    "type": "string",
+                    "description": "Maximum kmer value used during assembly"
+                }
+            }
+        },
+        "virus_quality_options": {
+            "title": "Virus quality options",
+            "type": "object",
+            "description": "Assess virus quality and filter",
+            "default": "",
+            "properties": {
+                "skip_checkv": {
+                    "type": "boolean",
+                    "description": "Skip running CheckV to assess virus quality and filter sequences"
+                },
+                "checkv_db": {
+                    "type": "string",
+                    "description": "Path to directory containing CheckV database"
+                },
+                "save_checkv_db": {
+                    "type": "boolean",
+                    "description": "Save CheckV's database, if it was downloaded"
+                },
+                "checkv_min_length": {
+                    "type": "integer",
+                    "default": 3000,
+                    "description": "Minimum virus length to pass filtering"
+                },
+                "checkv_min_completeness": {
+                    "type": "integer",
+                    "default": 50,
+                    "description": "Minimum CheckV completeness to pass filtering"
+                },
+                "checkv_remove_proviruses": {
+                    "type": "boolean",
+                    "description": "Remove viruses labeled as provirus by geNomad or CheckV"
+                },
+                "checkv_remove_warnings": {
+                    "type": "boolean",
+                    "description": "Remove viruses with CheckV warnings"
+                }
+            }
+        },
+        "genome_clustering_options": {
+            "title": "Genome clustering options",
+            "type": "object",
+            "description": "Cluster virus genomes based on nucleotide/protein similarity",
+            "default": "",
+            "properties": {
+                "skip_virus_clustering": {
+                    "type": "boolean",
+                    "description": "Skip ANI-based virus clustering"
+                },
+                "blast_min_percent_identity": {
+                    "type": "integer",
+                    "default": 90,
+                    "description": "Minimum precent identity for BLAST hits"
+                },
+                "blast_max_num_seqs": {
+                    "type": "integer",
+                    "default": 25000,
+                    "description": "Maximum number of BLAST hits to record for each sequence"
+                },
+                "anicluster_min_ani": {
+                    "type": "integer",
+                    "default": 95,
+                    "description": "Minimum average nucleotide identity (ANI) for sequences to be clustered together"
+                },
+                "anicluster_min_qcov": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Minimum query coverage for sequences to be clustered together"
+                },
+                "anicluster_min_tcov": {
+                    "type": "integer",
+                    "default": 85,
+                    "description": "Minimum test coverage for sequences to be clustered together"
+                }
+            }
+        },
+        "virus_abundance_options": {
+            "title": "Virus abundance options",
+            "type": "object",
+            "description": "Align reads to virus database",
+            "default": "",
+            "properties": {
+                "skip_read_alignment": {
+                    "type": "boolean",
+                    "description": "Skip read alignment to viral sequences"
+                },
+                "coverm_min_read_alignment": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Minimum length of reads aligned to references"
+                },
+                "coverm_min_percent_identity": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Minimum percent identity of aligned reads"
+                },
+                "coverm_min_percent_read_aligned": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Minimum percent of read aligned to references"
+                },
+                "coverm_metrics": {
+                    "type": "string",
+                    "default": "mean",
+                    "description": "Abundance calculation metrics"
+                }
+            }
+        },
+        "virus_taxonomy_options": {
+            "title": "Virus taxonomy options",
+            "type": "object",
+            "description": "Assign taxonomy to virus sequences",
+            "default": "",
+            "properties": {
+                "run_genomad_taxonomy": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "phage_host_options": {
+            "title": "Phage host options",
+            "type": "object",
+            "description": "Predict host genus for phage sequences",
+            "default": "",
+            "properties": {
+                "run_iphop": {
+                    "type": "boolean",
+                    "description": "Run iPHoP to predict phage hosts"
+                },
+                "iphop_db": {
+                    "type": "string",
+                    "description": "Path to locally iPHoP database"
+                },
+                "save_iphop_db": {
+                    "type": "boolean",
+                    "description": "Save downloaded iPHoP database"
+                },
+                "iphop_min_score": {
+                    "type": "integer",
+                    "default": 90,
+                    "description": "Minimum confidence score to provide host prediction"
+                }
+            }
+        },
+        "virus_lifestyle_options": {
+            "title": "Virus lifestyle options",
+            "type": "object",
+            "description": "Predict the lifestyle of viral sequences",
+            "default": "",
+            "properties": {
+                "run_bacphlip": {
+                    "type": "boolean",
+                    "description": "Run BACPHLIP to predict virus lifestyle"
+                }
+            }
+        },
+        "virus_function_options": {
+            "title": "Virus function options",
+            "type": "object",
+            "description": "Functionally annotate viral genomes using a variety of approaches",
+            "default": "",
+            "properties": {
+                "run_pharokka": {
+                    "type": "boolean",
+                    "description": "Run pharokka to predict and annotate phage ORFs"
+                },
+                "pharokka_db": {
+                    "type": "string",
+                    "description": "Path to predownloaded pharokka db"
+                }
+            }
+        },
+        "virus_microdiversity_options": {
+            "title": "Virus microdiversity options",
+            "type": "object",
+            "description": "Analyze virus diversity at the strain level",
+            "default": "",
+            "properties": {
+                "skip_instrain": {
+                    "type": "boolean",
+                    "description": "Bypass microdiversity analysis with inStrain"
+                },
+                "instrain_min_ani": {
+                    "type": "number",
+                    "description": "Minimum identity for read alignment to be considered"
+                },
+                "instrain_min_mapq": {
+                    "type": "integer",
+                    "description": "Minimum MAPQ for a read to be considered"
+                },
+                "instrain_min_variant_cov": {
+                    "type": "integer",
+                    "description": "Minimum coverage for a variant to be considered"
+                },
+                "instrain_min_snp_freq": {
+                    "type": "number",
+                    "description": "Minimum allele frequency for an SNP to be considered"
+                },
+                "instrain_max_snp_fdr": {
+                    "type": "integer",
+                    "description": "Maximum FDR for a SNP to be considered"
+                },
+                "instrain_min_genome_cov": {
+                    "type": "number",
+                    "description": "Minimum number of reads mapping to a genome to consider profiling"
+                },
+                "instrain_popani_thresh": {
+                    "type": "number",
+                    "description": "Minimum identity for genomes to be considered in the same strain"
+                },
+                "instrain_min_genome_comp": {
+                    "type": "number",
+                    "description": "Minimum percent of genomes compared for comparison to be considered"
+                },
+                "instrain_min_genome_breadth": {
+                    "type": "number",
+                    "description": "Minimum breadth of coverage for a genome to be considered present"
+                }
+            }
+        },
+        "developer_options": {
+            "title": "Developer options",
+            "type": "object",
+            "description": "Arguments for running pipeline tests with custom arguments/databases.",
+            "properties": {
+                "genomad_disable_nn": {
+                    "type": "boolean",
+                    "hidden": true
+                },
+                "genomad_sensitivity": {
+                    "type": "number",
+                    "hidden": true
+                },
+                "checkv_minimal_db": {
+                    "type": "boolean",
+                    "hidden": true
+                },
+                "iphop_test_db": {
+                    "type": "boolean",
+                    "description": "Download test database rather than full database?",
+                    "hidden": true
+                },
+                "iphop_partial_test": {
+                    "type": "boolean",
+                    "hidden": true
                 }
             }
         },
@@ -245,6 +582,11 @@
                     "fa_icon": "fas fa-check-square",
                     "hidden": true
                 },
+                "logo": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Use logo in initialise subworkflow"
+                },
                 "validationShowHiddenParams": {
                     "type": "boolean",
                     "fa_icon": "far fa-eye-slash",
@@ -281,7 +623,46 @@
             "$ref": "#/definitions/input_output_options"
         },
         {
-            "$ref": "#/definitions/reference_genome_options"
+            "$ref": "#/definitions/assembly_filtering_options"
+        },
+        {
+            "$ref": "#/definitions/virus_enrichment_options"
+        },
+        {
+            "$ref": "#/definitions/reference_virus_containment_options"
+        },
+        {
+            "$ref": "#/definitions/virus_classification_options"
+        },
+        {
+            "$ref": "#/definitions/viral_contig_extension"
+        },
+        {
+            "$ref": "#/definitions/virus_quality_options"
+        },
+        {
+            "$ref": "#/definitions/genome_clustering_options"
+        },
+        {
+            "$ref": "#/definitions/virus_abundance_options"
+        },
+        {
+            "$ref": "#/definitions/virus_taxonomy_options"
+        },
+        {
+            "$ref": "#/definitions/phage_host_options"
+        },
+        {
+            "$ref": "#/definitions/virus_lifestyle_options"
+        },
+        {
+            "$ref": "#/definitions/virus_function_options"
+        },
+        {
+            "$ref": "#/definitions/virus_microdiversity_options"
+        },
+        {
+            "$ref": "#/definitions/developer_options"
         },
         {
             "$ref": "#/definitions/institutional_config_options"

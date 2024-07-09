@@ -1,0 +1,2 @@
+fasta_phage_function_pharokka_default:
+  - subworkflows/local/fasta_phage_function_pharokka/**

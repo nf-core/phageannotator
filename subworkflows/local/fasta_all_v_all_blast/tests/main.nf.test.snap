@@ -1,0 +1,37 @@
+{
+    "fasta.gz": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.txt:md5,aa3f583ccce0464e25ced18c56760404"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,3a67b197cc055b730a0f1aa4d0cd31c0",
+                    "versions.yml:md5,3a67b197cc055b730a0f1aa4d0cd31c0"
+                ],
+                "blast_txt": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.txt:md5,aa3f583ccce0464e25ced18c56760404"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,3a67b197cc055b730a0f1aa4d0cd31c0",
+                    "versions.yml:md5,3a67b197cc055b730a0f1aa4d0cd31c0"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-02-28T16:37:03.577392353"
+    }
+}

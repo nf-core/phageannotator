@@ -1,0 +1,51 @@
+nextflow_process {
+
+    name "Test process: ANICLUSTER_ANICALC"
+    script "../main.nf"
+    process "ANICLUSTER_ANICALC"
+
+
+    test("blast.txt") {
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [ id: 'test' ],
+                    file(params.pipelines_testdata_base_path + 'modules/local/anicluster/anicalc/blast.txt', checkIfExists: true)
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll (
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+
+    test("blast.txt - stub") {
+
+        options "-stub"
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [ id: 'test' ],
+                    file(params.pipelines_testdata_base_path + 'modules/local/anicluster/anicalc/blast.txt', checkIfExists: true)
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll (
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+}

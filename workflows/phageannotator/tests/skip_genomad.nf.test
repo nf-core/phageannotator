@@ -1,0 +1,74 @@
+nextflow_workflow {
+
+    name "Test workflow: PHAGEANNOTATOR"
+    script "workflows/phageannotator/main.nf"
+    workflow "PHAGEANNOTATOR"
+
+    // Dependencies
+    tag "SEQKIT_SEQ"
+    tag "QUALITYFILTERVIRUSES"
+    tag "ANICLUSTER_ANICALC"
+    tag "ANICLUSTER_ANICLUST"
+    tag "ANICLUSTER_EXTRACTREPS"
+    tag "COVERM_CONTIG"
+    tag "FASTA_VIRUS_QUALITY_CHECKV"
+    tag "FASTA_ALL_V_ALL_BLAST"
+    tag "CAT_CAT"
+    tag "BOWTIE2_BUILD"
+    tag "GUNZIP"
+    tag "FASTQ_ALIGN_BOWTIE2"
+
+
+    test("Parameters: skip_genomad = true") {
+        when {
+            workflow {
+                """
+                input[0] = Channel.of(
+                    [
+                        [ id:'test' ],
+                        [
+                            file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_1.fastq.gz', checkIfExists:true),
+                            file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_2.fastq.gz', checkIfExists: true)
+                        ]
+                    ],
+                    [
+                        [ id:'test2' ],
+                        [
+                            file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_1.fastq.gz', checkIfExists:true),
+                            file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_2.fastq.gz', checkIfExists: true)
+                        ]
+                    ]
+                )
+                input[1] = Channel.of(
+                    [
+                        [ id:'test' ],
+                        file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists:true)
+                    ],
+                    [
+                        [ id:'test2' ],
+                        file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists:true)
+                    ]
+                )
+                """
+            }
+            params {
+                outdir                      = "$outputDir"
+                skip_genomad                = true
+                // reduce hits, since reduction won't take place during genomad
+                mash_screen_min_score       = 1
+                mash_screen_winner_take_all = true
+                // speed up options since tools are fully tested in subworkflows
+                checkv_minimal_db           = true
+                checkv_min_length           = 25000
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() },
+                { assert path("${outputDir}/VirusAbundance/coverm/contig/all_samples_alignment_results.tsv").readLines().size() == 9 }
+            )
+        }
+    }
+}

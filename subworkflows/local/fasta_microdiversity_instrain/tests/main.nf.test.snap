@@ -1,0 +1,29 @@
+{
+    "bam & fasta & stb_file": {
+        "content": [
+            {
+                "0": [
+                    
+                ],
+                "1": [
+                    "versions.yml:md5,4f3be9f56f69dcce1903598ad2fc9635",
+                    "versions.yml:md5,4f3be9f56f69dcce1903598ad2fc9635",
+                    "versions.yml:md5,816a6bc0dc4c7fe8dee2a3cd012b38e2"
+                ],
+                "gene_info_tsv": [
+                    
+                ],
+                "versions": [
+                    "versions.yml:md5,4f3be9f56f69dcce1903598ad2fc9635",
+                    "versions.yml:md5,4f3be9f56f69dcce1903598ad2fc9635",
+                    "versions.yml:md5,816a6bc0dc4c7fe8dee2a3cd012b38e2"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-03-08T20:15:50.456499453"
+    }
+}

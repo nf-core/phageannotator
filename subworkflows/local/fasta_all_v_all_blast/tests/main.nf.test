@@ -1,0 +1,34 @@
+nextflow_workflow {
+
+    name "Test Subworkflow: FASTA_ALL_V_ALL_BLAST"
+    script "subworkflows/local/fasta_all_v_all_blast/main.nf"
+    workflow "FASTA_ALL_V_ALL_BLAST"
+
+    // Dependencies
+    tag "BLAST_MAKEBLASTDB"
+    tag "BLAST_BLASTN"
+
+
+    test("fasta.gz") {
+
+        when {
+            workflow {
+                """
+                input[0] = Channel.of(
+                    [
+                        [ id:'test' ],
+                        file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists: true)
+                    ]
+                )
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+}

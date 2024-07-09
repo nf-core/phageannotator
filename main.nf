@@ -17,26 +17,34 @@ nextflow.enable.dsl = 2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { PHAGEANNOTATOR  } from './workflows/phageannotator'
-include { PIPELINE_INITIALISATION } from './subworkflows/local/utils_nfcore_phageannotator_pipeline'
-include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_phageannotator_pipeline'
+//
+// PLUGIN: Installed from nextflow plugins
+//
+include { paramsSummaryMap                      } from 'plugin/nf-validation'
 
-include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_phageannotator_pipeline'
+//
+// MODULE
+//
+include { MULTIQC                               } from './modules/nf-core/multiqc/main'
+include { FASTQC                                } from './modules/nf-core/fastqc/main'
+
+//
+// SUBWORKFLOW
+//
+include { PIPELINE_INITIALISATION       } from './subworkflows/local/utils_nfcore_phageannotator_pipeline'
+include { paramsSummaryMultiqc          } from './subworkflows/nf-core/utils_nfcore_pipeline'
+include { softwareVersionsToYAML        } from './subworkflows/nf-core/utils_nfcore_pipeline'
+include { methodsDescriptionText        } from './subworkflows/local/utils_nfcore_phageannotator_pipeline'
+include { PIPELINE_COMPLETION           } from './subworkflows/local/utils_nfcore_phageannotator_pipeline'
+
+//
+// WORKFLOW
+//
+include { PHAGEANNOTATOR            } from './workflows/phageannotator/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    GENOME PARAMETER VALUES
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
-
-// TODO nf-core: Remove this line if you don't need a FASTA file
-//   This is an example of how to use getGenomeAttribute() to fetch parameters
-//   from igenomes.config using `--genome`
-params.fasta = getGenomeAttribute('fasta')
-
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    NAMED WORKFLOWS FOR PIPELINE
+    NAMED WORKFLOW FOR PIPELINE
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
@@ -50,15 +58,19 @@ workflow NFCORE_PHAGEANNOTATOR {
 
     main:
 
+    ch_fastq_gz = samplesheet.map { meta, fastq, fasta -> return [ meta, fastq ] }
+    ch_fasta_gz = samplesheet.map { meta, fastq, fasta -> return [ meta, fasta ] }
+
     //
     // WORKFLOW: Run pipeline
     //
     PHAGEANNOTATOR (
-        samplesheet
+        ch_fastq_gz,
+        ch_fasta_gz
     )
 
     emit:
-    multiqc_report = PHAGEANNOTATOR.out.multiqc_report // channel: /path/to/multiqc_report.html
+    versions = PHAGEANNOTATOR.out.versions
 
 }
 /*
@@ -70,6 +82,8 @@ workflow NFCORE_PHAGEANNOTATOR {
 workflow {
 
     main:
+    ch_versions         = Channel.empty()
+    ch_multiqc_files    = Channel.empty()
 
     //
     // SUBWORKFLOW: Run initialisation tasks
@@ -85,11 +99,50 @@ workflow {
     )
 
     //
+    // MODULE: Run FastQC
+    //
+    FASTQC (
+        PIPELINE_INITIALISATION.out.samplesheet.map { meta, fastq, fasta -> return [ meta, fastq ] }
+    )
+    ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]})
+    ch_versions = ch_versions.mix(FASTQC.out.versions.first())
+
+    //
     // WORKFLOW: Run main workflow
     //
     NFCORE_PHAGEANNOTATOR (
         PIPELINE_INITIALISATION.out.samplesheet
     )
+
+    //
+    // Collate and save software versions
+    //
+    softwareVersionsToYAML(NFCORE_PHAGEANNOTATOR.out.versions)
+        .collectFile(storeDir: "${params.outdir}/pipeline_info", name: 'nf_core_pipeline_software_mqc_versions.yml', sort: true, newLine: true)
+        .set { ch_collated_versions }
+
+    //
+    // MODULE: MultiQC
+    //
+    ch_multiqc_config                     = Channel.fromPath("$projectDir/assets/multiqc_config.yml", checkIfExists: true)
+    ch_multiqc_custom_config              = params.multiqc_config ? Channel.fromPath(params.multiqc_config, checkIfExists: true) : Channel.empty()
+    ch_multiqc_logo                       = params.multiqc_logo ? Channel.fromPath(params.multiqc_logo, checkIfExists: true) : Channel.empty()
+    summary_params                        = paramsSummaryMap(workflow, parameters_schema: "nextflow_schema.json")
+    ch_workflow_summary                   = Channel.value(paramsSummaryMultiqc(summary_params))
+    ch_multiqc_custom_methods_description = params.multiqc_methods_description ? file(params.multiqc_methods_description, checkIfExists: true) : file("$projectDir/assets/methods_description_template.yml", checkIfExists: true)
+    ch_methods_description                = Channel.value(methodsDescriptionText(ch_multiqc_custom_methods_description))
+    ch_multiqc_files                      = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
+    ch_multiqc_files                      = ch_multiqc_files.mix(ch_collated_versions)
+    ch_multiqc_files                      = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml', sort: false))
+
+    MULTIQC (
+        ch_multiqc_files.collect(),
+        ch_multiqc_config.toList(),
+        ch_multiqc_custom_config.toList(),
+        ch_multiqc_logo.toList()
+    )
+
+    ch_multiqc_report  = MULTIQC.out.report.toList() // channel: /path/to/multiqc_report.html
 
     //
     // SUBWORKFLOW: Run completion tasks
@@ -101,7 +154,7 @@ workflow {
         params.outdir,
         params.monochrome_logs,
         params.hook_url,
-        NFCORE_PHAGEANNOTATOR.out.multiqc_report
+        ch_multiqc_report
     )
 }
 

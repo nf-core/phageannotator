@@ -1,0 +1,42 @@
+nextflow_workflow {
+
+    name "Test Subworkflow: FASTA_VIRUS_CLASSIFICATION_GENOMAD"
+    script "subworkflows/local/fasta_virus_classification_genomad/main.nf"
+    workflow "FASTA_VIRUS_CLASSIFICATION_GENOMAD"
+
+    // Dependencies
+    tag "GENOMAD_DOWNLOAD"
+    tag "GENOMAD_ENDTOEND"
+
+
+    test("fasta") {
+
+        when {
+            params {
+                genomad_splits = 5
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    [
+                        [ id:'test' ],
+                        file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/genome/genome.fna.gz', checkIfExists: true)
+                    ],
+                    [
+                        [ id:'test2' ],
+                        file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/genome/genome.fna.gz', checkIfExists: true)
+                    ]
+                )
+                input[1] = null
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+}

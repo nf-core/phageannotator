@@ -1,0 +1,57 @@
+nextflow_process {
+
+    name "Test process: QUALITYFILTERVIRUSES"
+    script "../main.nf"
+    process "QUALITYFILTERVIRUSES"
+
+
+    test("virus_fasta.gz & provirus_fasta.gz & quality_summary.tsv") {
+
+        when {
+
+            process {
+                """
+                input[0] = [
+                    [ id: 'test' ],
+                    file(params.pipelines_testdata_base_path + 'modules/local/quality_filter_viruses/viruses.fna.gz', checkIfExists: true),
+                    file(params.pipelines_testdata_base_path + 'modules/local/quality_filter_viruses/proviruses.fna.gz', checkIfExists: true),
+                    file(params.pipelines_testdata_base_path + 'modules/local/quality_filter_viruses/quality_summary.tsv', checkIfExists: true)
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll (
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+
+    test("virus_fasta.gz & provirus_fasta.gz & quality_summary.tsv - stub") {
+
+        options "-stub"
+
+        when {
+
+            process {
+                """
+                input[0] = [
+                    [ id: 'test' ],
+                    file(params.pipelines_testdata_base_path + 'modules/local/quality_filter_viruses/viruses.fna.gz', checkIfExists: true),
+                    file(params.pipelines_testdata_base_path + 'modules/local/quality_filter_viruses/proviruses.fna.gz', checkIfExists: true),
+                    file(params.pipelines_testdata_base_path + 'modules/local/quality_filter_viruses/quality_summary.tsv', checkIfExists: true)
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll (
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+}

@@ -1,0 +1,39 @@
+nextflow_workflow {
+
+    name "Test Subworkflow: FASTA_VIRUS_QUALITY_CHECKV"
+    script "subworkflows/local/fasta_virus_quality_checkv/main.nf"
+    workflow "FASTA_VIRUS_QUALITY_CHECKV"
+
+    // Dependencies
+    tag "CHECKV_DOWNLOADDATABASE"
+    tag "UNTAR"
+    tag "CHECKV_ENDTOEND"
+
+    test("fasta.gz") {
+
+        when {
+            workflow {
+                """
+                input[0] = Channel.of(
+                    [
+                        [ id:'test' ],
+                        file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists: true)
+                    ],
+                    [
+                        [ id:'test2' ],
+                        file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists: true)
+                    ]
+                )
+                input[1] = null
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+}

@@ -1,0 +1,59 @@
+nextflow_process {
+
+    name "Test Process: MASH_PASTE"
+    script "../main.nf"
+    process "MASH_PASTE"
+
+
+    test("test1.msh & test2.msh") {
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [id: 'test1'],
+                    file(params.pipelines_testdata_base_path + 'modules/local/mash/paste/bacteroides_fragilis_contigs1.msh', checkIfExists: true)
+                ]
+                input[1] = [
+                    [id: 'test2'],
+                    file(params.pipelines_testdata_base_path + 'modules/local/mash/paste/bacteroides_fragilis_contigs2.msh', checkIfExists: true)
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll (
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+
+    test("test1.msh & test2.msh - stub") {
+
+        options "-stub"
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [id: 'test1'],
+                    file(params.pipelines_testdata_base_path + 'modules/local/mash/paste/bacteroides_fragilis_contigs1.msh', checkIfExists: true)
+                ]
+                input[1] = [
+                    [id: 'test2'],
+                    file(params.pipelines_testdata_base_path + 'modules/local/mash/paste/bacteroides_fragilis_contigs2.msh', checkIfExists: true)
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll (
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+}

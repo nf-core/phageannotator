@@ -1,0 +1,25 @@
+nextflow_process {
+
+    name "Test Process: VIROMEQC_INSTALL"
+    script "../main.nf"
+    process "VIROMEQC_INSTALL"
+
+
+    test("No input required") {
+        then {
+            assertAll (
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+
+    test("No input required - stub") {
+        then {
+            assertAll (
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+}

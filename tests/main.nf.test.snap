@@ -1,0 +1,117 @@
+{
+    "Parameters: default": {
+        "content": [
+            [
+                [
+                    [
+                        "test1.fasta.gz:md5,e47bee1d12b4f3ecc15357339a300685",
+                        "test2.fasta.gz:md5,e47bee1d12b4f3ecc15357339a300685"
+                    ]
+                ]
+            ],
+            [
+                [
+                    [
+                        [
+                            "test1_virus.fna.gz:md5,3b80368a9cd0add3a1525832106f7df1",
+                            "test1_virus_summary.tsv:md5,7e148b000c445c6569e17a0f4556e0f7"
+                        ],
+                        [
+                            "test2_virus.fna.gz:md5,3b80368a9cd0add3a1525832106f7df1",
+                            "test2_virus_summary.tsv:md5,7e148b000c445c6569e17a0f4556e0f7"
+                        ]
+                    ]
+                ]
+            ],
+            [
+                [
+                    [
+                        [
+                            "proviruses.fna.gz:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "quality_summary.tsv:md5,67607e20fe485e6e718c956b88d032d7",
+                            "viruses.fna.gz:md5,62101302173ac5f830ee4b3ab7435e74"
+                        ],
+                        [
+                            "proviruses.fna.gz:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "quality_summary.tsv:md5,67607e20fe485e6e718c956b88d032d7",
+                            "viruses.fna.gz:md5,62101302173ac5f830ee4b3ab7435e74"
+                        ]
+                    ]
+                ],
+                [
+                    "test1.filtered.fna.gz:md5,89a5812446b42a600dca720e3e0f3eb0",
+                    "test2.filtered.fna.gz:md5,89a5812446b42a600dca720e3e0f3eb0"
+                ]
+            ],
+            [
+                "all_samples_anicluster_representatives.fna.gz:md5,89a5812446b42a600dca720e3e0f3eb0",
+                [
+                    "all_samples_ani.tsv:md5,9a9bd8d256c12ee4177c52a030847b7f"
+                ],
+                [
+                    "all_samples_clusters.tsv:md5,0876bb9b6967f272115a1197fe713546"
+                ]
+            ],
+            "test1.bowtie2.log:md5,f161a0eae2eec7fcbfee0d7675d6ef0d",
+            [
+                [
+                    "all_samples_anicluster_representatives.fna.1.bt2:md5,48073ebcfcd5af5002e65d908ac48cb6",
+                    "all_samples_anicluster_representatives.fna.2.bt2:md5,eeab4846bdfb11025cce1f0d89b0ab19",
+                    "all_samples_anicluster_representatives.fna.3.bt2:md5,7dd079253884f7d2a1cb7b845b6e2bcc",
+                    "all_samples_anicluster_representatives.fna.4.bt2:md5,482e19f50cd47fdde58bef83eacd0a3d",
+                    "all_samples_anicluster_representatives.fna.rev.1.bt2:md5,a03dd70d091923ff392e3419cc6f96c6",
+                    "all_samples_anicluster_representatives.fna.rev.2.bt2:md5,3814fd4a34f1cf9f33bb684cd8fab198"
+                ]
+            ],
+            [
+                "ANICLUSTER_ANICALC:",
+                "  python: 3.9.12",
+                "  biopython: 1.78",
+                "  numpy: 1.22.3",
+                "ANICLUSTER_ANICLUST:",
+                "  python: 3.9.12",
+                "ANICLUSTER_EXTRACTREPS:",
+                "  python: 3.9.12",
+                "  biopython: 1.78",
+                "BLAST_MAKEBLASTDB:",
+                "  blast: 2.15.0+",
+                "BOWTIE2_ALIGN:",
+                "  bowtie2: 2.5.2",
+                "  samtools: 1.18",
+                "  pigz: 2.6",
+                "BOWTIE2_BUILD:",
+                "  bowtie2: 2.5.2",
+                "COVERM_CONTIG:",
+                "  coverm: 0.6.1)",
+                "GENOMAD_DOWNLOAD:",
+                "  genomad: 1.7.4",
+                "GUNZIP_CLUSTER_REPS:",
+                "  gunzip: 1.1",
+                "QUALITYFILTERVIRUSES:",
+                "  python: 3.9.12",
+                "  biopython: 1.78",
+                "  pandas: 1.3.5",
+                "SAMTOOLS_FLAGSTAT:",
+                "  samtools: 1.19.2",
+                "SAMTOOLS_IDXSTATS:",
+                "  samtools: 1.19.2",
+                "SAMTOOLS_INDEX:",
+                "  samtools: 1.19.2",
+                "SAMTOOLS_SORT:",
+                "  samtools: 1.19.2",
+                "SAMTOOLS_STATS:",
+                "  samtools: 1.19.2",
+                "SEQKIT_SEQ:",
+                "  seqkit: 2.2.0",
+                "UNTAR:",
+                "  untar: 1.3",
+                "Workflow:"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-03-17T15:10:55.472746913"
+    }
+}

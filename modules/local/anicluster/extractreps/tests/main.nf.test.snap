@@ -1,0 +1,68 @@
+{
+    "fasta.gz & clusters.tsv - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_anicluster_representatives.fna.gz:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,15b724eac7b61bbed8de17f17eae0bf8"
+                ],
+                "representatives": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_anicluster_representatives.fna.gz:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,15b724eac7b61bbed8de17f17eae0bf8"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-02-19T17:03:20.478160213"
+    },
+    "fasta.gz & clusters.tsv": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_anicluster_representatives.fna.gz:md5,b4ae3ed3aa26b50c3e3d3277e94ac940"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,15b724eac7b61bbed8de17f17eae0bf8"
+                ],
+                "representatives": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test_anicluster_representatives.fna.gz:md5,b4ae3ed3aa26b50c3e3d3277e94ac940"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,15b724eac7b61bbed8de17f17eae0bf8"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-02-19T17:03:11.703715193"
+    }
+}

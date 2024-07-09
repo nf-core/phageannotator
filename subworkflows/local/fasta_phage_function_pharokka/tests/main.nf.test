@@ -1,0 +1,41 @@
+nextflow_workflow {
+
+    name "Test Subworkflow: FASTA_PHAGE_FUNCTION_PHAROKKA"
+    script "../main.nf"
+    workflow "FASTA_PHAGE_FUNCTION_PHAROKKA"
+    config "./nextflow.config"
+
+    // Dependencies
+    tag "PHAROKKA_INSTALLDATABASES"
+    tag "PHAROKKA_PHAROKKA"
+
+
+    test("fasta") {
+
+        when {
+            workflow {
+                """
+                input[0] = Channel.of(
+                    [
+                        [ id:'test' ],
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/genome/genome.fasta', checkIfExists: true)
+                    ]
+                )
+                input[1] = null
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    workflow.out.versions,
+                    workflow.out.pharokka_final_output_tsv,
+                    path(workflow.out.pharokka_gbk_gz[0][1]).linesGzip[1..50]
+                    ).match()
+                }
+            )
+        }
+    }
+}
