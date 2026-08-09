@@ -1,0 +1,79 @@
+nextflow_process {
+
+    name "Test Process: PROPAGATE_EXTRACTPROVIRUSES"
+    script "../main.nf"
+    process "PROPAGATE_EXTRACTPROVIRUSES"
+
+
+    test("contigs.fasta + genomad_virus_summary + check_contamination_summary") {
+
+        when {
+            process {
+                """
+                input[0] = Channel.of(
+                    [
+                        [ id: 'test' ],
+                        file(params.pipelines_testdata_base_path + "modules/local/propagate/propagate_test_contigs.fasta.gz", checkIfExists: true)
+                    ]
+                )
+                input[1] = Channel.of(
+                    [
+                        [ id: 'test' ],
+                        file(params.pipelines_testdata_base_path + "modules/local/propagate/b_fragilis_genomad_virus_summary.tsv", checkIfExists: true)
+                    ]
+                )
+                input[2] = Channel.of(
+                    [
+                        [ id: 'test' ],
+                        file(params.pipelines_testdata_base_path + "modules/local/propagate/b_fragilis_checkv_contamination.tsv", checkIfExists: true)
+                    ]
+                )
+                """
+            }
+        }
+
+        then {
+            assertAll (
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+
+    test("contigs.fasta + genomad_virus_summary + check_contamination_summary - stub") {
+
+        options "-stub"
+
+        when {
+            process {
+                """
+                input[0] = Channel.of(
+                    [
+                        [ id: 'test' ],
+                        file(params.pipelines_testdata_base_path + "modules/local/propagate/propagate_test_contigs.fasta.gz", checkIfExists: true)
+                    ]
+                )
+                input[1] = Channel.of(
+                    [
+                        [ id: 'test' ],
+                        file(params.pipelines_testdata_base_path + "modules/local/propagate/b_fragilis_genomad_virus_summary.tsv", checkIfExists: true)
+                    ]
+                )
+                input[2] = Channel.of(
+                    [
+                        [ id: 'test' ],
+                        file(params.pipelines_testdata_base_path + "modules/local/propagate/b_fragilis_checkv_contamination.tsv", checkIfExists: true)
+                    ]
+                )
+                """
+            }
+        }
+
+        then {
+            assertAll (
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+}

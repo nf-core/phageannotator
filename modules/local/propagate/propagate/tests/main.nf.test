@@ -1,0 +1,89 @@
+nextflow_process {
+
+    name "Test Process: PROPAGATE_PROPAGATE"
+    script "../main.nf"
+    process "PROPAGATE_PROPAGATE"
+
+
+    test("fastq.gz + fasta + provirus_coords.tsv") {
+        when {
+            process {
+                """
+                input[0] = Channel.of(
+                    [
+                        [ id: 'test' ],
+                        [
+                            file(params.modules_testdata_base_path + "genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_1.fastq.gz", checkIfExists: true),
+                            file(params.modules_testdata_base_path + "genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_2.fastq.gz", checkIfExists: true)
+                        ]
+                    ]
+                )
+                input[1] = Channel.of(
+                    [
+                        [ id: 'test' ],
+                        file(params.pipelines_testdata_base_path + "modules/local/propagate/b_fragilis_propagate_contigs.fasta", checkIfExists: true)
+                    ]
+                )
+                input[2] = Channel.of(
+                    [
+                        [ id: 'test' ],
+                        file(params.pipelines_testdata_base_path + "modules/local/propagate/b_fragilist_provirus_coords.tsv", checkIfExists: true)
+                    ]
+                )
+                """
+            }
+        }
+
+        then {
+            assertAll (
+                { assert process.success },
+                { assert snapshot(
+                    process.out.results,
+                    path(process.out.log[0][1]).readLines()[17..32],
+                    process.out.versions
+                    ).match()
+                }
+            )
+        }
+    }
+
+    test("fastq.gz + fasta + provirus_coords.tsv - stub") {
+
+        options "-stub"
+
+        when {
+            process {
+                """
+                input[0] = Channel.of(
+                    [
+                        [ id: 'test' ],
+                        [
+                            file(params.modules_testdata_base_path + "genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_1.fastq.gz", checkIfExists: true),
+                            file(params.modules_testdata_base_path + "genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_2.fastq.gz", checkIfExists: true)
+                        ]
+                    ]
+                )
+                input[1] = Channel.of(
+                    [
+                        [ id: 'test' ],
+                        file(params.pipelines_testdata_base_path + "modules/local/propagate/b_fragilis_propagate_contigs.fasta", checkIfExists: true)
+                    ]
+                )
+                input[2] = Channel.of(
+                    [
+                        [ id: 'test' ],
+                        file(params.pipelines_testdata_base_path + "modules/local/propagate/b_fragilist_provirus_coords.tsv", checkIfExists: true)
+                    ]
+                )
+                """
+            }
+        }
+
+        then {
+            assertAll (
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+}

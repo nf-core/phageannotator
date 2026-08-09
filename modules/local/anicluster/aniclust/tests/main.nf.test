@@ -8,13 +8,24 @@ nextflow_process {
     test("fasta.gz & ani.tsv") {
 
         when {
+            params {
+                anicluster_min_ani  = 95
+                anicluster_min_qcov = 0
+                anicluster_min_tcov = 85
+            }
             process {
                 """
                 input[0] = [
                     [ id: 'test' ],
-                    file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists: true ),
+                    file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists: true )
+                ]
+                input[1] = [
+                    [ id: 'test' ],
                     file(params.pipelines_testdata_base_path + 'modules/local/anicluster/aniclust/ani.tsv', checkIfExists: true )
                 ]
+                input[2] = params.anicluster_min_ani
+                input[3] = params.anicluster_min_qcov
+                input[4] = params.anicluster_min_tcov
                 """
             }
         }
@@ -32,13 +43,24 @@ nextflow_process {
         options "-stub"
 
         when {
+            params {
+                anicluster_min_ani  = 95
+                anicluster_min_qcov = 0
+                anicluster_min_tcov = 85
+            }
             process {
                 """
                 input[0] = [
                     [ id: 'test' ],
-                    file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists: true ),
+                    file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists: true )
+                ]
+                input[1] = [
+                    [ id: 'test' ],
                     file(params.pipelines_testdata_base_path + 'modules/local/anicluster/aniclust/ani.tsv', checkIfExists: true )
                 ]
+                input[2] = params.anicluster_min_ani
+                input[3] = params.anicluster_min_qcov
+                input[4] = params.anicluster_min_tcov
                 """
             }
         }
