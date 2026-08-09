@@ -152,14 +152,15 @@
                 },
                 "cobra_assembler": {
                     "type": "string",
-                    "description": "The assembler that was used to assemble viral contigs"
+                    "description": "The assembler that was used to assemble viral contigs",
+                    "enum": ["idba", "metaspades", "megahit"]
                 },
                 "cobra_mink": {
-                    "type": "string",
+                    "type": "integer",
                     "description": "Minimum kmer value used during assembly"
                 },
                 "cobra_maxk": {
-                    "type": "string",
+                    "type": "integer",
                     "description": "Maximum kmer value used during assembly"
                 }
             }
