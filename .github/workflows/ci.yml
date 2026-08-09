@@ -27,35 +27,23 @@ jobs:
     name: Check for changes
     runs-on: ubuntu-latest
     outputs:
-      nf_test_files: ${{ steps.list.outputs.nf_test_files }}
+      nf_test_files: ${{ steps.list.outputs.components }}
     steps:
-      - uses: actions/setup-python@v4
-        with:
-          python-version: "3.11"
-          architecture: "x64"
-
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - name: Install gitpython find changed files
-        run: |
-          python -m pip install --upgrade pip
-          pip install gitpython pyyaml
-
-      - name: nf-test list nf_test_files
+      - name: List nf-test files
         id: list
-        run: |
-          echo nf_test_files=$(python \
-            .github/python/find_changed_files.py \
-            -t pipeline workflow process \
-            --head_ref ${{ github.sha }} \
-            --base_ref origin/${{ github.base_ref }} \
-          ) >> $GITHUB_OUTPUT
+        uses: adamrtalbot/detect-nf-test-changes@v0.0.2
+        with:
+          head: ${{ github.sha }}
+          base: origin/${{ github.base_ref }}
+          include: .github/include.yaml
 
-      - name: debug
+      - name: print list of nf-test files
         run: |
-          echo ${{ steps.list.outputs.nf_test_files }}
+          echo ${{ steps.list.outputs.components }}
 
   test:
     name: ${{ matrix.nf_test_files }} ${{ matrix.profile }} NF-${{ matrix.NXF_VER }}
@@ -74,10 +62,10 @@ jobs:
 
     steps:
       - name: Check out pipeline code
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+        uses: actions/checkout@v4
 
       - name: Install Nextflow
-        uses: nf-core/setup-nextflow@v1
+        uses: nf-core/setup-nextflow@v2
         with:
           version: "${{ matrix.NXF_VER }}"
 
@@ -106,12 +94,9 @@ jobs:
           wget -qO- https://code.askimed.com/install/nf-test | bash
           sudo mv nf-test /usr/local/bin/
 
-      - name: Disk space cleanup
-        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be # v1.3.1
-
       - name: Run nf-test
         run: |
-          nf-test test ${{ matrix.nf_test_files }} --verbose --profile "+${{ matrix.profile }}" --junitxml=test.xml --tap=test.tap
+          nf-test test --verbose ${{ matrix.nf_test_files }} --profile "+${{ matrix.profile }}" --junitxml=test.xml --tap=test.tap
 
       - uses: pcolby/tap-summary@v1
         with:
