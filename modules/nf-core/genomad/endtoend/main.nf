@@ -41,8 +41,8 @@ process GENOMAD_ENDTOEND {
         $genomad_db \\
         --threads $task.cpus \\
         $args
-    
-    gzip ./**/*.fna 
+
+    gzip ./**/*.fna
     gzip ./**/*.faa
 
     cat <<-END_VERSIONS > versions.yml
