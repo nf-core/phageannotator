@@ -341,9 +341,9 @@
             "description": "Analyze virus diversity at the strain level",
             "default": "",
             "properties": {
-                "skip_instrain": {
+                "run_instrain": {
                     "type": "boolean",
-                    "description": "Bypass microdiversity analysis with inStrain"
+                    "description": "Run inStrain to perform microdiversity analysis"
                 },
                 "instrain_min_ani": {
                     "type": "number",
@@ -380,6 +380,53 @@
                 "instrain_min_genome_breadth": {
                     "type": "number",
                     "description": "Minimum breadth of coverage for a genome to be considered present"
+                }
+            }
+        },
+        "provirus_activity_options": {
+            "title": "Provirus activity options",
+            "type": "object",
+            "description": "Predict provirus activity based on genome coverage",
+            "default": "",
+            "properties": {
+                "run_propagate": {
+                    "type": "boolean",
+                    "description": "Run propagAtE to predict provirus activity"
+                },
+                "propagate_derep_ani": {
+                    "type": "integer",
+                    "default": 99,
+                    "description": "Minimum ANI when dereplicating assemblies containing proviruses"
+                },
+                "propagate_derep_qcov": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Minimum query coverage when dereplicating assemblies containing proviruses"
+                },
+                "propagate_derep_tcov": {
+                    "type": "integer",
+                    "default": 50,
+                    "description": "Minimum test coverage when dereplicating assemblies containing proviruses"
+                },
+                "propagate_min_read_id": {
+                    "type": "string",
+                    "description": "Minimum percent identity when aligning reads to proviral assemblies"
+                },
+                "propagate_min_effect": {
+                    "type": "string",
+                    "description": "Minimum Cohen's D effect size for a provirus to be considered active"
+                },
+                "propagate_min_cov_ratio": {
+                    "type": "string",
+                    "description": "Minimum provirus:host coverage ratio"
+                },
+                "propagate_min_cov": {
+                    "type": "string",
+                    "description": "Minimum provirus depth coverage to be considered present"
+                },
+                "propagate_min_breadth": {
+                    "type": "string",
+                    "description": "Minimum provirus breadth of coverage to be considered present"
                 }
             }
         },
@@ -653,6 +700,9 @@
         },
         {
             "$ref": "#/definitions/virus_microdiversity_options"
+        },
+        {
+            "$ref": "#/definitions/provirus_activity_options"
         },
         {
             "$ref": "#/definitions/developer_options"

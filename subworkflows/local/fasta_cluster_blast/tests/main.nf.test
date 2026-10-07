@@ -1,17 +1,25 @@
 nextflow_workflow {
 
-    name "Test Subworkflow: FASTA_ALL_V_ALL_BLAST"
-    script "subworkflows/local/fasta_all_v_all_blast/main.nf"
-    workflow "FASTA_ALL_V_ALL_BLAST"
+    name "Test Subworkflow: FASTA_CLUSTER_BLAST"
+    script "subworkflows/local/fasta_cluster_blast/main.nf"
+    workflow "FASTA_CLUSTER_BLAST"
 
     // Dependencies
     tag "BLAST_MAKEBLASTDB"
     tag "BLAST_BLASTN"
+    tag "ANICLUSTER_ANICALC"
+    tag "ANICLUSTER_ANICLUST"
+    tag "ANICLUSTER_EXTRACTREPS"
 
 
-    test("fasta.gz") {
+    test("fasta.gz + 95 + 0 + 85") {
 
         when {
+            params {
+                anicluster_min_ani  = 95
+                anicluster_min_qcov = 0
+                anicluster_min_tcov = 85
+            }
             workflow {
                 """
                 input[0] = Channel.of(
@@ -20,6 +28,9 @@ nextflow_workflow {
                         file(params.modules_testdata_base_path + 'genomics/prokaryotes/bacteroides_fragilis/illumina/fasta/test1.contigs.fa.gz', checkIfExists: true)
                     ]
                 )
+                input[1] = params.anicluster_min_ani
+                input[2] = params.anicluster_min_qcov
+                input[3] = params.anicluster_min_tcov
                 """
             }
         }
